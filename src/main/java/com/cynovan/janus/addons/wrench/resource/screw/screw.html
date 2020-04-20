@@ -1,0 +1,39 @@
+<template name="app_wrench_screw_list_template">
+    <div class="widget" ng-controller="ScrewListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                配置库
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.addNewScrew()" ng-if="''| SecurityFilter: 'material_list':'manage'">
+                    <i class="fa fa-plus"></i>
+                    新增螺丝
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+            </list>
+        </div>
+    </div>
+</template>
+<template name="app_wrench_add_screw_template">
+    <div class="row" ng-controller="AddScrewController as ctrl">
+        <div class="col-xs-12">
+            <cnvtext label="螺丝编号" ng-model="entity.code"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="名称" ng-model="entity.name"></cnvtext>
+            <cnvtext label="长度" ng-model="entity.length"></cnvtext>
+            <cnvtext label="大小" ng-model="entity.size"></cnvtext>
+            <cnvtext label="螺距" ng-model="entity.pitch"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="螺丝标准" ng-model="entity.standard"></cnvtext>
+            <cnvtext label="材料" ng-model="entity.material"></cnvtext>
+            <cnvtext label="用户扭矩" ng-model="entity.torque"></cnvtext>
+        </div>
+        <div class="col-xs-12">
+            <cnvtextarea label="备注" ng-model="entity.remarks"></cnvtextarea>
+        </div>
+    </div>
+</template>

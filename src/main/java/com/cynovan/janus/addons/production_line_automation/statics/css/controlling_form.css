@@ -1,0 +1,249 @@
+.controlling-effective-state {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.controlling-effective-state.green-color {
+    color: #2AE88C;
+}
+
+.controlling-name {
+    display: inline-block;
+    width: 60%;
+    margin-right: 100px;
+}
+
+.controlling-device-index-span {
+    line-height: 34px;
+    padding-left: 5px;
+}
+
+.controlling-device-box {
+    position: relative;
+    height: inherit;
+    line-height: 34px;
+    padding-left: 5px;
+}
+
+.controlling-device-box .select-device-icon {
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 17px;
+    cursor: pointer;
+    color: #188ae2;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.is-unique-checkbox {
+    height: 18px;
+}
+
+.do-div {
+    padding: 5px;
+}
+
+.controlling-rule-item {
+    position: relative;
+    padding: 10px;
+    border: 1px #ddd solid;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.controlling-rule-item .remove-rule-div {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 5px;
+    right: 0;
+    font-size: 20px;
+}
+
+.controlling-rule-item .remove-rule-div > i:hover {
+    cursor: pointer;
+    color: #ff1e1e;
+}
+
+.controlling-rule-item-row {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    line-height: 35px;
+}
+
+.rule-item-row-label {
+    width: 150px;
+}
+
+.rule-item-row-body {
+    display: flex;
+    padding-left: 10px;
+}
+
+.rule-item-row-body .button-rule-div {
+    width: 160px;
+}
+
+.rule-item-row-body .button-rule-div .form-control {
+    height: 30px;
+    padding: 3px 6px;
+}
+
+.rule-item-row-body .related-device-name-span {
+    margin-right: 5px;
+}
+
+.rule-item-row-body .anther-name-span {
+    position: relative;
+    margin: 6px 0 3px 10px;
+    padding: 3px 5px;
+    border: 1px solid #ddd;
+    max-width: 100%;
+    border-radius: 3px;
+    background-color: #eeeeee75;
+    background-size: 100% 19px;
+    background-clip: padding-box;
+    line-height: 15px;
+    cursor: default;
+}
+
+.rule-item-row-body .anther-name-delete-i {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #888888;
+}
+
+.rule-item-row-body .anther-name-delete-i:hover {
+    color: #000000;
+}
+
+.rule-item-row-body .unite-width-button {
+    width: 54px;
+    height: 25px;
+    margin-top: 5px;
+}
+
+.rule-item-row-body .show-code-span {
+    margin: 6px 0 3px 10px;
+    padding: 3px 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #eeeeee75;
+    background-size: 100% 19px;
+    background-clip: padding-box;
+    line-height: 15px;
+    cursor: default;
+    display: inline-block;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+.rule-item-row-body .rule-item-time-div {
+    float: left;
+}
+
+.rule-item-row-body .rule-item-time-div > div {
+    display: flex;
+}
+
+.rule-item-row-body .rule-item-time-div .rule-time-input {
+    width: 90px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.rule-item-row-body .rule-item-time-div .rule-time-select {
+    width: 70px;
+    height: 34px;
+    border-left: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.controlling_code_editor_box .controlling-code-header {
+    display: flex;
+    height: 28px;
+    line-height: 28px;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.controlling_code_editor_box .controlling-code-header .fa {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 8px
+}
+
+.controlling_code_editor_box .expression_dialog_header {
+    padding-bottom: 10px;
+    border-bottom: 1px #ddd dotted;
+}
+
+.controlling_code_editor_box .expression_dialog_header .btn {
+    margin-left: 10px;
+    min-width: 60px;
+}
+
+.controlling_code_editor_box .config_item {
+    margin-top: 8px;
+}
+
+.controlling_code_editor_box .config_item select {
+    box-shadow: none;
+    height: 25px;
+    line-height: 25px;
+    padding: 2px 4px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    font-size: 12px;
+}
+
+.controlling_code_editor_box .config_item input[type="text"] {
+    height: 25px;
+    line-height: 25px;
+    padding: 2px 4px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: 0;
+    width: 160px;
+    font-size: 12px;
+    box-shadow: none;
+}
+
+.controlling_code_editor_box .config_item .chosen-container-single .chosen-single {
+    height: 34px !important;
+    border: 1px solid #ccc !important;
+}
+
+.edit_box_warp .config_item .chosen-container-single .chosen-single span {
+    padding-top: 4px;
+    font-size: 13px !important;
+    color: #9ca2ae !important;
+}
+
+.controlling_code_editor_box .config_item #alias_name_select_chosen {
+    min-width: 250px;
+}
+
+.controlling_code_editor_box #code_expression_editor {
+    border: 1px #ddd solid;
+}
+
+#controlling_base_config_textarea {
+    height: 300px;
+}

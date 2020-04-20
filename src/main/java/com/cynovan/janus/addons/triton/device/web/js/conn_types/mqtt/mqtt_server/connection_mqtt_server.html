@@ -1,0 +1,10 @@
+<template name="connection_mqtt_server_template">
+    <div class="row" ng-controller="ConnectionMqttServerController as ctrl">
+        <div class="col-xs-12">
+            <cnvtext label="{{'MQTT服务器'|I18nFilter:'mqtt.server'}}" ng-model="entity.mqtt"></cnvtext>
+            <cnvtext label="{{'MQTT用户名'|I18nFilter:'mqtt.username'}}" ng-model="entity.userName"></cnvtext>
+            <cnvtext label="{{'MQTT密码'|I18nFilter:'mqtt.password'}}" ng-model="entity.password"></cnvtext>
+            <cnvtext label="订阅数据Topic" ng-model="entity.topic"></cnvtext>
+        </div>
+    </div>
+</template>

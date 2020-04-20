@@ -1,0 +1,19 @@
+<template name="team_template">
+    <div class="widget" ng-controller="TeamController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'团队管理'|I18nFilter:'team_management'}}
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.showTeamDetail()" ng-if="''| SecurityFilter: 'team':'manage'">
+                    <i class="fa fa-plus"></i>
+                    {{'新增团队'|I18nFilter:'add.team'}}
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>

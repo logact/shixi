@@ -1,0 +1,102 @@
+.input-and-tips-div {
+    position: relative;
+}
+
+.input-and-tips-div > span {
+    font-size: 14px;
+    color: #d35767;
+    letter-spacing: 1px;
+    user-select: none;
+    position: absolute;
+    left: 125px;
+    bottom: -16px;
+}
+
+.input-red-border {
+    border: solid 1px #d35767;
+}
+
+.input-and-tips-div .check-status-i,
+.input-and-tips-div .check-new-status-i {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    right: 8px;
+    top: 16px;
+    background-size: 100%;
+}
+
+.wrong-status-i {
+    background: url("../img/tips-wrong.png") no-repeat center;
+}
+
+.right-status-i {
+    background: url("../img/tips-right.png") no-repeat center;
+}
+
+.save {
+    position: relative;
+    left: 125px;
+}
+
+.roleSelect {
+    display: flex;
+    justify-content: space-between;
+}
+
+.roleSelect .roleLabel {
+    color: #333b49;
+    font-size: 14px;
+    vertical-align: top;
+    margin-top: 13px;
+    position: absolute;
+    display: block;
+    width: 110px;
+    text-align: right;
+}
+
+.roleSelect .chosen-select {
+    max-height: 0;
+    border: none;
+}
+
+.roleSelect .chosen-container-multi {
+    display: block;
+    margin-left: 125px;
+    margin-right: 35px;
+    width: 100% !important;
+}
+
+.roleSelect .chosen-choices {
+    top: 5px;
+    padding: 2px 6px !important;
+    height: 34px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    background-image: none !important;
+}
+
+.roleSelect .chosen-container .chosen-drop {
+    top: 39px !important;
+}
+
+.user .many2one-box {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.user .many2one-box .form-input {
+    padding-right: 35px;
+    height: 35px;
+}
+
+.user .many2one-box .form-label {
+    position: inherit;
+}
+
+.user .chosen-choices {
+    box-shadow: none;
+    border-radius: 4px;
+    height: 35px;
+    border: 1px solid #ccc
+}

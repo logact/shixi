@@ -1,0 +1,55 @@
+.architecture .orgchart {
+    background-image: none;
+    display: block;
+}
+
+.architecture .orgchart .node:hover {
+    background-color: #fff;
+}
+.architecture .orgchart .node.focused {
+    background-color: #fff;
+}
+
+.architecture .orgchart .node:hover .title {
+    background-color: #488EFF;
+    color: #fff;
+    border: none;
+    line-height: 37px;
+}
+
+.architecture .orgchart .node.focused .title {
+    background-color: #488EFF;
+    color: #fff;
+    border: none;
+    line-height: 37px;
+}
+
+.architecture .orgchart .node .title {
+    height: 35px;
+    line-height: 35px;
+    font-size: 13px;
+    background-color: #fff;
+    color: #488EFF;
+    border: 2px solid #488EFF;
+    font-weight: 400;
+}
+
+.architecture .orgchart .lines .leftLine {
+    border-left: 1px solid #488EFF;
+}
+
+.architecture .orgchart .lines .rightLine {
+    border-right: 1px solid #488EFF;
+}
+
+.architecture .orgchart .lines .topLine {
+    border-top: 2px solid #488EFF;
+}
+
+.architecture .orgchart .lines .downLine {
+    background-color: #488EFF;
+}
+
+.architecture .fa-group:before, .fa-users:before {
+    content: "";
+}

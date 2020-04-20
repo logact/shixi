@@ -1,0 +1,107 @@
+<template name="app_weld_detail_template">
+    <div>
+        <tabs>
+            <tab title="焊接结果">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="weld_result_title">
+                            <p>1. 基于图像的焊后质量分析 : <span ng-bind="config.state1Desc"></span></p>
+                            <p>2. 焊接结果判定依据 : <span ng-bind="config.state2Desc"></span></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="weld_result">
+                            <div class="weld_result_item">
+                                <div class="weld_result_label">焊接结果</div>
+                                <div class="weld_result_value" ng-bind="result.resultDesc"></div>
+                            </div>
+                            <div class="weld_result_item">
+                                <div class="weld_result_label" style="width: 180px;">焊接结果(人工判定)</div>
+                                <div class="weld_result_value">
+                                    <select class="form-control input-sm"
+                                            ng-options="option.id as option.name for option in resultOps"
+                                            ng-model="result.man_made_result">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="weld_result_item" ng-if="config.ai_check === '1'">
+                                <div class="weld_result_label" style="width: 180px;">焊接结果(智能判定)</div>
+                                <div class="weld_result_value">
+                                    <div class="weld_result_value" ng-bind="result.ai_made_result_desc"></div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm btn-outline" ng-if="config.ai_check === '1' && entity.ai_images.length"
+                                    ng-click="ctrl.showAiResultTable()"
+                                    type="button">
+                                查看AI判定详情
+                            </button>
+                        </div>
+                        <div class="col-xs-12 ai_result_table" ng-if="entity.ai_images.length">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                <th>#</th>
+                                <th>时间</th>
+                                <th>耗时(秒)</th>
+                                <th>判定结果</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in entity.ai_images">
+                                    <td>{{$index + 1 }}</td>
+                                    <td>{{item.create_date}}</td>
+                                    <td>{{item.analysis_duration}}</td>
+                                    <td>{{item.analysis_result}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin-top: 15px;">
+                        <textarea class="form-control" placeholder="备注" ng-model="entity.remarks" ng-change="ctrl.saveRemarks()"></textarea>
+                    </div>
+                </div>
+            </tab>
+            <tab title="焊接图片">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="weldImgTitle">
+                                <i class="fa fa-question"></i>焊后图片(未分析)
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="imageMap.image1_id"></cnvimage>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="imageMap.image2_id"></cnvimage>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="imageMap.image3_id"></cnvimage>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="imageMap.image4_id"></cnvimage>
+                        </div>
+                    </div>
+                    <div class="row" ng-hide="$scope.config.ai_check === '1'" style="margin-top: 20px;">
+                        <div class="col-xs-12">
+                            <div class="weldImgTitle">
+                                <i class="fa fa-check"></i> 焊后图片(已分析)
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="aiImageMap.image1_id" disabled="true"></cnvimage>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="aiImageMap.image2_id" disabled="true"></cnvimage>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="aiImageMap.image3_id" disabled="true"></cnvimage>
+                        </div>
+                        <div class="col-xs-3">
+                            <cnvimage ng-model="aiImageMap.image4_id" disabled="true"></cnvimage>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

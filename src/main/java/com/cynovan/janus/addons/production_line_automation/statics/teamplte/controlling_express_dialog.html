@@ -1,0 +1,86 @@
+<template name="edit_controlling_code_expression_template">
+    <div class="row controlling_code_editor_box">
+        <div class="col-xs-12" style="padding-bottom: 5px;">
+            <ul class="code_title">
+                <li>1、{{'使用$config$可引用数据配置'|I18nFilter:'use.config.tip.one'}}</li>
+                <li>2、{{'使用$别名$即可引用设备数据,例如$ROBOT$代表引用别名为ROBOT的设备数据'|I18nFilter:'use.config.tip.two'}}</li>
+                <li>3、{{'表达式必须有明确的返回值。条件表达式时返回TRUE/False，下发数据时返回完整数据格式'|I18nFilter:'use.config.tip.three'}}</li>
+            </ul>
+        </div>
+        <div class="col-xs-12 config_item expression_dialog_header" style="display: flex;">
+            <div style="width: 250px;">
+                <select data-placeholder="{{'选择别名'|I18nFilter:'select.alias'}}"
+                        class="device_select form-control chosen-select" id="alias_name_select">
+                </select>
+            </div>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('==')">
+                {{'等于'|I18nFilter:'equal'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('!=')">
+                {{'不等于'|I18nFilter:'no_equal'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button"
+                    ng-click="ctrl.addExpress('string.contains(,)')"> {{'包含'|I18nFilter:'contain'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button"
+                    ng-click="ctrl.addExpress('!string.contains(,)')"> {{'不包含'|I18nFilter:'no_contain'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('>')">
+                {{'大于'|I18nFilter:'more_than'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('>=')">
+                {{'大于等于'|I18nFilter:'more_than_equal'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('<')">
+                {{'小于'|I18nFilter:'less_than'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('<=')">
+                {{'小于等于'|I18nFilter:'less_than_equal'}}
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button"
+                    ng-click="ctrl.addExpress('&amp;&amp;')"> And
+            </button>
+            <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.addExpress('||')">
+                {{'或'|I18nFilter:'or'}}
+            </button>
+        </div>
+        <div class="controlling-code-header col-xs-12">
+            <i class="fa fa-list" title="{{'格式化'|I18nFilter:'do_format'}}" ng-click="ctrl.formatCode()"></i>
+        </div>
+        <div class="col-xs-12">
+            <div id="code_expression_editor" style="height: 150px;"></div>
+        </div>
+        <div class="col-xs-12">
+            <!--代码部分需尝试下 | code 方式，待做，2018年8月21日09:49:31-->
+            <div class="code_title" style="font-size: 16px;padding-top: 15px;">{{'代码示例'|I18nFilter:'example.code'}}:
+            </div>
+            <div class="code_title">1. {{'下发设备[U10001]的当前温度[temperature]以及当前速度[speed]至其他设备'|I18nFilter:'example.one'}}
+            </div>
+            <div class="code-area">
+                var data = {<br>
+                "action":"update",<br>
+                "data":{}<br>
+                }<br>
+                data.data['temperature'] = $U10001$.temperature;<br>
+                data.data['speed'] = $U10001$.speed;<br>
+                return data;
+            </div>
+            <div class="code_title">2. {{'设备$AAAA-BBBB-CCCC-DDDD$的温度大于20'|I18nFilter:'example.two'}}</div>
+            <div class="code-area">return $AAAA-BBBB-CCCC-DDDD$["temperature"] > 20</div>
+            <div class="code_title">3. {{"设备$U1900016$的报警代码为'ERROR001'时"|I18nFilter:'example.three'}}</div>
+            <div class="code-area">return $U1900016$["error_code"] == 'ERROR001'</div>
+            <div class="code_title">4. {{'设备$U1900016$的速度 比 设备$U1900020$的多5时'|I18nFilter:'example.four'}}</div>
+            <div class="code-area">
+                <p>var diff = $U1900016$["speed"] - $U1900020$["speed"];</p>
+                <p>if(diff > 5){</p>
+                <p>&nbsp;&nbsp;return true;</p>
+                <P>}</P>
+                <p>return false;</p>
+            </div>
+            <div class="code_title">5. {{'返回设备$U1900016$的速度'|I18nFilter:'example.five'}}</div>
+            <div class="code-area">
+                <p>return $U1900016$["01speed"]</p>
+            </div>
+        </div>
+    </div>
+</template>

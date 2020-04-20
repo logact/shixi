@@ -1,0 +1,333 @@
+<template name="welding_device_board_template">
+    <div class="widget" ng-controller="WeldingDeviceBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机台列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-config-btn" type="button">
+                        <i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.robotErrorCode()">
+                        <i class="fa fa-warning"></i> 报警代码
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToWelding()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为弧焊机器人
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="welding_error_code_import">
+    <tabs>
+        <tab title="报警代码导入">
+            <div class="row">
+                <button class="btn btn-primary btn-outline btn-sm upload-btn" type="button">
+                    <i class="fa fa-plus"></i>
+                    上传导入
+                </button>
+                <button class="btn btn-primary btn-outline btn-sm download-btn" type="button"
+                        ng-click="ctrl.downloadTemplate()">
+                    <i class="fa fa-download"></i>
+                    下载导入模板
+                </button>
+                <input type="file" accept=".xls,.xlsx" style="display: none">
+            </div>
+            <div class="row alert-warning"
+                 style="border-left: 5px solid; height: 45px; line-height: 45px; margin-top: 10px; padding-left: 10px;">
+                注意：上传的报警代码会【覆盖】之前的版本的报警代码
+            </div>
+            <div class="row" style="margin-top: 20px;max-height: 350px;overflow-y: auto;overflow-x: hidden;">
+                <table class="table table-bordered table-condensed table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th style="width: 70px;">错误代码</th>
+                        <th>错误信息</th>
+                        <th>错误分析</th>
+                        <th>解决方法</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="c in codes">
+                        <td>{{$index + 1}}</td>
+                        <td>{{c.code}}</td>
+                        <td>{{c.info}}</td>
+                        <td>{{c.reason}}</td>
+                        <td>{{c.solution}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </tab>
+    </tabs>
+</template>
+<template name="welding_device_detail_template">
+    <div class="widget" ng-controller="WeldingDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            控制器信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="数据协议版本号" width="150" field="001_CloudVersion"></staticfield>
+                        <staticfield label="Usercode码1" width="150" field="009_UserCodeDefault"></staticfield>
+                        <staticfield label="机器码" width="150" field="011_MachineCode"></staticfield>
+                        <staticfield label="LAN1地址" width="150" field="005_IPAddress1"></staticfield>
+                        <staticfield label="LAN2地址" width="150" field="006_IPAddress2"></staticfield>
+                        <staticfield label="机器人模型类型" width="150" field="061_RobotType"></staticfield>
+                        <staticfield label="插补时间" width="150" field="063_InterpolationCycleTime"></staticfield>
+                        <staticfield label="编码器类型" width="150" field="065_EncoderType"></staticfield>
+                        <staticfield label="CPAC版本" width="150" field="022_CPACVersion"></staticfield>
+                        <staticfield label="Task版本" width="150" field="024_TaskLibVersion"></staticfield>
+                        <staticfield label="HMI版本" width="150" field="026_HMILibVersion"></staticfield>
+                        <staticfield label="Pallet Easy库版本" width="150"
+                                     field="028_PalletEasyVersion"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="用户名" width="150" field="004_UserName"></staticfield>
+                        <staticfield label="Usercode码2" width="150" field="010_UserCodeAddtion"></staticfield>
+                        <staticfield label="产线" width="150" field="013_LineName"></staticfield>
+                        <staticfield label="Mac1地址" width="150" field="007_MACAddress1"></staticfield>
+                        <staticfield label="Mac2地址" width="150" field="008_MACAddress2"></staticfield>
+                        <staticfield label="控制器版本" width="150" field="021_ControllerVersion"></staticfield>
+                        <staticfield label="控制器硬件类型" width="150" field="062_ControllerType"></staticfield>
+                        <staticfield label="轴数量" width="150" field="064_AxisNumber"></staticfield>
+                        <staticfield label="控制系统版本" width="150"
+                                     field="023_RobotConrolSystemVersion"></staticfield>
+                        <staticfield label="Motion版本" width="150" field="025_MotionLibVersion"></staticfield>
+                        <staticfield label="MotionAddition库版本" width="150"
+                                     field="027_MotionAdditionLibVersion"></staticfield>
+                        <staticfield label="TCPIP库版本" width="150" field="029_TCPIPLibVersion"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="工具坐标系" width="150" field="070_TCSNumber"></staticfield>
+                        <staticfield label="工件坐标系1" width="150" field="072_PCS1Number"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="世界坐标系" width="150" field="071_WCSNumber"></staticfield>
+                        <staticfield label="工件坐标系2" width="150" field="073_PCS2Number"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行数据">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="工作模式" field="059_WorkMode"></staticfield>
+                            <staticswitch label="使能状态" field="060_ServoOnStatus"></staticswitch>
+                            <staticswitch label="整体碰撞标识" field="075_CollisionFlag"></staticswitch>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="示教文件" field="066_TeachFileName"></staticfield>
+                            <staticfield label="时间文件行号" field="067_TeachFileLine"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                轴状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="实时末端速度" field="076_LineVelocity"></staticfield>
+                            <staticfield label="Axis1规划速度" field="019_Axis1ProfileVelocity"></staticfield>
+                            <staticfield label="Axis2规划速度" field="020_Axis2ProfileVelocity"></staticfield>
+                            <staticfield label="Axis3规划速度" field="021_Axis3ProfileVelocity"></staticfield>
+                            <staticfield label="Axis4规划速度" field="022_Axis4ProfileVelocity"></staticfield>
+                            <staticfield label="Axis5规划速度" field="023_Axis5ProfileVelocity"></staticfield>
+                            <staticfield label="Axis6规划速度" field="024_Axis6ProfileVelocity"></staticfield>
+                            <div style="border-top: 1px #ddd dotted; margin-bottom: 8px;"></div>
+                            <staticfield label="Axis1零点位置" field="071_Axis1ReferencePosition"></staticfield>
+                            <staticfield label="Axis2零点位置" field="072_Axis2ReferencePosition"></staticfield>
+                            <staticfield label="Axis3零点位置" field="073_Axis3ReferencePosition"></staticfield>
+                            <staticfield label="Axis4零点位置" field="074_Axis4ReferencePosition"></staticfield>
+                            <staticfield label="Axis5零点位置" field="075_Axis5ReferencePosition"></staticfield>
+                            <staticfield label="Axis6零点位置" field="076_Axis6ReferencePosition"></staticfield>
+                            <div style="border-top: 1px #ddd dotted; margin-bottom: 8px;"></div>
+                            <staticswitch label="Axis1碰撞信号" field="051_Axis1Collision"></staticswitch>
+                            <staticswitch label="Axis2碰撞信号" field="052_Axis2Collision"></staticswitch>
+                            <staticswitch label="Axis3碰撞信号" field="053_Axis3Collision"></staticswitch>
+                            <staticswitch label="Axis4碰撞信号" field="054_Axis4Collision"></staticswitch>
+                            <staticswitch label="Axis5碰撞信号" field="055_Axis5Collision"></staticswitch>
+                            <staticswitch label="Axis6碰撞信号" field="056_Axis6Collision"></staticswitch>
+                        </div>
+                        <div class="col-xs-6">
+                            <div style="margin-bottom: 8px; margin-top: 30px;"></div>
+                            <staticfield label="Axis1规划位置" field="003_Axis1ProfilePosition"></staticfield>
+                            <staticfield label="Axis2规划位置" field="004_Axis2ProfilePosition"></staticfield>
+                            <staticfield label="Axis3规划位置" field="005_Axis3ProfilePosition"></staticfield>
+                            <staticfield label="Axis4规划位置" field="006_Axis4ProfilePosition"></staticfield>
+                            <staticfield label="Axis5规划位置" field="007_Axis5ProfilePosition"></staticfield>
+                            <staticfield label="Axis6规划位置" field="008_Axis6ProfilePosition"></staticfield>
+                            <div style="border-top: 1px #ddd dotted;margin-bottom: 8px;"></div>
+                            <staticfield label="轴1规划加速度" field="077_Axis1ProfileAcc"></staticfield>
+                            <staticfield label="轴2规划加速度" field="078_Axis2ProfileAcc"></staticfield>
+                            <staticfield label="轴3规划加速度" field="079_Axis3ProfileAcc"></staticfield>
+                            <staticfield label="轴4规划加速度" field="080_Axis4ProfileAcc"></staticfield>
+                            <staticfield label="轴5规划加速度" field="081_Axis5ProfileAcc"></staticfield>
+                            <staticfield label="轴6规划加速度" field="082_Axis6ProfileAcc"></staticfield>
+                            <div style="border-top: 1px #ddd dotted;margin-bottom: 8px;"></div>
+                            <staticfield label="Motor1转速" field="027_Motor1Speed"></staticfield>
+                            <staticfield label="Motor2转速" field="028_Motor2Speed"></staticfield>
+                            <staticfield label="Motor3转速" field="029_Motor3Speed"></staticfield>
+                            <staticfield label="Motor4转速" field="030_Motor4Speed"></staticfield>
+                            <staticfield label="Motor5转速" field="031_Motor5Speed"></staticfield>
+                            <staticfield label="Motor6转速" field="032_Motor6Speed"></staticfield>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="工艺">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                工艺状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticswitch label="码垛工艺" field="041_PalletizeAppSupport"></staticswitch>
+                            <staticswitch label="焊接工艺" field="042_WeldingAppSupport"></staticswitch>
+                            <staticswitch label="跟踪工艺" field="043_TrackingAppSupport"></staticswitch>
+                            <staticswitch label="外部轴工艺" field="044_ExtAxesAppSupport"></staticswitch>
+                            <staticswitch label="视觉工艺" field="045_VisionAppSupport"></staticswitch>
+                            <staticswitch label="激光切割工艺" field="046_LaserAppSupport"></staticswitch>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticswitch label="CNC工艺" field="047_CNCAppSupport"></staticswitch>
+                            <staticswitch label="折弯工艺" field="048_BendAppSupport"></staticswitch>
+                            <staticswitch label="标定工艺" field="049_CalibrationAppSupport"></staticswitch>
+                            <staticswitch label="拖动示教工艺" field="051_DynDirectTeachAppSupport"></staticswitch>
+                            <staticswitch label="碰撞检测工艺"
+                                          field="052_DynCollisionDetectedAppSupport"></staticswitch>
+                            <staticswitch label="动力学前馈工艺" field="053_DynFeedForwardAppSupport"></staticswitch>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                焊接工艺状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticswitch label="焊机工作状态" field="102_Status_DI_WelderOK"></staticswitch>
+                            <staticswitch label="引弧状态" field="101_Status_DI_ArcWeldingStart"></staticswitch>
+                            <staticswitch label="保护气状态" field="103_Status_DI_GasNotEnough"></staticswitch>
+                            <staticswitch label="焊丝状态" field="104_Status_DI_WireNotEnough"></staticswitch>
+                            <staticswitch label="粘丝状态" field="105_Status_DI_WireStick"></staticswitch>
+                            <staticswitch label="寻位状态" field="106_Status_DI_SearchPosIn"></staticswitch>
+                            <staticswitch label="冷却系统" field="107_Status_DI_CoolingSys"></staticswitch>
+                            <staticswitch label="外部检气" field="108_Status_DI_ExGasCheck"></staticswitch>
+                            <staticswitch label="外部进丝" field="109_Status_DI_ExWireFw"></staticswitch>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticswitch label="外部退丝" field="110_Status_DI_ExWireBw"></staticswitch>
+                            <staticswitch label="外部焊接开关" field="111_Status_DI_ExArcWeldingOn"></staticswitch>
+                            <staticswitch label="引弧开关" field="112_Status_DO_ArcOn"></staticswitch>
+                            <staticswitch label="进丝开关" field="114_Status_DO_WireFw"></staticswitch>
+                            <staticswitch label="退丝开关" field="115_Status_DO_WireBw"></staticswitch>
+                            <staticswitch label="寻位输出开关" field="116_Status_DO_SearchPosOut"></staticswitch>
+                            <staticswitch label="粘丝检测开关" field="117_Status_DO_WireStick"></staticswitch>
+                            <staticswitch label="左右跟踪开关" field="122_Status_ArcTrackHorUse"></staticswitch>
+                            <staticswitch label="上下跟踪开关" field="125_Status_ArcTrackVerUse"></staticswitch>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="焊机数据" on-show="ctrl.initCharts()">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="welding_chart temp_chart">
+
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="welding_chart speed_chart">
+
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="报警记录">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <list options="ctrl.warningOptions"></list>
+                    </div>
+                </div>
+            </tab>
+            <tab title="工艺管理">
+                <Gy-Process uuid="ctrl.uuid"></Gy-Process>
+            </tab>
+            <tab title="机器人照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.welding.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

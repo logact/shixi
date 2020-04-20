@@ -1,0 +1,92 @@
+<template name="sewing_device_detail_template">
+    <div class="widget" ng-controller="SewingDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="设备规格" placeholder="请输入" ng-model="showData.DeviceSpec"></cnvtext>
+                        <cnvtext label="加工材质" placeholder="请输入" ng-model="showData.ProcessMaterial"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="生产厂家" placeholder="请输入" ng-model="showData.ProductFactory"></cnvtext>
+                        <cnvtext label="生产日期" placeholder="请输入" ng-model="showData.ProductDate"></cnvtext>
+                        <cnvtext label="设备工作电压" placeholder="请输入" ng-model="showData.DeviceVoltage"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveInfo()"
+                                ng-if="''| SecurityFilter: 'sewing_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="针距" placeholder="请输入" ng-model="showData.Pitch"></cnvtext>
+                        <staticfield label="速度控制" field="05_value"></staticfield>
+                        <staticfield label="电机转速(针数)" field="06_value"></staticfield>
+                        <staticfield label="气压压力" field="04_value"></staticfield>
+                        <staticfield label="过厚" field="07_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="一件针数" placeholder="请输入" ng-model="showData.Contacts"></cnvtext>
+                        <staticstate label="抬压脚信号" field="01_value"></staticstate>
+                        <staticstate label="倒回针剪线" field="02_value"></staticstate>
+                        <staticstate label="空转动作" field="03_value"></staticstate>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveRunInfo()"
+                                ng-if="''| SecurityFilter: 'sewing_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机台照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.sewing.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

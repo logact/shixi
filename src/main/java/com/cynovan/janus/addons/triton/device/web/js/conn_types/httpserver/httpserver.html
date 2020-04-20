@@ -1,0 +1,110 @@
+<template name="connection_http_server_template">
+    <div ng-controller="HttpServerController as ctrl">
+        <div class="row">
+            <div class="col-xs-6">
+                <cnvtext label="{{'Http Server地址'|I18nFilter:'http_server_address'}}"
+                         ng-model="entity.address"></cnvtext>
+            </div>
+            <div class="col-xs-3">
+                <cnvselect label="{{'请求类型'|I18nFilter:'request_type'}}" ng-model="entity.request_type"
+                           options="ctrl.request_type"
+                           ng-init="entity.request_type ? entity.request_type : ( entity.request_type = ctrl.request_type[0].id )"></cnvselect>
+            </div>
+            <div class="col-xs-3 form-control-static">
+                <label class="form-label" style="width: 60px">{{'定时请求'|I18nFilter:'time_request'}}</label>
+                <div style="margin-left: 75px;float: left;">
+                    <div style=" display:flex;">
+                        <input style=" width: 90px;border-bottom-right-radius: 0; border-top-right-radius: 0;"
+                               type="text" class="form-control"
+                               ng-model="time">
+                        <select style=" width: 70px; height: 34px; border-left: 0;border-bottom-left-radius: 0; border-top-left-radius: 0;"
+                                class="form-control input-sm" ng-model="timeUnit"
+                                ng-options="unit.id as unit.name for unit in ctrl.timeUnit">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header">
+                    {{'请求参数'|I18nFilter:'request_parameter'}}
+                </div>
+            </div>
+            <div class="col-xs-12" style="padding-left: 60px; padding-right: 50px;">
+                <table class="table table-bordered table-condensed edittable">
+                    <thead>
+                    <tr>
+                        <th style="width: 60px;">#</th>
+                        <th style="width:120px;">{{'参数ID'|I18nFilter:'parameter_id'}}</th>
+                        <th style="width: 200px;">{{'参数值'|I18nFilter:'parameter_value'}}</th>
+                        <th style="width: 100px;">{{'操作'|I18nFilter:'do'}}</th>
+                    </tr>
+                    <tbody>
+                    <tr ng-repeat="row in entity.rows">
+                        <td class="text-center">
+                            <div style="padding-top: 5px;">{{$index + 1}}</div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.paramkey"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.paramvalue"/>
+                        </td>
+                        <td class="text-center">
+                            <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs" type="button"
+                                    ng-click="ctrl.removeRow($index)">
+                                <i class="fa fa-times"></i>
+                                {{'删除'|I18nFilter:'delete'}}
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+                <button style="margin-top: 5px;" class="btn btn-primary btn-sm btn-outline" type="button"
+                        ng-click="ctrl.addRow()">
+                    <i class="fa fa-plus"></i>
+                    {{'添加一行'|I18nFilter:'add.row'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="connection_http_server_display_template">
+    <div>
+        <div class="conn-panel-header">
+            HTTP<span style="margin-left:10px">{{'设备作为Http Server接入'|I18nFilter:'device.http.server'}}</span>
+        </div>
+        <field label="{{'Http Server地址'|I18nFilter:'http_server_address'}}"
+               ng-model="entity.conn_info_http_server.address"></field>
+        <field label="{{'请求类型'|I18nFilter:'request_type'}}"
+               ng-model="entity.conn_info_http_server.request_type"></field>
+        <field label="{{'定时请求'|I18nFilter:'time_request'}}" ng-model="entity.conn_info_http_server.timer"></field>
+        <div class="conn-panel-header">
+            {{'请求参数'|I18nFilter:'request_parameter'}}
+        </div>
+        <table class="table table-bordered table-condensed edittable">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>{{'参数ID'|I18nFilter:'parameter_id'}}</th>
+                <th>{{'参数值'|I18nFilter:'parameter_value'}}</th>
+            </tr>
+            <tbody>
+            <tr ng-repeat="row in entity.conn_info_http_server.rows">
+                <td class="text-center">
+                    <div style="padding-top: 5px;">{{$index + 1}}</div>
+                </td>
+                <td>
+                    <div style="padding: 5px;">{{row.paramkey}}</div>
+                </td>
+                <td>
+                    <div style="padding: 5px;">{{row.paramvalue}}</div>
+                </td>
+            </tr>
+            </tbody>
+            </thead>
+        </table>
+    </div>
+</template>

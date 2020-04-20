@@ -1,0 +1,375 @@
+<template name="rear_introduction_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <img src="resource/rear_setting_machine/img/board.jpg"/>
+        </div>
+    </div>
+</template>
+<template name="rear_setting_machine_board_template">
+    <div class="widget" ng-controller="RearSettingMachineBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机台列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-data-config" type="button"
+                            ng-if="''| SecurityFilter: 'rear_setting_machine_board':'manage'">
+                        <i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToRearSettingMachine()"
+                            ng-if="''| SecurityFilter: 'rear_setting_machine_board':'manage'">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为机台
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="rear_setting_machine_detail_template">
+    <div class="widget" ng-controller="RearSettingMachineDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">机台列表 / </a>机台详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="机台序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="品牌" ng-model="showData.brand"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="产能" ng-model="showData.capac"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            设备信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="型号" field="DeviceType"></staticfield>
+                        <staticfield label="额定电压" field="DeviceRateVoltage"></staticfield>
+                        <staticfield label="额定功率" field="DeviceRatePower"></staticfield>
+                        <staticfield label="加工产品" field="Production"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="控制系统版本" field="ConrolSystemVersion"></staticfield>
+                        <staticfield label="额定气压" field="DeviceRatePressure"></staticfield>
+                        <staticfield label="IP地址" field="IPAdress"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                运行状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticstate label="风机状态" field="FanRunSts"></staticstate>
+                            <staticstate label="加热管状态" field="ElectHeatTubeSts"></staticstate>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticstate label="压缩机状态" field="CmsRunSts"></staticstate>
+                            <staticstate label="气路通断状态" field="GasPressureSts"></staticstate>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                气压状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="总气压值" field="CmsPressHigh"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="压缩机高压值" field="CmsPressHigh"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                温度状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="左热模温度" field="LhaTempCur"></staticfield>
+                            <staticfield label="左冷模温度" field="LacTempCur"></staticfield>
+                            <staticfield label="压缩机温度" field="CmsShellTemp"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="右热模温度" field="RhaTempCur"></staticfield>
+                            <staticfield label="右冷模温度" field="RacTempCur"></staticfield>
+                            <staticfield label="冷凝器温度" field="CdsTempCur"></staticfield>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数设定">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                温度设置
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="左热模温度设定" width="160" field="LahTempCur" push="LahTempSet"
+                                         uuid="uuid"></staticfield>
+                            <staticfield label="右热模温度设定" width="160" field="RahTempCur" push="LahTempSet"
+                                         uuid="uuid"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="热风组温度设定" width="160" field="LhaTempCur" push="LhaTempSet"
+                                         uuid="uuid"></staticfield>
+                            <staticfield label="冷模温度设定" width="160" field="RacTempCur" push="RacTempSet"
+                                         uuid="uuid"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                压着时间设定
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="左热模压着时间设定" width="160" field="LahCurTimeInflating"
+                                         push="LahAirbagInflatingLoop" uuid="uuid"></staticfield>
+                            <staticfield label="左冷模压着时间设定" width="160" field="LacCurTimeInflating"
+                                         push="LacAirbagInflatingLoop" uuid="uuid"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="右热模压着时间设定" width="160" field="RahCurTimeInflating"
+                                         push="RahAirbagInflatingLoop" uuid="uuid"></staticfield>
+                            <staticfield label="右冷模压着时间设定" width="160" field="RacCurTimeInflating"
+                                         push="RacAirbagInflatingLoop" uuid="uuid"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                热风时间设定
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="左侧热风时间设定" width="160" field="LeftCurTmieHotAirSta"
+                                         push="LeftHotAirStationLoop" uuid="uuid"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="右侧热风时间设定" width="160" field="RightCurTmieHotAirSta"
+                                         push="RightHotAirStationLoop" uuid="uuid"></staticfield>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="智能调控">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <cnvswitch label="智能调控" ng-model="entity.control"></cnvswitch>
+                    </div>
+                    <div class="col-xs-9">
+                        开启时,系统会自动监控冷模温度,当冷模温度达到临界值时,系统会自动报警提示用户降低加工速度。
+                    </div>
+                    <div class="col-xs-12">
+                        <list options="ctrl.rear_setting_opts"></list>
+                    </div>
+                </div>
+            </tab>
+            <tab title="生产信息" on-show="ctrl.showProduction()">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>日期</th>
+                                    <th>工号</th>
+                                    <th>工作时长</th>
+                                    <th>实时产量(双)</th>
+                                    <th>良品数</th>
+                                    <th>次品数</th>
+                                    <th>良品率</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2018-10-17 17:00</td>
+                                    <td>E0001</td>
+                                    <td>60分</td>
+                                    <td>160</td>
+                                    <td>158</td>
+                                    <td>2</td>
+                                    <td>98%</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>2018-10-17 16:00</td>
+                                    <td>E0001</td>
+                                    <td>60分</td>
+                                    <td>155</td>
+                                    <td>150</td>
+                                    <td>5</td>
+                                    <td>96%</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>2018-10-17 15:00</td>
+                                    <td>E0001</td>
+                                    <td>60分</td>
+                                    <td>170</td>
+                                    <td>165</td>
+                                    <td>5</td>
+                                    <td>97%</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>2018-10-17 14:00</td>
+                                    <td>E0001</td>
+                                    <td>60分</td>
+                                    <td>150</td>
+                                    <td>145</td>
+                                    <td>5</td>
+                                    <td>96%</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>2018-10-17 13:00</td>
+                                    <td>E0001</td>
+                                    <td>60分</td>
+                                    <td>175</td>
+                                    <td>171</td>
+                                    <td>4</td>
+                                    <td>97%</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>2018-10-17 12:00</td>
+                                    <td>E0001</td>
+                                    <td>60分</td>
+                                    <td>173</td>
+                                    <td>168</td>
+                                    <td>5</td>
+                                    <td>97%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="rear_chart" id="yield_chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="数据清单">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>数据ID</th>
+                                <th>数据名称</th>
+                                <th>开放</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="field in rearFields">
+                                <td>{{$index + 1}}</td>
+                                <td>{{field.key}}</td>
+                                <td>{{field.description}}</td>
+                                <td><input type="checkbox" name="{{field.key}}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+            <tab title="工艺管理">
+                <Gy-Process uuid="uuid"></Gy-Process>
+            </tab>
+            <tab title="机台照片" ng-if="''| SecurityFilter: 'rear_setting_machine_board':'manage'">
+                <div>
+                    <cnvimage label="机台照片" ng-model="entity.rear_setting_machine.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

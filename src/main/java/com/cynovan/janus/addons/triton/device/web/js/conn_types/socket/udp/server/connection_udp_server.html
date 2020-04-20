@@ -1,0 +1,50 @@
+<template name="connection_udp_server_template">
+    <div ng-controller="ConnectionUDPServerController as ctrl">
+        <div class="row">
+            <div class="col-xs-6">
+                <cnvtext label="UDP Server IP" ng-model="entity.ip"></cnvtext>
+                <cnvtext label="UDP Server Port" ng-model="entity.port"></cnvtext>
+                <cnvtext label="{{'本地UDP端口'|I18nFilter:'local_udp_port'}}" ng-model="entity.local_port"></cnvtext>
+            </div>
+            <div class="col-xs-6" style="padding-top: 15px;">
+                <cnvcheckbox label="{{'16进制格式'|I18nFilter:'hex_format'}}" ng-model="entity.radix16"></cnvcheckbox>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;padding-top: 10px;border-top: 1px dotted #ddd">
+            <div class="col-xs-6" style="padding-left: 40px;padding-top: 10px;">
+                <cnvcheckbox label="{{'定时发送数据到UDP Server(发送多组数据时，请使用换行分割数据)'|I18nFilter:'time.send.udp'}}"
+                             ng-model="entity.timer_switch"></cnvcheckbox>
+            </div>
+            <div class="col-xs-6" style="padding-top: 2px;" ng-show="entity.timer_switch">
+                <div style="display: flex;align-items: center;">
+                    <span style="width: 125px;">{{'定时发送'|I18nFilter:'time_send'}}</span>
+                    <input style="width: 90px;border-right: 0px;border-top-right-radius: 0;border-bottom-right-radius: 0;" type="text"
+                           class="form-control" ng-model="entity.time">
+                    <select style="width: 70px; height: 34px;border-top-left-radius: 0;border-bottom-left-radius: 0;"
+                            class="form-control input-sm" ng-model="entity.timeUnit"
+                            ng-options="unit.id as unit.name for unit in ctrl.timeUnit">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12" style="padding-left: 25px; margin-top: 10px;" ng-show="entity.timer_switch">
+            <div>
+                <textarea class="form-control" rows="10" ng-model="entity.timer_data">
+                </textarea>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="connection_udp_server_display_template">
+    <div class="conn-panel-header">
+        UDP Socket<span style="margin-left: 10px">{{'设备作为UDP Server接入'|I18nFilter:'device.udp.server'}}</span>
+    </div>
+    <field label="Server IP" ng-model="entity.conn_info_udp_server.ip"></field>
+    <field label="Server Port" ng-model="entity.conn_info_udp_server.port"></field>
+    <field label="{{'定时发送数据'|I18nFilter:'time_send_data'}}" ng-model="entity.conn_info_udp_server.timer_switch"></field>
+    <div ng-show="entity.conn_info_udp_server.timer_switch">
+        <field label="{{'定时时间'|I18nFilter:'time_number'}}" ng-model="entity.conn_info_udp_server.timer"></field>
+        <field label="{{'16进制格式'|I18nFilter:'hex_format'}}" ng-model="entity.conn_info_udp_server.radix16"></field>
+        <field label="{{'数据内容'|I18nFilter:'data.content'}}" ng-model="entity.conn_info_udp_server.timer_data"></field>
+    </div>
+</template>

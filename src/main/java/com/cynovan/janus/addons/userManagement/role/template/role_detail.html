@@ -1,0 +1,92 @@
+<template name="role_add_template">
+    <div class="widget" ng-controller="AddRoleController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div ng-bind="rolename"></div>
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button" ng-click="ctrl.back()">
+                        <i class="fa fa-arrow-left"></i>
+                        {{'返回'|I18nFilter:'back'}}
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.saveRole()" ng-if="''| SecurityFilter: 'role':'manage'">
+                        <i class="fa fa-download"></i>
+                        {{'保存'|I18nFilter:'save'}}
+                    </button>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs style="margin: 20px;">
+            <tab title="{{'基本信息'|I18nFilter:'basic_information'}}">
+                <div class="row" style="margin-bottom: 15px;" ng-model="entity.flag">
+                    <div class="col-xs-5" ng-show="!entity.id">
+                        <cnvtext label="{{'角色名称'|I18nFilter:'role_name'}}" required="true"
+                                 ng-model="entity.name"></cnvtext>
+                    </div>
+                    <div class="col-xs-5" ng-show="entity.id">
+                        <field label="{{'角色名称'|I18nFilter:'role_name'}}" required="true" ng-model="entity.name"
+                               style="position: relative;top:6px;"></field>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-xs-10">
+                        <cnvtextarea label="{{'备注'|I18nFilter:'remark'}}" ng-model="entity.remarks"></cnvtextarea>
+                    </div>
+                </div>
+            </tab>
+            <tab title="{{'功能权限'|I18nFilter:'func_permission'}}">
+                <form name="form">
+                    <div ng-repeat="items in menuList">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="header" style="margin-bottom: 10px;margin-left: 0;">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    {{items.module|I18nFilter:items.i18nKey}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="permissionTitle">
+                            <ul class="items">
+                                <li ng-repeat="item in items.submodule">
+                                    <div class="select-all {{item.checked ? 'active' :''}}" id={{item.appId}}
+                                         ng-click="ctrl.selectAll(item)">{{item.description|I18nFilter:item.i18nKey}}
+                                    </div>
+                                    <div style="position: relative;top: 5px;left:50px">
+                                        <div class="pretty p-default p-round" ng-repeat="i in item.security">
+                                            <input type="checkbox" ng-model="i.checked"
+                                                   value={{item.appId}}@{{item.menuIndex}}@{{i.code}}
+                                                   ng-change="ctrl.itemChange(i,item)"/>
+                                            <div class="state p-primary">
+                                                <label>{{i.description|I18nFilter:(i.description==='查看'?'view':'manage')}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </tab>
+            <tab title="{{'数据权限'|I18nFilter:'data.permission'}}">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <cnvselect label="{{'数据范围'|I18nFilter:'data.range'}}" ng-model="entity.dataPermission"
+                                   options="ctrl.dataPermission"></cnvselect>
+                    </div>
+                    <div class="col-xs-5 checkBox">
+                        <cnvcheckbox label="{{'附加团队权限'|I18nFilter:'add.team.permission'}}"
+                                     ng-model="entity.teamCheckbox"></cnvcheckbox>
+                    </div>
+                </div>
+                <div class="row" ng-show="entity.teamCheckbox">
+                    <div class="col-xs-7 attachTeamSelect">
+                        <span class="attachTeamLabel">{{'附加团队权限'|I18nFilter:'add.team.permission'}}</span>
+                        <select class="chosen-select" multiple id="attachTeamSelect"
+                                data-placeholder="{{'选择附加团队'|I18nFilter:'select.other.team'}}"></select>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

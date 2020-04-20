@@ -1,0 +1,120 @@
+.janusinfo-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.module {
+    background-color: #fff;
+    min-height: 215px;
+    margin-bottom: 15px;
+}
+
+.module-left {
+    display: flex;
+    justify-content: space-around;
+    border-right: 15px solid #eaedf1;
+}
+
+.sub-module {
+    padding-left: 15px;
+}
+
+.sub-module .sub-title {
+    font-size: 17px;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    color: #333b49;
+    letter-spacing: 1px;
+}
+
+.sub-info .c-field {
+    display: flex;
+    justify-content: flex-start;
+    line-height: 35px;
+}
+
+.sub-info .c-field-label {
+    text-align: left;
+}
+
+.sub-info .c-field .control-info i {
+    position: relative;
+    left: 15px;
+    top: 1px;
+}
+
+.logoChangeBox {
+    flex: 0 1 400px;
+    display: flex;
+    overflow-y: hidden;
+}
+
+.logo-block {
+    flex: 0 1 50%;
+    height: 120px;
+    overflow: hidden;
+    /*padding: 10px 15px 10px 10px;*/
+}
+
+.logo-block .label_box {
+    display: none !important;
+}
+
+.logo-block .c-image_content img {
+    max-width: 75%;
+}
+
+.logo-block .c-image_content .fa {
+    right: 30px;
+}
+
+.storge {
+    position: relative;
+    border: 1px solid #ECEFF8;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.storge .progress {
+    border-radius: 0;
+    height: 20px;
+    margin-bottom: 0;
+}
+
+.capacity {
+    position: relative;
+    width: 55%;
+}
+
+.capacity .progress {
+    border-radius: 0;
+    height: 20px;
+}
+
+.distance {
+    margin-top: 20px;
+}
+
+.flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.chosen-select {
+    width: 140px;
+    text-indent: 8px;
+    height: 25px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 24px;
+}
+
+.many2one-box .form-label {
+    position: inherit;
+}

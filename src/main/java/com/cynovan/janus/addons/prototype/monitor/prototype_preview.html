@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="${c_path}">
+    <title>工业设备物联云平台-监控开发平台</title>
+    <meta name="decorator" content="default"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="${r_path}index/web/img/ico.png" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="${r_path}prototype/dist/css/prototype_mx_libs.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="${r_path}prototype/lib/monitor_enhance.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="${r_path}prototype/lib/pretty-checkbox.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="${r_path}web/src/animate/animate.css?v=${version}"/>
+
+    <script src="${r_path}prototype/dist/prototype_libs.js?v=${version}" type="text/javascript"></script>
+    <script src="${r_path}web/lib/hls/hls.js?v=${version}" type="text/javascript"></script>
+    <script src="${r_path}web/echart/echarts.js?v=${version}" type="text/javascript"></script>
+    <script src="${r_path}plant_efficiency/device_timeline/web/service/device_timeline_service.js?v=${version}"
+            type="text/javascript"></script>
+    <!--amap-->
+    <script src="http://webapi.amap.com/maps?v=1.3&key=1c9ab23318ffb064ec5fa3ba02a7bd48"
+            type="text/javascript"></script>
+    <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11" type="text/javascript"></script>
+    <script src="${r_path}web/lib/screenfull/screenfull.js?v=${version}" type="text/javascript"></script>
+    <script src="${r_path}web/lib/moment/moment.js?v=${version}" type="text/javascript"></script>
+    <script src="${r_path}prototype/guage/guage.js?v=${version}" type="text/javascript"></script>
+    <script src="${r_path}web/src/svg/svg.js?v=${version}" type="text/javascript"></script>
+</head>
+<body class="prototype_body">
+<div class="prototype_preview_box">
+    <div class="prototype_preview_header">
+        <div class="prototype_preview_device_placeholder_box"></div>
+        <button style="margin-right: 15px" class="btn btn-primary fullscreen_btn btn-xs"><i class="fa fa-arrows-alt"></i> 全屏</button>
+    </div>
+    <div class="prototype_preview_content" id="prototype_preview_content"></div>
+</div>
+</body>
+<script type="text/javascript">
+    var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug:${debug?c}};
+    /*for monaco editor*/
+    var require = {paths: {'vs': cynovan.r_path + 'web/lib/monaco/vs'}};
+    /*定义mxGraph的某些定义*/
+    window.STYLE_PATH = cynovan.r_path + 'prototype/monitor/styles';
+    // window.RESOURCES_PATH = cynovan.r_path + 'prototype/monitor/resources';
+    window.IMAGE_PATH = cynovan.r_path + 'prototype/monitor/images';
+    window.CSS_PATH = cynovan.r_path + 'prototype/monitor/styles';
+
+    // window.mxBasePath = cynovan.r_path + 'prototype/monitor/mxgraph/javascript/src/'
+    window.RESOURCE_BASE = cynovan.r_path + 'prototype/monitor/resources/dia';
+    window.DRAW_MATH_URL = cynovan.r_path + 'prototype/math';
+    window.NEW_DIAGRAM_CATS_PATH = cynovan.r_path + 'prototype/monitor/newDiagramCats';
+    window.isLocalStorage = false;
+    window.SHAPES_PATH = cynovan.r_path + 'prototype/monitor/shapes';
+    window.STENCIL_PATH = cynovan.r_path + 'prototype/monitor/stencils';
+    window.TEMPLATE_PATH = cynovan.r_path + 'prototype/monitor/templates';
+    window.NEW_DIAGRAM_CATS_PATH = cynovan.r_path + 'prototype/monitor/newDiagramCats';
+    window.PLUGINS_BASE_PATH = cynovan.r_path + 'prototype/monitor/plugins';
+    window.GRAPH_IMAGE_PATH = cynovan.r_path + 'prototype/monitor/';
+</script>
+<script src="${r_path}web/lib/monaco/vs/loader.js?v=${version}" type="text/javascript"></script>
+<script type="text/javascript">
+    var urlParams = {
+        chrome: '0',
+        ruler: '0',
+        lightbox: '1',
+        card: '1',
+        highlight: '0',
+        'photos': '0',
+        'preview_header': '1',
+        lang: 'zh',
+        //可以多页显示，index从0开始
+        page: "0"
+    };
+</script>
+<script type="text/javascript">
+    function mxscript(src, onLoad, id, dataAppKey, noWrite) {
+        if (onLoad != null || noWrite) {
+            var s = document.createElement('script');
+            s.setAttribute('type', 'text/javascript');
+            s.setAttribute('src', src);
+            var r = false;
+
+            if (id != null) {
+                s.setAttribute('id', id);
+            }
+
+            if (dataAppKey != null) {
+                s.setAttribute('data-app-key', dataAppKey);
+            }
+
+            if (onLoad != null) {
+                s.onload = s.onreadystatechange = function () {
+                    if (!r && (!this.readyState || this.readyState == 'complete')) {
+                        r = true;
+                        onLoad();
+                    }
+                };
+            }
+
+            var t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        } else {
+            document.write('<script src="' + src + '"' + ((id != null) ? ' id="' + id + '" ' : '') +
+                ((dataAppKey != null) ? ' data-app-key="' + dataAppKey + '" ' : '') + '></scr' + 'ipt>');
+        }
+    };
+
+    /**
+     * Asynchronously adds scripts to the page.
+     */
+    function mxinclude(src) {
+        var g = document.createElement('script');
+        g.type = 'text/javascript';
+        g.async = true;
+        g.src = src;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(g, s);
+    };
+
+    // Checks for local storage
+    var isLocalStorage = false;
+
+    try {
+        isLocalStorage = urlParams['local'] != '1' && typeof (localStorage) != 'undefined';
+    } catch (e) {
+        // ignored
+    }
+
+    // Used to request grapheditor/mxgraph sources in dev mode
+    var mxDevUrl = cynovan.r_path + 'prototype/monitor/mxgraph';
+
+    // Used to request draw.io sources in dev mode
+    var drawDevUrl = cynovan.r_path + 'prototype/monitor/';
+
+    var geBasePath = mxDevUrl;
+    window.mxBasePath = mxDevUrl;
+
+    /*固定读取mxClient.js*/
+    mxscript(cynovan.r_path + 'prototype/lib/mxClient.js?v=' + cynovan.version);
+
+    if (cynovan.debug) {
+        /*当debug的时候读取所有的原始文件*/
+        mxscript(mxDevUrl + '/Init.js?v=' + cynovan.version);
+        mxscript(drawDevUrl + 'js/diagramly/Init.js?v=' + cynovan.version);
+        mxscript(drawDevUrl + 'js/diagramly/Devel.js?v=' + cynovan.version);
+    } else {
+        mxscript(cynovan.r_path + 'prototype/dist/prototype_mx_libs.js?v=' + cynovan.version);
+    }
+</script>
+<script type="text/javascript" src="${r_path}prototype/preview/prototype_preview.js?v=${version}" defer="defer"></script>
+<script type="text/javascript">
+    var createUI = function () {
+        var chrome = urlParams['chrome'] == '0';
+        var container = document.getElementById('prototype_preview_content');
+        return new App(new Editor(chrome, null, null, null, false), container);
+    }
+
+    var app = App.main(function () {
+        new NeptunePreview(arguments[0].editor);
+    }, createUI);
+
+</script>
+</html>

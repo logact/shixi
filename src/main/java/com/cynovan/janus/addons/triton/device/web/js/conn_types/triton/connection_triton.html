@@ -1,0 +1,84 @@
+<template name="connection_triton_template">
+    <div class="row" ng-controller="ConnectionTritonController as ctrl">
+        <div class="col-xs-12">
+            <div class="header">
+                {{'请使用如下信息配置Triton'|I18nFilter:'triton_config'}}:
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <field label="{{'地址(address)'|I18nFilter:'address'}}" ng-model="entity.broker"></field>
+            <field label="{{'端口号(port)'|I18nFilter:'port'}}" ng-model="entity.port"></field>
+            <field label="{{'令牌(token)'|I18nFilter:'token'}}" ng-model="entity.userName"></field>
+            <field label="{{'序列号(uuid)'|I18nFilter:'address'}}" ng-model="entity.uuid"></field>
+        </div>
+    </div>
+</template>
+<template name="connection_triton_display_template">
+    <div class="conn-panel-header">
+        内置SDK<span style="margin-left: 10px">Triton({{'默认'|I18nFilter:'default'}})</span>
+    </div>
+    <field label="{{'地址(address)'|I18nFilter:'address'}}" ng-model="entity.conn_info_triton.broker"></field>
+    <field label="{{'端口号(port)'|I18nFilter:'port'}}" ng-model="entity.conn_info_triton.port"></field>
+    <field label="{{'令牌(token)'|I18nFilter:'token'}}" ng-model="entity.conn_info_triton.userName"></field>
+    <field label="{{'序列号(uuid)'|I18nFilter:'address'}}" ng-model="entity.conn_info_triton.uuid"></field>
+</template>
+<template name="connection_help_template">
+    <div class="row">
+        <div class="col-xs-12 code-tip-area">
+            <div class="use-scene">
+                <p class="scene-title">数据读取示例一：读取数据区域[Read Coils]中0~20的数据</p>
+                <div>配置如下：<br>
+                    <div class="config-example-first"></div>
+                    读取数据格式如下：<br>
+                    <div class="code-area">{
+                        <div class="indentation-code">"uuid":'设备UUID',<br>
+                            "action":"data",<br>
+                            "data":{
+                            <div class="indentation-code">"1_0":false,<br>
+                                "1_1":false,<br>
+                                "1_2":false<br>
+                                …<br>
+                                …<br>
+                                …<br>
+                                "1_20":false
+                            </div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">数据读取示例二：读取数据区域[Read Coils]中0~5的数据，以及数据区域[Read Holding Register]中10~20的数据</p>
+                <div>配置如下：<br>
+                    <div class="config-example-second"></div>
+                    读取数据格式如下：<br>
+                    <div class="code-area">{
+                        <div class="indentation-code">"uuid":'设备UUID',<br>
+                            "action":"data",<br>
+                            "data":{
+                            <div class="indentation-code">
+                                "1_0":false,<br>
+                                "1_1":false,<br>
+                                "1_2":false<br>
+                                …<br>
+                                …<br>
+                                …<br>
+                                "1_20":false,<br>
+                                "3_10":"1001",<br>
+                                "3_11":"1001",<br>
+                                "3_11":"1001",<br>
+                                …<br>
+                                …<br>
+                                …<br>
+                                "3_20":1001
+                            </div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

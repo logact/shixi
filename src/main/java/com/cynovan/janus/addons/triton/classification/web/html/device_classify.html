@@ -1,0 +1,46 @@
+<template name="app_triton_device_classify_template">
+    <div class="device-tree-div" ng-controller="DeviceClassifyController as ctrl">
+        <div class="widget device-list-div">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'设备类型'|I18nFilter:'device.classification'}}
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.addClassification()" ng-if="''| SecurityFilter: 'triton_device':'manage'">
+                        <i class="fa fa-plus"></i>
+                        {{'新增类型'|I18nFilter:'add.classification'}}
+                    </button>
+                </div>
+            </div>
+            <div class="widget-body">
+                <list options="ctrl.options">
+                </list>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_triton_device_classify_add" >
+    <div class="device_classify_add">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <cnvtext label="名称" ng-model="entity.name"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="form-control-static c-text ng-isolate-scope ng-empty ng-valid">
+                    <label class="form-label">设备关联视图</label>
+                    <div class="form-input">
+                        <cnvmany2one collection="deviceView" ng-model="deviceView.value"
+                                     projection="deviceView.projection" id-field="code"
+                                     placeholder="选择设备视图..."></cnvmany2one>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <cnvtextarea placeholder="设备类型备注信息" style="resize: none" ng-model="entity.remark" label="备注"></cnvtextarea>
+            </div>
+        </div>
+    </div>
+</template>

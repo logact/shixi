@@ -1,0 +1,29 @@
+{
+  "appId": "dashboard_shoe",
+  "description": "数字化工厂",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "数字化工厂",
+  "category": "鞋机",
+  "icon": "img/app-dashboard-shoe.png",
+  "menus": [
+    {
+      "name": "数字化工厂",
+      "showOnTop": true,
+      "sort": 7000,
+      "icon": "",
+      "template": "dashboard_shoe_all_template",
+      "detail_template": "dashboard_shoe_line_template",
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

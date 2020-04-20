@@ -1,0 +1,79 @@
+{
+  "appId": "triton",
+  "description": "显示所有Triton客户端",
+  "author": "",
+  "version": "",
+  "icon": "",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "设备接入",
+      "i18nKey": "device.connect",
+      "template": "app_triton_introduction_template",
+      "depend": [
+        "device"
+      ]
+    },
+
+    {
+      "name": "设备类型",
+      "i18nKey": "device.classify",
+      "icon": "triton/device/web/css/image/dvs_classify.png",
+      "template": "app_triton_device_classify_template",
+      "detail_template": "device_classification_alter_template",
+      "depend": [
+        "classification/web"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "设备",
+      "i18nKey": "device",
+      "icon": "triton/device/web/css/image/triton-device.png",
+      "template": "app_triton_device_template",
+      "detail_template": "app_triton_device_detail_template",
+      "depend": [
+        "device"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "设备可视化",
+      "i18nKey": "device.view",
+      "icon": "triton/device/web/css/image/dvs_view.png",
+      "template": "app_triton_device_view_template",
+      "depend": [
+        "view/web"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

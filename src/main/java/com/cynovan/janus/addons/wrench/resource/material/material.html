@@ -1,0 +1,42 @@
+<template name="app_wrench_material_list_template">
+    <div class="widget" ng-controller="MaterialListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                材料库
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.addNewMaterial()" ng-if="''| SecurityFilter: 'screw_list':'manage'">
+                    <i class="fa fa-plus"></i>
+                    新增材料
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+            </list>
+        </div>
+    </div>
+</template>
+<template name="app_wrench_add_material_template">
+    <div class="row" ng-controller="AddMaterialController as ctrl">
+        <div class="col-xs-12">
+            <cnvtext label="材料编号" width="160" ng-model="entity.code"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="材料名称" width="160" ng-model="entity.name"></cnvtext>
+            <cnvtext label="泊松比" width="160" ng-model="entity.PoissonRatio"></cnvtext>
+            <cnvtext label="抗剪模量(N/m^2)" width="160" ng-model="entity.ShearModulus"></cnvtext>
+            <cnvtext label="屈服强度(N/m^2)" width="160" ng-model="entity.YieldStrength"></cnvtext>
+            <cnvtext label="比热(J/(kg.K))" width="160" ng-model="entity.SpecificHeat"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="弹性模量(N/m^2)" width="160" ng-model="entity.ElasticModulus"></cnvtext>
+            <cnvtext label="质量密度(kg/m^3)" width="160" ng-model="entity.MassDensity"></cnvtext>
+            <cnvtext label="张力强度(N/m^2)" width="160" ng-model="entity.TensionStrength"></cnvtext>
+            <cnvtext label="热扩张系数(/Kelven)" width="160" ng-model="entity.ThermalExpansionCoefficient"></cnvtext>
+            <cnvtext label="热导率(W/(m.k))" width="160" ng-model="entity.ThermalConductivity"></cnvtext>
+        </div>
+        <div class="col-xs-12">
+            <cnvtextarea width="160" label="备注" ng-model="entity.remarks"></cnvtextarea>
+        </div>
+    </div>
+</template>

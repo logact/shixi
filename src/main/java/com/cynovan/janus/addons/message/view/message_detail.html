@@ -1,0 +1,30 @@
+<template name="app_message_detail_template">
+    <div class="widget" ng-controller="MessageDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="#/app/messageCenter/menu/0">{{'消息中心'|I18nFilter:'message.center'}} / </a>{{'消息详情'|I18nFilter:'message.detail'}}
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="message-detail" style="display: inline-block;">
+                <div class="col-xs-12 alert-header">
+                    <span ng-bind="message.title?message.title:('未定类型'|I18nFilter:'unknown_type')"></span>
+                    <span class="alert-date" ng-if="message.create_date" ng-bind="message.create_date"></span>
+                </div>
+                <div class="col-xs-12">
+                    <div class="alert-content" ng-bind-html="message.content"></div>
+                </div>
+                <div class="col-xs-12 alert-footer">
+                    <div class="alert-header" ng-repeat="(key,value) in message.paramMap">
+                        <div>
+                            <span ng-bind="key"></span>
+                        </div>
+                        <div class="alert-content" ng-bind-html="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

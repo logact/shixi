@@ -1,0 +1,102 @@
+{
+  "appId": "system_info",
+  "description": "系统信息",
+  "name": "系统信息",
+  "menus": [
+    {
+      "icon": "systeminfo/resource/img/register.png",
+      "name": "注册信息",
+      "template": "register_info_template",
+      "i18nKey": "register.info",
+      "depend": [
+        "systeminfo/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "icon": "systeminfo/resource/img/changelogo.png",
+      "name": "Logo更换",
+      "template": "logo_info_template",
+      "i18nKey": "logo_change",
+      "depend": [
+        "systeminfo/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "icon": "systeminfo/resource/img/save.png",
+      "name": "存储策略",
+      "template": "save_info_template",
+      "i18nKey": "",
+      "depend": [
+        "systeminfo/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "icon": "systeminfo/resource/img/hardware.png",
+      "name": "硬件信息",
+      "template": "hard_info_template",
+      "i18nKey": "hardware_info",
+      "depend": [
+        "systeminfo/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "icon": "systeminfo/resource/img/version.png",
+      "name": "版本信息",
+      "template": "version_info_template",
+      "i18nKey": "janus.version.info",
+      "depend": [
+        "systeminfo/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

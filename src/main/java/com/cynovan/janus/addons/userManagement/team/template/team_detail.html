@@ -1,0 +1,53 @@
+<template name="team_add_template">
+    <div class="widget" ng-controller="AddTeamController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div ng-bind="teamname"></div>
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button" ng-click="ctrl.back()">
+                        <i class="fa fa-arrow-left"></i>
+                        {{'返回'|I18nFilter:'back'}}
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.saveNewTeam()">
+                        <i class="fa fa-download"></i>
+                        {{'保存'|I18nFilter:'save'}}
+                    </button>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="row" style="margin-bottom: 15px" ng-model="entity.flag">
+                <div class="col-xs-5" ng-show="!entity.id">
+                    <cnvtext label="{{'团队名称'|I18nFilter:'team_name'}}" ng-model="entity.name" required="true"></cnvtext>
+                </div>
+                <div class="col-xs-5" ng-show="entity.id">
+                    <field label="{{'团队名称'|I18nFilter:'team_name'}}" ng-model="entity.name"
+                           style="position: relative;top:6px;"></field>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-5">
+                    <Team-Select entity="entity" label="{{'上级团队'|I18nFilter:'superior_team'}}"></Team-Select>
+                </div>
+                <div class="col-xs-5">
+                    <cnvtext label="{{'团队主管'|I18nFilter:'team_boss'}}" ng-model="entity.departmentHeads"></cnvtext>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-5">
+                    <cnvtext label="{{'固定电话'|I18nFilter:'telephone'}}" ng-model="entity.fixedTel"></cnvtext>
+                </div>
+                <div class="col-xs-5">
+                    <cnvtext label="{{'传真'|I18nFilter:'fax'}}" ng-model="entity.fax"></cnvtext>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-xs-10">
+                    <cnvtextarea label="{{'备注'|I18nFilter:'remark'}}" ng-model="entity.remarks"></cnvtextarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,48 @@
+html {
+    height: 100%;
+    min-width: 1024px;
+    -webkit-text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-face-color: #ddd;
+    scrollbar-highlight-color: #ddd;
+    scrollbar-shadow-color: #ddd;
+    scrollbar-3dlight-color: #ddd;
+    scrollbar-arrow-color: #797979;
+    scrollbar-track-color: #fff;
+    scrollbar-darkshadow-color: #ddd;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 0px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background-color: #c1c1c1;
+}
+
+body {
+    background: #f7fcff;
+}
+
+.pace-active {
+    display: none !important;
+}
+
+.guacamode_box {
+    position: relative;
+}
+
+.guacamole_toolbar {
+    height: 40px;
+}
+
+.guacamode_box #display {
+
+}

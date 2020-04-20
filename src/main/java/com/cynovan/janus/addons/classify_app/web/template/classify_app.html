@@ -1,0 +1,32 @@
+<template name="device_app_template">
+    <div ng-controller="classifyAppController as ctrl" id="viewcode">
+        <div class="widget" style="margin-bottom: 15px;" ng-show="isdetail">
+            <div class="widget-header" style="height: 62px">
+                <div class="widget-title">
+                    <div style="font-size: 15px;padding-top: 5px;">
+                        <span>{{currentDeviceName+' / '+currentDeviceuuid}}</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                style="position: relative;bottom: 2px" ng-click="ctrl.goback()">
+                            <i class="fa fa-arrow-left"></i>
+                            {{'返回'|I18nFilter:'back'}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe id="iframeview" src=""  ng-show="isdetail"></iframe>
+        <div class="widget device-list-div" ng-show="!isdetail">
+            <div class="widget-header">
+                <div class="widget-title">
+                    <span>{{typename+' / 设备列表'}}<span style="color: red" class="errortip"></span></span>
+                </div>
+            </div>
+            <div class="widget-body">
+                <list options="ctrl.options">
+                </list>
+            </div>
+        </div>
+    </div>
+</template>

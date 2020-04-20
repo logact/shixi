@@ -1,0 +1,41 @@
+define([], function () {
+    let settingConfig = {
+        app: 'needle_device',
+        dialogTitle: '检针机数据配置',
+        fields: [
+            {"key": "DeviceType", "description": "设备型号"},
+            {"key": "DeviceSpec", "description": "设备规格"},
+            {"key": "DeviceSize", "description": "机械尺寸"},
+            {"key": "ProductFactory", "description": "生产厂家"},
+            {"key": "ProductDate", "description": "生产日期"},
+            {"key": "DeviceVoltage", "description": "设备额定电压"},
+            {"key": "DevicePower", "description": "设备额定功率"},
+            {"key": "DetectHeight", "description": "检测宽度"},
+            {"key": "DetectWidth", "description": "检测高度"},
+            {"key": "01_value", "description": "当前传送速度"},
+            {"key": "02_value", "description": "速度设定值"},
+            {"key": "03_value", "description": "灵敏度调节"},
+            {"key": "04_value", "description": "输送马达电流"},
+            {"key": "05_value", "description": "开机时间"},
+            {"key": "MotorNowValue", "description": "输送马达工作电流"},
+            {"key": "SensitivityNowValue", "description": "灵敏度调节当前值"},
+            {"key": "MotorMax", "description": "输送马达工作电流上限"},
+            {"key": "MotorMin", "description": "输送马达工作电流下限"},
+            {"key": "SensitivityMax", "description": "灵敏度调节上限"},
+            {"key": "SensitivityMin", "description": "灵敏度调节下限"},
+            {"key": "13_value", "description": "检测马达工作异常报警"},
+            {"key": "12_value", "description": "灵敏度异常报警"},
+            {"key": "TodayGoal", "description": "计划产量"},
+            {"key": "06_value", "description": "合格数"},
+            {"key": "07_value", "description": "不合格数"},
+            {"key": "08_value", "description": "良品率"},
+            {"key": "09_value", "description": "工作时长"},
+            {"key": "10_value", "description": "计划生产节拍"},
+            {"key": "11_value", "description": "实际生产节拍"},
+            {"key": "12_value", "description": "产品名称"},
+            {"key": "13_value", "description": "产品CT"},
+            {"key": "14_value", "description": "今日生产"},
+        ]
+    };
+    return settingConfig;
+});

@@ -1,0 +1,30 @@
+.data-column {
+    overflow: auto;
+    padding: 0 15px;
+    height: 350px;
+}
+.cl_alter .chosen-container{
+    width:95%!important;
+    color: #6a6c6f;
+    margin-top:5px;
+    zoom: 1.08;
+}
+.cl_alter .chosen-container .chosen-results{
+    max-height:180px;
+}
+
+.data-column-div{
+
+
+}
+.cl_alter{
+    margin-right: 0!important;
+}
+
+.device_classify_add .chosen-results{
+    height: 85px;
+}
+
+.update_cls_info .chosen-results{
+    height: 85px;
+}

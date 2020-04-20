@@ -1,0 +1,100 @@
+<template name="import_app_template">
+    <div class="row import-app-div" ng-controller="ImportAppController as ctrl">
+        <div class="col-xs-12">
+            <div class="widget" style="margin-bottom: 15px">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div>
+                            <a href="#/app/appstore/menu/0">{{'全部应用'|I18nFilter:'all.app'}}</a> /
+                            {{'导入详情'|I18nFilter:'import_detail'}}
+                        </div>
+                        <div>
+                            <input id="upload-appzip-input" type="file" accept="application/zip"
+                                   style="display: none">
+                            <button class="btn btn-primary btn-outline btn-sm import-app-button" type="button">
+                                <i class="fa fa-upload"></i>
+                                {{'导入应用'|I18nFilter:'import_app'}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin: 0">
+                <div class="col-xs-12" ng-show="importFlag" style="background-color: #fff;">
+                    <div class="row">
+                        <div class="col-xs-5 app-info-panel">{{'导入应用的信息'|I18nFilter:'import_app_info'}}</div>
+                        <div class="col-xs-7" style="text-align: right;margin-top: 5px">
+                            <a href="#/app/appstore/menu/0">
+                                <button class="btn btn-primary btn-outline btn-sm"
+                                        title="{{'返回应用市场'|I18nFilter:'back_app_store'}}"
+                                >{{'返回'|I18nFilter:'back'}}
+                                </button>
+                            </a>
+                            <button class="btn btn-primary btn-outline btn-sm"
+                                    title="{{'确认导入至Janus'|I18nFilter:'confirm_import_janus'}}"
+                                    ng-click="ctrl.install()">{{'安装'|I18nFilter:'install'}}
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="widget-separator"/>
+                    <div class="row" style="padding-top: 15px">
+                        <field label="{{'应用类别'|I18nFilter:'app.type'}}" ng-model="appInfo.category"></field>
+                        <field label="{{'应用名称'|I18nFilter:'app.name'}}" ng-model="appInfo.name"></field>
+                        <field label="{{'更新日志'|I18nFilter:'update_log'}}" ng-model="appInfo.changeLog"></field>
+                        <field label="{{'应用简介'|I18nFilter:'app.intro'}}" ng-model="appInfo.remarks"></field>
+                        <field label="{{'上传版本'|I18nFilter:'upload_version'}}" ng-model="appInfo.version"></field>
+                        <div ng-if="appInfo.message">
+                            <field label="{{'提示信息'|I18nFilter:'tip_info'}}" ng-model="appInfo.message"></field>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="!importFlag">
+                    <div ng-show="appInfo.currentVersion">
+                        <div class="col-xs-6" style="background-color: #fff;border-right: 15px solid #eaedf1;">
+                            <div class="row">
+                                <div class="col-xs-5 app-info-panel">{{'导入应用的信息'|I18nFilter:'import_app_info'}}</div>
+                                <div class="col-xs-7" style="text-align: right;margin-top: 5px">
+                                    <a href="#/app/appstore/menu/0">
+                                        <button class="btn btn-primary btn-outline btn-sm"
+                                                title="{{'返回应用市场'|I18nFilter:'back_app_store'}}"
+                                        >{{'返回'|I18nFilter:'back'}}
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <hr class="widget-separator"/>
+                            <div class="row" style="padding-top: 15px">
+                                <field label="{{'应用类别'|I18nFilter:'app.type'}}" ng-model="appInfo.category"></field>
+                                <field label="{{'应用名称'|I18nFilter:'app.name'}}" ng-model="appInfo.name"></field>
+                                <field label="{{'更新日志'|I18nFilter:'update_log'}}" ng-model="appInfo.changeLog"></field>
+                                <field label="{{'应用简介'|I18nFilter:'app.intro'}}" ng-model="appInfo.remarks"></field>
+                                <field label="{{'上传版本'|I18nFilter:'upload_version'}}"
+                                       ng-model="appInfo.version"></field>
+                            </div>
+                        </div>
+                        <div class="col-xs-6" style=" background-color: #fff;">
+                            <div class="row">
+                                <div class="col-xs-5 app-info-panel">{{'当前应用的信息'|I18nFilter:'this_app_info'}}</div>
+                            </div>
+                            <hr class="widget-separator"/>
+                            <div class="row" style="padding-top: 15px">
+                                <field label="{{'应用类别'|I18nFilter:'app.type'}}" ng-model="nowAPPInfo.category"></field>
+                                <field label="{{'应用名称'|I18nFilter:'app.name'}}" ng-model="nowAPPInfo.name"></field>
+                                <field label="{{'更新日志'|I18nFilter:'update_log'}}"
+                                       ng-model="nowAPPInfo.changeLog"></field>
+                                <field label="{{'应用简介'|I18nFilter:'app.intro'}}" ng-model="nowAPPInfo.remarks"></field>
+                                <field label="{{'当前版本'|I18nFilter:'this_version'}}"
+                                       ng-model="nowAPPInfo.version"></field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="appInfo.message" style="margin: 0">
+                        <div class="col-xs-6 message-info-div">
+                            <field label="{{'提示信息'|I18nFilter:'tip_info'}}" ng-model="appInfo.message"></field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

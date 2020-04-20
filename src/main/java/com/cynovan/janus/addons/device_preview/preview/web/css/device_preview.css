@@ -1,0 +1,61 @@
+.device-tree-preview-container {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0px;
+}
+
+.selected-device-info {
+    height: 50px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+
+.device-tree {
+    flex: 0 1 250px;
+    height: 100%;
+    border-right: 1px solid #eeeeee;
+    padding-bottom: 15px;
+}
+
+.preview-container {
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+#device-tree-preview-iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.ztree li a.curSelectedNode {
+    background-color: #dff0d887 !important;
+}
+
+.ztree li span.button.device_ico_docu {
+    background-image: url("../img/device-icon.png");
+    background-position-x: 3px;
+    background-position-y: 3px;
+}
+
+.dvs_tree_search {
+    display: flex;
+}
+
+.dvs_tree_search input {
+    height: 30px;
+    margin: 0 5px;
+    font-size: 12px;
+    border-radius: 0px;
+}
+
+.device-tree-content {
+    overflow: auto;
+    height: 771px;
+    border-top: 1px #ddd solid;
+    margin-top: 5px;
+}

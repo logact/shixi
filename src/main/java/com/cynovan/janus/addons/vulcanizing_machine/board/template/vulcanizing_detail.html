@@ -1,0 +1,225 @@
+<template name="vulcanizing_device_detail_template">
+    <div class="widget" ng-controller="VulcanizingDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="设备规格" placeholder="请输入" ng-model="showData.DeviceSpec"></cnvtext>
+                        <cnvtext label="机械尺寸" placeholder="请输入" ng-model="showData.DeviceSize"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="生产厂家" placeholder="请输入" ng-model="showData.ProductFactory"></cnvtext>
+                        <cnvtext label="生产日期" placeholder="请输入" ng-model="showData.ProductDate"></cnvtext>
+                        <cnvtext label="产能" placeholder="请输入" ng-model="showData.ProductCapacity"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveInfo()"
+                                ng-if="''| SecurityFilter: 'vulcanizing_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="温度设定值" field="01_value"></staticfield>
+                        <staticfield label="温度当前值" field="02_value"></staticfield>
+                        <staticfield label="设备产量" field="03_value"></staticfield>
+                        <staticfield label="运行时间" field="04_value"></staticfield>
+                        <staticstate label="动作信号" field="05_value"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="蒸汽压力" field="SteamNowValue" width="130"></staticfield>
+                        <staticfield label="设备工作电流" field="07_value" width="130"></staticfield>
+                        <staticfield label="鼓风机工作电流" field="BlowerNowValue" width="130"></staticfield>
+                        <staticfield label="热风电热管工作电流" field="HotWindNowValue" width="130"></staticfield>
+                        <staticfield label="烧水电热管工作电流" field="BoiledWaterValue" width="130"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数监控" on-show="ctrl.initCharts()">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                鼓风机
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.BlowerMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.BlowerMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="vulcanizing_chart gf_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                热风电热管
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.HotWindMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.HotWindMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="vulcanizing_chart rf_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                烧水电热管
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.BoiledWaterMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.BoiledWaterMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="vulcanizing_chart ss_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                蒸汽
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="压力上限" placeholder="请输入" ng-model="showData.SteamMax"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="vulcanizing_chart zq_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                    ng-click="ctrl.saveParameter()"
+                                    ng-if="''| SecurityFilter: 'vulcanizing_device':'manage'"><i
+                                    class="fa fa-save"></i> 保&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="报警监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticstate label="蒸汽压力过高报警" field="11_value" width="130"></staticstate>
+                        <staticstate label="鼓风机工作异常报警" field="12_value" width="130"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticstate label="热风电热管工作异常报警" field="13_value" width="160"></staticstate>
+                        <staticstate label="烧水电热管工作异常报警" field="14_value" width="160"></staticstate>
+                    </div>
+                </div>
+            </tab>
+            <tab title="产量监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="今日目标" placeholder="请输入" ng-model="showData.TodayGoal"></cnvtext>
+                        <staticfield label="运行时间" field="16_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="实际产量" field="17_value"></staticfield>
+                        <staticfield label="设备达成率" field="18_value"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveTodayGoal()"
+                                ng-if="''| SecurityFilter: 'vulcanizing_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机台照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.vulcanizing.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

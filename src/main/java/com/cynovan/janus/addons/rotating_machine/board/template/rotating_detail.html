@@ -1,0 +1,247 @@
+<template name="rotating_device_detail_template">
+    <div class="widget" ng-controller="RotatingDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="设备规格" placeholder="请输入" ng-model="showData.DeviceSpec"></cnvtext>
+                        <cnvtext label="机械尺寸" placeholder="请输入" ng-model="showData.DeviceSize"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="生产厂家" placeholder="请输入" ng-model="showData.ProductFactory"></cnvtext>
+                        <cnvtext label="生产日期" placeholder="请输入" ng-model="showData.ProductDate"></cnvtext>
+                        <cnvtext label="产能" placeholder="请输入" ng-model="showData.ProductCapacity"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveInfo()"
+                                ng-if="''| SecurityFilter: 'rotating_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="1#大底温度" field="Outsole1NowValue"></staticfield>
+                        <staticfield label="2#大底温度" field="Outsole2NowValue"></staticfield>
+                        <staticfield label="3#大底温度" field="Outsole3NowValue"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="1#鞋面温度" field="Vamp1NowValue"></staticfield>
+                        <staticfield label="2#鞋面温度" field="Vamp2NowValue"></staticfield>
+                        <staticfield label="3#鞋面温度" field="Vamp3NowValue"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="输送带速度" field="01_value"></staticfield>
+                        <staticfield label="设备工作电流" field="02_value"></staticfield>
+                        <staticfield label="每双用电" field="03_value"></staticfield>
+                        <staticstate label="其他" field="07_value"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticstate label="机器故障" field="04_value"></staticstate>
+                        <staticstate label="品质问题" field="05_value"></staticstate>
+                        <staticstate label="缺料" field="06_value"></staticstate>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数监控" on-show="ctrl.initCharts()">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                1#
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="大底温度上限" placeholder="请输入"
+                                         ng-model="showData.Outsole1Max"></cnvtext>
+                                <cnvtext label="大底温度下限" placeholder="请输入"
+                                         ng-model="showData.Outsole1Min"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="鞋面温度上限" placeholder="请输入"
+                                         ng-model="showData.Vamp1Max"></cnvtext>
+                                <cnvtext label="鞋面温度下限" placeholder="请输入"
+                                         ng-model="showData.Vamp1Min"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="rotating_chart dd1_chart">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="rotating_chart xm1_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                2#
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="大底温度上限" placeholder="请输入"
+                                         ng-model="showData.Outsole2Max"></cnvtext>
+                                <cnvtext label="大底温度下限" placeholder="请输入"
+                                         ng-model="showData.Outsole2Min"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="鞋面温度上限" placeholder="请输入"
+                                         ng-model="showData.Vamp2Max"></cnvtext>
+                                <cnvtext label="鞋面温度下限" placeholder="请输入"
+                                         ng-model="showData.Vamp2Min"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="rotating_chart dd2_chart">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="rotating_chart xm2_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                3#
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="大底温度上限" placeholder="请输入"
+                                         ng-model="showData.Outsole3Max"></cnvtext>
+                                <cnvtext label="大底温度下限" placeholder="请输入"
+                                         ng-model="showData.Outsole3Min"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="鞋面温度上限" placeholder="请输入"
+                                         ng-model="showData.Vamp3Max"></cnvtext>
+                                <cnvtext label="鞋面温度下限" placeholder="请输入"
+                                         ng-model="showData.Vamp3Min"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="rotating_chart dd3_chart">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="rotating_chart xm3_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                    ng-click="ctrl.saveParameter()"
+                                    ng-if="''| SecurityFilter: 'rotating_device':'manage'"><i
+                                    class="fa fa-save"></i> 保&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="报警监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticstate label="1#大底温度报警" field="08_value"></staticstate>
+                        <staticstate label="2#大底温度报警" field="09_value"></staticstate>
+                        <staticstate label="3#大底温度报警" field="10_value"></staticstate>
+                        <staticstate label="灯管故障报警" field="11_value"></staticstate>
+                        <staticstate label="风机故障报警" field="12_value"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticstate label="1#鞋面温度报警" field="13_value"></staticstate>
+                        <staticstate label="2#鞋面温度报警" field="14_value"></staticstate>
+                        <staticstate label="3#鞋面温度报警" field="15_value"></staticstate>
+                        <staticstate label="输送马达报警" field="16_value"></staticstate>
+                    </div>
+                </div>
+            </tab>
+            <tab title="产量监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="今日目标" placeholder="请输入" ng-model="showData.TodayGoal"></cnvtext>
+                        <staticfield label="当前目标" field="16_value"></staticfield>
+                        <staticfield label="运行时间" field="18_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="实际产量" field="19_value"></staticfield>
+                        <staticfield label="设备达成率" field="20_value"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveTodayGoal()"
+                                ng-if="''| SecurityFilter: 'vulcanizing_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机台照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.rotating.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

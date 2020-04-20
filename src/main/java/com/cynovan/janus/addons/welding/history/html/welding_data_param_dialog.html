@@ -1,0 +1,15 @@
+<template name="app_weld_data_param_template">
+    <div class="row" id="appWeldDataChartBox" style="max-height: 300px;overflow-y: auto;">
+        <div class="col-sm-4" ng-repeat="field in selfFieldList">
+            <div class="form-control-static c-text ng-isolate-scope ng-not-empty ng-valid">
+                <label class="form-label text-right" ng-bind="field.name"></label>
+                <div class="form-input">
+                    <input ng-if="field.t_option !== 'select'" type="text" class="form-control"
+                           ng-model="entity.show_data[field.bind]">
+                    <select ng-if="field.t_option === 'select'" class="form-control" ng-model="entity.show_data[field.bind]"
+                            ng-options="option for option in field.b_select"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

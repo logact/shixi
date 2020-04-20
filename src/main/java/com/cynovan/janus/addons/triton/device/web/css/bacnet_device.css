@@ -1,0 +1,28 @@
+.bacnet-table{
+    margin-bottom: 5px;
+}
+.bacnet-table th {
+    text-align: center;
+}
+
+.bacnet-table td {
+    text-align: center;
+}
+
+.bacnet-table .object-instance {
+    width: 20%;
+}
+
+.bacnet-table .index {
+    width: 100px;
+}
+
+.bacnet-table .operation {
+    width: 200px;
+}
+.search-input-div .col-xs-7 button{
+    margin-right: 15px;
+}
+.search-input-div .col-xs-7 button:first-child{
+    margin-left:20px;
+}

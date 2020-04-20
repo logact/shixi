@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="${c_path}/">
+    <title>工业设备管理平台-帮助文档</title>
+    <meta name="decorator" content="default"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link rel="Shortcut Icon" href="resource/index/web/img/ico.png" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/common.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/index/web/css/index.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/api/document/web/css/markdown.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/api/document/web/css/api.css?v=${version}"/>
+</head>
+<body ng-cloak>
+<div id="app-navbar" class="navbar-fixed-top" ng-controller="APILogoController as ctrl">
+    <div class="navbar-header">
+        <img class="brand-image brand-image-left" ng-src="{{leftLogo}}"/>
+        <img class="brand-image brand-image-right" ng-src="{{rightLogo}}"/>
+    </div>
+</div>
+<aside id="side-bar" class="sidebar sidebar-fixed" ng-controller="APIMenuController as ctrl">
+    <div class="toc">
+        <h1>{{'Janus 帮助文档'|I18nFilter:'janus.support.doc'}}</h1>
+        <ul class="level1">
+            <li ng-repeat-start="menu in headerMenu" class="node" ng-class="menu.key"
+                ng-click="ctrl.menuClick($event,menu.key)">
+                <a title="{{menu.name |I18nFilter:menu.i18nKey}}">
+                    <span ng-bind="menu.name |I18nFilter:menu.i18nKey"></span>
+                </a>
+            </li>
+            <li ng-repeat-end ng-if="subMenu[menu.key]" class="children">
+                <ul class="level2">
+                    <li class="leaf" ng-repeat="smenu in subMenu[menu.key]"
+                        ng-click="ctrl.menuClick($event,smenu.key)" ng-class="smenu.key"
+                        data-parentkey="{{smenu.parent}}">
+                        <a title="{{smenu.name |I18nFilter:smenu.i18nKey}}">
+                            <span ng-bind="smenu.name |I18nFilter:smenu.i18nKey"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</aside>
+<main id="app-main" class="app-main" style="margin-left: 261px;">
+
+    <div class="wrap markdown-body">
+        <nav>
+            <ul class="crumb"></ul>
+        </nav>
+        <div ui-view=""></div>
+    </div>
+</main>
+</body>
+<script type="text/javascript">
+    var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug: "${debug?c}"};
+</script>
+<script type="text/javascript" src="resource/web/requirejs/require.js?v=${version}"></script>
+<script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
+<script type="text/javascript">
+    require(['web/build/entry-build'], function () {
+        require(['api/document/web/js/api_app'], function () {
+            angular.bootstrap(document, ['app']);
+        });
+    });
+</script>
+</html>

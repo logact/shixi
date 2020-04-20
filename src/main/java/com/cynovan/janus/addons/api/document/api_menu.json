@@ -1,0 +1,156 @@
+[
+  {
+    "key": "intro",
+    "name": "概要",
+    "i18nKey": "api.intro",
+    "path": "introduce/introduction.md"
+  },
+  {
+    "key": "device",
+    "name": "设备API接口",
+    "i18nKey": "api.device"
+  },
+  {
+    "key": "device-create",
+    "name": "创建设备",
+    "i18nKey": "api.device.create",
+    "parent": "device",
+    "path": "device/devicecreate.md"
+  },
+  {
+    "key": "device-edit",
+    "name": "修改设备",
+    "i18nKey": "api.device.edit",
+    "parent": "device",
+    "path": "device/deviceedit.md"
+  },
+  {
+    "key": "device-remove",
+    "name": "删除设备",
+    "i18nKey": "api.device.remove",
+    "parent": "device",
+    "path": "device/devicedelete.md"
+  },
+  {
+    "key": "device-data",
+    "name": "获取设备历史数据",
+    "i18nKey": "api.device.data",
+    "parent": "device",
+    "path": "device/devicedata.md"
+  },
+  {
+    "key": "device-list",
+    "name": "获取设备列表",
+    "i18nKey": "api.device.list",
+    "parent": "device",
+    "path": "device/devicelist.md"
+  },
+  {
+    "key": "device-query",
+    "name": "获取设备信息",
+    "i18nKey": "api.device.detail",
+    "parent": "device",
+    "path": "device/devicequery.md"
+  },
+  {
+    "key": "device-connection",
+    "name": "设置设备接入",
+    "i18nKey": "api.device.connect",
+    "parent": "device",
+    "path": "device/deviceconnection.md"
+  },
+  {
+    "key": "data-sockjs",
+    "name": "订阅设备实时数据(SockJS+Stomp+WebSocket)",
+    "i18nKey": "api.device.sub.sock",
+    "parent": "device",
+    "path": "device/device_data_sockjs.md"
+  },
+  {
+    "key": "data-stomp",
+    "name": "订阅设备实时数据(Stomp+WebSocket)",
+    "i18nKey": "api.device.sub.stomp",
+    "parent": "device",
+    "path": "device/device_data_stomp.md"
+  },
+  {
+    "key": "device-pushdata",
+    "name": "Janus下发数据到设备",
+    "i18nKey": "api.device.push.data",
+    "parent": "device",
+    "path": "device/device_pushdata.md"
+  },
+  {
+    "key": "file",
+    "name": "文件管理API接口",
+    "i18nKey": "api.file.manage"
+  },
+  {
+    "key": "file-upload",
+    "name": "文件上传",
+    "i18nKey": "api.file.upload",
+    "parent": "file",
+    "path": "file/file_upload.md"
+  },
+  {
+    "key": "file-search",
+    "name": "文件搜索",
+    "i18nKey": "api.file.search",
+    "parent": "file",
+    "path": "file/file_search.md"
+  },
+  {
+    "key": "file-download",
+    "name": "文件下载",
+    "i18nKey": "api.file.download",
+    "parent": "file",
+    "path": "file/file_download.md"
+  },
+  {
+    "key": "file-download-md5",
+    "name": "文件下载(md5)",
+    "i18nKey": "api.file.download.md5",
+    "parent": "file",
+    "path": "file/file_download_md5.md"
+  },
+  {
+    "key": "device_connection_help",
+    "name": "设备接入帮助",
+    "i18nKey": "api.device.connect.help"
+  },
+  {
+    "key": "connect-mqtt",
+    "name": "设备作为MQTT客户端接入",
+    "i18nKey": "api.device.connect.mqtt",
+    "parent": "device_connection_help",
+    "path": "device_connection_help/connect_mqtt.md"
+  },
+  {
+    "key": "connect-modbus",
+    "name": "设备使用Modbus协议接入",
+    "i18nKey": "api.device.connect.modbus",
+    "parent": "device_connection_help",
+    "path": "device_connection_help/connect_modbus.md"
+  },
+  {
+    "key": "connect-tcp-socket",
+    "name": "设备作为TCP Socket客户端接入",
+    "i18nKey": "api.device.connect.tcp",
+    "parent": "device_connection_help",
+    "path": "device_connection_help/connect_tcp_socket.md"
+  },
+  {
+    "key": "connect-udp-socket",
+    "name": "设备作为UDP Socket客户端接入",
+    "i18nKey": "api.device.connect.udp",
+    "parent": "device_connection_help",
+    "path": "device_connection_help/connect_udp_socket.md"
+  },
+  {
+    "key": "connect-http",
+    "name": "设备使用http接入",
+    "i18nKey": "api.device.connect.http",
+    "parent": "device_connection_help",
+    "path": "device_connection_help/connect_http.md"
+  }
+]

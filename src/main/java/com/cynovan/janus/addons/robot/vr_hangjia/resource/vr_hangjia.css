@@ -1,0 +1,121 @@
+.row-item {
+    display: flex;
+}
+
+#vrkb175_bind_device_box {
+    width: 250px;
+}
+
+#hangjia_webgl_box {
+
+}
+
+.vr_hangjia_box {
+    border: 1px #ddd solid;
+}
+
+.vr_hangjia_header {
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px #ddd solid;
+    padding-left: 10px;
+}
+
+.vr_hangjia_body {
+    padding: 8px 8px;
+}
+
+.vr_hangjia_row {
+    display: flex;
+    align-items: center;
+    height: 28px;
+}
+
+.br_hangjia_label {
+    width: 40px;
+}
+
+.vr_hangjia_row .data_value {
+    width: 80px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.vr_hangjia_row .unit {
+    width: 30px;
+}
+
+.vr_hangjia_row.state {
+    height: 56px;
+}
+
+.vr_hangjia_row.state .br_hangjia_label {
+    width: 90px;
+}
+
+.hangjia_split {
+    border-top: 1px #ddd solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hangjia_title {
+    border-bottom: 1px #ddd dotted;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.hangjia_field {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 26px;
+}
+
+.hangjia_field label {
+    width: 80px;
+}
+
+
+.hangjia_field .hangjia_field_unit {
+    width: 50px;
+}
+
+.hangjia_field .hangjia_field_value {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+
+.hangjia_field_state {
+    border-radius: 100%;
+    background: #adb5ad;
+    width: 16px;
+    height: 16px;
+    margin-top: -4px;
+}
+
+.hangjia_field_state.active {
+    background: #5CB85C;
+    animation: pulsate 1s infinite linear;
+    box-shadow: 0 0 10px #5CB85C;
+}
+
+@keyframes pulsate {
+    0% {
+
+        transform: none;
+    }
+    50% {
+        transform: scale(1.1, 1.1);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+.hangjia_left {
+    border-right: 1px #ddd solid;
+}

@@ -1,0 +1,850 @@
+#app-navbar {
+    height: 60px;
+    min-height: 60px;
+    background-color: #2d303b;
+}
+
+/* logo */
+.navbar-header {
+    height: 60px;
+    width: 220px;
+    background-color: #2d303b;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.navbar-header .brand-image {
+    max-height: 34px;
+}
+
+.navbar-header .brand-image.brand-image-left {
+    max-width: 34px;
+}
+
+.navbar-header .brand-image.brand-image-right {
+    max-width: 150px;
+}
+
+.navbar-header.janus_brand .brand-image.brand-image-right {
+    max-height: 25px;
+    padding-left: 15px;
+}
+
+.navbar-header.single_brand .brand-image {
+    max-width: 170px;
+    max-height: 50px;
+}
+
+.navbar-menu {
+    display: inline-block;
+    position: relative;
+}
+
+/* 全部应用 */
+.navbar-menu .all-app-li {
+    position: relative;
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+    float: left;
+}
+
+.navbar-menu .all-app-li .more-app-div {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 60px;
+    background: #FFFFFF;
+    color: #333333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-menu .all-app-li .more-app-div .can-view-app, .navbar-menu .all-app-li .more-app-div .no-view-app {
+    display: inline-block;
+    width: 200px;
+    margin: 20px 20px;
+}
+
+.navbar-menu .all-app-li .more-app-div .can-view-app .description-span, .navbar-menu .all-app-li .more-app-div .no-view-app .description-span {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.navbar-menu .all-app-li .more-app-div .no-view-app {
+    border-left: 1px dotted #E5E5E5;
+    margin-left: 0;
+    padding-left: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.navbar-menu .all-app-li .more-app-div .no-view-app::-webkit-scrollbar {
+    height: 0 !important;
+    width: 5px;
+}
+
+.navbar-menu .all-app-li .more-app-div .menu-list-div {
+    display: flex;
+    text-align: left;
+    line-height: 30px;
+}
+
+.navbar-menu .all-app-li .more-app-div .menu-list-div > div > div {
+    display: inline-block;
+    height: 30px;
+    width: 200px;
+}
+
+.navbar-menu .all-app-li .more-app-div .menu-list-div > div > div .show-icon-span {
+    display: inline-block;
+    height: 28px;
+    width: 16px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+    background: url("../img/show-star.png") center no-repeat;
+    background-size: 60%;
+}
+
+.navbar-menu .all-app-li .more-app-div .menu-list-div > div > div .hide-icon-span {
+    display: inline-block;
+    height: 28px;
+    width: 16px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+    background: url("../img/hide-star.png") center no-repeat;
+    background-size: 60%;
+}
+
+.navbar-menu .all-app-li .more-app-div .menu-list-div > div > div:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.navbar-menu .all-app-li .more-app-div .setting-user-div {
+    display: flex;
+    text-align: left;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    margin-right: -10px;
+    border-top: 1px solid #E5E5E5;
+}
+
+.navbar-menu .all-app-li .more-app-div .setting-user-div .setting-header-i {
+    display: inline-block;
+    width: 30px;
+    background: url("../img/setting-header.png") no-repeat center;
+    background-size: 50%;
+}
+
+.navbar-menu .all-app-li:hover .more-app-div {
+    visibility: visible;
+    display: block;
+    width: auto;
+    padding-right: 10px;
+    transition-property: opacity;
+    transition-duration: .3s;
+    transition-timing-function: linear;
+}
+
+.navbar-menu .other-app-li {
+    display: inline-block;
+    position: absolute;
+    right: -90px;
+    top: 0;
+    height: 60px;
+    line-height: 60px;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 0 12px;
+    border-bottom: 4px solid #488eff;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.navbar-menu .navbar-menu-ul {
+    height: 60px;
+    max-width: 100px;
+    overflow: hidden;
+}
+
+@media (min-width: 1150px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 434px
+    }
+}
+
+@media (min-width: 1280px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 536px
+    }
+}
+
+@media (min-width: 1440px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 638px
+    }
+}
+
+@media (min-width: 1600px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 736px
+    }
+}
+
+@media (min-width: 1720px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 828px;
+    }
+}
+
+@media (min-width: 1800px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 920px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .navbar-menu .navbar-menu-ul {
+        max-width: 1112px;
+    }
+}
+
+.navbar-menu ul li {
+    position: relative;
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.navbar-menu ul li:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 4px;
+    background: #000;
+    transition: all .2s;
+}
+
+.navbar-menu ul li:hover:before {
+    width: 100%;
+    left: 0;
+    right: 0;
+    background: #488eff;
+}
+
+.navbar-menu ul li.active:hover {
+    border: none;
+}
+
+.navbar-menu ul li.active {
+    border-bottom: 4px solid #488eff;
+}
+
+.navbar-toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding-right: 5px;
+}
+
+.navbar-toolbar > li {
+    float: left;
+}
+
+.navbar-toolbar > li > a {
+    display: block;
+    height: 60px;
+    padding: 20px 15px;
+    line-height: 20px;
+}
+
+.navbar-toolbar > li > .dropdown-menu {
+    width: 240px;
+    padding: 0;
+    border-color: #ddd;
+    z-index: 777;
+}
+
+@media (max-width: 767px) {
+    .navbar-toolbar > li {
+        position: static;
+    }
+
+    .navbar-toolbar .open > .dropdown-menu {
+        right: 0;
+        left: 0;
+        width: auto;
+    }
+}
+
+.navbar-toolbar > li > a {
+    color: #fff;
+}
+
+.navbar-toolbar > li > a:hover, .navbar-toolbar > li > a:focus, .navbar-toolbar > li > a[data-active="true"] {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.navbar-toolbar > .open > a,
+.navbar-toolbar > .open > a:hover,
+.navbar-toolbar > .open > a:focus {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+@media (max-width: 767px) {
+    .navbar-toolbar > li > a {
+        color: #76797c;
+    }
+
+    .navbar-toolbar > li > a:hover, .navbar-toolbar > li > a:focus, .navbar-toolbar > li > a[data-active="true"] {
+        background-color: #f8fafb;
+    }
+
+    .navbar-toolbar > .open > a,
+    .navbar-toolbar > .open > a:hover,
+    .navbar-toolbar > .open > a:focus {
+        background-color: #f8fafb;
+    }
+}
+
+.navbar-toolbar.navbar-toolbar-left > li > a:hover, .navbar-toolbar.navbar-toolbar-left > li > a:focus {
+    background-color: transparent;
+}
+
+#header-right-navbar .dropdown .dropdown-toggle {
+    line-height: 34px;
+    height: 60px;
+}
+
+#header-right-navbar .dropdown .fa {
+    font-size: 18px;
+}
+
+.dropdown-menu {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.175);
+    border: none;
+}
+
+.dropdown-menu > li > a {
+    color: #6a6c6f;
+    padding: 15px 30px;
+    line-height: 20px;
+    border-bottom: 1px solid #f5f7f9;
+}
+
+.dropdown-menu > li:last-child a {
+    border-bottom: none;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    background-color: #f5f7f9;
+}
+
+.dropdown-menu > li > a > i {
+    margin-right: 16px;
+}
+
+.index-open-platform-a:hover {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.index-api-a:hover {
+    -webkit-animation-name: tada;
+    animation-name: tada;
+}
+
+.index-open-platform-a .open_platform_icon {
+    background: url("../img/open-platform.png") center no-repeat;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-size: 22px;
+    cursor: pointer;
+}
+
+.index-api-i {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: url("../img/api-doc.png") no-repeat center;
+    background-size: 22px; /* 16px 21px */
+    cursor: pointer;
+}
+
+.index-app-store-a:hover {
+    -webkit-animation-name: jello;
+    animation-name: jello;
+}
+
+.index-app-store-i {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: url("../img/app-store.png") no-repeat center;
+    background-size: 21px; /* 16px 21px */
+    cursor: pointer;
+}
+
+.index-message-center-a, .index-neptune-sync-a {
+    min-width: 52px;
+    height: 70px;
+    cursor: pointer;
+}
+
+.index-message-center-a:hover {
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-animation-name: swing;
+    animation-name: swing;
+}
+
+.index-message-center-i {
+    display: inline-block;
+    width: 21px;
+    height: 22px;
+    background: url("../img/message-center.png") no-repeat center;
+    background-size: 21px;
+}
+
+.index-neptune-sync-a:hover {
+    -webkit-animation-name: rubberBand;
+    animation-name: rubberBand;
+}
+
+.neptune-sync-online {
+    display: inline-block;
+    width: 22px;
+    height: 24px;
+    background: url("../img/neptune-sync-online.png") no-repeat center;
+    background-size: 22px;
+}
+
+.neptune-sync-offline {
+    display: inline-block;
+    width: 22px;
+    height: 24px;
+    background: url("../img/neptune-sync-offline.png") no-repeat center;
+    background-size: 22px;
+}
+
+.index-down-list:hover {
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+
+/* 左侧导航栏 */
+#menubar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: 100% !important;
+    width: 220px;
+    background-color: #42485b;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    z-index: 1000;
+    transition-property: width;
+    transition-duration: .3s;
+    transition-timing-function: ease;
+}
+
+#menubar > ul {
+    display: inline-block;
+    width: 100%;
+}
+
+#menubar .menu-title {
+    height: 40px;
+    overflow: hidden;
+    line-height: 40px;
+    text-indent: 20px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    background-color: #4a5064;
+    user-select: none;
+}
+
+#menubar .menu-item {
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    background-color: #42485b;
+}
+
+#menubar .menu-item.active, #menubar .menu-item.active:hover {
+    background-color: #488eff;
+}
+
+#menubar .menu-item:hover {
+    background-color: #646874;
+}
+
+#menubar .menu-item a, #menubar .menu-title a {
+    position: relative;
+    display: block;
+    height: 40px;
+    margin-left: 5px;
+    overflow: hidden;
+    color: #fff;
+}
+
+#menubar .menu-icon.fa {
+    display: inline-block;
+    font-size: 15px;
+    /*color: #2a3142;*/
+}
+
+#menubar .menu-icon {
+    display: inline-block;
+    float: left;
+    width: 50px;
+    height: 40px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#menubar .menu-text {
+    display: inline;
+    letter-spacing: 1px;
+    max-width: 160px;
+    overflow: hidden;
+    height: 40px;
+    text-overflow: ellipsis;
+}
+
+#menubar .switch-aside-icon {
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    background-color: #42485b;
+}
+
+#menubar .switch-aside-icon:hover {
+    background-color: #488eff;
+}
+
+#menubar .switch-aside-icon .index-switch-aside-span {
+    background: url(../img/switch.png) no-repeat center;
+    background-size: 16px;
+    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transition: transform 0.35s;
+}
+
+#menubar .arrow-right-icon {
+    position: absolute;
+    display: inline-block;
+    left: 170px;
+    top: 0;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.menubar-mini1 {
+    width: 60px !important;
+}
+
+.menubar-mini1:hover {
+    width: 60px !important;
+}
+
+.menubar-mini {
+    width: 60px !important;
+}
+
+.menubar-mini .index-switch-aside-span {
+    transform: rotate(0deg) !important;
+    -ms-transform: rotate(0deg) !important;
+    -moz-transform: rotate(0deg) !important;
+    -webkit-transform: rotate(0deg) !important;
+    -o-transform: rotate(0deg) !important;
+}
+
+.menubar-mini:hover {
+    width: 220px !important;
+}
+
+.menubar-mini:hover .menu-text {
+    display: inline-block;
+    opacity: 1;
+    transition: opacity ease 0.35s;
+}
+
+.menubar-mini .menu-text {
+    opacity: 0;
+    overflow: hidden;
+}
+
+.menubar-mini:hover .arrow-right-icon {
+    left: 170px !important;
+}
+
+.menubar-mini .arrow-right-icon {
+    left: 5px !important;
+}
+
+.menubar-mini-zero {
+    display: none;
+    width: 0 !important;
+}
+
+.app-main {
+    margin-left: 221px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 60px;
+    transition: margin-left 0.3s;
+    background-color: #eaedf1;
+}
+
+.app-main-max {
+    margin-left: 61px !important;
+    transition: margin-left 0.35s;
+}
+
+.app-main-max-one {
+    margin-left: 0 !important;
+}
+
+body.menuhide #menubar {
+    width: 0;
+}
+
+body.menuhide .app-main {
+    margin-left: 0px;
+}
+
+/* Neptune同步dialog style */
+.neptune-link-success {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background-color: #2AE88C;
+    vertical-align: middle;
+    margin-bottom: 4px;
+}
+
+.neptune-link-fail {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background-color: #D1D3D4;
+    vertical-align: middle;
+    margin-bottom: 4px;
+}
+
+.connection-no-footer .dataTables_info {
+    display: none !important;
+}
+
+.connection-no-footer .dataTables_paginate {
+    display: none !important;
+}
+
+.btn-try-connection {
+    cursor: none;
+    pointer-events: none;
+}
+
+/* 用户头像icon style */
+.avatarBox {
+    display: flex;
+    justify-content: flex-start;
+    height: 24px;
+}
+
+.avatarBox .user-avatar {
+    max-width: 24px;
+    border-radius: 50%;
+}
+
+.avatarBox span {
+    padding: 0 4px;
+    position: relative;
+    top: 2px;
+}
+
+.avatarBox i {
+    position: relative;
+    top: 4px;
+}
+
+/* 自定义导航dialog style */
+.app-show-setting .remind-info {
+    padding-bottom: 20px;
+}
+
+.app-show-setting .setting-app-div ul {
+    border: 1px solid #eee;
+}
+
+.app-show-setting .setting-app-div li {
+    padding: 9px 20px;
+    line-height: 30px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    background: #fff;
+    cursor: move;
+    user-select: none;
+}
+
+.app-show-setting .setting-app-div ul li:nth-child(:last-child) {
+    border-bottom: none;
+}
+
+.app-show-setting .setting-app-div ul li .show-switch {
+    float: right;
+    margin-top: -7px;
+    width: 170px;
+}
+
+.app-show-setting .setting-app-div .restore-system-setting {
+    height: 40px;
+    padding-top: 15px;
+}
+
+/* 版本信息dialog style */
+.build-info .c-field-label {
+    width: 180px;
+}
+
+.build-info .c-field-value {
+    margin-left: 200px;
+}
+
+/* 开放平台组件style */
+.janus-datatable-search-label {
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    vertical-align: top;
+    line-height: 30px;
+    background-color: #188ae2;
+    border-color: #188ae2;
+    color: #fff;
+    text-align: center;
+}
+
+.janus-directive-data-table .form-control[type="search"] {
+    border-radius: 0;
+    margin-left: 0px;
+}
+
+.janus-directive-field {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 34px;
+    margin-bottom: 15px;
+}
+
+.janus-directive-field .janus-directive-field-label {
+    width: 120px;
+    color: #333b49;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.janus-directive-field .janus-directive-field-value {
+    flex-grow: 1;
+    flex-shrink: 1;
+    color: #707581;
+    padding-left: 15px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.janus-directive-field .janus-directive-field-info {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    height: 34px;
+    justify-content: center;
+}
+
+.janus-directive-field .fa-info-circle {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px;
+    color: #d8cccc;
+}
+
+/*开放平台icon style*/
+.open-platform-li .active-a {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.open-platform-li .open-platform-ul {
+    position: absolute;
+    width: 550px;
+    margin-top: 2px;
+    padding: 10px;
+    z-index: 777;
+    background-color: #fff;
+    color: #6a6c6f;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.175);
+    border: none;
+    right: 0;
+    list-style-type: none;
+}
+
+.open-platform-li .open-platform-ul > li {
+    position: relative;
+    line-height: 30px;
+}
+
+.open-platform-li .open-platform-ul > li .close-open-platform {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    cursor: pointer;
+    color: #e3e3e3;
+}
+
+.open-platform-li .open-platform-ul > li .close-open-platform:hover {
+    color: #000000;
+    transition: color;
+    transition-duration: 1s;
+}

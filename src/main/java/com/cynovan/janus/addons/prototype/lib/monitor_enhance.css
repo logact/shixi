@@ -1,0 +1,654 @@
+/*bootstrap nav style reset*/
+.nav-tabs > li > a {
+    border: none;
+    border-radius: 0;
+    font-weight: 500;
+    margin: 0;
+    padding: 24px 16px;
+    border-bottom: 2px solid transparent;
+    color: #6a6c6f;
+    background-color: transparent;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    border: none;
+    color: #188ae2;
+    background-color: transparent;
+    border-bottom: 2px solid #188ae2;
+}
+
+#editCode .format-input {
+    padding: 0 0 0 8px;
+    height: 25px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#editCode .format-input:focus {
+    outline: none;
+}
+
+/*bootstrap btn style reset*/
+#editCode .btn {
+    margin-left: 5px;
+    min-width: 60px;
+}
+
+#editCode .btn-xs {
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.btn.btn-outline {
+    border: 1px solid transparent;
+}
+
+.btn-outline.btn-primary {
+    color: #188ae2;
+    background-color: transparent;
+    border-color: #188ae2;
+}
+
+.btn-outline.btn-primary:focus,
+.btn-outline.btn-primary.focus {
+    color: #fff;
+    background-color: #136eb4;
+    border-color: #1163a1;
+    outline: none;
+}
+
+.btn-outline.btn-primary:hover {
+    color: #fff;
+    background-color: #188ae2;
+    border-color: #188ae2;
+}
+
+.btn-outline.btn-primary:active,
+.btn-outline.btn-primary.active {
+    color: #fff;
+    background-color: #136eb4;
+    border-color: #1163a1;
+}
+
+.btn-outline.btn-primary:active:hover, .btn-outline.btn-primary:active:focus,
+.btn-outline.btn-primary:active.focus, .btn-outline.btn-primary.active:hover,
+.btn-outline.btn-primary.active:focus, .btn-outline.btn-primary.active.focus {
+    color: #fff;
+    background-color: #1268ab;
+    border-color: #105d98;
+}
+
+.btn-outline.btn-primary:active, .btn-outline.btn-primary.active {
+    background-image: none;
+}
+
+.btn-outline.btn-primary.disabled:hover, .btn-outline.btn-primary.disabled:focus,
+.btn-outline.btn-primary.disabled.focus, .btn-outline.btn-primary[disabled]:hover,
+.btn-outline.btn-primary[disabled]:focus, .btn-outline.btn-primary[disabled].focus {
+    background-color: #188ae2;
+    border-color: #188ae2;
+}
+
+.format-input {
+    width: 202px;
+    height: 20px;
+}
+
+.chosen-container {
+    width: 202px !important;
+}
+
+.chosen-container .chosen-drop {
+    width: 200px !important;
+}
+
+.chosen-container-single .chosen-search input[type="text"] {
+    width: 160px !important;
+}
+
+.chosen-container-active .chosen-single {
+    border: 1px solid #ddd !important;
+}
+
+.chosen-container-single .chosen-single-with-deselect span {
+    width: 100% !important;
+}
+
+.chosen-container-multi .chosen-choices {
+    background-image: none !important;
+}
+
+.chosen-container-multi .chosen-choices {
+    max-height: 125px !important;
+    overflow: scroll !important;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice span {
+    white-space: pre-wrap;
+}
+
+.prototype_device_placeholder {
+    display: flex;
+    align-items: center;
+    border: 1px #ddd solid;
+    height: 32px;
+    margin-right: 15px;
+    border-radius: 2px;
+}
+
+
+.prototype_device_placeholder .prototype_device_placeholder-label {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    background: #428BCA;
+    color: #fff;
+    border-right: 1px #ccc solid;
+    height: 32px;
+    padding-left: 10px;
+}
+
+.ztree li span.button.iconSkin1_ico_docu {
+    background: url("../monitor/images/cls_key2.png") no-repeat center;
+}
+
+/*preview placeholder multiple device style*/
+.prototype_device_placeholder .chosen-container-multi {
+    width: 300px !important;
+}
+
+.prototype_device_placeholder .chosen-container-multi .chosen-drop {
+    width: 240px !important;
+}
+
+.prototype_device_placeholder .chosen-container-multi .chosen-choices {
+    max-height: 43px !important;
+}
+
+.prototype_device_placeholder .chosen-single {
+    border: 0 !important;
+}
+
+.mxgraph-expression-dialog {
+    border: 1px #ddd solid;
+    border-radius: 2px;
+    display: flex;
+}
+
+#cls_dd_tree {
+    width: 230px;
+    height: 350px;
+    border-right: 1px solid gainsboro;
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#mxgraph-express-code-editor, #mxgraph-express-testdata-editor, #mxgraph-express-outputdata-editor {
+    height: 350px;
+    flex-grow: 1;
+}
+
+.mxgraph-device-field-box {
+
+}
+
+.mxgraph-device-field-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 4px;
+}
+
+.mxgraph-device-field-row input {
+    width: 90px;
+    padding-left: 2px;
+}
+
+.mxgraph-device-field-row .fa {
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.mxgraph-setting-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    justify-content: space-between;
+    width: 203px;
+}
+
+.mxgraph-setting-row .mxgraph-setting-label {
+    display: flex;
+    align-items: center;
+    width: 90px;
+}
+
+.device-placeholder-list {
+    width: 100%;
+}
+
+.no-padding {
+    margin-bottom: 0;
+}
+
+.no-padding > thead > tr > th,
+.no-padding > tbody > tr > th,
+.no-padding > tfoot > tr > th {
+    border-bottom: 1px;
+}
+
+.addClsDDDeleteTd {
+    text-align: start;
+    vertical-align: middle;
+}
+
+.addClsDDDeleteTd button {
+    margin-left: 15px;
+}
+
+.no-padding > thead > tr > td,
+.no-padding > tbody > tr > td,
+.no-padding > tfoot > tr > td {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.no-padding select,
+.no-padding input {
+    border: none;
+    height: 30px;
+}
+
+.clsDDListTable {
+
+}
+
+.clsDDListTableDiv {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.addPlaceholder {
+    margin-top: 8px
+}
+
+.addClsDDTblTr {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.addClsDDRowSelectName {
+    text-align: start;
+    padding-left: 15px !important;
+    vertical-align: middle;
+}
+
+.control-cmd-btn-name-box {
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+.control-cmd-btn-name-box span {
+    padding-right: 10px;
+}
+
+.geSidebarContainer * {
+    box-sizing: content-box;
+}
+
+.geSidebarContainer .geStyleButton {
+    box-sizing: border-box;
+}
+
+.mxgraph-dynamic-bgcolor-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 1px #ddd dotted;
+}
+
+.mxgraph-dynamic-bgcolor-box-header button {
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+.mxgraph-dynamic-color-expression-btn {
+    width: 195px;
+    margin-bottom: 5px;
+}
+
+.mxgraph-dynamic-bgcolor-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.mxgraph-dynamic-bgcolor-picker-box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #d9d9d9;
+    padding: 1px;
+    margin-right: 5px;
+}
+
+.mxgraph-dynamic-bgcolor-picker {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.mxgraph-dynamic-bgcolor-row .fa {
+    cursor: pointer;
+    display: flex;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.execuTest:focus,
+.execuTest:active:focus {
+    outline: none;
+    border-color: #c9302c;
+}
+
+.component-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.timeline-action {
+    width: 100%;
+    display: flex;
+}
+
+.timeline-action .timeline-btn {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 5px;
+    overflow: hidden;
+
+}
+
+.timeline-action .status-info {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.timeline-action .status-info span {
+    margin-right: 10px;
+}
+
+.timeline-action button {
+    margin-left: 5px;
+}
+
+.component-timeline {
+    position: relative;
+}
+
+.timeline_component {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.component-field-name {
+    position: relative;
+    top: -5px;
+}
+
+.component-content input::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+.prototype_preview_header {
+    height: 50px;
+    border-bottom: 1px #ddd solid;
+}
+
+.prototype_preview_content {
+
+}
+
+.prototype_preview_content .geDiagramContainer {
+    /*top: 45px !important;*/
+}
+
+.prototype_preview_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prototype_preview_device_placeholder_box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 15px;
+}
+
+.prototype-device-placeholder-setting-box {
+    position: absolute;
+    right: 20px;
+    top: 0px;
+}
+
+.prototype-device-placeholder-setting-box button {
+    font-size: 13px;
+    padding: 1px 13px;
+}
+
+.mxgraph-camera-options {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    border-top: 1px #ddd solid;
+    padding-top: 8px;
+}
+
+.mxgraph-camera-options label {
+    display: flex;
+}
+
+.mxgraph-camera-options span {
+    width: 160px;
+}
+
+video::-webkit-media-controls-panel {
+    display: flex !important;
+    opacity: 1 !important;
+}
+
+.code_title {
+    font-size: 15px;
+    padding: 5px 0px;
+}
+
+.code-area {
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    color: #a26f72;
+}
+
+.mxgraph-toolbar-dropdpwn-button {
+    display: flex;
+    align-items: center;
+    margin-top: -1px;
+    font-size: 13px;
+}
+
+.mxgraph-toolbar-dropdpwn-button span {
+    margin-left: 3px;
+}
+
+.mxgraph-toolbar-button {
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+    font-size: 13px;
+}
+
+.mxgraph-toolbar-button span {
+    margin-left: 3px;
+}
+
+.mxgraph-toolbar-button .fa {
+    font-size: 12px;
+}
+
+.geToolbar {
+    display: flex;
+    align-items: flex-start;
+}
+
+.geToolbar .geButton {
+    width: auto !important;
+}
+
+.geToolbarContainer .geSeparator {
+    float: left;
+    width: 1px;
+    height: 20px;
+    background: #e5e5e5;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 5px;
+}
+
+.align-center-center {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.cls-dd-chosen .chosen-container {
+    width: 100% !important;
+    border: none;
+}
+
+.cls-dd-chosen .chosen-drop {
+    width: 100% !important;
+}
+
+.cls-dd-chosen .chosen-container-active .chosen-single {
+    box-shadow: 0 0 4px #9ad5f4;
+}
+
+.cls-dd-chosen .chosen-container-active .chosen-drop {
+    border: none !important;
+}
+
+.cls-dd-chosen .chosen-single {
+    border: none !important;
+    height: 30px;
+}
+
+.cls-dd-chosen .chosen-single span {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cls-dd-chosen .chosen-search input[type="text"] {
+    width: 100% !important;
+}
+
+.show-animate {
+    height: 80px;
+    color: #7D8695;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flow {
+    stroke-dasharray: 8;
+    animation: dash 0.5s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -16;
+    }
+}
+
+@keyframes rotateLeft {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.rotateLeft {
+    animation-name: rotateLeft;
+}
+
+@keyframes rotateRight {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotateRight {
+    animation: 2s ease-in-out 0s infinite normal none running rotateRight;
+}
+
+.addClsDDTblTr .chosen-single span {
+    display: flex;
+    justify-content: left;
+    padding-left: 5px;
+}
+
+.addClsDDTblTr .chosen-results {
+    text-align: left;
+}
+
+.component-content .component-field .pretty.p-switch .state:before {
+    /*height: calc(0.8em + 2px);
+    top: calc((0% - (100% - 1em)) + 7%);*/
+}
+
+.component-content .component-field .pretty .state label:after {
+    /*top: calc((0% - (100% - 1em)));
+    width: calc(0.95em + 2px);
+    height: calc(0.95em + 2px);*/
+}
+
+.single-ctrl-div-d {
+    overflow: hidden;
+    display: flex;
+}
+
+
+
+
+
+
+
+

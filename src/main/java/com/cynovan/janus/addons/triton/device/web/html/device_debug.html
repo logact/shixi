@@ -1,0 +1,108 @@
+<template name="device_developer_panel">
+    <div class="full-modal-box">
+        <div class="full-modal-header">
+            <div class="pull-right">
+                <button class="dialog-btn return-btn close-button" type="button" ng-click="ctrl.closeDialog()">
+                    {{'关闭'|I18nFilter:'close'}}
+                </button>
+            </div>
+        </div>
+        <div class="full-modal-body">
+            <tabs>
+                <tab title="{{'数据调试面板'|I18nFilter:'data.debug.panel'}}{{'（'+uuid+'）'}}">
+                    <div class="row">
+                        <div class="col-xs-12 debug_data_panel_warp debug_warp">
+                            <div class="debug_data_panel">
+                                <div class="debug_data_panel_toolbar">
+                                    <i class="fa cmd_icon"
+                                       title="{{hideCmd?('关闭密令'|I18nFilter:'close_order'):('打开密令'|I18nFilter:'open.order')}}"
+                                       ng-bind="'密令'|I18nFilter:'secret_code'"
+                                       ng-click="ctrl.showCmd()"></i>
+                                    <span ng-hide="hideCmd">
+                                        <i class="fa clear-icon" title="{{'清空控制台'|I18nFilter:'clear_console'}}"
+                                           ng-click="ctrl.clearLog()"></i>
+                                        <i class="fa lock_icon" title="{{'锁定'|I18nFilter:'locking'}}"
+                                           ng-click="ctrl.lockLog()"></i>
+                                        <i class="fa stop_icon" title="{{'停止'|I18nFilter:'stop'}}"
+                                           ng-click="ctrl.stopLog()"></i>
+                                        <i class="fa copy-icon" title="{{'复制'|I18nFilter:'copy'}}"
+                                           ng-click="ctrl.copy($event)"></i>
+                                        <i class="fa last-icon" title="{{'显示最后一条数据'|I18nFilter:'show_last_data'}}"
+                                           ng-click="ctrl.showLatestData($event)"></i>
+                                        <input class="form-control input-sm log_filter_input" type="text"
+                                               placeholder="{{'只显示此栏位的数据,多个以逗号分隔'|I18nFilter:'show_this_field'}}"
+                                               title="{{'请输入要筛选的栏位'|I18nFilter:'filter_field'}}"
+                                               ng-blur="ctrl.filterValueChange()"/>
+                                        <i class="fa fa-check only-differ-icon"
+                                           title="{{'只在该栏位数据变化时显示'|I18nFilter:'field_change_show'}}"
+                                           ng-click="ctrl.showDiffer()"></i>
+                                    </span>
+                                    <span class="debug_cmd_toolbar_span" ng-show="hideCmd">
+                                        <i class="fa pub-icon" title="{{'下发'|I18nFilter:'issue'}}"
+                                           ng-click="ctrl.sendCmd()"></i>
+                                        <i class="fa format-icon" title="{{'格式化'|I18nFilter:'do_format'}}"
+                                           ng-click="ctrl.setCmd()"></i>
+                                        <i class="fa submit-info-icon" title="submit_info" ng-click="ctrl.setCmd('1')"></i>
+                                        <i class="fa submit-vpn-icon" title="submit_vpn" ng-click="ctrl.setCmd('2')"></i>
+                                        <i class="fa start-data-icon" title="start_data" ng-click="ctrl.setCmd('3')"></i>
+                                        <i class="fa stop-data-icon" title="stop_data" ng-click="ctrl.setCmd('4')"></i>
+                                        <i class="fa modbus-icon" title="modbus" ng-click="ctrl.setCmd('5')"></i>
+                                        <i class="fa modbus-settings-icon" title="modbus_settings" ng-click="ctrl.setCmd('6')"></i>
+                                        <i class="fa modbus-read-icon" title="modbus_read" ng-click="ctrl.setCmd('7')"></i>
+                                    </span>
+                                    <span class="rate_tip">{{'页面最大显示频率为180ms，当前数据发送频率为'|I18nFilter:'data.rate.value'}}：{{ctrl.rate}}<span
+                                            ng-class="rateinfo==-1?'progress-data-span':'hide'"
+                                            class="fa fa-spinner fa-spin"></span></span>
+                                </div>
+                                <div class="debug_data_container log_box"></div>
+                                <div class="debug_cmd_box">
+                                    <!--<div class="debug_cmd_toolbar">
+                                        <i class="fa fa-paper-plane-o" title="下发" ng-click="ctrl.sendCmd()"></i>
+                                        <i class="fa fa-indent" title="格式化" ng-click="ctrl.setCmd()"></i>
+                                        <i class="fa fa-code" title="submit_info" ng-click="ctrl.setCmd('1')"></i>
+                                        <i class="fa fa-code" title="submit_vpn" ng-click="ctrl.setCmd('2')"></i>
+                                        <i class="fa fa-code" title="start_data" ng-click="ctrl.setCmd('3')"></i>
+                                        <i class="fa fa-code" title="stop_data" ng-click="ctrl.setCmd('4')"></i>
+                                        <i class="fa fa-code" title="modbus" ng-click="ctrl.setCmd('5')"></i>
+                                        <i class="fa fa-code" title="modbus_settings" ng-click="ctrl.setCmd('6')"></i>
+                                        <i class="fa fa-code" title="modbus_read" ng-click="ctrl.setCmd('7')"></i>
+                                    </div>-->
+                                    <div class="debug_cmd_editor" id="debug_cmd_editor">
+
+                                    </div>
+                                </div>
+                                <div class="debug_message_box">
+                                    <div class="debug_message_toolbar">
+                                        <i class="fa fa-close" title="{{'关闭'|I18nFilter:'close'}}"
+                                           ng-click="ctrl.closeMessage()"></i>
+                                    </div>
+                                    <div class="debug_message_editor" id="debug_message_editor">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <!--<tab title="客户端日志">
+                    <div class="row">
+                        <div class="col-xs-12 debug_data_panel_warp triton_warp">
+                            <div class="debug_data_panel">
+                                <div class="debug_data_panel_toolbar">
+                                    <i class="fa fa-ban" title="清空控制台" ng-click="ctrl.clearTritonLog()"></i>
+                                    <i class="fa fa-lock lock_icon" title="锁定" ng-click="ctrl.lockTritonLog()"></i>
+                                    <i class="fa fa-stop-circle stop_icon" title="停止" ng-click="ctrl.stopTritonLog()"></i>
+                                    <i class="fa fa-copy" title="复制" ng-click="ctrl.copy($event)"></i>
+                                    <input class="form-control input-sm log_filter_input" type="text"
+                                           placeholder="只显示包含此关键字的数据"
+                                           ng-blur="ctrl.tritonFilterValueChange()"/>
+                                </div>
+                                <div class="triton_data_container log_box"></div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>-->
+            </tabs>
+        </div>
+    </div>
+</template>

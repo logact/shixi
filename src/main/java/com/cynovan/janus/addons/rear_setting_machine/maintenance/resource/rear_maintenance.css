@@ -1,0 +1,61 @@
+.maintenance-start {
+    color: #2AE88C;
+    font-size: 18px;
+}
+
+.maintenance-pause {
+    color: #bdbd0f;
+    font-size: 18px;
+}
+
+.maintenance-stop {
+    color: #a29c9c;
+    font-size: 18px;
+}
+
+.device-good {
+    color: #2AE88C;
+    font-size: 18px;
+}
+
+.device-damage {
+    color: #bdbd0f;
+    font-size: 18px;
+}
+
+.device-scrap {
+    color: #d65f5f;
+    font-size: 18px;
+}
+
+.maintenance-status-button-list {
+    padding-left: 140px;
+    padding-bottom: 10px;
+}
+
+.maintenance-status-button-list div > div {
+    margin-right: 20px;
+}
+
+.maintenance-device-div a {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+.maintenance-device-div > form-input {
+    padding-top: 6px;
+}
+
+.device-name-noChange {
+    margin-top: 8px;
+}
+
+.now-status {
+    background-color: #c4d1de;
+    color: #ffffff;
+    pointer-events: none;
+}
+/*.maintenance-default-btn{*/
+    /*width: 54px;*/
+    /*margin-top: 2px;*/
+/*}*/

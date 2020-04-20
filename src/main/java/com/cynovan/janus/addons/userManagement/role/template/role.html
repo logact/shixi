@@ -1,0 +1,19 @@
+<template name="role_template">
+    <div class="widget" ng-controller="RoleController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'角色管理'|I18nFilter:'role_management'}}
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.showRoleDetail()" ng-if="''| SecurityFilter: 'role':'manage'">
+                    <i class="fa fa-plus"></i>
+                    {{'新增角色'|I18nFilter:'add.role'}}
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>

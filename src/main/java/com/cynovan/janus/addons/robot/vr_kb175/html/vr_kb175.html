@@ -1,0 +1,334 @@
+<template name="vr_robot_kb175_template">
+    <div class="widget" ng-controller="RobotVRKB175Controller as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                模型-KB175
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.modifyConfig()"
+                        ng-if="''| SecurityFilter: 'vr_robot_kb175':'manage'">
+                    <i class="fa fa-cog"></i>
+                    数据配置
+                </button>
+            </div>
+        </div>
+        <div class="widget-body" style="min-height: 300px;">
+            <div class="row">
+                <div class="col-xs-6 kb175_left">
+                    <div class="row-item" style="margin-top: 15px;">
+                        <div style="width: 90px;">设备</div>
+                        <div id="vrkb175_bind_device_box"></div>
+                    </div>
+                    <div class="echart_position kb175_chart"
+                         style="margin-top: 15px;border-top: 1px #ddd dotted; padding-top: 5px;">
+
+                    </div>
+                    <div class="echart_speed kb175_chart"
+                         style="margin-top: 15px;border-top: 1px #ddd dotted; padding-top: 5px;">
+
+                    </div>
+                    <div class="info_state">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="vr_kb175_box">
+                                    <div class="vr_kb175_header">
+                                        TCP笛卡尔位姿
+                                    </div>
+                                    <div class="vr_kb175_body">
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">X</span>
+                                            <span class="value data_value" data-key="posi_x"></span>
+                                            <span class="unit">mm</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">Y</span>
+                                            <span class="value data_value" data-key="posi_y"></span>
+                                            <span class="unit">mm</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">Z</span>
+                                            <span class="value data_value" data-key="posi_z"></span>
+                                            <span class="unit">mm</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">A</span>
+                                            <span class="value data_value" data-key="posi_a"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">B</span>
+                                            <span class="value data_value" data-key="posi_b"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">C</span>
+                                            <span class="value data_value" data-key="posi_c"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="vr_kb175_box">
+                                    <div class="vr_kb175_header">
+                                        轴关节角度
+                                    </div>
+                                    <div class="vr_kb175_body">
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴1</span>
+                                            <span class="value data_value " data-key="axis1_posi"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴2</span>
+                                            <span class="value data_value" data-key="axis2_posi"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴3</span>
+                                            <span class="value data_value" data-key="axis3_posi"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴4</span>
+                                            <span class="value data_value" data-key="axis4_posi"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴5</span>
+                                            <span class="value data_value" data-key="axis5_posi"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴6</span>
+                                            <span class="value data_value" data-key="axis6_posi"></span>
+                                            <span class="unit">deg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="vr_kb175_box">
+                                    <div class="vr_kb175_header">
+                                        轴关节速度
+                                    </div>
+                                    <div class="vr_kb175_body">
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴1</span>
+                                            <span class="value data_value" data-key="axis1_speed"></span>
+                                            <span class="unit">deg/s</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴2</span>
+                                            <span class="value data_value" data-key="axis2_speed"></span>
+                                            <span class="unit">deg/s</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴3</span>
+                                            <span class="value data_value" data-key="axis3_speed"></span>
+                                            <span class="unit">deg/s</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴4</span>
+                                            <span class="value data_value" data-key="axis4_speed"></span>
+                                            <span class="unit">deg/s</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴5</span>
+                                            <span class="value data_value" data-key="axis5_speed"></span>
+                                            <span class="unit">deg/s</span>
+                                        </div>
+                                        <div class="vr_kb175_row">
+                                            <span class="br_kb175_label">轴6</span>
+                                            <span class="value data_value" data-key="axis6_speed"></span>
+                                            <span class="unit">deg/s</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="vr_kb175_box">
+                                    <div class="vr_kb175_header">
+                                        状态
+                                    </div>
+                                    <div class="vr_kb175_body">
+                                        <div class="vr_kb175_row state">
+                                            <span class="br_kb175_label">使能</span>
+                                            <span class="item_state state_shineng" data-key="state_shineng"></span>
+                                        </div>
+                                        <div class="vr_kb175_row state">
+                                            <span class="br_kb175_label">运动</span>
+                                            <span class="item_state state_move" data-key="state_move"></span>
+                                        </div>
+                                        <div class="vr_kb175_row state">
+                                            <span class="br_kb175_label">报警</span>
+                                            <span class="item_state state_warning" data-key="state_warning"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div>
+                        <button class="btn btn-success btn-sm" type="button" ng-click="ctrl.move()">移动</button>
+                    </div>
+                    <div>
+                        <input class="form-control" id="animate_input"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="obj_input" placeholder="备注"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="x_input" placeholder="X轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('x')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('x')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="y_input" placeholder="y轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('y')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('y')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="z_input" placeholder="z轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('z')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('z')"></i>
+                    </div>-->
+                </div>
+                <div class="col-xs-6">
+                    <div id="kb175_webgl_box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="vr_robot_kb175_config_template">
+    <div>
+        <tabs>
+            <tab title="轴位置">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="数据周期(毫秒)" ng-model="entity.cycle" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴1位置" ng-model="entity.axis1_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis1_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴2位置" ng-model="entity.axis2_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis2_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴3位置" ng-model="entity.axis3_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis3_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴4位置" ng-model="entity.axis4_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis4_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴5位置" ng-model="entity.axis5_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis5_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴6位置" ng-model="entity.axis6_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis6_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="轴速度">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="轴1速度" ng-model="entity.axis1_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴2速度" ng-model="entity.axis2_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴3速度" ng-model="entity.axis3_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴4速度" ng-model="entity.axis4_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴5速度" ng-model="entity.axis5_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴6速度" ng-model="entity.axis6_speed"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="笛卡尔坐标">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="X" ng-model="entity.posi_x"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="Y" ng-model="entity.posi_y"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="Z" ng-model="entity.posi_z"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="A" ng-model="entity.posi_a"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="B" ng-model="entity.posi_b"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="C" ng-model="entity.posi_c"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="状态">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="使能" ng-model="entity.state_shineng"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="运动" ng-model="entity.state_move"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="报警" ng-model="entity.state_warning"></cnvtext>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

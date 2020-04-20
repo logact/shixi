@@ -1,0 +1,159 @@
+<template name="bacnet_ip_server_template">
+    <div class="row" ng-controller="ConnectionBacnetIpController as ctrl">
+
+        <div class="col-xs-12">
+            <div class="header">{{'端点设置'|I18nFilter:'opc_ua_config'}}</div>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="{{'端口号'|I18nFilter:'port'}}" ng-model="entity.portNum"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <div class="col-xs-12 form-control-static">
+                <label class="form-label"
+                       style="width: 110px;padding-right: 15px">{{'定时读取'|I18nFilter:'time.read'}}</label>
+                <div style="margin-left:110px;float: left">
+                    <div style="display: flex;">
+                        <input class="form-control" type="text" ng-model="time"
+                               style="width:90px;border-bottom-right-radius: 0;border-top-right-radius: 0;height:34px;">
+                        <select class="form-control input-sm"
+                                style="height:34px;width:70px;border-left:0;border-bottom-left-radius: 0; border-top-left-radius: 0;"
+                                ng-model="timeUnit" ng-options="unit.id as unit.name for unit in ctrl.timeUnit"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="设备号" ng-model="entity.deviceNumber"></cnvtext>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <div class="header">{{'数据读取'|I18nFilter:'data.read'}}
+                        <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs m-l-xs" type="button"
+                                ng-click="ctrl.loadAllObject()">
+                            <i class="fa fa-search" style="padding-right: 3px;"></i>
+                            {{'搜索属性栏位'|I18nFilter:'search_property_field'}}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="padding-left: 50px; padding-right: 50px;">
+                    <div class="table-container-div">
+                        <table class="table table-bordered table-condensed edittable bacnet-table">
+                            <thead>
+                            <tr>
+                                <th class="index">#</th>
+                                <th>{{'对象类型'|I18nFilter:'object_type'}}</th>
+                                <th class="object-instance">{{'对象实例号'|I18nFilter:'object_instance'}}</th>
+                                <th>{{'属性'|I18nFilter:'property_name'}}</th>
+                                <th class="operation">{{'操作'|I18nFilter:'do'}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in entity.rows">
+                                <td class="text-center">
+                                    <div style="padding-top: 5px;">{{$index + 1}}</div>
+                                </td>
+                                <td>
+                                    {{row.objectTypeName}}
+                                </td>
+                                <td>
+                                    {{row.objectInstanceNum}}
+                                </td>
+                                <td>
+                                    {{row.name}}
+                                </td>
+                                <td class="text-center">
+                                    <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs" type="button"
+                                            ng-click="ctrl.removeRow($index)">
+                                        <i class="fa fa-times"></i>
+                                        {{'删除'|I18nFilter:'delete'}}
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="bacnet_ip_server_display_template">
+    <div class="conn-panel-header">
+        Modbus/串口<span style="margin-left: 10px">{{'设备使用Bacnet/IP接入'|I18nFilter:'device.bacnet'}}</span>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="conn-panel-header">{{'端口设置'|I18nFilter:'port_config'}}</div>
+            <div class="col-xs-5">
+                <field label="{{'端口号'|I18nFilter:'port'}}" ng-model="entity.conn_info_bacnet_ip.portNum"></field>
+                <field label="{{'设备号'|I18nFilter:'bacnet_device_id'}}"
+                       ng-model="entity.conn_info_bacnet_ip.deviceNumber"></field>
+            </div>
+            <div class="col-xs-5">
+                <field label="{{'定时发送'|I18nFilter:'time_send'}}" ng-model="entity.conn_info_bacnet_ip.timer"></field>
+            </div>
+        </div>
+    </div>
+    <div class="conn-panel-header">{{'数据读取'|I18nFilter:'data.read'}}</div>
+    <table class="table table-bordered table-condensed edittable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>{{'对象类型'|I18nFilter:'object_type'}}</th>
+            <th>{{'对象实例号'|I18nFilter:'object_instance'}}</th>
+            <th>{{'属性'|I18nFilter:'property_name'}}</th>
+        </tr>
+        <tbody>
+        <tr ng-repeat="row in entity.conn_info_bacnet_ip.rows">
+            <td class="text-center">
+                <div style="padding-top: 5px;">{{$index + 1}}</div>
+            </td>
+            <td>
+                <div style="padding:5px">{{row.objectTypeName}}</div>
+            </td>
+            <td>
+                <div style="padding:5px">{{row.objectInstanceNum}}</div>
+            </td>
+            <td>
+                <div style="padding:5px">{{row.name}}</div>
+            </td>
+        </tr>
+        </tbody>
+        </thead>
+    </table>
+</template>
+<template name="bacnet_ip_load_object_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="show-node-div">
+                <div class="search-input-div" style="position: relative;height: 40px">
+                    <div class="col-xs-7" style="border:1px solid #dcdcdc;padding:5px;border-radius: 8px;">
+                        <button class="btn btn-primary btn-xs btn-outline " ng-click="ctrl.chooseAll()"><i
+                                class="fa fa-check-square-o"></i> {{'全选'|I18nFilter:'select.all'}}
+                        </button>
+                        <button class="btn btn-primary btn-xs btn-outline" ng-click="ctrl.chooseAllNo()"><i
+                                class="fa fa-square-o "></i> {{'反选'|I18nFilter:'select.inverse'}}
+                        </button>
+                        <button class="btn btn-primary btn-xs btn-outline" ng-click="ctrl.expandAll(true)"><i
+                                class="fa fa-outdent"></i> {{'全部展开'|I18nFilter:'expand_all'}}
+                        </button>
+                        <button class="btn btn-primary btn-xs btn-outline" ng-click="ctrl.expandAll(false)"><i
+                                class="fa fa-indent"></i> {{'全部折叠'|I18nFilter:'fold_all'}}
+                        </button>
+                        <!--<button class="btn btn-primary btn-sm btn-outline" ng-click="ctrl.cleanHighLight()">清除高亮</button>-->
+                    </div>
+                    <div class="c-list-searchbox col-xs-5">
+                        <input class="form-control search-input" ng-model="searchKey"
+                               placeholder="{{'请输入查询内容'|I18nFilter:'input.find.content'}}"/>
+                        <button type="button" class="btn btn-primary btn-sm " style="top: 0"
+                                ng-click="ctrl.search()">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <ul class="ztree" id="nodeTree"></ul>
+            </div>
+        </div>
+    </div>
+</template>

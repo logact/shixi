@@ -1,0 +1,10 @@
+.device_timeline_panel {
+    height: 700px;
+    background-color: #fff;
+}
+
+.chosen-container a:first-child {
+    height: 30px;
+    display: flex;
+    align-items: center;
+}

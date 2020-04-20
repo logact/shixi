@@ -1,0 +1,41 @@
+{
+  "appId": "cutting_machine",
+  "description": "皮料切割机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "皮料切割机",
+  "category": "鞋机",
+  "icon": "img/app-cutting.png",
+  "menus": [
+    {
+      "name": "皮料切割机",
+      "sort": 7000,
+      "icon": "",
+      "description": "皮料切割机",
+      "showOnTop": true
+    },
+    {
+      "name": "机台",
+      "description": "机台",
+      "icon": "cutting_machine/img/cutting-white.png",
+      "parent": "cutting_machine_mgr",
+      "template": "cutting_device_template",
+      "detail_template": "cutting_device_detail_template",
+      "sort": 6000,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

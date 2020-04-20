@@ -1,0 +1,423 @@
+<template name="device_classification_alter_template">
+    <div ng-controller="DeviceClassificationDetail as ctrl">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="widget-title">
+                    <div>
+                        <a href="" ng-click="ctrl.goList()">{{'设备类型'|I18nFilter:'device.classification'}} / </a>{{entity.name}}
+                        <span ng-bind="title"></span>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                ng-click="ctrl.goList()" ng-if="''| SecurityFilter: 'triton_device':'manage'">
+                            <i class="fa fa-arrow-left"></i>
+                            {{'返回'|I18nFilter:'production.back'}}
+                        </button>
+                        <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: 0">
+            <!--产品信息-->
+            <div class="col-xs-5 device-panel" style="border-right:15px solid #eaedf1">
+                <div class="row">
+                    <div class="col-xs-5 device-panel-title">{{'设备类型信息'|I18nFilter:'production.info'}}</div>
+                    <div class="col-xs-7" style="text-align: right;margin-top: 10px">
+                        <button class="btn btn-primary btn-outline btn-xs" type="button" ng-click="ctrl.alterClassification()">
+                            <i class="fa fa-edit"></i>
+                            {{'修改'|I18nFilter:'edit'}}
+                        </button>
+                    </div>
+                </div>
+                <hr class="widget-separator"/>
+                <div class="device-panel-info">
+                    <field label="{{'设备类型名称'|I18nFilter:'production.name'}}" ng-model="entity.name" copy="true"></field>
+                    <field label="{{'启动为应用'}}" ng-model="Appstatu"></field>
+                    <field label="{{'设备关联视图'|I18nFilter:'production.relate.view'}}" ng-model="entity.view.viewName"></field>
+                    <field label="{{'备注'|I18nFilter:'production.remark'}}" ng-model="entity.remark"></field>
+
+                </div>
+            </div>
+            <!--报警-->
+            <div class="col-xs-7 device-panel">
+                <div class="row">
+                    <div class="col-xs-5 device-panel-title">{{'设备状态'|I18nFilter:'production.alarm.set'}}</div>
+                    <div class="col-xs-7" style="text-align: right;margin-top: 10px">
+                        <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                ng-click="ctrl.alarmSetting()">
+                            <i class="fa fa-edit"></i>
+                            {{'设置'|I18nFilter:'production.setting'}}
+                        </button>
+                    </div>
+                </div>
+                <hr class="widget-separator"/>
+                <div class="device-panel-info">
+                    <div class="device-conn-info-panel conn-panel-content">
+
+                        <field label="{{'状态栏位'|I18nFilter:'production.alarm.column'}}" ng-model="alarm.columnName"></field>
+
+                        <div class="col-xs-10" style="margin-top: 10px">
+                            <table class="table table-bordered table-condensed ">
+                                <thead>
+                                <tr>
+                                    <th style="width: 20px;" class="text-center">#</th>
+                                    <th style="width: 50px;">{{'状态'|I18nFilter:'alarm'}}</th>
+                                    <th style="width: 70px;">{{'状态值'|I18nFilter:'alarm_value'}}</th>
+                                    <th style="width: 200px;">{{'状态描述'|I18nFilter:'alarm_status'}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="row in entity.alarm.alarmList">
+                                    <td>
+                                        <div style="display: flex;align-items: center;justify-content: center">{{$index + 1}}</div>
+                                    </td>
+                                    <td class="text-center" style="vertical-align: middle">
+                                        <div style="padding-left: 4px;display: flex;align-items: center">{{row.stateSetting | stateChange}}</div>
+                                    </td>
+                                    <td>
+                                        <div style="padding-left: 4px;display: flex;align-items: center">{{row.alarmValue}}</div>
+                                    </td>
+                                    <td>
+                                        <div style=";padding-left: 4px;display: flex;align-items: center">{{row.alarmName}}</div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin:15px 0">
+            <!--处理代码-->
+            <div class="col-xs-5 device-panel auto-height-panel"
+                 style="border-right:15px solid #eaedf1;min-height: 350px">
+                <div class="row">
+                    <div class="col-xs-5 device-panel-title">
+                        <span>{{'处理代码'|I18nFilter:'exchange_code'}}</span>
+                        <cnvcheckbox label="{{'开启'|I18nFilter:'open.flag'}}" ng-model="entity.exchange.open" disabled="true"
+                                     style="margin-left: 15px;margin-bottom: 0;user-select: none;"></cnvcheckbox>
+                    </div>
+                    <div class="col-xs-7" style="text-align: right;margin-top: 10px">
+                        <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                ng-click="ctrl.showProcessingCode()">
+                            <i class="fa fa-edit"></i>
+                            {{'更换处理代码'|I18nFilter:'change.exchange.code'}}
+                        </button>
+                    </div>
+                </div>
+                <hr class="widget-separator"/>
+                <div class="device-panel-info">
+                    <div ng-if="entity.exchange.code">
+                        <pre class="code-panel">{{entity.exchange.code}}</pre>
+                    </div>
+                    <span style="margin:5px;" ng-if="!entity.exchange.code">{{'暂无处理代码'|I18nFilter:'no_exchange_code'}}</span>
+                </div>
+            </div>
+
+            <!--数据定义-->
+            <div class="col-xs-7 device-panel auto-height-panel">
+                <div class="row">
+                    <div class="col-xs-5 device-panel-title">{{'数据定义'|I18nFilter:'production.data.definition'}}</div>
+                </div>
+                <hr class="widget-separator"/>
+
+                <div class="device-panel-info data-column ">
+                    <div class="row" style="padding-bottom: 20px;">
+                        <div>
+                            <button type="button" class="btn btn-primary btn-sm btn-outline m-r-xs"
+                                    ng-click="ctrl.addDataStruc()">
+                                <i class="fa fa-plus"></i>
+                                添加数据栏位定义
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm btn-outline m-r-xs"
+                                    ng-click="ctrl.importFromTemplate()">
+                                <i class="fa fa-cloud-upload"></i>
+                                从Excel导入
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm btn-outline"
+                                    ng-click="ctrl.exportFromData()">
+                                <i class="fa fa-download"></i>
+                                导出为Excel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-bordered table-condensed table-definition">
+                            <thead>
+                            <tr>
+                                <th style="width: 60px;" class="text-center">#</th>
+                                <th>数据ID</th>
+                                <th>名称</th>
+                                <th>数据类型</th>
+                                <th>单位符号</th>
+                                <th class="text-center" style="width: 120px;">操作
+                                </th>
+                                <!--ng-if="canManageDevice"-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="struc in entity.data_definition.details">
+                                <td class="ui center aligned text-center">{{$index + 1}}</td>
+                                <td>{{struc.key}}</td>
+                                <td>{{struc.name}}</td>
+                                <td>{{struc.rule === 'number' ? struc.rule_name + (struc.decimal === '0' ? ' (不保留小数)' :
+                                    ' (保留' +
+                                    struc.decimal + '位小数)') :
+                                    struc.rule_name}}
+                                </td>
+                                <td>{{struc.suffix}}</td>
+                                <td class="ui center aligned text-center"><!-- ng-if="canManageDevice" -->
+                                    <button type="button" class="btn btn-primary btn-xs btn-outline"
+                                            ng-click="ctrl.editStruc($index)">
+                                        编辑
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-xs btn-outline"
+                                            ng-click="ctrl.removeStruc($index)">
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+<template name="classification_alarm_import_from_excel_template">
+    <div class="import_file">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-info">
+                    1. 导入数据不会保留已有数据。
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xs-6" style="height: 300px;">
+                <div class="col col-xs-12" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-primary btn-outline" ng-click="exportTemplate()">
+                        <i class="fa fa-download"></i>
+                        下载Excel模板
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="startImport()">开始导入</button>
+                    <button type="button" class="btn btn-danger" ng-click="resetImport()">清空</button>
+
+                </div>
+                <div class="col col-xs-12">
+                    <div class="well">
+                        <form action="" enctype="multipart/form-data" class="dropzone" id="data-struct-import">
+                            <div class="dz-default dz-message">
+                                <p>拖拽文件到此</p>
+                                <p>- 或 -</p>
+                                <p>点击上传</p>
+                            </div>
+                            <form>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xs-6" style="height: 300px;">
+                <div class="import_result well" id="import_result"
+                     style="height: 220px; overflow: auto; margin-top: 58px; padding: 20px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<!--
+    修改产品信息-->
+<template name="classification_edit_production_info_template">
+    <div class="update_cls_info">
+        <div class="row">
+            <div class="col-xs-9">
+                <cnvtext label="名称" ng-model="entity.name"></cnvtext>
+            </div>
+            <div class="col-xs-3">
+                <cnvcheckbox label="启动为应用" ng-model="entity.isapp" style="padding-top: 14px;"></cnvcheckbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="form-control-static c-text ng-isolate-scope ng-empty ng-valid">
+                    <label class="form-label">设备关联视图</label>
+                    <div class="form-input">
+                        <cnvmany2one collection="deviceView" ng-model="deviceView.value"
+                                     projection="deviceView.projection" id-field="code"
+                                     placeholder="选择设备视图..."></cnvmany2one>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <cnvtextarea label="备注" ng-model="entity.remark" placeholder="产品备注信息"></cnvtextarea>
+            </div>
+        </div>
+    </div>
+</template>
+<!--
+    修改报警信息-->
+<template name="classification_edit_alarm_setting_template">
+    <div style="max-height: 400px;overflow-y: auto;overflow-x: hidden;">
+        <div class="row" style="display: flex;align-items: center">
+            <div class="col-xs-4">
+                <div class="form-control-static data-column-div">
+                    <label class="form-label"> 状态栏位 </label>
+                    <div class="form-input cl_alter">
+                        <select data-placeholder="选择状态栏位"
+                                class=" form-control chosen-select"
+                                id="data_column_select">
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="data-column-info-div" style="margin-top: 4px;">
+                <div class="control-info"><i class="fa fa-info-circle"></i></div>
+            </div>
+        </div>
+        <div class="col-xs-12" style="padding-left: 47px">
+            <div style="height: 100px;background: #f7fcff;border: 1px solid #9acfea;padding-top: 10px;padding-left: 10px;
+                    color:#31708f;text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);">
+                <div>示例</div>
+                <div>1. 当所选状态栏位的状态值为: <span style="color:red">1000</span> ; 则所选状态为: <span style="color:red">正常</span> ; 状态描述为: <span
+                        style="color:red">设备无异常处于正常状态</span>
+                </div>
+                <div>2. 当所选状态栏位的状态值为: <span style="color:red">1001</span> ; 则所选状态为: <span style="color:red">警告</span> ; 状态描述为: <span
+                        style="color:red">设备加工已完成，请注意及时取件</span>
+                </div>
+                <div>3. 当所选状态栏位的状态值为: <span style="color:red">2001</span> ; 则所选状态为: <span style="color:red">报警</span> ; 状态描述为: <span
+                        style="color:red">设备1工位气路压力过低报警</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12" style="padding-left:47px;margin-top:10px;">
+            <table class="table table-bordered table-condensed edittable">
+                <thead>
+                <tr>
+                    <th style="width: 20px;">#</th>
+                    <th style="width: 70px;">{{'状态'|I18nFilter:'alarm'}}</th>
+                    <th style="width: 70px;">{{'状态值'|I18nFilter:'alarm_value'}}</th>
+                    <th style="width: 200px;">{{'状态描述'|I18nFilter:'alarm_status'}}</th>
+                    <th style="width: 50px;">{{'操作'|I18nFilter:'do'}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in entity.alarm.alarmList">
+                    <td class="text-center">
+                        <div style="padding-top: 5px;">{{$index + 1}}</div>
+                    </td>
+                    <td class="text-center" style="vertical-align: middle">
+                        <div class="form-input">
+                            <select class="form-control" ng-model="row.stateSetting"
+                                    ng-options="item.state as item.name for item in state">
+                            </select>
+                        </div>
+                        <!--<div class="pretty p-default">
+                            <input type="checkbox" ng-model="row.shouldAlarm"/>
+                            <div class="state p-primary">
+                                <label></label>
+                            </div>
+                        </div>-->
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="row.alarmValue"/>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="row.alarmName"/>
+                    </td>
+                    <td class="text-center">
+                        <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs"
+                                type="button"
+                                ng-click="ctrl.removeFieldRow($index)">
+                            <i class="fa fa-times"></i>
+                            {{'删除'|I18nFilter:'delete'}}
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-xs-6" style="margin-left:47px;">
+                <button class="btn btn-primary btn-xs btn-outline" type="button"
+                        ng-click="ctrl.addFieldRow()" style="margin-top: 5px">
+                    <i class="fa fa-plus"></i>
+                    添加一行
+                </button>
+                <button class="btn btn-primary btn-xs btn-outline" type="button"
+                        ng-click="ctrl.importFromExcel()" style="margin-top: 5px">
+                    <i class="fa fa-upload"></i>
+                    Excel导入
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="device_add_datastruc_template">
+    <div class="add_datastruc_box">
+        <div class="row">
+            <div class="col-xs-12" style="padding-left: 65px; padding-right: 50px;">
+                <div class="alert alert-info" style="background: #f7fcff none;">
+                    1. 数据ID由数字和字母组成，不能包含特殊字符：<span
+                        style="color: red;font-weight: bold;">+ - * / > < = % . \ & $ # @ </span>
+                    <br/>
+                    2. 修改数据类型后，会影响相关【图表】【动态数据栏位】【数据控制】等组件
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <cnvtext label="数据ID" ng-model="entity.key" info="该值为传输数据JSON的key" required="true"></cnvtext>
+                <cnvtext label="数据名称" ng-model="entity.name" info="查询设备数据时，显示的列名称" required="true"></cnvtext>
+                <cnvtext label="单位符号" ng-model="entity.suffix"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <cnvselect label="数据类型" ng-model="entity.rule" options="ruleOptions">
+                </cnvselect>
+            </div>
+        </div>
+        <div class="row" ng-show="entity.rule === 'number'">
+            <div class="col-xs-12">
+                <cnvselect label="保留小数位" ng-model="entity.decimal" options="decimalOpts"></cnvselect>
+            </div>
+        </div>
+        <div class="row" ng-show="entity.rule === 'enum'">
+            <div class="col-xs-12" style="padding-left: 137px;padding-right: 48px;">
+                <table class="table table-bordered edittable">
+                    <thead>
+                    <tr>
+                        <th style="width: 60px;">#</th>
+                        <th style="width:330px;">解析值</th>
+                        <th style="width:330px;">转义值</th>
+                        <th style="width:90px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="value in entity.values">
+                        <td style="text-align: center;">{{$index +1}}</td>
+                        <td><input type="text" ng-model="value.value" ng-blur="valueBlur($index)"></td>
+                        <td><input type="text" ng-model="value.desc"></td>
+                        <td style="text-align: center;">
+                            <button class="btn btn-default btn-xs btn-outline" style="margin-top: 2px;" type="button"
+                                    ng-click="removeStruc($index)">删除
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary btn-sm btn-outline" style="margin-top: 10px;" type="button"
+                        ng-click="addTransferRow()">添加枚举项
+                </button>
+            </div>
+        </div>
+    </div>
+</template>

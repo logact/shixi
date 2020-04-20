@@ -1,0 +1,127 @@
+<template name="http_rest_template">
+    <div class="row" ng-controller="HttpRestController as ctrl">
+        <div class="col-xs-12">
+            <div class="header">
+                {{'请使用如下Http接口发送数据到Janus'|I18nFilter:'http_send_janus'}}:
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <field label="{{'HTTP地址'|I18nFilter:'http_address'}}" ng-model="entity.addr"></field>
+            <field label="{{'数据提交方式'|I18nFilter:'data.commit.format'}}" ng-model="entity.method"></field>
+            <field label="{{'参数'|I18nFilter:'parameter'}}" ng-model="entity.param"></field>
+            <field label="{{'令牌'|I18nFilter:'token'}}(Token)" ng-model="entity.token"></field>
+            <div style="padding-left: 40px;margin-top: 5px;color: #e71c1c;display: none">
+                <i class="fa fa-exclamation-triangle"></i>
+                Http接入不支持数据下发
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="header">
+                {{'下发数据'|I18nFilter:'issue_data'}}
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <cnvtext label="{{'回调地址'|I18nFilter:'callback_address'}}" ng-model="entity.url"
+                         placeholder="{{'请输入url'|I18nFilter:''}}"
+                         info="{{'例如'|I18nFilter:'example'}}:https://www.baidu.com；{{'更多说明请点击帮助文档'|I18nFilter:'more_help_doc'}}！"></cnvtext>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="http_rest_display_template">
+    <div class="conn-panel-header">
+        HTTP<span style="margin-left: 10px">{{'设备使用Http发送数据到Janus'|I18nFilter:'http_send_janus'}}</span>
+    </div>
+    <field label="{{'HTTP地址'|I18nFilter:'http_address'}}" ng-model="entity.conn_info_http_rest.addr"></field>
+    <field label="{{'数据提交方式'|I18nFilter:'data.commit.format'}}" ng-model="entity.conn_info_http_rest.method"></field>
+    <field label="{{'参数'|I18nFilter:'parameter'}}" ng-model="entity.conn_info_http_rest.param"></field>
+    <field label="{{'令牌'|I18nFilter:'token'}}(Token)" ng-model="entity.conn_info_http_rest.token"></field>
+    <div style="padding-left: 40px;margin-top: 5px;color: #e71c1c;display: none">
+        <i class="fa fa-exclamation-triangle"></i>
+        Http接入不支持数据下发
+    </div>
+    <field label="{{'回调地址'|I18nFilter:'callback_address'}}" ng-model="entity.conn_info_http_rest.url"></field>
+</template>
+<template name="connection_http_help_template">
+    <div class="row">
+        <div class="col-xs-12 code-tip-area">
+            <div class="use-scene">
+                <p class="scene-title">设备使用HTTP客户端接入janus时，传输数据格式为JSON，格式如下：</p>
+                <div class="code-area">{
+                    <div class="indentation-code">
+                        "uuid":"设备UUID",<span class="annotate-code-inline">//uuid为必须栏位</span>
+                        "token":"janustoken",<span class="annotate-code-inline">//token为必须栏位</span>
+                        "time":"20180310142505336",<span class="annotate-code-inline">//数据产生的时间:格式为yyyyMMddHHmmssSSS, 如该栏位为空,则取当前时间</span><br>
+                        <span class="annotate-code-inline">//数据列表</span><br>
+                        "speed":"10",<span class="annotate-code-inline">//数度=10</span><br>
+                        "temperature":36.5,<span class="annotate-code-inline">//温度=36.5</span><br>
+                        .<br>
+                        .<br>
+                        .<br>
+                        "key_10":"test"
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">当设备通过HTTP发送数据到Janus时，Janus会实时返回结果给设备：</p>
+                <div class="code-area">
+                    <div>
+                        <span class="annotate-code-inline">//设备发送数据成功:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:200,<br>
+                            message:''
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <span class="annotate-code-inline">//解析设备数据错误:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:1002,<br>
+                            message:'数据格式错误'
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <span class="annotate-code-inline">//Token错误:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:1003,<br>
+                            message:'数据Token错误，请检查'
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <span class="annotate-code-inline">//数据中缺少UUID:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:1004,<br>
+                            message:'数据中没有UUID，请检查'
+                        </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">下发数据说明如下：</p>
+                <div class="code-area">
+                    <div class="indentation-code">
+                        <span class="annotate-code-inline">*注意：请输入完整的下发地址（例如：https://www.xxxxx.com或者http://www.xxxxx.com），否则容易出现下发失败的情况</span><br>
+                        <span class="annotate-code-inline">//Janus收到数据后会通过POST方式把数据发送给您填入的下发地址，基本参数如下：</span><br>
+                        {
+                        <div class="indentation-code">
+                            "uuid":"设备UUID",<br>
+                            "action":"update",<br>
+                            "data":"{"xx":"xx"}"<span class="annotate-code-inline">//data是更新的内容，它是一个json字符串</span><br>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

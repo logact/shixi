@@ -1,0 +1,195 @@
+<template name="moduleline_device_detail_template">
+    <div class="widget" ng-controller="ModulelineDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div ng-show="model === 'init'">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <field label="设备型号" placeholder="请输入..." ng-model="entity.DeviceType"></field>
+                            <field label="设备规格" placeholder="请输入..." ng-model="entity.DeviceSpec"></field>
+                            <field label="设备尺寸" placeholder="请输入..." ng-model="entity.DeviceSize"></field>
+                            <field label="加工产品" placeholder="请输入..." ng-model="entity.ProcessedProduct"></field>
+
+                        </div>
+                        <div class="col-xs-5">
+                            <field label="设备额定电压" placeholder="请输入..." ng-model="entity.DeviceRatedVoltage"></field>
+                            <field label="设备额定气压" placeholder="请输入..." ng-model="entity.DeviceRatedAirPressure"></field>
+                            <field label="设备额定功率" placeholder="请输入..." ng-model="entity.DeviceRatedPower"></field>
+                            <field label="生产厂家" placeholder="请输入..." ng-model="entity.ProductFactory"></field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 65px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.eidtInfo()"><i class="fa fa-edit"></i> 编辑
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="model === 'edit'">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="设备型号" placeholder="请输入..." ng-model="entity.DeviceType"></cnvtext>
+                            <cnvtext label="设备规格" placeholder="请输入..." ng-model="entity.DeviceSpec"></cnvtext>
+                            <cnvtext label="设备尺寸" placeholder="请输入..." ng-model="entity.DeviceSize"></cnvtext>
+                            <cnvtext label="加工产品" placeholder="请输入..." ng-model="entity.ProcessedProduct"></cnvtext>
+
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="设备额定电压" placeholder="请输入..." ng-model="entity.DeviceRatedVoltage"></cnvtext>
+                            <cnvtext label="设备额定气压" placeholder="请输入..."
+                                     ng-model="entity.DeviceRatedAirPressure"></cnvtext>
+                            <cnvtext label="设备额定功率" placeholder="请输入..." ng-model="entity.DeviceRatedPower"></cnvtext>
+                            <cnvtext label="生产厂家" placeholder="请输入..." ng-model="entity.ProductFactory"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 65px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.saveInfo()"><i class="fa fa-save"></i> 保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="用电量" field="EnergyUsed"></staticfield>
+                        <staticswitch label="故障停线" field="WarningStop"></staticswitch>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticswitch label="欠料停线" field="MaterialLessStop"></staticswitch>
+                        <staticswitch label="品质停线" field="QualityStop"></staticswitch>
+                    </div>
+                </div>
+                <div class="row moduleline-row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            药水烘箱
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层产品温度" field="3_4397"></staticfield>
+                        <staticfield label="下层产品温度" field="3_4396"></staticfield>
+                        <staticfield label="上层灯管温度" field="3_4401"></staticfield>
+                        <staticfield label="下层灯管温度" field="3_4400"></staticfield>
+                        <staticfield label="上层发热管温度" field="3_4399"></staticfield>
+                        <staticfield label="下层发热管温度" field="3_4398"></staticfield>
+                        <staticfield label="上层灯管工作电流" field="PotionUpLamp"></staticfield>
+                        <staticfield label="下层灯管工作电流" field="PotionLowLamp"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层电热管工作电流" field="PotionUpHeater"></staticfield>
+                        <staticfield label="下层电热管工作电流" field="PotionLowHeater"></staticfield>
+                        <staticfield label="上层烘箱涡流风机工作电流" field="PotionUpVortexFan"></staticfield>
+                        <staticfield label="下层烘箱涡流风机工作电流" field="PotionLowVortexFan"></staticfield>
+                        <staticfield label="进板马达工作电流" field="PotionInMOT"></staticfield>
+                        <staticfield label="推板马达工作电流" field="PotionPushMOT"></staticfield>
+                        <staticfield label="出板马达工作电流" field="PotionOutMOT"></staticfield>
+                    </div>
+                </div>
+                <div class="row moduleline-row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            胶水烘箱
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层产品温度" field="3_4437"></staticfield>
+                        <staticfield label="下层产品温度" field="3_4436"></staticfield>
+                        <staticfield label="上层灯管温度" field="3_4441"></staticfield>
+                        <staticfield label="下层灯管温度" field="3_4440"></staticfield>
+                        <staticfield label="上层发热管温度" field="3_4439"></staticfield>
+                        <staticfield label="下层发热管温度" field="3_4438"></staticfield>
+                        <staticfield label="上层灯管工作电流" field="GlueUpLamp"></staticfield>
+                        <staticfield label="下层灯管工作电流" field="GlueLowLamp"></staticfield>
+                        <staticfield label="上层电热管工作电流" field="GlueUpHeater"></staticfield>
+                        <staticfield label="下层电热管工作电流" field="GlueLowHeater"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层烘箱涡流风机工作电流" field="GlueUpVortexFan"></staticfield>
+                        <staticfield label="下层烘箱涡流风机工作电流" field="GlueLowVortexFan"></staticfield>
+                        <staticfield label="进板马达工作电流" field="GlueInMOT"></staticfield>
+                        <staticfield label="推板马达工作电流" field="GluePushMOT"></staticfield>
+                        <staticfield label="出板马达工作电流" field="GlueOutMOT"></staticfield>
+                        <staticfield label="当前传送线速度" field="CurTransferSpeed"></staticfield>
+                        <staticfield label="输送线马达电流" field="TransferMOT"></staticfield>
+                        <staticfield label="快速线马达电流" field="FastLineMOT"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数设定">
+                <div class="row moduleline-row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            药水烘箱
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层灯管温度设定值" field="3_4405" push="3_4405" uuid=ctrl.uuid></staticfield>
+                        <staticfield label="下层灯管温度设定值" field="3_4404" push="3_4404" uuid=ctrl.uuid></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层发热管温度设定值" field="3_4403" push="3_4403" uuid=ctrl.uuid></staticfield>
+                        <staticfield label="下层发热管温度设定值" field="3_4402" push="3_4402" uuid=ctrl.uuid></staticfield>
+                    </div>
+                </div>
+                <div class="row moduleline-row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            胶水烘箱
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层灯管温度设定值" field="3_4445" push="3_4445" uuid=ctrl.uuid></staticfield>
+                        <staticfield label="下层灯管温度设定值" field="3_4444" push="3_4444" uuid=ctrl.uuid></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="上层发热管温度设定值" field="3_4443" push="3_4443" uuid=ctrl.uuid></staticfield>
+                        <staticfield label="下层发热管温度设定值" field="3_4442" push="3_4442" uuid=ctrl.uuid></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="产量监控">
+                <div class="row moduleline-row">
+                    <div class="col-xs-5">
+                        <div class="form-control-static">
+                            <span class="form-label">计划产量</span>
+                            <div class="form-input">
+                                <input class="form-control" ng-model="entity.PlanOutput"
+                                       ng-change="ctrl.planOutputChange()">
+                                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                        style="position: absolute;right: -70px;top: 0px;"
+                                        ng-click="ctrl.savePlanOutput()"><i class="fa fa-save"></i> 保存
+                                </button>
+                            </div>
+                        </div>
+                        <field label="产品完成率" ng-model="entity.ProductCompletionRate" id="productCompletionRate"></field>
+                        <staticfield label="合格数" field="PassingNum"></staticfield>
+                        <staticfield label="次品数" field="RejectedNum"></staticfield>
+                    </div>
+                    <div class="col-xs-5">
+                        <staticfield label="产量" field="1_2149"></staticfield>
+                        <staticfield label="良品率" field="RateOfQuality"></staticfield>
+                        <staticfield label="工作时间（或时长）" field="OperatingHours"></staticfield>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

@@ -1,0 +1,29 @@
+.title-div {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 15px;
+    color: #333b49;
+}
+
+.have-border {
+    position: relative;
+    padding: 10px;
+    border: 1px #ddd solid;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.select-border {
+    border-color: #46AAFF;
+}
+
+.select-arrow-div {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    color: #46AAFF;
+}

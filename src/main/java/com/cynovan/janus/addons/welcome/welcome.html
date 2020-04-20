@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>工业设备管理平台</title>
+    <base href="${c_path}/">
+    <meta name="decorator" content="default"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=0.8, user-scalable=yes">
+    <link rel="shortcut icon" href="resource/welcome/img/ico.png"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/c-ui.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/common.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/index/web/css/index.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/welcome/boot/welcome.css?v=${version}"/>
+</head>
+<body>
+<div class="welcomeWrap">
+    <div class="welcomeHeader">
+        <span class="brand-icon"></span>
+        <span class="brand-name"></span>
+    </div>
+    <div class="welcomeBody">
+        <canvas id="canvas"></canvas>
+        <div class="wrap" ui-view="">
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug: "${debug?c}"};
+</script>
+<script type="text/javascript" src="resource/web/requirejs/require.js?v=${version}"></script>
+<script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
+<script type="text/javascript">
+<!--logact:require方法：require js 的方法 第一个参数是一个有所有需要的模块构成的数组，第二参数是模块加载完成后所要执行的函数-->
+<!--angular.bootstrap的方法是一个启动的方法,第一个参数指定angular 应用所在的根dom元素，第二个参数指定了需要加载的模块-->
+    require(['web/build/entry-build'], function () {
+        require(['welcome/boot/welcome'], function () {
+            angular.bootstrap(document, ['welcome']);
+        });
+    });
+</script>
+</html>

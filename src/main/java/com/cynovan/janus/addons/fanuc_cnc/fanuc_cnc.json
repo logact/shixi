@@ -1,0 +1,36 @@
+{
+  "appId": "fanuc_cnc_app",
+  "description": "针对发那科CNC的管理模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "Fanuc CNC",
+  "category": "数控设备",
+  "icon": "assets/app-icon.png",
+  "menus": [
+    {
+      "icon": "",
+      "name": "发那科数控机床",
+      "showOnTop": true
+    },
+    {
+      "name": "机台",
+      "icon": "fanuc_cnc/board/ico/jichuang.png",
+      "template": "fanuc_cnc_board_template",
+      "detail_template": "fanuc_app_cnc_edit_cnc_template",
+      "depend": [
+        "board/static"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

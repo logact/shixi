@@ -1,0 +1,26 @@
+{
+  "appId": "steam_humidifier",
+  "description": "蒸湿机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "蒸湿机",
+  "category": "鞋机",
+  "icon": "img/app-steam.png",
+  "menus": [
+    {
+      "name": "蒸湿机",
+      "template": "steam_humidifier_template",
+      "showOnTop": true,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

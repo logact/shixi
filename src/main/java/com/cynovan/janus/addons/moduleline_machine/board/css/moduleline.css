@@ -1,0 +1,15 @@
+.moduleline-row .header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.moduleline-row .static-field-box .static-field-label,
+.moduleline-row .form-control-static .form-label,
+.moduleline-row .c-field-label {
+    width: 175px !important;
+}
+
+.moduleline-row .c-field-value,
+.moduleline-row .form-control-static .form-input {
+    margin-left: 190px;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--    这里的c_path是从哪里取得的值-->
+    <base href="${c_path}/">
+    <title>logact  test</title>
+    <meta name="decorator" content="default"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<!--    这里为什么要加v-->
+    <link rel="Shortcut Icon" href="resource/index/web/img/ico.png" type="image/x-icon"/>
+<!--    这里是怎么配的？ 这里表示的网络请求直接将resource文件夹后面的路径当作请求路径 -->
+    <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/common.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/directive.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/index/web/css/index.css?v=${version}"/>
+</head>
+<body>
+<div id="app-navbar" class="navbar-fixed-top" ng-controller="HeaderController as ctrl">
+    <div class="navbar-header">
+        <img class="brand-image brand-image-left" ng-src="{{leftLogo}}"/>
+        <img class="brand-image brand-image-right" ng-src="{{rightLogo}}"/>
+    </div>
+    <div class="navbar-menu ng-cloak">
+        <li class="all-app-li" ng-show="ctrl.menus.length>0">
+            <span>{{'全部应用' | I18nFilter:'all.app'}}</span>
+            <div class="more-app-div">
+                <div class="menu-list-div">
+                    <div class="can-view-app">
+                        <div ng-repeat="menu in canViewLi" title="{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}"
+                             ng-click="ctrl.allMenuClick($index,$event,menu)">
+                            <span class="show-icon-span"></span>
+                            <span class="description-span">{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}</span>
+                        </div>
+                    </div>
+                    <div class="no-view-app" ng-show="hideLi.length>0">
+                        <div ng-repeat="menu in hideLi" title="{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}"
+                             ng-click="ctrl.allMenuClick($index,$event,menu)">
+                            <span class="hide-icon-span"></span>
+                            <span class="description-span">{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-user-div" ng-click="ctrl.appShowSetting()">
+                    <i class="setting-header-i"></i>
+                    <span ng-bind="'自定义导航栏' | I18nFilter:'custom_nav_bar'"></span>
+                </div>
+            </div>
+        </li>
+        <ul class="ng-cloak navbar-menu-ul">
+            <li ng-repeat="menu in ctrl.menus | filter:{show:true}" data-key="{{menu.appId}}"
+                ng-click="ctrl.menuClick($index,$event,menu)">
+                <span ng-if="menu.icon" ng-class="menu.icon"></span>
+                <span>{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}</span>
+            </li>
+        </ul>
+        <li class="other-app-li ng-cloak" ng-show="needShowApp">
+            <span ng-if="needShowApp.icon" ng-class="needShowApp.icon"></span>
+            <span>{{needShowApp.name|I18nFilter:needShowApp.i18nKey:needShowApp.appId}}</span>
+        </li>
+    </div>
+    <ul id="header-right-navbar" class="nav navbar-toolbar navbar-right">
+        <li class="ng-cloak" ng-if="''| SecurityFilter: '应用市场':'manage'" ng-click="ctrl.goMenuByUrl()">
+            <a href="#/app/appstore/menu/0" title="{{'全部应用'|I18nFilter:'all.app'}}" class="index-app-store-a animated">
+                <i class="index-app-store-i"></i>
+            </a>
+        </li>
+        <li class="open-platform-li ng-cloak">
+            <a href="https://open.neptune-iiot.net" class="index-open-platform-a animated" target="_blank"
+               title="{{'开放平台' |I18nFilter:'open.platform'}}"
+               ng-class="clicked?'':'active-a'">
+                <i class="open_platform_icon"></i>
+            </a>
+            <ul class="open-platform-ul ng-cloak" ng-hide="clicked">
+                <li>
+                    {{('Neptune开放平台开启公测，您可以在线开发属于自己的应用，'| I18nFilter:'open.platform.tip')}}
+                    <a href="https://open.neptune-iiot.net" target="_blank"
+                       ng-click="ctrl.knowOpenPlatform()">{{'点击了解更多'|I18nFilter:'click_show_more'}}...</a>
+                    <span class="close-open-platform fa fa-times" ng-click="ctrl.knowOpenPlatform()"></span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a ng-click="ctrl.goApiDocs()" title="{{'接口文档'|I18nFilter:'api_doc'}}" class="index-api-a animated">
+                <i class="index-api-i"></i>
+            </a>
+        </li>
+        <li ng-click="ctrl.goMenuByUrl()">
+            <a href="#/app/messageCenter/menu/0" title="{{'消息中心'|I18nFilter:'message.center'}}"
+               class="index-message-center-a animated">
+                <i class="index-message-center-i"></i>
+            </a>
+        </li>
+        <li>
+            <a ng-click="ctrl.showNeptuneSyncDialog()" title="{{'Neptune同步'|I18nFilter:'neptune.sync'}}"
+               class="index-neptune-sync-a animated">
+                <i ng-class="ctrl.status==='已连接'?'neptune-sync-online':'neptune-sync-offline'"></i>
+            </a>
+        </li>
+        <li class="dropdown ng-cloak">
+            <a href="javascript:void(0)" title="{{'当前登录用户'|I18nFilter:'current_login_user'}}" style="line-height: 24px"
+               class="dropdown-toggle index-down-list animated"
+               data-toggle="dropdown" role="button">
+                <div class="avatarBox">
+                    <img id="userAvatar" class="user-avatar ng-cloak" ng-src="{{userAvatarImg}}"/>
+                    <span ng-bind="name"></span>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </a>
+            <ul class="dropdown-menu animated slideInRight">
+                <li ng-if="userInfo" ng-click="ctrl.goMenuByUrl()">
+                    <a href="#/app/userInfo/menu/0"><i class="fa fa-id-card-o"></i>{{'个人信息'|I18nFilter:'personal_information'}}</a>
+                </li>
+                <li ng-click="ctrl.goSystemInfo()">
+                    <a href="#/app/system_info/menu/0"><i class="fa fa-server"></i>{{'系统信息'}}</a>
+                </li>
+                <li ng-if="debug" ng-click="ctrl.refreshTemplate()">
+                    <a href=""><i class="fa fa-refresh"></i>{{'刷新模板'|I18nFilter:'refresh.template'}}</a>
+                </li>
+                <li ng-click="ctrl.changeLanguage()">
+                    <a href=""><i class="fa fa-language m-r-md"></i><span style="color: #46aaff; font-weight: 600;">{{ctrl.nowLanguage}}</span><span>{{'/'+ctrl.secondLanguage}}</span></a>
+                </li>
+                <li class="item" ng-click="ctrl.logout()">
+                    <a href=""><i class="fa fa-sign-out"></i>{{'退出'|I18nFilter:'logout'}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<aside id="menubar" ng-controller="AsideMenuController as ctrl">
+    <ul class="ng-cloak" ng-if="menuTitle">
+        <li class="switch-aside-icon" ng-click="ctrl.switchAside()">
+            <span class="menu-icon index-switch-aside-span" style="margin-left: 5px;background-size: 16px;"></span>
+        </li>
+        <li class="menu-title">
+            <a>
+                <span class="menu-icon fa fa-angle-up" style="line-height: 40px; font-size: 20px;"></span>
+                <span class="menu-text" ng-bind="menuTitle" style="margin-left: -22px;"></span>
+            </a>
+        </li>
+        <li ng-repeat="menu in menus" class="menu-item" ng-click="ctrl.subMenuClick($event,$index)"
+            ng-class="currentMenuIndex===$index?'active':''">
+            <a href="#/app/{{menu.appId}}/menu/{{menu.menuIndex}}">
+                <span class="menu-icon" ng-if="menu.icon" style="background-image: url('{{menu.icon}}')"></span>
+                <span class="menu-icon" ng-if="!menu.icon"
+                      style="background-image: url('./web/img/defaultMenu.png')"></span>
+                <span class="menu-text">{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+<main id="app-main" class="app-main">
+    <div class="wrap" ui-view="">
+
+    </div>
+</main>
+</body>
+<script type="text/javascript">
+<!--这一句在干什么？-->
+    var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug: "${debug?c}"};
+</script>
+<script type="text/javascript" src="resource/web/requirejs/require.js?v=${version}"></script>
+<script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
+<script type="text/javascript">
+<!--这里的require的baseurl 应该是从<base> 标签中的值取出来-->
+    require(['web/build/entry-build'], function () {
+        require(['index/web/js/app'], function () {
+            angular.bootstrap(document, ['app']);
+        });
+    });
+</script>
+</html>

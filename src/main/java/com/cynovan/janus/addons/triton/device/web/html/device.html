@@ -1,0 +1,195 @@
+<template name="triton_device_push_template">
+    <div class="form-control-static c-text">
+        <label class="form-label text-right">
+            {{'控制密码'|I18nFilter:'control_password'}}
+        </label>
+        <div class="form-input">
+            <input type="password" ng-model="entity.control_pw" class="form-control"
+                   ng-keydown="keyDown($event)" autofocus/>
+        </div>
+    </div>
+</template>
+<template name="app_triton_introduction_template">
+    <div class="widget" ng-controller="TritonIntroduction">
+        <!--设备接入start-->
+        <div class="widget-header" style="border-bottom: none">
+            <div class="device-link">
+                <span>{{'设备接入'|I18nFilter:'device.connect'}}</span>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="device-link-content">
+                <p>{{'Janus支持设备使用不同的接入方式接入Janus平台，实现不同设备间的数据互联互通，以及基于设备的更多应用。'|I18nFilter:'janus.intro'}}</p>
+                <p>{{'目前Janus已经支持以下的接入方式（协议），更多的接入方式也将逐步支持：'|I18nFilter:'janus.connect'}}</p>
+                <ul>
+                    <li>{{'Triton设备物联客户端'|I18nFilter:'janus.triton'}}</li>
+                    <li>{{'MQTT协议'|I18nFilter:'janus.mqtt'}}</li>
+                    <li>{{'串口协议(含Modbus)'|I18nFilter:'janus.modbus'}}</li>
+                </ul>
+                <ul>
+                    <li>{{'TCP Socket协议'|I18nFilter:'janus.tcp'}}</li>
+                    <li>{{'UDP Socket协议'|I18nFilter:'janus.udp'}}</li>
+                    <li>HTTP</li>
+                </ul>
+            </div>
+        </div>
+        <!--设备接入end-->
+
+        <!--接入流程start-->
+        <div class="widget-header" style="border-bottom: none">
+            <div class="device-link">
+                <span>{{'接入流程'|I18nFilter:'connect.process'}}</span>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="link-step">
+                <div class="step-one">
+                    <div></div>
+                    <div class="circle"></div>
+                    <span>{{'创建设备'|I18nFilter:'create_device'}}</span>
+                </div>
+                <div class="step-two">
+                    <div></div>
+                    <div class="circle"></div>
+                    <span>{{'配置'|I18nFilter:'config'}}</span>
+                </div>
+                <div class="step-three">
+                    <div></div>
+                    <div class="circle"></div>
+                    <span>{{'测试连接'|I18nFilter:'test.connect'}}</span>
+                </div>
+                <div class="step-four">
+                    <div></div>
+                    <div class="circle"></div>
+                    <span>{{'完成接入'|I18nFilter:'connect.complete'}}</span>
+                </div>
+            </div>
+        </div>
+        <!--接入流程end-->
+    </div>
+</template>
+<template name="app_triton_device_template">
+    <div class="device-tree-div" ng-controller="DeviceListController as ctrl">
+        <div class="widget device-list-div">
+            <div class="widget-header" id="device_list_head">
+                <div class="widget-title">
+                    <div ng-switch="model">
+                        <div ng-switch-default>
+                            {{'设备列表'|I18nFilter:'device.list'}}
+                        </div>
+                        <div ng-switch-when="map">
+                            <button class="btn btn-sm btn-outline btn-primary" ng-click="ctrl.togglePoiList()">
+                                设备列表
+                            </button>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary btn-outline btn-sm" type="button" style="margin-right: 10px;"
+                                ng-click="ctrl.addDevice()" ng-if="''| SecurityFilter: 'triton_device':'manage'" ng-show="model=='list'">
+                            <i class="fa fa-plus"></i>
+                            {{'新增设备'|I18nFilter:'add.device'}}
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-sm listButton" ng-class="{'active':model==='list'}" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('map')"
+                                class="btn btn-sm listButton" ng-class="{'active':model==='map'}" title="地图" style="">
+                            <i class="fa fa-map"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch="model">
+                <div ng-switch-default>
+                    <div class="widget-body-filled" id="device_item_draggable">
+                        <div class="device_tree ">
+                            <ul class="ztree" id="device-tree-container"></ul>
+                        </div>
+                        <div class="widget-body device-list-div">
+                            <list options="ctrl.options">
+                                <div style="display: flex;">
+                                    <span class="refresh flex-center-center" ng-click="ctrl.initReload()" style="height: 32px;">
+                                        <i class="fa fa-refresh" style="margin-right: 5px;"></i>{{'刷新'|I18nFilter:'refresh'}}
+                                    </span>
+                                    <span class="refresh group_btn flex-center-center" style="height: 32px" ng-click="ctrl.showSelectDialog()">
+                                        <i class="fa fa-list-alt" style="margin-right: 5px;"></i>{{'设置分组'|I18nFilter:'group'}}
+                                    </span>
+                                    <div style="width: 250px;">
+                                        <cnvmany2one collection="deviceClassification" ng-model="deviceClassificationQeury.value"
+                                                     projection="deviceClassificationQeury.projection"
+                                                     placeholder="选择设备类型筛选..."></cnvmany2one>
+                                    </div>
+                                </div>
+                            </list>
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-when="map">
+                    <div class="device-map-container" ng-controller="DeviceMapKanbanController as ctrl">
+                        <div class="device-poi-list-container" style="display: none;">
+                            <div class="device-poi-search">
+                                <input class="form-control search-input" name="list-search-input"
+                                       placeholder="请输入查询内容" ng-model="keyword"/>
+                                <button id="search_button" type="button" class="btn btn-primary btn-sm"
+                                        ng-click="ctrl.searchPoi()"><i class="fa fa-search"></i></button>
+                            </div>
+                            <ul class="device-poi-list list-group">
+                                <li class="list-group-item device-poi-address-state">
+                                    <div class="btn btn-default hasPoiList" ng-click="ctrl.showHasPoiList()">已分配地址:
+                                        <span> {{ hasPoiList.length }} </span></div>
+                                    <div class="btn btn-default hasNoPoiList" ng-click="ctrl.showHasNoPoiList()">未分配地址：
+                                        <span> {{ hasNoPoiList.length }} </span></div>
+                                </li>
+                                <li class="list-group-item device-poi-item" ng-repeat="device in poiList" ng-click="ctrl.selectPoi($index)">
+                                    <div class="device-poi-device-online-state {{device.online?'online':''}}"
+                                         id="device_online_state_{{device.id}}"></div>
+                                    <div class="device-poi-device-info">
+                                        <div class="device-poi-device-info_header">
+                                            <div class="device-poi-device-info_title">
+                                                <div ng-show="device.baseInfo.name">{{device .baseInfo .name}}</div>
+                                                <div ng-switch="device.state">
+                                                        <span ng-switch-default
+                                                              class="device_run_state unknown"> 未知 </span>
+                                                    <span ng-switch-when="normal"
+                                                          class="device_run_state normal"> 正常 </span>
+                                                    <span ng-switch-when="warning"
+                                                          class="device_run_state warning"> 警告 </span>
+                                                    <span ng-switch-when="alarm"
+                                                          class="device_run_state error"> 报警 </span>
+                                                </div>
+                                            </div>
+                                            <div style="font-size: 12px;color: #666666;">{{device.uuid}}</div>
+                                        </div>
+                                        <div class="device-poi-device-info_footer">
+                                            <div>{{device.poi.district || ''}}</div>
+                                            <div>{{device.poi.name || ''}}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item device-poi-pager">
+                                    <nav>
+                                        <ul class="device-poi-pager-container">
+                                            <li><a href="" ng-click="ctrl.previousPage()"> << </a></li>
+                                            <li>
+                                                <span>{{ currentPage }}</span>
+                                                <span>/</span>
+                                                <span>{{ totalPage }}</span>
+                                            </li>
+                                            <li><a href="" ng-click="ctrl.nextPage()"> >> </a></li>
+                                        </ul>
+                                    </nav>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="device_map" class="device_poi_map">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_triton_device_group_dialog">
+    <ul id="device_group_dialog_tree" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
+</template>

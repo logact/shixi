@@ -1,0 +1,47 @@
+<template name="exchange_code_service_template">
+    <div class="dataexchange_page process-code-dialog">
+        <tabs>
+            <tab title="{{'处理代码'|I18nFilter:'exchange_code'}}">
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 50px;">
+                        <cnvcheckbox label="{{'开启'|I18nFilter:'open.flag'}}" ng-model="entity.open"
+                                     info="{{'1. 开启后才可以使用'|I18nFilter:'open.use.one'}} <br/> {{'2. 代码测试不通过，会自动取消勾选'|I18nFilter:'open.use.two'}}"></cnvcheckbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="edit_box_warp">
+                        <div class="edit_box_header">
+                            <i class="fa fa-question-circle" title="{{'帮助'|I18nFilter:'do_help'}}"
+                               ng-click="ctrl.showHelp()"></i>
+                            <i class="fa fa-list" title="{{'格式化'|I18nFilter:'do_format'}}"
+                               ng-click="ctrl.formatCode('code_editor')"></i>
+                            <i class="fa fa-legal" title="{{'测试执行'|I18nFilter:'test.run'}}"
+                               ng-click="ctrl.testRun()"></i>
+                        </div>
+                        <div class="editor_box" id="code_editor">
+
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="{{'测试数据'|I18nFilter:'test.data'}}">
+                <div class="data_editor_container row">
+                    <div class="col-xs-6 test-box-wrap">
+                        <div class="edit_box_header">
+                            <i class="fa fa-list" title="{{'格式化'|I18nFilter:'do_format'}}"
+                               ng-click="ctrl.formatCode('testdata_editor')"></i>
+                        </div>
+                        <div id="testdata_editor" class="editor_box"></div>
+                    </div>
+                    <div class="col-xs-6 test-box-wrap">
+                        <div class="edit_box_header">
+                            <i class="fa fa-list" title="{{'格式化'|I18nFilter:'do_format'}}"
+                               ng-click="ctrl.formatCode('outputdata_editor')"></i>
+                        </div>
+                        <div id="outputdata_editor" class="editor_box"></div>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

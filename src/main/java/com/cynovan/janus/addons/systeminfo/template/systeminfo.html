@@ -1,0 +1,243 @@
+<template name="register_info_template">
+    <div ng-controller="JanusInfoController as ctrl">
+        <div class="widget" style="margin-bottom: 15px;">
+            <div class="widget-header" style="height: 62px">
+                <div class="widget-title">
+                    <div style="font-size: 15px;padding-top: 5px;">
+                        <span>{{'注册信息'|I18nFilter:'register.info'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget col-xs-6 " style="min-height: 200px;">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'注册信息'|I18nFilter:'register.info'}}
+                </div>
+            </div>
+            <div class="widget-body sub-info">
+                <field label="{{'注册码'|I18nFilter:'register.code'}}" ng-model="entity.token"
+                       info="{{'此注册码为接口文档中的token, 用于通过API获取数据'|I18nFilter:'register.code.tip'}}"></field>
+                <field label="{{'可接入设备数量'|I18nFilter:'can.connect.count'}}" ng-model="entity.licences"
+                       info="{{'可接入数量可在Neptune上增加'|I18nFilter:'can.connect.count.tip'}}"></field>
+                <field label="{{'注册日期'|I18nFilter:'register.date'}}" ng-model="entity.bind_date"></field>
+            </div>
+        </div>
+        <div class="widget col-xs-6" style="border-left: 15px solid #eaedf1;min-height: 200px;">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'公司信息'|I18nFilter:'team_info'}}
+                </div>
+            </div>
+            <div class="widget-body sub-info">
+                <field label="{{'Janus所在团队'|I18nFilter:'janus.in_team'}}"
+                       ng-model="entity.company_name"></field>
+                <field label="{{'团队联系邮箱'|I18nFilter:'team_email'}}" ng-model="entity.company_email"></field>
+                <field label="{{'团队联系电话'|I18nFilter:'team_phone'}}" ng-model="entity.company_mobile"
+                       style="position: relative;top:5px"></field>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="logo_info_template">
+    <div class="widget" ng-controller="JanusInfoController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'Logo更换'|I18nFilter:'logo_change'}}
+            </div>
+        </div>
+        <div class="widget-body" style="width: 45%;">
+            <div>
+                <div class="sub-module">
+                    <div class="logoChangeBox" ng-if="''| SecurityFilter: 'janusinfo':'manage'">
+                        <div class="logo-block">
+                            <cnvimage tips="{{'左边Logo'|I18nFilter:'logo_change_left'}} (40px*40px)"
+                                      ng-model="entity.left_logo_image_id"></cnvimage>
+                        </div>
+                        <div class="logo-block">
+                            <cnvimage tips="{{'右边Logo'|I18nFilter:'logo_change_right'}} (100px*40px)"
+                                      ng-model="entity.right_logo_image_id"></cnvimage>
+                        </div>
+                    </div>
+                    <div class="logoChangeBox" ng-if="!(''| SecurityFilter: 'janusinfo':'manage')">
+                        {{'当前用户暂无权限更换Logo'|I18nFilter:'no_change_logo'}}。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="save_info_template">
+    <div class="widget" ng-controller="JanusInfoController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'存储策略'}}
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="module module-left" style="min-height: 500px;border: 0;">
+                <div class="sub-module" style="width: 45%">
+                    <div class="sub-title">{{'存储信息'|I18nFilter:'storage_info'}}</div>
+                    <div class="sub-info" ng-repeat="d in disk">
+                        <div class="storge">
+                            <span> {{d.devname}}</span>
+                            <span style="position: absolute;right: 10px">{{d.used_display}}/{{d.total_display}}</span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" id="{{'storeBar-' + $index }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-module" style="width: 55%">
+                    <div class="sub-title">{{'编辑清除策略'|I18nFilter:'edit_clear_tactics'}}</div>
+                    <div class="sub-info">
+                        <div class="capacity">
+                            <span>{{'Janus容量'| I18nFilter:'janus.capacity'}} {{storageSize}}</span>
+                            <span style="position: absolute;right: 0">{{'容量比：'|I18nFilter:'capacity_ratio'}}{{storagePercentage}}%</span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" id="strategyBar"></div>
+                            </div>
+                        </div>
+                        <div class="strategy">
+                            <div>{{'自动清除策略'|I18nFilter:'auto_clear'}}</div>
+                            <form>
+                                <div class="distance">{{'（默认）Janus大小达到15G后，自动清除30%数据。'|I18nFilter:'default_clear'}}
+                                </div>
+                                <div class="distance">
+                                    <span>1.{{'选择峰值监控策略：'|I18nFilter:'select.max.monitor'}}</span>
+                                    <div class="distance flex" style="margin-left: 10px">
+                                        <div style="position: relative;top: 3px;">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="strategy" value="A" ng-model="entity.strategy"/>
+                                                <div class="state p-primary">
+                                                    <label>{{'策略A'|I18nFilter:'tactics_a'}}：</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>{{'Janus占用的硬盘容量超过'|I18nFilter:'janus.more_than'}}<input type="number"
+                                                                                                     class="chosen-select"
+                                                                                                     ng-model="entity.peakA">
+                                            GB {{'自动清除部分数据'|I18nFilter:'janus.auto_clear'}}
+                                        </div>
+                                    </div>
+                                    <div class="distance flex" style="margin-left: 10px">
+                                        <div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="strategy" value="B" ng-model="entity.strategy"/>
+                                                <div class="state p-primary">
+                                                    <label>{{'策略B'|I18nFilter:'tactics_b'}}：</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="position: relative;bottom: 3px;">
+                                            {{'Janus占所在硬盘的容量比'|I18nFilter:'janus.capacity.ratio'}}
+                                            <select ng-model="entity.peakB" class="chosen-select">
+                                                <option value="" disabled selected hidden>
+                                                    {{'选择比例'|I18nFilter:'select.ratio'}}...
+                                                </option>
+                                                <option value="60">60%</option>
+                                                <option value="70">70%</option>
+                                                <option value="80">80%</option>
+                                                <option value="85">85%</option>
+                                                <option value="90">90%</option>
+                                            </select>
+                                            {{'自动清除部分数据'|I18nFilter:'janus.auto_clear'}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="distance">
+                                    <span>2.{{'选择清除比例：'|I18nFilter:'select.clear.proportion'}}<br/>
+                                        {{'当达到自定义峰值时，自动清除Janus数据'|I18nFilter:'can.auto.clear'}}
+                                        <select ng-model="entity.clearProportion" class="chosen-select">
+                                            <option value="" disabled selected hidden>{{'请选择清除比例'|I18nFilter:'please_select_proportion'}}...</option>
+                                            <option value="30">30%</option>
+                                            <option value="50">50%</option>
+                                            <option value="60">60%</option>
+                                            <option value="70">70%</option>
+                                            <option value="100">100%</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <button class="btn btn-primary btn-outline btn-sm distance" type="button"
+                                        ng-click="ctrl.saveStrategy()" ng-if="''| SecurityFilter: 'janusinfo':'manage'">
+                                    <i class="fa fa-download"></i> {{'保存'|I18nFilter:'save'}}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="hard_info_template">
+    <div ng-controller="JanusInfoController as ctrl">
+        <div class="widget" style="margin-bottom: 15px;">
+            <div class="widget-header" style="height: 62px">
+                <div class="widget-title">
+                    <div style="font-size: 15px;padding-top: 5px;">
+                        <span>{{'硬件信息'|I18nFilter:'hardware_info'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget col-xs-6" style="min-height: 300px;">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'硬件信息'|I18nFilter:'hardware_info'}}
+                </div>
+            </div>
+            <div class="widget-body sub-info">
+                <field label="{{'操作系统'|I18nFilter:'operating_system'}}" ng-model="os"></field>
+                <field label="{{'内存总量'|I18nFilter:'total_ram'}}" ng-model="memory"></field>
+            </div>
+        </div>
+        <div class="widget col-xs-6" style="border-left: 15px solid #eaedf1;min-height: 300px;">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'网卡信息'|I18nFilter:'network_card'}}
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="sub-info" ng-repeat="i in ni">
+                    <field label="{{'标识'|I18nFilter:'flag'}}" ng-model=i.ifaces></field>
+                    <field label="{{'IP地址'|I18nFilter:'ip_address'}}" ng-model=i.ip></field>
+                    <field label="{{'网卡MAC地址'|I18nFilter:'network_card_mac'}}" ng-model=i.mac></field>
+                    <field label="{{'子网掩码'|I18nFilter:'subnet_mask'}}" ng-model=i.netmask></field>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="version_info_template">
+    <div class="widget" ng-controller="BuildInfoController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'版本信息'|I18nFilter:'janus.version.info'}}
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="module">
+                <div class="sub-module">
+                    <div class="sub-info">
+                        <div ng-if="hasBuildInfo">
+                            <field label="{{'分支名称'|I18nFilter:'branch_name'}}" ng-model="entity.branch" width="160px"></field>
+                            <field label="{{'打包时间'|I18nFilter:'package_time'}}" ng-model="entity.time" width="160px"></field>
+                            <field label="{{'最后提交ID'|I18nFilter:'last_commit_id'}}" ng-model="entity.last_commit_id" width="160px"></field>
+                            <field label="{{'最后提交时间'|I18nFilter:'last_commit_time'}}" ng-model="entity.last_commit_time" width="160px"></field>
+                            <field label="{{'本地是否有未提交代码'|I18nFilter:'local_no_commit'}}" ng-model="entity.git_dirty" width="160px"></field>
+                        </div>
+                        <div ng-if="!hasBuildInfo">
+                            {{'暂未获取到janus版本信息'|I18nFilter:'no_janus_version_info'}}。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+

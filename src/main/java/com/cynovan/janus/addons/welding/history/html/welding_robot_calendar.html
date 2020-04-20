@@ -1,0 +1,118 @@
+<template name="app_weld_template">
+    <div class="app_weld_box" ng-controller="AppWeldController as ctrl">
+
+    </div>
+</template>
+<template name="app_weld_calendar_template">
+    <div class="widget" ng-controller="AppWeldCalendarController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <span>焊接机器人-历史加工数据</span>
+                    <div id="appWeldDeviceSelect"
+                         style="display:inline-block;width: 300px; margin-left: 25px;vertical-align: top; margin-top: -5px;"></div>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.tcpXyzLineChart()">
+                        <i class="fa fa-line-chart"></i>
+                        工具坐标系TCP参数曲线图
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.appConfig()">
+                        <i class="fa fa-wrench"></i>
+                        应用配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.appDataExport()">
+                        <i class="fa fa-download"></i>
+                        数据导出
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="app_weld_summary">
+                        <div class="app_weld_summary_item">
+                            <div class="app_weld_summary_item_label">焊接耗时</div>
+                            <div class="app_weld_summary_item_value" data-key="period"
+                                 style="width: 140px;text-align: left;"></div>
+                        </div>
+                        <div class="app_weld_summary_item">
+                            <div class="app_weld_summary_item_label">工作天数</div>
+                            <div class="app_weld_summary_item_value" data-key="days"></div>
+                            <div class="app_weld_item_unit">天</div>
+                        </div>
+                        <div class="app_weld_summary_item">
+                            <div class="app_weld_summary_item_label">加工数量</div>
+                            <div class="app_weld_summary_item_value" data-key="product"></div>
+                            <div class="app_weld_item_unit">个</div>
+                        </div>
+                        <div class="app_weld_summary_item">
+                            <div class="app_weld_summary_item_label">焊丝消耗长度</div>
+                            <div class="app_weld_summary_item_value" data-key="wire_length"></div>
+                            <div class="app_weld_item_unit">米</div>
+                        </div>
+                        <div class="app_weld_summary_item">
+                            <div class="app_weld_summary_item_label">焊丝消耗重量</div>
+                            <div class="app_weld_summary_item_value" data-key="wire_density"></div>
+                            <div class="app_weld_item_unit" id="app_weld_item_wire_density">千克</div>
+                        </div>
+                        <div class="app_weld_summary_item">
+                            <div class="app_weld_summary_item_label">良率</div>
+                            <div class="app_weld_summary_item_value" data-key="okPercent"></div>
+                            <div class="app_weld_item_unit">%</div>
+                        </div>
+                        <div class="dropdown" ng-show="weldShifts.length">
+                            <button id="dLabel" class="btn btn-default btn-sm" type="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"
+                                    style="width: 120px;">
+                                <span class="shiftLabel">所有班别</span>
+                                <i class="fa fa-angle-down" style="margin-left: 10px;"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" aria-labelledby="dLabel">
+                                <li>
+                                    <a href="" ng-click="ctrl.selectShift(-1)">
+                                        <span class="weld_color_box"></span>
+                                        <span>所有班别</span>
+                                    </a>
+                                </li>
+                                <li ng-repeat="shift in weldShifts">
+                                    <a href="" ng-click="ctrl.selectShift($index)">
+                                        <div class="shiftItem">
+                                            <span class="weld_color_box"
+                                                  style="background-color:{{shift.color}} "></span>
+                                            <span style="font-weight: bold;">{{shift.name}}</span>
+                                            <span>
+                                                    (
+                                                    {{shift.s_type === 'yest' ? '前一天' : '当天'}}
+                                                    {{shift.s_hour}} : {{shift.s_minute}}
+                                                    ~
+                                                    {{shift.e_type === 'current' ? '当天' : '第二天'}}
+                                                    {{shift.e_hour}} : {{shift.e_minute}}
+                                                    )
+                                                </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="app_weld_body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_weld_dropdown_config_template">
+    <div class="row">
+        <div class="col-sm-12">
+            <cnvtextarea label="下拉选项" ng-model="datamap.b_select"></cnvtextarea>
+        </div>
+        <div class="col-sm-12">
+            <span style="color: #f00;margin-left: 125px;font-size: 90%">* 有多个选项请换行</span>
+        </div>
+    </div>
+</template>

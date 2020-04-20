@@ -1,0 +1,51 @@
+.procedure {
+    padding: 0 15px;
+}
+.procedure .widget-body {
+    overflow: visible;
+}
+#procedure-table {
+    table-layout:fixed;
+}
+#procedure-table th,
+#procedure-table td {
+    border-bottom: 1px solid #ddd;
+}
+#procedure-table td {
+    padding: 2px 0;
+}
+#procedure-table td input {
+    width:95%;
+    text-indent: 10px;
+}
+#procedure-table .title th {
+    padding:8px;
+    border-bottom: 2px solid #ddd;
+}
+
+#procedure-table tr:last-child td {
+    border-bottom: none;
+}
+.procedure-input,.procedure-select {
+    outline:none;
+    padding: 8px 0;
+    border:none;
+}
+.ncfileselect .chosen-container{
+    width:95%!important;
+    color: #6a6c6f;
+}
+.procedureTitle {
+    width: 80%;
+    padding:10px 0;
+}
+.procedureTitle .col-xs-3 {
+    padding: 0;
+}
+.procedureTitle .form-label{
+    width:100px;
+}
+.procedureTitle .form-input{
+    margin-left: 110px;
+    margin-right: 0;
+}

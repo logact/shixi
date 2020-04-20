@@ -1,0 +1,227 @@
+<template name="cutting_device_detail_template">
+    <div class="widget" ng-controller="CuttingDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="设备规格" placeholder="请输入" ng-model="showData.DeviceSpec"></cnvtext>
+                        <cnvtext label="切割速度" placeholder="请输入" ng-model="showData.CuttingSpeed"></cnvtext>
+                        <cnvtext label="切割材料" placeholder="请输入" ng-model="showData.CuttingMaterial"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="生产厂家" placeholder="请输入" ng-model="showData.ProductFactory"></cnvtext>
+                        <cnvtext label="生产日期" placeholder="请输入" ng-model="showData.ProductDate"></cnvtext>
+                        <cnvtext label="刀头数" placeholder="请输入" ng-model="showData.CuttingCount"></cnvtext>
+                        <cnvtext label="设备工作电压" placeholder="请输入" ng-model="showData.DeviceVoltage"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveInfo()"
+                                ng-if="''| SecurityFilter: 'cutting_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="设备加工产量" field="01_value"></staticfield>
+                        <staticfield label="单次运行时间" field="02_value"></staticfield>
+                        <staticfield label="散热风扇温度" field="FanNowTemp"></staticfield>
+                        <staticfield label="设备动作" field="03_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="设备工作电流" field="04_value" width="130"></staticfield>
+                        <staticfield label="真空泵工作电流" field="PumpNowValue" width="130"></staticfield>
+                        <staticfield label="切割刀头工作电流1" field="CuttingHeadNowValue1" width="130"></staticfield>
+                        <staticfield label="切割刀头工作电流2" field="CuttingHeadNowValue2" width="130"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数监控" on-show="ctrl.initCharts()">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                真空泵
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入" ng-model="showData.PumpMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入" ng-model="showData.PumpMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="cutting_chart zkb_chart">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                切割刀头1
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.CuttingHeadMax1"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.CuttingHeadMin1"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="cutting_chart dt1_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                切割刀头2
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.CuttingHeadMax2"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.CuttingHeadMin2"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="cutting_chart dt2_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                散热风扇
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作温度上限" placeholder="请输入" ng-model="showData.FanMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作温度下限" placeholder="请输入" ng-model="showData.FanMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="cutting_chart fs_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                    ng-click="ctrl.saveParameter()"
+                                    ng-if="''| SecurityFilter: 'cutting_device':'manage'"><i
+                                    class="fa fa-save"></i> 保&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="报警监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticstate label="散热扇温度报警" field="05_value" width="130"></staticstate>
+                        <staticstate label="真空泵工作异常报警" field="06_value" width="130"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticstate label="切割刀头1报警" field="07_value" width="130"></staticstate>
+                        <staticstate label="切割刀头2报警" field="08_value" width="130"></staticstate>
+                    </div>
+                </div>
+            </tab>
+            <tab title="产量监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="今日目标" placeholder="请输入" ng-model="showData.TodayGoal"></cnvtext>
+                        <staticfield label="运行时间" field="09_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="实际产量" field="10_value"></staticfield>
+                        <staticfield label="设备达成率" field="11_value"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveTodayGoal()"
+                                ng-if="''| SecurityFilter: 'cutting_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机台照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.cutting.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

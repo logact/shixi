@@ -1,0 +1,13 @@
+.app-info-panel {
+    font-size: 15px;
+    color: #333b49;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin: 10px 0;
+}
+
+.message-info-div {
+    padding-left: 0;
+    background-color: #fff;
+    border-right: 15px solid #eaedf1;
+}

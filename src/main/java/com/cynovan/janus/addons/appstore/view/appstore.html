@@ -1,0 +1,48 @@
+<template name="app_store_template">
+    <div class="aps-main" ng-controller="AppstoreController as ctrl">
+        <div class="widget-body">
+            <div class="left-navigate-div">
+                <div class="category-div">
+                    <div class="category-header">{{'应用类别'|I18nFilter:'app.type'}}</div>
+                    <li ng-repeat="c in ctrl.categorys" ng-class="selectCategory===c?'selectedColor':''">
+                        <input type="radio" id="{{'radio'+$index}}" name="category" style="display: none">
+                        <label ng-bind="c" for="{{'radio'+$index}}" ng-click="ctrl.categoryClick(c)"></label>
+                    </li>
+                </div>
+            </div>
+            <div class="aps-apps" ng-cloak>
+                <div class="aps-header">
+                    <div class="apps-list-heard">{{'应用列表'|I18nFilter:'app.list'}}</div>
+                    <div class="search-div">
+                        <input class="form-control search-app-input" ng-model="searchContent"
+                               ng-keyup="$event.keyCode == 13&&ctrl.searchApp()"
+                               placeholder="{{'请输入查询内容'|I18nFilter:'input.find.content'}}">
+                        <i class="fa fa-times clear-input" title="{{'清空'|I18nFilter:'clear'}}"
+                           ng-show="searchContent.length>0"
+                           ng-click="ctrl.clearInput()"></i>
+                        <button type="button" class="btn btn-primary btn-sm search-app-button"
+                                ng-click="ctrl.searchApp()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-primary btn-sm import-app-button" style="float: right"
+                                ng-click="ctrl.goImport()">{{'导入应用'|I18nFilter:'import_app'}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="aps-apps-card" ng-repeat="app in ctrl.apps | filter:filterObject as results">
+                    <img ng-src="{{app.icon}}">
+                    <div class="caption">
+                        <h3>{{ app.name }}</h3>
+                        <p>{{ app.description }}</p>
+                        <span ng-switch="app.installed">
+                            <button class="btn btn-primary btn-block" ng-click="ctrl.install(app.appId || app.name,$event)"
+                                    ng-switch-default>{{'安装'|I18nFilter:'install'}}</button>
+                            <button class="btn btn-default btn-block" ng-click="ctrl.uninstall(app.appId || app.name,$event)"
+                                    ng-switch-when="true">{{'卸载'|I18nFilter:'uninstall'}}</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="no-find-div" ng-show="results.length===0"></div>
+            </div>
+        </div>
+    </div>
+</template>

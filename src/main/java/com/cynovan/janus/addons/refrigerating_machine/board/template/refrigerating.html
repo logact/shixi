@@ -1,0 +1,46 @@
+<template name="refrigerating_index_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <img src="resource/refrigerating_machine/img/board.jpg"/>
+        </div>
+    </div>
+</template>
+<template name="refrigerating_device_template">
+    <div class="widget" ng-controller="RefrigeratingDeviceBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机台列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-config-btn" type="button">
+                        <i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToRefrigerating()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为U型冷冻机
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>

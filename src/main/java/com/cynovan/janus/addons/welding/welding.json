@@ -1,0 +1,72 @@
+{
+  "appId": "welding",
+  "description": "焊接机器人",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "焊接机器人",
+  "category": "通用设备",
+  "icon": "device/img/app-icon.png",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "焊接机器人"
+    },
+    {
+      "name": "设备",
+      "icon": "welding/device/img/icon.png",
+      "template": "welding_device_board_template",
+      "detail_template": "welding_device_detail_template",
+      "depend": [
+        "device"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型",
+      "icon": "welding/device/img/icon.png",
+      "template": "welding_robot_vr_template",
+      "depend": [
+        "welding_robot_vr"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "加工历史",
+      "icon": "welding/device/img/icon.png",
+      "template": "app_weld_template",
+      "depend": [
+        "history"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

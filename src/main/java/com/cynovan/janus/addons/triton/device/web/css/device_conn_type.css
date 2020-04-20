@@ -1,0 +1,92 @@
+
+.dataexchange_toolbar_box {
+    float: right;
+}
+.config-example-first {
+    height: 120px;
+    background: url("../css/image/configOne.png") no-repeat left;
+}
+
+.config-example-second {
+    height: 150px;
+    background: url("../css/image/configTwo.png") no-repeat left;
+}
+
+.table-container-div {
+    max-height: 230px;
+    overflow-y: scroll
+}
+
+.protocol{
+    display: flex;
+    margin-left: 47px;
+}
+
+.protocollogo{
+    width: 20px;
+    background-color: #dbdfe2;
+    display: flex;
+    text-align:center;
+    align-items: center;
+}
+
+.protocoltype{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 140px;
+    border-bottom: 2px solid #dbdfe2;
+    cursor: pointer;
+}
+
+.protocoltype:hover{
+    color: #337ab7;
+    border-bottom: 2px solid #337ab7;
+}
+
+.deviceagree{
+    display: flex;
+    margin-left: 47px;
+    align-items: center;
+}
+
+.deviceagree .active{
+    color: #337ab7;
+    border-bottom: 2px solid #337ab7;
+}
+
+.protocolcontent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 220px;
+    background-color: #dbdfe2;
+    margin:20px 10px;
+    cursor: pointer;
+}
+
+.protocol .active{
+    color: white;
+    background-color: #337ab7;
+}
+
+.receiveMethods{
+    display: inline-block;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.method{
+    display: flex;
+    align-items: center;
+    height: 34px;
+    padding-left: 80px;
+}
+
+.datalength{
+    border-radius: 4px;
+    margin-left: 30px;
+}

@@ -1,0 +1,161 @@
+<template name="data_monitor_template">
+    <div class="widget" ng-controller="DataMonitorListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                监控规则
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.toDetailPage('new')"
+                        ng-if="''| SecurityFilter: 'data_monitor_list':'manage'">
+                    <i class="fa fa-plus"></i>
+                    新增规则
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="data_monitor_edit_template">
+    <div class="widget data-monitor-edit" ng-controller="DataMonitorDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">规则列表 / </a>
+                    <span ng-bind="title"></span>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button" ng-click="ctrl.back()">
+                        <i class="fa fa-arrow-left"></i>
+                        返回
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.saveDataMonitor()">
+                        <i class="fa fa-download"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <tabs>
+                <tab title="指定设备" style="min-height: 500px">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="名称" ng-model="entity.name"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="标签" ng-model="entity.tag"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="备注" ng-model="entity.remarks"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-control-static c-select">
+                                <div class="form-label">
+                                    适配设备
+                                </div>
+                                <div class="form-input" style="height: 34px">
+                                    <select class="form-control"
+                                            ng-options="option.id as option.name for option in adaptOption"
+                                            ng-model="entity.adapt"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="entity.adapt === '1'">
+                        <div class="col-xs-6">
+                            <div class="form-control-static">
+                                <label class="form-label" title="设备">设备</label>
+                                <div class="form-input">
+                                    <related-select type="device" ng-model="entity.relatedDevice"
+                                                    placeholder="请选择设备"></related-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="entity.adapt === '2'">
+                        <div class="col-xs-6">
+                            <div class="form-control-static c-select">
+                                <div class="form-label">
+                                    设备所属团队
+                                </div>
+                                <div class="form-input">
+                                    <related-select type="team" ng-model="entity.relatedTeam"
+                                                    placeholder="请选择所属团队"></related-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab title="触发规则">
+                    <div class="row">
+                        <div class="edit_box_warp">
+                            <div class="col-xs-12" style="padding-bottom: 5px;">
+                                <ul class="code_title">
+                                    <li>1、使用$data$即可引用数据,例如$data$["message"]代表引用设备数据中的message栏位</li>
+                                    <li>2、表达式必须有明确的返回值，条件表达式时返回true/false</li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 data_monitor_code_btn_list"
+                                 style="display: flex;height: 45px;">
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('==')"> 等于
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('!=')"> 不等于
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('string.contains(,)')"> 包含
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('!string.contains(,)')"> 不包含
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('>')"> 大于
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('>=')">
+                                    大于等于
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('<')"> 小于
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('<=')">
+                                    小于等于
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('&amp;&amp;')"> And
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                        ng-click="ctrl.addExpress('||')"> 或
+                                </button>
+                            </div>
+                            <div class="edit_box_header">
+                                <i class="fa fa-list" title="格式化" style="cursor: pointer;"
+                                   ng-click="ctrl.formatJSON()"></i>
+                            </div>
+                            <div id="code_expression_editor"></div>
+                            <div class="col-xs-12" ng-show="showCode">
+                                <div class="code_title" style="font-size: 16px;padding-top: 15px;">代码示例:</div>
+                                <div class="code_title">1. 设备的温度大于20</div>
+                                <div class="code-area">return $data$["temperature"] > 20</div>
+                                <div class="code_title">2. 设备的报警代码为'ERROR001'</div>
+                                <div class="code-area">return $data$["error_code"] == 'ERROR001'</div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+</template>

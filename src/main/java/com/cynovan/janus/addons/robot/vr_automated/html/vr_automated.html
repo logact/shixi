@@ -1,0 +1,541 @@
+<template name="vr_automated_template">
+    <div class="widget" ng-controller="VRAutoMatedController as ctrl">
+        <div class="widget-header" style="padding: 0">
+            <div class="widget-title">
+                <div class="vr_automated_header">
+                    <div class="robot_widget_title">数字双胞胎 Digital twins</div>
+                    <button style="margin-left: 30px;" class="btn btn-primary btn-outline btn-sm"
+                            type="button"
+                            ng-click="ctrl.push(1)">
+                        <i class="fa fa-exchange"></i>
+                        开线
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.push(2)">
+                        <i class="fa fa-exchange"></i>
+                        停线
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.push(3)">
+                        <i class="fa fa-exchange"></i>
+                        产能1
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.push(4)">
+                        <i class="fa fa-exchange"></i>
+                        产能2
+                    </button>
+                </div>
+                <div style="padding-top: 14px;">
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.modifyConfig()">
+                        <i class="fa fa-cog"></i>
+                        数据配置
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body" style="min-height: 300px;">
+            <div class="row">
+                <div class="col-xs-9">
+                    <div class="row" style="border-bottom:1px #ddd dotted;">
+                        <div class="col-xs-6" style="border-right: 1px #ddd dotted;">
+                            <div class="vr_automated_chart echart_position1"></div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="vr_automated_chart echart_position2"></div>
+                        </div>
+                    </div>
+                    <div id="automated_webgl_box"></div>
+                </div>
+                <div class="col-xs-3 automated_left">
+                    <div class="devlce_select_box">
+                        <div class="row-item" style="margin-top: 15px;">
+                            <div style="width: 90px;">上料机器人</div>
+                            <div id="vrautomated_bind_device_box"></div>
+                        </div>
+                        <div class="row-item" style="margin-top: 15px;">
+                            <div style="width: 90px;">下料机器人</div>
+                            <div id="vrautomated_bind_robot2_box"></div>
+                        </div>
+                        <div class="row-item" style="margin-top: 15px;">
+                            <div style="width: 90px;">产线</div>
+                            <div id="vrautomated_bind_line_box"></div>
+                        </div>
+                    </div>
+                    <!--<div>
+                        <button class="btn btn-success btn-sm" type="button" ng-click="ctrl.move()">移动</button>
+                    </div>
+                    <div>
+                        <input class="form-control" id="animate_input"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="obj_input" placeholder="备注"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="x_input" placeholder="X轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('x')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('x')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="y_input" placeholder="y轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('y')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('y')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="z_input" placeholder="z轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('z')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('z')"></i>
+                    </div>-->
+                    <div class="collect_info">
+                        <div class="collect_info_row">
+                            <span class="collect_info_label">总产量</span>
+                            <div class="collect_info_value" data-key="total_number"></div>
+                        </div>
+                        <div class="collect_info_row">
+                            <span class="collect_info_label">NG数量</span>
+                            <div class="collect_info_value" data-key="NG_number"></div>
+                        </div>
+                        <div class="collect_info_row">
+                            <span class="collect_info_label">合格数量</span>
+                            <div class="collect_info_value" data-key="qualified_number"></div>
+                            <button class="btn btn-success btn-outline btn-xs" type="button" style="margin-left: 30px;"
+                                    ng-click="ctrl.showRfidDetails()">
+                                <i class="fa fa-list"></i>
+                                详细列表
+                            </button>
+                        </div>
+                    </div>
+                    <video id="rtspvedio" width="350" height="300" controls autoplay muted></video>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="vr_automated_rfid_detail_template">
+    <div class="row">
+        <div class="col-xs-12" style="max-height: 350px;overflow-y: auto;">
+            <table class="table table-bordered table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>箱号</th>
+                    <th>物料号</th>
+                    <th>标签</th>
+                    <th>日期</th>
+                    <th>NG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in datas">
+                    <td>{{item['NO.']}}</td>
+                    <td>{{item.id}}</td>
+                    <td ng-bind-html="item.tags"></td>
+                    <td>{{item.datetime}}</td>
+                    <td>{{item.NG}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+<template name="vr_automated_config_template">
+    <div>
+        <tabs>
+            <tab title="上料机器人配置">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="数据周期(毫秒)" ng-model="entity.cycle" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            轴位置
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴1位置" ng-model="entity.axis1_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.axis1_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.axis1_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴2位置" ng-model="entity.axis2_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.axis2_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.axis2_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴3位置" ng-model="entity.axis3_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.axis3_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.axis3_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴4位置" ng-model="entity.axis4_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.axis4_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.axis4_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴5位置" ng-model="entity.axis5_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.axis5_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.axis5_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴6位置" ng-model="entity.axis6_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.axis6_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.axis6_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            机器人一轴位置信号(通过该配置来定位动作)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="下料区抓取1轴最小值" width="150" ng-model="entity.r1_xialiao_zhuaqu_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="下料区抓取1轴最大值" width="150" ng-model="entity.r1_xialiao_zhuaqu_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="料框区抓取1轴最小值" width="150" ng-model="entity.r1_liaokuang_zhuaqu_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="料框区抓取1轴最大值" width="150" ng-model="entity.r1_liaokuang_zhuaqu_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="料框区放置1轴最小值" width="150" ng-model="entity.r1_liaokuang_fangzhi_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="料框区放置1轴最大值" width="150" ng-model="entity.r1_liaokuang_fangzhi_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="上料区放置1轴最小值" width="150" ng-model="entity.r1_shangliao_fangzhi_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="上料区放置1轴最大值" width="150" ng-model="entity.r1_shangliao_fangzhi_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            机器人信号
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="工件抓取信号" ng-model="entity.r1_zhuaqu"></cnvtext>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="工件放置信号" ng-model="entity.r1_fangzhi"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            料框工件传感器信号
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="料框工件传感器(1)" width="130" ng-model="entity.lk_1_active"></cnvtext>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="料框工件传感器(2)" width="130" ng-model="entity.lk_2_active"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="料框工件传感器(3)" width="130" ng-model="entity.lk_3_active"></cnvtext>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="料框工件传感器(4)" width="130" ng-model="entity.lk_4_active"></cnvtext>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="下料机器人">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="数据周期(毫秒)" ng-model="entity.cycle2" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            轴位置
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴1位置" ng-model="entity.r2_axis1_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.r2_axis1_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.r2_axis1_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴2位置" ng-model="entity.r2_axis2_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.r2_axis2_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.r2_axis2_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴3位置" ng-model="entity.r2_axis3_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.r2_axis3_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.r2_axis3_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴4位置" ng-model="entity.r2_axis4_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.r2_axis4_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.r2_axis4_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴5位置" ng-model="entity.r2_axis5_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.r2_axis5_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.r2_axis5_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext label="轴6位置" ng-model="entity.r2_axis6_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-3" style="padding-top: 7px;display: flex;">
+                            <select ng-model="entity.r2_axis6_direc" class="form-control" style="width: 170px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                            <input class="form-control" ng-model="entity.r2_axis6_offset" placeholder="轴偏置(度数)"
+                                   style="width: 140px;margin-left: 20px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            机器人一轴位置信号(通过该配置来定位动作)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="上料区抓取1轴最小值" width="150" width="150" ng-model="entity.r2_shangliao_zhuaqu_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="上料区抓取1轴最大值" width="150" width="150" ng-model="entity.r2_shangliao_zhuaqu_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="NG区抓取1轴最小值" width="150" ng-model="entity.r2_ng_zhuaqu_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="NG区抓取1轴最大值" width="150" ng-model="entity.r2_ng_zhuaqu_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="NG区域放置1轴最小值" width="150" ng-model="entity.r2_ng_fangzhi_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="NG区域放置1轴最大值" width="150" ng-model="entity.r2_ng_fangzhi_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <cnvtext label="下料区放置1轴最小值" width="150" ng-model="entity.r2_xialiao_fangzhi_min"></cnvtext>
+                        </div>
+                        <div class="col-xs-1">
+                        </div>
+                        <div class="col-xs-5">
+                            <cnvtext label="下料区放置1轴最大值" width="150" ng-model="entity.r2_xialiao_fangzhi_max"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            机器人信号
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="工件抓取信号" ng-model="entity.r2_zhuaqu"></cnvtext>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="工件放置信号" ng-model="entity.r2_fangzhi"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            工件传感器信号
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="NG工件传感器信号" width="150" ng-model="entity.ng_active"></cnvtext>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="上料区传感器信号(结束)" width="150" ng-model="entity.sl_end_active"></cnvtext>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="产线配置">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <cnvtext label="上料区传感器信号(开始)" width="150" ng-model="entity.sl_start_active"></cnvtext>
+                    </div>
+                    <div class="col-xs-1">
+                    </div>
+                    <div class="col-xs-5">
+                        <cnvtext label="下料区传感器信号(开始)" width="150" ng-model="entity.xl_start_active"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <cnvtext label="阻挡气缸运动信号" width="150" ng-model="entity.zudang_qigang"></cnvtext>
+                    </div>
+                    <div class="col-xs-1">
+                    </div>
+                    <div class="col-xs-5">
+                        <cnvtext label="下料区传感器信号(结束)" width="150" ng-model="entity.xl_end_active"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 header">
+                        挡板信号
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <cnvtext label="气缸伸出信号(RFID检测)" width="180" ng-model="entity.dangban"></cnvtext>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 header">
+                        传送带速度
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        在多少时间内（单位为毫秒），工件从上料区移动到待抓取区域，时间越小，移动速度越快
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <cnvtext label="上料区传送带速度" width="130" ng-model="entity.chuansongdai1_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-1">
+                    </div>
+                    <div class="col-xs-5">
+                        <cnvtext label="下料区传送带速度" width="130" ng-model="entity.chuansongdai2_speed"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="第三方接口配置">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <cnvtext label="网络摄像头URL" ng-model="entity.camera_url"></cnvtext>
+                    </div>
+                    <div class="col-xs-12">
+                        <cnvtext label="RFID API" ng-model="entity.rfid_url"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

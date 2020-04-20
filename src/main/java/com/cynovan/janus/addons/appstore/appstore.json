@@ -1,0 +1,29 @@
+{
+  "appId": "appstore",
+  "description": "全部应用",
+  "name": "应用市场",
+  "author": "",
+  "version": "",
+  "app": false,
+  "icon": "",
+  "menus": [
+    {
+      "showOnTop": false,
+      "hideOnLeft": true,
+      "name": "应用市场",
+      "i18nKey": "app.store",
+      "description": "应用市场",
+      "template": "app_store_template",
+      "detail_template": "import_app_template",
+      "depend": [
+        "appstore/resource"
+      ],
+      "security": [
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

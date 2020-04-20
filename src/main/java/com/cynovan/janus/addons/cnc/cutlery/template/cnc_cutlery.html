@@ -1,0 +1,92 @@
+<template name="cnc_cutlery_template">
+    <div class="widget" ng-controller="CutleryController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                刀具管理
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.addCutlery()" ng-if="''| SecurityFilter: 'cnc_cutlery':'manage'">
+                    <i class="fa fa-plus"></i>
+                    新增刀具
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="cnc_cutlery_add">
+    <div class="widget" ng-controller="AddCutleryController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div ng-bind="cutlery_title">
+
+                </div>
+                <div>
+                    <button ng-click="ctrl.back()" class="btn btn-primary btn-outline btn-sm" type="button">
+                        <i class="fa fa-arrow-left"></i>
+                        返回
+                    </button>
+                    <button ng-click="ctrl.createCutlery()" ng-if="''| SecurityFilter: 'cnc_cutlery':'manage'"
+                            class="btn btn-primary btn-outline btn-sm" type="button">
+                        <i class="fa fa-download"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row cutlery-title">
+            <div class="col-sm-12">
+                <div class="header">
+                    <i class="fa fa-dot-circle-o"></i>
+                    基本信息
+                </div>
+            </div>
+        </div>
+        <div class="row cutlery-content">
+            <div class="col-xs-6">
+                <cnvtext label="编号" ng-model="entity.code"></cnvtext>
+            </div>
+            <div class="col-xs-6">
+                <cnvnumber label="数量" ng-model="entity.num"></cnvnumber>
+            </div>
+            <div class="col-xs-6">
+                <cnvtext label="属性" ng-model="entity.property"></cnvtext>
+            </div>
+            <div class="col-xs-6">
+                <cnvtext label="类型" ng-model="entity.type"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="header">
+                    <i class="fa fa-dot-circle-o"></i>
+                    数量信息
+                </div>
+            </div>
+        </div>
+        <div class="row cutlery-content">
+            <div class="col-xs-6">
+                <div class="form-control-static">
+                    <span class="processing_title">标准加工次数</span>
+                    <input class="processing_num form-control" ng-model="entity.processing_times"
+                           ng-change="ctrl.processChange()">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-control-static">
+                    <span class="processing_title">总可加工次数</span>
+                    <input class="processing_num form-control" ng-model="entity.total_processing_times">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <cnvnumber label="已使用次数" ng-model="entity.used_processing_times"></cnvnumber>
+            </div>
+            <div class="col-xs-6">
+                <field label="剩余百分比" ng-model="entity.percentage" style="line-height: 48px"></field>
+            </div>
+        </div>
+    </div>
+</template>

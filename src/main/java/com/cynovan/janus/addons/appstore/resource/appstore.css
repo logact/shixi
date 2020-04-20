@@ -1,0 +1,179 @@
+.aps-main {
+    position: relative;
+    background-color: #fff;
+}
+
+.aps-header {
+    font-size: 20px;
+    padding: 0 15px 15px 20px;
+    width: 100%
+}
+
+.aps-header .apps-list-heard {
+    border-bottom: 1px solid #eeeeee;
+    height: 34px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.aps-apps {
+    position: relative;
+    padding-bottom: 20px;
+    margin-left: 220px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: -15px;
+    padding-top: 15px;
+    padding-left: 20px;
+}
+
+.aps-apps-card {
+    height: 230px;
+    width: 275px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 3px;
+    box-shadow: 0px 0px 4px #cac3c3;
+    cursor: pointer;
+}
+
+.aps-apps-card:hover {
+    -webkit-transform: translate(0, -2px);
+    -moz-transform: translate(0, -2px);
+    transform: translate(0, -2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+
+.aps-apps-card img {
+    width: 80px;
+    height: 80px;
+    align-self: center;
+}
+
+.aps-apps-card .caption {
+    align-self: center;
+    width: 200px;
+}
+
+.aps-apps-card .caption p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.aps-apps-card .caption h3 {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.aps-main .left-navigate-div {
+    position: absolute;
+    display: inline-block;
+    width: 225px;
+    height: 100%;
+    padding-right: 15px;
+}
+
+.left-navigate-div:after {
+    position: absolute;
+    content: ' ';
+    width: 10px;
+    height: 100%;
+    top: -15px;
+    right: -15px;
+    background-color: #eaedf1;
+}
+
+.aps-apps .search-div {
+    position: relative;
+    width: 100%;
+}
+
+.aps-apps .search-div .search-app-button {
+    position: absolute;
+    height: 34px;
+    border-radius: 0;
+    background-color: #488eff;
+}
+
+.aps-apps .search-div .clear-input {
+    position: absolute;
+    left: 160px;
+    top: 8px;
+    cursor: pointer;
+    color: #c1c3c5;
+}
+
+.aps-apps .search-div .clear-input:hover {
+    color: #aaa;
+}
+
+.aps-apps .search-div .search-app-input {
+    display: inline-block;
+    width: 185px;
+    border-radius: 0;
+}
+
+.aps-main .left-navigate-div .category-div li {
+    height: 34px;
+    line-height: 34px;
+    list-style: none;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.aps-main .left-navigate-div .category-div li:nth-of-type(1), .aps-main .left-navigate-div .category-div li:nth-of-type(3) {
+    border-bottom: 1px solid #eee;
+}
+
+.aps-main .left-navigate-div .category-div .category-header {
+    height: 34px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 20px;
+}
+
+.aps-main .left-navigate-div .category-div li label {
+    height: 34px;
+    width: 220px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.aps-main .left-navigate-div .category-div li.selectedColor {
+    background-color: #488eff;
+    color: #fff;
+}
+
+.aps-apps .no-find-div {
+    width: 100%;
+    min-height: 400px;
+    background: url("../img/none.png") center no-repeat;
+    background-size: 200px;
+}
+
+.aps-apps .aps-apps-card .progress-data-span {
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    width: 20px;
+    animation: progress-loading linear 1s infinite;
+}
+
+@keyframes progress-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

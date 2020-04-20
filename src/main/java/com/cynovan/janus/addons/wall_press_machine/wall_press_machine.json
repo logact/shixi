@@ -1,0 +1,37 @@
+{
+  "appId": "wall_press_machine",
+  "description": "墙式压底机的管理模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "墙式压底机",
+  "category": "鞋机",
+  "icon": "img/app-wall-press.png",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "墙式压底机",
+      "template": "wall_introduction_template"
+    },
+    {
+      "name": "机台",
+      "icon": "wall_press_machine/img/wall-press-white.png",
+      "template": "wall_press_machine_board_template",
+      "detail_template": "wall_press_machine_detail_template",
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+/*chartSettingBox style begin*/
+.flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.rowDistance {
+    margin-bottom: 20px;
+}
+
+.chartSettingBox {
+    position: absolute;
+    z-index: 999;
+    background: #fff;
+    height: 610px;
+    width: 100%;
+}
+
+.chartSettingBox .header {
+    margin-left: 0;
+}
+
+.device-select-div span {
+    white-space: nowrap;
+    margin-right: 15px;
+    line-height: 25px;
+}
+
+.device-select-div .chosen-container-active .chosen-single {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.fieldTable {
+    width: 770px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.fieldTable .fieldDialogicon {
+    padding: 0 5px;
+    line-height: 34px;
+    color: #188ae2;
+}
+
+.fieldTips {
+    margin-left: 0;
+    color: #9ca2ae;
+}
+
+.fieldTips .fa {
+    color: #c0c046;
+}
+
+.dateBox span {
+    display: block;
+    margin: 0 15px;
+    line-height: 36px;
+    font-size: 13px;
+    color: #9ca2ae;
+}
+
+.dateBox .form-control {
+    height: 25px;
+    width: 280px;
+}
+
+.dateBox .form-control-static .form-label {
+    color: #6a6c6f;
+    text-align: left;
+    width: auto;
+    line-height: 10px;
+}
+
+.dateBox .form-control-static .form-input {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.dataRange {
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+.dataRange span {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#deviceSelectBox .chosen-container {
+    width: 300px !important;
+}
+
+/*chartShowingBox style begin*/
+.chartinfo {
+    border-bottom: 1px solid #ddd;
+    padding: 0 15px 10px 15px;
+}
+
+.chartinfo .amountTips {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    margin-right: 30px;
+    color: #9ca2ae;
+}
+
+.chartinfo .amountTips .fa {
+    color: #c0c046;
+}

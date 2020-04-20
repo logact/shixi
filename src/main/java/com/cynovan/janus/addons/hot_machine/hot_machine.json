@@ -1,0 +1,26 @@
+{
+  "appId": "hot_machine",
+  "description": "热风机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "热风机",
+  "category": "鞋机",
+  "icon": "img/app-hot.png",
+  "menus": [
+    {
+      "name": "热风机",
+      "template": "hot_machine_template",
+      "showOnTop": true,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

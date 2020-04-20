@@ -1,0 +1,44 @@
+<template name="janus_directive_data-table">
+    <div class="janus-directive-data-table">
+        <table class="c-table table table-striped" cellspacing="0" width="100%"></table>
+    </div>
+</template>
+<template name="janus_directive_field">
+    <div class="janus-directive-field">
+        <div class="janus-directive-field-label">{{label}}</div>
+        <div class="janus-directive-field-value" ng-bind="ngModel"></div>
+        <div class="janus-directive-field-info">
+            <i class="fa fa-info-circle" ng-if="info"></i>
+        </div>
+    </div>
+</template>
+<template name="janus_directive_inputtext">
+    <div class="janus-directive-field">
+        <div class="janus-directive-field-label">{{label}}</div>
+        <div class="janus-directive-field-value">
+            <input type="text" ng-model="ngModel" class="form-control" placeholder="{{placeholder}}"/>
+        </div>
+        <div class="janus-directive-field-info">
+            <i class="fa fa-info-circle" ng-if="info"></i>
+        </div>
+    </div>
+</template>
+<template name="janus-directive-widget">
+    <div class="widget">
+        <div class="widget-header" ng-if="title">
+            <div class="widget-title" ng-bind="title">
+            </div>
+        </div>
+        <hr class="widget-separator" ng-if="title"/>
+        <div class="widget-body" ng-transclude>
+
+        </div>
+    </div>
+</template>
+<template name="janus_directive_live_data_field">
+    <div class="janus-directive-field janus-live-data-field">
+        <div class="janus-directive-field-label" ng-bind="label"></div>
+        <div class="janus-directive-field-value" data-key="{{field}}"></div>
+        <div class="janus-directive-field-info" ng-bind="unit"></div>
+    </div>
+</template>

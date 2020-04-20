@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="decorator" content="default"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=0.8, user-scalable=no, width=device-width">
+    <!-- Guacamole  -->
+    <link type="text/css" rel="stylesheet" href="resource/monitor/guacamole/resource/guacamole.css?v=${version}">
+    <link type="text/css" rel="stylesheet" href="resource/monitor/guacamole/resource/guac-keyboard.css?v=${version}">
+    <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/monitor/guacamole/resource/guacamole_page.css?v=${version}">
+</head>
+<body ng-controller="GuacamoleController as ctrl">
+<div ng-cloak class="guacamode_box">
+    <div class="guacamole_toolbar hide">
+        <button class="btn btn-primary btn-sm btn-outline" type="button" ng-click="ctrl.sendKeyBoard('1')">
+            <i class="fa fa-keyboard-o"></i>
+            Windows按键
+        </button>
+        <button class="btn btn-primary btn-sm btn-outline" type="button" ng-click="ctrl.sendKeyBoard('2')">
+            <i class="fa fa-keyboard-o"></i>
+            F5按键
+        </button>
+        <button class="btn btn-primary btn-sm btn-outline" type="button" ng-click="ctrl.sendKeyBoard('3')">
+            <i class="fa fa-keyboard-o"></i>
+            Ctrl+Atl+Del组合键
+        </button>
+        <button class="btn btn-primary btn-sm btn-outline" type="button" style="margin-left: 25px;" ng-click="ctrl.closeMonitor()">
+            <i class="fa fa-close"></i>
+            关闭实时监控
+        </button>
+    </div>
+    <div id="display"></div>
+</div>
+<script type="text/javascript">
+    var cynovan = {c_path: "${c_path}", r_path: "${r_path}", version: "${version}"};
+    var guac;
+</script>
+<script type="text/javascript" src="resource/monitor/guacamole/resource/guacamole.js"></script>
+<script type="text/javascript" src="resource/web/requirejs/require.js?v=${version}"></script>
+<script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
+<script type="text/javascript">
+    require(['web/build/entry-build'], function () {
+        require(['monitor/guacamole/resource/guacamole_controller'], function () {
+            angular.bootstrap(document, ['guacamole']);
+        });
+    });
+</script>
+</body>
+</html>
+

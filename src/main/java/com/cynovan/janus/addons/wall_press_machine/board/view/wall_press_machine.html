@@ -1,0 +1,255 @@
+<template name="wall_introduction_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <img src="resource/wall_press_machine/img/board.jpg"/>
+        </div>
+    </div>
+</template>
+<template name="wall_press_machine_board_template">
+    <div class="widget" ng-controller="WallPressMachineBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机台列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-data-config" type="button"
+                            ng-if="''| SecurityFilter: 'wall_press_machine_board':'manage'">
+                        <i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToWallPressMachine()"
+                            ng-if="''| SecurityFilter: 'wall_press_machine_board':'manage'">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为机台
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="wall_press_machine_detail_template">
+    <div class="widget" ng-controller="WallPressMachineDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">机台列表 / </a>机台详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="机床序列号" ng-model="entity.uuid"></field>
+                        <staticfield label="IP地址" field="IPAddress"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="控制系统版本" placeholder="请输入"
+                                 ng-model="showData.ControlSystemVersion"></cnvtext>
+                        <cnvtext label="额定气压" placeholder="请输入"
+                                 ng-model="showData.DeviceRatePressure"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="额定功率" placeholder="请输入" ng-model="showData.DeviceRatePower"></cnvtext>
+                        <cnvtext label="额定电压" placeholder="请输入" ng-model="showData.DeviceRateVoltage"></cnvtext>
+                        <cnvtext label="额定油压" placeholder="请输入" ng-model="showData.OliPressure"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveWallInfo()"
+                                ng-if="''| SecurityFilter: 'wall_press_machine_board':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                压着时间
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="左边压着时间设定值" width="160" field="3_4505"></staticfield>
+                            <staticfield label="左边束紧回程时间设定值" width="160" field="3_4504"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="右边压着时间设定值" width="160" field="3_4512"></staticfield>
+                            <staticfield label="右边束紧回程时间设定值" width="160" field="3_4511"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                开关状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticswitch label="左边成型后二次加压开关" width="160" field="1_2575"></staticswitch>
+                            <staticswitch label="左边二次压开关状态" width="160" field="1_2611"></staticswitch>
+                            <staticswitch label="左边束紧器开关状态" width="160" field="1_2560"></staticswitch>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticswitch label="右边成型后二次加压开关" width="160" field="1_2576"></staticswitch>
+                            <staticswitch label="右边二次压开关状态" width="160" field="1_2612"></staticswitch>
+                            <staticswitch label="右边束紧器开关状态" width="160" field="1_2567"></staticswitch>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                模式
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="当前左边操作模式" width="160" field="1_2561"></staticfield>
+                            <staticfield label="当前左边加压模式" width="160" field="1_2562"></staticfield>
+                            <staticfield label="当前左边加工模式" width="160" field="1_2564"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="当前右边操作模式" width="160" field="1_2568"></staticfield>
+                            <staticfield label="当前右边加压模式" width="160" field="1_2569"></staticfield>
+                            <staticfield label="当前右边加工模式" width="160" field="1_2572"></staticfield>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="状态显示">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                左边
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticstate label="左束紧进控制状态" width="160" field="1_1285"></staticstate>
+                            <staticstate label="左束紧退控制状态" width="160" field="1_1286"></staticstate>
+                            <staticstate label="左压边进控制状态" width="160" field="1_1287"></staticstate>
+                            <staticstate label="左压边退控制状态" width="160" field="1_1288"></staticstate>
+                            <staticstate label="左一次压进控制状态" width="160" field="1_1281"></staticstate>
+                            <staticstate label="左二次压进控制状态" width="160" field="1_1283"></staticstate>
+                            <staticstate label="左压下降" width="160" field="1_1282"></staticstate>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticstate label="左压杆平移进控制状态" width="160" field="1_1280"></staticstate>
+                            <staticstate label="左压杆平移退控制状态" width="160" field="1_1284"></staticstate>
+                            <staticstate label="左启动开关状态" width="160" field="2_1024"></staticstate>
+                            <staticstate label="左平移限位状态" width="160" field="2_1025"></staticstate>
+                            <staticstate label="左上升限位状态" width="160" field="2_1026"></staticstate>
+                            <staticstate label="左下降限位状态" width="160" field="2_1027"></staticstate>
+                            <staticstate label="左急退开关状态" width="160" field="2_1028"></staticstate>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                右边
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticstate label="右束紧进控制状态" width="160" field="1_1296"></staticstate>
+                            <staticstate label="右束紧退控制状态" width="160" field="1_1297"></staticstate>
+                            <staticstate label="右压边进控制状态" width="160" field="1_1298"></staticstate>
+                            <staticstate label="右压边退控制状态" width="160" field="1_1299"></staticstate>
+                            <staticstate label="右一次压进控制状态" width="160" field="1_1292"></staticstate>
+                            <staticstate label="右二次压进控制状态" width="160" field="1_1294"></staticstate>
+                            <staticstate label="右压下降" width="160" field="1_1293"></staticstate>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticstate label="右压杆平移进控制状态" width="160" field="1_1291"></staticstate>
+                            <staticstate label="右压杆平移退控制状态" width="160" field="1_1295"></staticstate>
+                            <staticstate label="右启动开关状态" width="160" field="2_1029"></staticstate>
+                            <staticstate label="右平移限位状态" width="160" field="2_1030"></staticstate>
+                            <staticstate label="右上升限位状态" width="160" field="2_1031"></staticstate>
+                            <staticstate label="右上升限位状态" width="160" field="2_1032"></staticstate>
+                            <staticstate label="右急退开关状态" width="160" field="2_1033"></staticstate>
+                        </div>
+                    </div>
+
+                </div>
+            </tab>
+            <tab title="生产信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="左侧实时产量" field="3_4532"></staticfield>
+                        <staticfield label="左清零" field="1_2065"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="右侧实时产量" field="3_4534"></staticfield>
+                        <staticfield label="右清零" field="1_2066"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="工艺管理">
+                <Gy-Process uuid="uuid"></Gy-Process>
+            </tab>
+            <tab title="机台照片" ng-if="''| SecurityFilter: 'wall_press_machine_board':'manage'">
+                <div>
+                    <cnvimage label="机台照片" ng-model="entity.wall_press_machine.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

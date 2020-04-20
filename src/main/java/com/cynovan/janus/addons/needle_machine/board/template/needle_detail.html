@@ -1,0 +1,181 @@
+<template name="needle_device_detail_template">
+    <div class="widget" ng-controller="NeedleDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="设备规格" placeholder="请输入" ng-model="showData.DeviceSpec"></cnvtext>
+                        <cnvtext label="机械尺寸" placeholder="请输入" ng-model="showData.DeviceSize"></cnvtext>
+                        <cnvtext label="设备额定电压" placeholder="请输入" ng-model="showData.DeviceVoltage"></cnvtext>
+                        <cnvtext label="设备额定功率" placeholder="请输入" ng-model="showData.DevicePower"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="生产厂家" placeholder="请输入" ng-model="showData.ProductFactory"></cnvtext>
+                        <cnvtext label="生产日期" placeholder="请输入" ng-model="showData.ProductDate"></cnvtext>
+                        <cnvtext label="检测宽度" placeholder="请输入" ng-model="showData.DetectHeight"></cnvtext>
+                        <cnvtext label="检测高度" placeholder="请输入" ng-model="showData.DetectWidth"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveInfo()"
+                                ng-if="''| SecurityFilter: 'needle_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="当前传送速度" field="01_value"></staticfield>
+                        <staticfield label="速度设定值" field="02_value"></staticfield>
+                        <staticfield label="灵敏度调节" field="03_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="输送马达电流" field="04_value"></staticfield>
+                        <staticfield label="开机时间" field="05_value"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数监控" on-show="ctrl.initCharts()">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                输送马达
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.MotorMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.MotorMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="needle_chart md_chart">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                灵敏度
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="调节上限" placeholder="请输入"
+                                         ng-model="showData.SensitivityMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="调节下限" placeholder="请输入"
+                                         ng-model="showData.SensitivityMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="needle_chart lmd_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                    ng-click="ctrl.saveParameter()"
+                                    ng-if="''| SecurityFilter: 'needle_device':'manage'"><i
+                                    class="fa fa-save"></i> 保&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="报警监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticstate label="检测马达工作异常报警" field="13_value" width="150"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticstate label="灵敏度异常报警" field="12_value"></staticstate>
+                    </div>
+                </div>
+            </tab>
+            <tab title="产量监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="计划产量" placeholder="请输入" ng-model="showData.TodayGoal"></cnvtext>
+                        <staticfield label="合格数" field="06_value"></staticfield>
+                        <staticfield label="不合格数" field="07_value"></staticfield>
+                        <staticfield label="良品率" field="08_value"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+
+                        <staticfield label="工作时长" field="09_value"></staticfield>
+                        <staticfield label="计划生产节拍" field="10_value"></staticfield>
+                        <staticfield label="实际生产节拍" field="11_value"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveTodayGoal()"
+                                ng-if="''| SecurityFilter: 'needle_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机台照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.needle.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

@@ -1,0 +1,17 @@
+.app_config_bind_box {
+
+}
+
+.app_config_bind_box .require-mark {
+    color: red;
+    font-weight: 700;
+    display: inline-block;
+    padding-right: 7px;
+    padding-top: 2px;
+    vertical-align: top;
+}
+
+.app_config_bind_box .bindBox {
+    max-height: 300px;
+    overflow-y: auto;
+}

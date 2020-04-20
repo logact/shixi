@@ -1,0 +1,206 @@
+<template name="robot_board_template">
+    <div class="widget" ng-controller="RobotBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机器人列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-data-config" type="button"
+                            ng-if="''| SecurityFilter: 'robot_board':'manage'"><i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-if="''| SecurityFilter: 'robot_board':'manage'"
+                            ng-click="ctrl.bindDeviceToRobot()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为机器人
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_robot_edit_robot_template">
+    <div class="widget" ng-controller="RobotDynamicController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">机器人列表 / </a>机器人详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="设备信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="机床序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            设备信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="用户名" field="004_UserName"></staticfield>
+                        <staticfield label="工厂名字" field="012_FactoryName"></staticfield>
+                        <staticfield label="生产线名字" field="013_LineName"></staticfield>
+                        <staticfield label="工位名字" field="014_LocationName"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="机器码" field="011_MachineCode"></staticfield>
+                        <staticfield width="130" label="User code前三段" field="009_UserCodeDefault"></staticfield>
+                        <staticfield width="130" label="User code后一段" field="010_UserCodeAddtion"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            网络信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="IP地址1" field="005_IPAddress1"></staticfield>
+                        <staticfield label="IP地址2" field="006_IPAddress2"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="MAC地址1" field="007_MACAddress1"></staticfield>
+                        <staticfield label="MAC地址2" field="008_MACAddress2"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="轴参数">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="header">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    规划位置
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="Axis1规划位置" field="003_Axis1ProfilePosition"></staticfield>
+                            <staticfield label="Axis2规划位置" field="004_Axis2ProfilePosition"></staticfield>
+                            <staticfield label="Axis3规划位置" field="005_Axis3ProfilePosition"></staticfield>
+                            <staticfield label="Axis4规划位置" field="006_Axis4ProfilePosition"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="Axis5规划位置" field="007_Axis5ProfilePosition"></staticfield>
+                            <staticfield label="Axis6规划位置" field="008_Axis6ProfilePosition"></staticfield>
+                            <staticfield label="Axis7规划位置" field="009_Axis7ProfilePosition"></staticfield>
+                            <staticfield label="Axis8规划位置" field="010_Axis8ProfilePosition"></staticfield>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="header">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    规划速度
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="Axis1 规划速度" field="019_Axis1ProfileVelocity"></staticfield>
+                            <staticfield label="Axis2 规划速度" field="020_Axis2ProfileVelocity"></staticfield>
+                            <staticfield label="Axis3 规划速度" field="021_Axis3ProfileVelocity"></staticfield>
+                            <staticfield label="Axis4 规划速度" field="022_Axis4ProfileVelocity"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="Axis5 规划速度" field="023_Axis5ProfileVelocity"></staticfield>
+                            <staticfield label="Axis6 规划速度" field="024_Axis6ProfileVelocity"></staticfield>
+                            <staticfield label="Axis7 规划速度" field="025_Axis7ProfileVelocity"></staticfield>
+                            <staticfield label="Axis8 规划速度" field="026_Axis8ProfileVelocity"></staticfield>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="header">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    笛卡尔坐标
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield width="130" label="笛卡尔坐标系A位置"
+                                         field="014_CartesianAPosition"></staticfield>
+                            <staticfield width="130" label="笛卡尔坐标系B位置"
+                                         field="015_CartesianBPosition"></staticfield>
+                            <staticfield width="130" label="笛卡尔坐标系C位置"
+                                         field="016_CartesianCPosition"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield width="130" label="笛卡尔坐标系X位置"
+                                         field="011_CartesianXPosition"></staticfield>
+                            <staticfield width="130" label="笛卡尔坐标系Y位置"
+                                         field="012_CartesianYPosition"></staticfield>
+                            <staticfield width="130" label="笛卡尔坐标系Z位置"
+                                         field="013_CartesianZPosition"></staticfield>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="header">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    转速
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="Motor1转速" field="027_Motor1Speed"></staticfield>
+                            <staticfield label="Motor2转速" field="028_Motor2Speed"></staticfield>
+                            <staticfield label="Motor3转速" field="029_Motor3Speed"></staticfield>
+                            <staticfield label="Motor4转速" field="030_Motor4Speed"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="Motor5转速" field="031_Motor5Speed"></staticfield>
+                            <staticfield label="Motor6转速" field="032_Motor6Speed"></staticfield>
+                            <staticfield label="Motor7转速" field="033_Motor7Speed"></staticfield>
+                            <staticfield label="Motor8转速" field="034_Motor8Speed"></staticfield>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机器人照片" ng-if="''| SecurityFilter: 'robot_board':'manage'">
+                <div>
+                    <cnvimage label="机器人照片" ng-model="entity.robot.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

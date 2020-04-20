@@ -1,0 +1,22 @@
+.cutlery-title {
+    padding-top: 10px;
+}
+
+.cutlery-content {
+    padding: 20px;
+}
+
+.processing_title {
+    color: #333b49;
+    font-size: 14px;
+    vertical-align: top;
+    margin-top: 8px;
+    position: absolute;
+    width: 110px;
+    text-align: right;
+}
+
+.processing_num {
+    margin-left: 125px;
+    width: calc(100% - 125px - 35px);
+}

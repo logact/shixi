@@ -1,0 +1,183 @@
+{
+  "appId": "robot",
+  "description": "针对机器人的管理模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "机器人",
+  "category": "通用设备",
+  "icon": "base/assets/app-icon.png",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "机器人",
+      "depend": [
+        "base/css/robot_intro.css"
+      ]
+    },
+    {
+      "name": "机器人",
+      "icon": "robot/base/assets/robot_white.png",
+      "template": "robot_board_template",
+      "detail_template": "app_robot_edit_robot_template",
+      "depend": [
+        "base"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-A1200",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_a1200_template",
+      "depend": [
+        "vr_a1200"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-A728",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_a728_template",
+      "depend": [
+        "vr_a728"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-KB175",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_kb175_template",
+      "depend": [
+        "vr_kb175"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-追捡设备",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_catchup_template",
+      "depend": [
+        "vr_catchup"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-振康机器人",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_zk_template",
+      "depend": [
+        "vr_zk"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-绗架机器人",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_hangjia_template",
+      "depend": [
+        "vr_hangjia"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "模型-零部件装备岛",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_robot_zhuangbeidao_template",
+      "depend": [
+        "vr_zhuangbeidao"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "数字双胞胎Digital twins",
+      "icon": "robot/base/assets/model_robot_white.png",
+      "template": "vr_automated_template",
+      "depend": [
+        "vr_automated"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

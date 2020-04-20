@@ -1,0 +1,274 @@
+<template name="controlling_list_template">
+    <div class="widget" ng-controller="ControllingListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'自动化规则'|I18nFilter:'production.line.rule'}}
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.toDetailPage('new')" ng-if="''| SecurityFilter: 'controlling':'manage'">
+                    <i class="fa fa-plus"></i>
+                    {{'新增规则'|I18nFilter:'production.line.rule.add'}}
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="control_select_device_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="controlling_detail_template">
+    <div class="widget" ng-controller="ControllingDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">{{'自动化列表'|I18nFilter:'production.line.automation.list'}} / </a>
+                    <span ng-bind="title"></span>
+                </div>
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.saveControlData()">
+                    <i class="fa fa-download"></i>
+                    {{'保存'|I18nFilter:'save'}}
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <tabs>
+                <tab title="{{'基础信息'|I18nFilter:'basic_info'}}">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <cnvtext style-class="controlling-name" label="{{'名称'|I18nFilter:'name'}}"
+                                     ng-model="entity.name"></cnvtext>
+                            <div style="display: inline-block">
+                                <cnvcheckbox label="{{'启用'|I18nFilter:'enable'}}" ng-model="entity.open"
+                                             info="{{'1. 开启后当前自动化才能生效'|I18nFilter:'production.line.open.tip'}} <br/> {{'2. 如果检测不通过，会自动取消勾选'|I18nFilter:'controlling.tip.two'}}"></cnvcheckbox>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <cnvtextarea label="{{'备注'|I18nFilter:'remark'}}" ng-model="entity.remarks"></cnvtextarea>
+                        </div>
+                    </div>
+                </tab>
+                <tab title="{{'数据配置'|I18nFilter:'data.config'}}">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="code_title">{{'提示：可在公式编辑器中使用'|I18nFilter:'config.tip.start'}}<span
+                                    style="font-size: 15px;color: rgb(49, 132, 149)"> $config$ </span>{{'引用该配置'|I18nFilter:'config.tip.end'}}
+                            </div>
+                            <div id="controlling_base_config_textarea">
+
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab title="{{'设备范围'|I18nFilter:'device.range'}}">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-bordered table-condensed edittable">
+                                <thead>
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th style="width: 250px;">{{'设备'|I18nFilter:'device'}}</th>
+                                    <th style="width: 150px;">{{'不允许其他规则使用'|I18nFilter:'other_rule_no_us'}}</th>
+                                    <th style="width: 160px;">{{'设备别名'|I18nFilter:'device_alias'}}</th>
+                                    <th style="width: 120px;">{{'操作'|I18nFilter:'do'}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="device in entity.devices">
+                                    <td>
+                                        <span class="controlling-device-index-span">{{$index + 1}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="controlling-device-box">
+                                            <span ng-show="device.uuid">{{device.name+'（'+device.uuid+'）'}}</span>
+                                            <i class="fa fa-cog select-device-icon" title="选择设备"
+                                               ng-click="ctrl.selectDevice(device)"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="is-unique-checkbox"
+                                               style="margin-top: 8px" name="control_unique_{{$index}}"
+                                               ng-model="device.unique"/>
+                                    </td>
+                                    <td>
+                                        <input type="input" class="form-control" ng-model="device.alias"
+                                               placeholder="{{'请输入设备别名'|I18nFilter:'input.alias'}}"
+                                               ng-click="ctrl.showSelectNotify(device.name)"/>
+                                    </td>
+                                    <td>
+                                        <div class="do-div">
+                                            <button class="btn btn-primary btn-xs btn-outline"
+                                                    ng-click="ctrl.removeDeviceRow($index)">
+                                                <i class="fa fa-times"></i>
+                                                {{'删除'|I18nFilter:'delete'}}
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.addDeviceRow()"
+                                    style="margin-top: 10px;">
+                                <i class="fa fa-plus"></i>
+                                {{'添加一行'|I18nFilter:'add.row'}}
+                            </button>
+                        </div>
+                    </div>
+                </tab>
+                <tab title="{{'规则'|I18nFilter:'rule'}}">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="controlling-rule-item" ng-repeat="(rIndex,rule) in entity.rules">
+                                <div class="controlling-rule-item-row">
+                                    <div class="rule-item-row-label">
+                                        {{'触发规则'|I18nFilter:'trigger_rule'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <div class="button-rule-div">
+                                            <select class="form-control" ng-model="rule.triggerRule"
+                                                    ng-options="t.id as t.name for t in ctrl.triggerRule">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controlling-rule-item-row">
+                                    <div class="rule-item-row-label">
+                                        {{'触发方式'|I18nFilter:'trigger_mode'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <div class="button-rule-div">
+                                            <select class="form-control" ng-model="rule.triggerType"
+                                                    ng-options="t.id as t.name for t in ctrl.triggerTypes">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controlling-rule-item-row" ng-show="rule.triggerRule==='time_push'">
+                                    <div class="rule-item-row-label">
+                                        {{'定时下发'|I18nFilter:'time.issue'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <div class="rule-item-time-div">
+                                            <div>
+                                                <input type="text" class="form-control rule-time-input"
+                                                       ng-model="rule.time">
+                                                <select ng-init="rule.timeUnit?rule.timeUnit:rule.timeUnit='s'"
+                                                        class="form-control input-sm rule-time-select"
+                                                        ng-model="rule.timeUnit"
+                                                        ng-options="unit.id as unit.name for unit in ctrl.timeUnit">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controlling-rule-item-row"
+                                     ng-show="rule.triggerRule==='data_drive'">
+                                    <div class="rule-item-row-label">
+                                        {{'相关设备'|I18nFilter:'relate_device'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <!--以别名的方式，可指定多个设备-->
+                                        <button class="btn btn-primary btn-xs btn-outline unite-width-button"
+                                                ng-click="ctrl.addRelatedDevice(rIndex,'relatedDevice')">
+                                            <i class="fa fa-plus"></i>
+                                            {{'添加'|I18nFilter:'add'}}
+                                        </button>
+                                        <span class="related-device-name-span anther-name-span"
+                                              ng-repeat="(rdIndex,r) in rule.relatedDevice track by rdIndex">
+                                                    <span ng-bind="r.name"></span>
+                                                    <i class="fa fa-times anther-name-delete-i"
+                                                       ng-click="ctrl.deleteRelatedDevice(rule.relatedDevice,rdIndex)"></i>
+                                                </span>
+                                    </div>
+                                </div>
+                                <div class="controlling-rule-item-row">
+                                    <div class="rule-item-row-label">
+                                        {{'触发条件'|I18nFilter:'trigger_condition'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <!--用户写公式处理-->
+                                        <button class="btn btn-primary btn-xs btn-outline unite-width-button"
+                                                ng-click="ctrl.editCode(rIndex,'triggerCondition')">
+                                            <i class="fa fa-edit"></i>
+                                            {{'编辑'|I18nFilter:'compile'}}
+                                        </button>
+                                        <span class="show-code-span" ng-bind="rule.triggerCondition"
+                                              ng-show="rule.triggerCondition"></span>
+                                    </div>
+                                </div>
+                                <div class="controlling-rule-item-row">
+                                    <div class="rule-item-row-label">
+                                        {{'数据下发至设备'|I18nFilter:'data.issue.device'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <!--以别名选取多个设备-->
+                                        <button class="btn btn-primary btn-xs btn-outline unite-width-button"
+                                                ng-click="ctrl.addRelatedDevice(rIndex,'pushDevice')">
+                                            <i class="fa fa-plus"></i>
+                                            {{'添加'|I18nFilter:'add'}}
+                                        </button>
+                                        <span class="related-device-name-span anther-name-span"
+                                              ng-repeat="(idIndex,r) in rule.pushDevice track by idIndex">
+                                                    <span ng-bind="r.name"></span>
+                                                    <i class="fa fa-times anther-name-delete-i"
+                                                       ng-click="ctrl.deleteRelatedDevice(rule.pushDevice,idIndex)"></i>
+                                                </span>
+                                    </div>
+                                </div>
+                                <div class="controlling-rule-item-row">
+                                    <div class="rule-item-row-label">
+                                        {{'数据下发处理'|I18nFilter:'data.issue.do'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <!--用户写公式处理-->
+                                        <button class="btn btn-primary btn-xs btn-outline unite-width-button"
+                                                ng-click="ctrl.editCode(rIndex,'pushProcess')">
+                                            <i class="fa fa-edit"></i>
+                                            {{'编辑'|I18nFilter:'compile'}}
+                                        </button>
+                                        <span class="show-code-span" ng-bind="rule.pushProcess"
+                                              ng-show="rule.pushProcess"></span>
+                                    </div>
+                                </div>
+                                <div style="display: flex;margin-top: 5px">
+                                    <div class="rule-item-row-label">
+                                        {{'规则名称'|I18nFilter:'rule_name'}}
+                                    </div>
+                                    <div class="rule-item-row-body">
+                                        <div class="form-input" style="min-width: 500px">
+                                                    <textarea type="text" ng-model="rule.name" class="form-control"
+                                                              placeholder="{{'请输入规则名称'|I18nFilter:'input.rule.name'}}">
+                                                    </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="remove-rule-div" ng-click="ctrl.removeRuleRow(entity.rules,rIndex)">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.addRuleRow()"
+                                    style="margin-top: 10px;">
+                                <i class="fa fa-plus"></i>
+                                {{'添加规则'|I18nFilter:'add.rule'}}
+                            </button>
+                        </div>
+                    </div>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,102 @@
+<template name="connection_serial_port_template">
+    <div ng-controller="ConnectionSerialPortController as ctrl">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header">
+                    {{'串口设置'|I18nFilter:'serial_port_config'}}
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <cnvselect label="{{'串口号'|I18nFilter:'serial_port_number'}}" ng-model="entity.commPortId"
+                           options="ctrl.portOpts"
+                           default-value="ctrl.defaultPort"></cnvselect>
+                <cnvtext label="{{'波特率'|I18nFilter:'baud_rate'}}" ng-model="entity.baudRate"></cnvtext>
+                <cnvselect label="{{'停止位'|I18nFilter:'stop_bit'}}" ng-model="entity.stopBits" options="ctrl.stopBitOpts"
+                           default-value="'1'"></cnvselect>
+            </div>
+            <div class="col-xs-6">
+                <cnvselect label="{{'校验位'|I18nFilter:'check.digit'}}" ng-model="entity.parity" options="ctrl.parityOpts"
+                           default-value="'2'"></cnvselect>
+                <cnvselect label="{{'数据位'|I18nFilter:'data.bit'}}" ng-model="entity.dataBits" options="ctrl.dataBitOpts"
+                           default-value="'8'"></cnvselect>
+            </div>
+            <div class="col-xs-12">
+                <div class="col-xs-3">
+                    <cnvselect label="{{'接收数据格式'|I18nFilter:'receive_data_format'}}" ng-model="entity.receive_type"
+                               options="ctrl.dataTypes"></cnvselect>
+                </div>
+                <div class="col-xs-3">
+                    <cnvselect label="{{'发送数据格式'|I18nFilter:'send_data_format'}}" ng-model="entity.send_type"
+                               options="ctrl.dataTypes"></cnvselect>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="header">
+                {{'接收数据'|I18nFilter:'data.format'}}
+                <select style="margin-left: 20px;" class="receiveMethods" ng-model="entity.receiveMethod" ng-options="x.name for x in receiveoption">
+                </select>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;padding-top: 10px;border-top: 1px dotted #ddd;">
+            <div ng-if="entity.receiveMethod.id=='passive'">
+                <div class="col-xs-6" style="padding-top: 2px;padding-left: 80px;">
+                    <div style="display: flex;align-items: center;">
+                        <span style="width: 125px;">{{'定时发送'|I18nFilter:'time_send'}}</span>
+                        <input style="width: 90px;border-right: 0px;border-top-right-radius: 0;border-bottom-right-radius: 0;" type="text"
+                               class="form-control" ng-model="entity.time">
+                        <select style="width: 70px; height: 34px;border-top-left-radius: 0;border-bottom-left-radius: 0;"
+                                class="form-control input-sm" ng-model="entity.timeUnit"
+                                ng-options="unit.id as unit.name for unit in ctrl.timeUnit">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="padding-left: 80px; margin-top: 10px;">
+                <textarea class="form-control" rows="5"
+                          placeholder="{{'发送多组数据时，请使用换行分割数据'|I18nFilter:'enter_split_data'}}"
+                          ng-model="entity.timer_data">
+                </textarea>
+                </div>
+            </div>
+            <div ng-if="entity.receiveMethod.id=='active'" class="col-xs-6" style="margin-left: 8px">
+                <cnvtext label="{{'数据长度'}}" ng-model="entity.datalength"></cnvtext>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="connection_serial_port_display_template">
+    <div class="conn-panel-header">
+        Modbus/串口<span style="margin-left: 10px">{{'设备作为串口接入'|I18nFilter:''}}</span>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="conn-panel-header">
+                {{'串口设置'|I18nFilter:'serial_port_config'}}
+            </div>
+            <field label="{{'串口号'|I18nFilter:'serial_port_number'}}"
+                   ng-model="entity.conn_info_serial_port.commPortId"></field>
+            <field label="{{'波特率'|I18nFilter:'baud_rate'}}" ng-model="entity.conn_info_serial_port.baudRate"></field>
+            <field label="{{'停止位'|I18nFilter:'stop_bit'}}" ng-model="entity.conn_info_serial_port.stopBits"></field>
+            <field label="{{'校验位'|I18nFilter:'check.digit'}}" ng-model="entity.conn_info_serial_port.parity"></field>
+            <field label="{{'数据位'|I18nFilter:'data.bit'}}" ng-model="entity.conn_info_serial_port.dataBits"></field>
+            <field label="{{'接收数据格式'|I18nFilter:'receive_data_format'}}"
+                   ng-model="entity.conn_info_serial_port.receive_type"></field>
+            <field label="{{'发送数据格式'|I18nFilter:'send_data_format'}}"
+                   ng-model="entity.conn_info_serial_port.send_type"></field>
+        </div>
+        <div class="col-xs-8">
+            <div class="conn-panel-header">
+                {{'接收数据'|I18nFilter:'data.format'}}
+            </div>
+            <field label="{{'接收方式'}}" ng-model="entity.conn_info_serial_port.receiveMethod.name"></field>
+            <div ng-if="entity.conn_info_serial_port.receiveMethod.id=='active'">
+                <field label="{{'数据长度'}}" ng-model="entity.conn_info_serial_port.datalength"></field>
+            </div>
+            <div ng-if="entity.conn_info_serial_port.receiveMethod.id=='passive'">
+                <field label="{{'定时发送'|I18nFilter:'time_send'}}" ng-model="entity.conn_info_serial_port.timer"></field>
+                <field label="{{'发送数据内容'|I18nFilter:'send_data_content'}}"
+                       ng-model="entity.conn_info_serial_port.timer_data"></field>
+            </div>
+        </div>
+    </div>
+</template>

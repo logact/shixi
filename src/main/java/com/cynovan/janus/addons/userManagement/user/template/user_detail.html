@@ -1,0 +1,83 @@
+<template name="user_add_template">
+    <div class="widget" ng-controller="AddUserController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div ng-bind="username"></div>
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button" ng-click="ctrl.back()">
+                        <i class="fa fa-arrow-left"></i>
+                        {{'返回'|I18nFilter:'back'}}
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button" ng-click="ctrl.saveNewUser()">
+                        <i class="fa fa-download"></i>
+                        {{'保存'|I18nFilter:'save'}}
+                    </button>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-5" ng-show="!entity.id">
+                    <cnvtext label="{{'用户名'|I18nFilter:'user_name'}}" required="true"
+                             ng-model="entity.userName"></cnvtext>
+                </div>
+                <div class="col-xs-5" ng-show="entity.id" style="padding-top: 6px;">
+                    <field label="{{'用户名'|I18nFilter:'user_name'}}" ng-model="entity.userName"></field>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-5">
+                    <cnvtext label="{{'姓名'|I18nFilter:'user_name_one'}}" required="true"
+                             ng-model="entity.name"></cnvtext>
+                </div>
+                <div class="col-xs-6 " style="padding-left: 120px;padding-top: 14px;">
+                    <cnvcheckbox label="{{'锁定(锁定后，不可以登录系统)'|I18nFilter:'lock_tip'}}"
+                                 ng-model="entity.lock"></cnvcheckbox>
+                    <cnvcheckbox label="{{'管理员(管理员拥有所有功能以及数据权限)'|I18nFilter:'admin_tip'}}"
+                                 ng-model="entity.admin"></cnvcheckbox>
+                </div>
+            </div>
+            <div class="row user" style="margin-bottom: 15px">
+                <div class="col-xs-5">
+                    <cnvmany2one collection="role" ng-model="entity.roles"
+                                 projection="roleQuery.projection" id-field="id"
+                                 placeholder="请选择角色..." multiple="true" label="角色" name-field="name"></cnvmany2one>
+                </div>
+                <div class="col-xs-5">
+                    <Team-Select entity="entity" label="{{'所属团队'|I18nFilter:'own_team'}}"></Team-Select>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-5">
+                    <cnvpwd label="{{'密码'|I18nFilter:'password'}}" ng-model="entity.pwd"></cnvpwd>
+                </div>
+                <div class="col-xs-5">
+                    <div class="form-control-static input-and-tips-div">
+                        <label class="form-label">{{'确认密码'|I18nFilter:'confirm_password'}}</label>
+                        <div class="form-input">
+                            <input type="password" class="form-control" autocomplete="new-password"
+                                   ng-change="ctrl.confirmPassword()" ng-model="entity.confirmPwd"
+                                   ng-class="tips?'input-red-border':''"/>
+                        </div>
+                        <i class="check-status-i"></i>
+                        <span ng-show="tips" ng-bind="tips"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-5">
+                    <cnvtext label="{{'邮箱'|I18nFilter:'email'}}" ng-model="entity.mail"></cnvtext>
+                </div>
+                <div class="col-xs-5">
+                    <cnvtext label="{{'电话'|I18nFilter:'phone'}}" ng-model="entity.tel"></cnvtext>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-10" style="margin-bottom: 15px;">
+                    <cnvtextarea label="{{'备注'|I18nFilter:'remark'}}" ng-model="entity.remarks"></cnvtextarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

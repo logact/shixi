@@ -1,0 +1,40 @@
+{
+  "appId": "imm",
+  "description": "针对注塑机的管理模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "注塑机",
+  "category": "通用设备",
+  "icon": "assets/app-icon.png",
+  "menus": [
+    {
+      "icon": "",
+      "name": "注塑机",
+      "showOnTop": true,
+      "depend": [
+        "css/imm_intro.css"
+      ]
+    },
+    {
+      "name": "机床",
+      "icon": "imm/assets/imm_board_white.png",
+      "template": "imm_board_template",
+      "detail_template": "app_imm_edit_imm_template",
+      "depend": [
+        "js/imm_board.js",
+        "css/imm_board.css"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

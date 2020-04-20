@@ -1,0 +1,203 @@
+<template name="historydata_template">
+    <div class="widget" ng-controller="HistoryDataController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                历史数据图表
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-show="echartShow" ng-click="ctrl.showConfigBox()">
+                        <i class="fa fa-angle-down" style="font-weight: bolder;font-size: 16px"></i>
+                        图表配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-show="!echartShow" ng-click="ctrl.hideConfigBox()">
+                        <i class="fa fa-angle-up" style="font-weight: bolder;font-size: 16px"></i>
+                        图表配置
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body" style="min-height: 750px;position: relative">
+            <div class="chartSettingBox">
+                <div class="row rowDistance">
+                    <div class="col-xs-offset-1" ng-show="!echartShow">
+                        <div class="header herderPos">
+                            <i class="fa fa-dot-circle-o"></i>
+                            设备信息
+                        </div>
+                        <div class="device-select-div flex" style="margin-top: 15px">
+                            <span>设备选择</span>
+                            <div id="deviceSelectBox"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rowDistance">
+                    <div class="col-xs-offset-1">
+                        <span>设备栏位</span>
+                        <table class="table table-condensed table-bordered edittable fieldTable">
+                            <thead>
+                            <tr>
+                                <th style="width: 45px">序号</th>
+                                <th>栏位</th>
+                                <th>名称</th>
+                                <th style="width: 100px">单位</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in entity.selectedFields">
+                                <td class="text-center">
+                                    <div style="margin-top: 5px;">{{$index + 1}}</div>
+                                </td>
+                                <td class="flex">
+                                    <input type="text" class="form-control" ng-model="item.id"
+                                           id="{{ 'filedInput-' + $index }}"/>
+                                    <div class="fieldDialogicon" ng-click="ctrl.showFieldData($index)">
+                                        <i class="fa fa-search" style="cursor: pointer"></i></div>
+                                </td>
+                                <td><input type="text" class="form-control" ng-model="item.name"
+                                           id="{{'fieldName-' + $index }}"/></td>
+                                <td><input type="text" class="form-control" ng-model="item.unit"
+                                           id="{{'fieldUnit-' + $index }}"/></td>
+                                <td class="text-center">
+                                    <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                            ng-click="ctrl.removeFieldRow($index)" style="margin-top: 5px;">
+                                        <i class="fa fa-times"></i>
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="fieldTips" ng-show="fieldOvermuchTips">
+                            <i class="fa fa-warning animated flash infinite"></i>
+                            栏位最好在6个以下，过多会影响显示效果
+                        </div>
+                        <button class="btn btn-primary btn-xs btn-outline" type="button"
+                                ng-click="ctrl.addFieldRow()" style="margin-top: 5px">
+                            <i class="fa fa-plus"></i>
+                            添加一行
+                        </button>
+                    </div>
+                </div>
+                <div class="row rowDistance">
+                    <div class="col-xs-offset-1">
+                        <div class="header herderPos">
+                            <i class="fa fa-dot-circle-o"></i>
+                            数据范围
+                        </div>
+                        <div class="dateBox flex">
+                            <div style="padding:10px 15px 10px 0">选择数据时间范围</div>
+                            <cnvdate language="zh-CN" placeholder="请选择开始日期" ng-model="entity.start"></cnvdate>
+                            <span>-</span>
+                            <cnvdate language="zh-CN" placeholder="请选择结束日期" ng-model="entity.end"></cnvdate>
+                        </div>
+                        <div class="flex" style="margin-top:10px">
+                            <div style="padding-right:15px;">数据范围快捷选项</div>
+                            <div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataRange" value="week" ng-click="ctrl.setDataRange(0)"
+                                           ng-model="entity.dataRange"/>
+                                    <div class="state p-primary">
+                                        <label>过去一周</label>
+                                    </div>
+                                </div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataRange" value="month" ng-click="ctrl.setDataRange(1)"
+                                           ng-model="entity.dataRange"/>
+                                    <div class="state p-primary">
+                                        <label>过去一月</label>
+                                    </div>
+                                </div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataRange" value="threeMonths"
+                                           ng-click="ctrl.setDataRange(3)"
+                                           ng-model="entity.dataRange"/>
+                                    <div class="state p-primary">
+                                        <label>过去三月</label>
+                                    </div>
+                                </div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataRange" value="sixMonths"
+                                           ng-click="ctrl.setDataRange(6)"
+                                           ng-model="entity.dataRange"/>
+                                    <div class="state p-primary">
+                                        <label>过去半年</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rowDistance">
+                    <div class="col-xs-offset-1">
+                        <div class="header herderPos">
+                            <i class="fa fa-dot-circle-o"></i>
+                            数据量
+                        </div>
+                        <div class="flex" style="margin-top: 10px">
+                            <div style="padding-right:15px;">加载的数据量</div>
+                            <div style="position: relative;left: 28px">
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataAmount" value="10000" ng-model="entity.dataAmount"/>
+                                    <div class="state p-primary">
+                                        <label>1W</label>
+                                    </div>
+                                </div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataAmount" value="20000" ng-model="entity.dataAmount"/>
+                                    <div class="state p-primary">
+                                        <label>2W</label>
+                                    </div>
+                                </div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataAmount" value="30000" ng-model="entity.dataAmount"/>
+                                    <div class="state p-primary">
+                                        <label>3W</label>
+                                    </div>
+                                </div>
+                                <div class="pretty p-default p-round">
+                                    <input type="radio" name="dataAmount" value="40000" ng-model="entity.dataAmount"/>
+                                    <div class="state p-primary">
+                                        <label>4W</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rowDistance">
+                    <div class="col-xs-offset-1">
+                        <button class="btn btn-primary btn-sm btn-outline" type="button"
+                                ng-click="ctrl.setConfig()">
+                            <i class="fa fa-line-chart"></i>
+                            生成图表
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="chartShowingBox">
+                <div class="chartinfo rowDistance" ng-show="echartShow">
+                    <span>当前设备：{{entity.uuid}}</span>
+                    <span style="padding:0 15px">|</span>
+                    <span>数据时间范围：{{entity.start}} ~ {{entity.end}}</span>
+                    <div class="amountTips">
+                        <i class="fa fa-warning animated flash infinite"></i>
+                        当前数据量：一个栏位显示{{dataAmountTips}}条数据
+                    </div>
+                </div>
+                <div id="historyDataCharts" style="height: 600px"></div>
+			</div>
+		</div>
+	</div>
+</template>
+<template name="historydata_chooseField_template">
+    <div class="row">
+	    <div class="col-xs-5 device-select-div flex">
+            <span class="filedChoose">栏位选择</span>
+            <select class="form-control input-sm" data-placeholder="请选择栏位" id="fieldSelect">
+                <option ng-repeat="(key, value) in items" value={{key}}>{{key}}</option>
+            </select>
+        </div>
+    </div>
+</template>

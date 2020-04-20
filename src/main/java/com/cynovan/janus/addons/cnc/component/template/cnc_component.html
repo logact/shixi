@@ -1,0 +1,124 @@
+<template name="cnc_component_template">
+    <div class="widget" ng-controller="ComponentController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                零件管理
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.showComponentDetail()"
+                        ng-if="''| SecurityFilter: 'cnc_component':'manage'">
+                    <i class="fa fa-plus"></i>
+                    新增零件
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="cns_add_component_template">
+    <tabs>
+        <tab title="基本信息">
+            <div class="row">
+                <div class="col-xs-6">
+                    <cnvtext label="零件名称" ng-model="entity.component_name"></cnvtext>
+                </div>
+                <div class="col-xs-6">
+                    <cnvtext label="编号" ng-model="entity.code"></cnvtext>
+                </div>
+                <div class="col-xs-6">
+                    <cnvtext label="客户信息" ng-model="entity.client"></cnvtext>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <cnvtextarea label="规格说明" style="resize: none" ng-model="entity.description"></cnvtextarea>
+                </div>
+            </div>
+        </tab>
+    </tabs>
+</template>
+<template name="component_procedure">
+    <div class="widget" ng-controller="ComponentProcedureController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div ng-bind="component_name"></div>
+                <div>
+                    <button ng-click="ctrl.back()" class="btn btn-primary btn-outline btn-sm" type="button">
+                        <i class="fa fa-arrow-left"></i>
+                        返回
+                    </button>
+                    <button ng-click="ctrl.saveProcedure()" ng-if="''| SecurityFilter: 'cnc_component':'manage'"
+                            class="btn btn-primary btn-outline btn-sm" type="button">
+                        <i class="fa fa-download"></i> 保存
+                    </button>
+                    <button ng-click="ctrl.addProcedure()" ng-if="''| SecurityFilter: 'cnc_component':'manage'"
+                            class="btn btn-primary btn-outline btn-sm" type="button">
+                        <i class="fa fa-plus"></i>
+                        添加工序
+                    </button>
+                </div>
+            </div>
+            <div class="row procedureTitle">
+                <div class="col-xs-3">
+                    <cnvtext label="零件名称" ng-model="entity.component_name"></cnvtext>
+                </div>
+                <div class="col-xs-3">
+                    <cnvtext label="零件编号" ng-model="entity.code"></cnvtext>
+                </div>
+                <div class="col-xs-3">
+                    <cnvtext label="客户信息" ng-model="entity.client"></cnvtext>
+                </div>
+                <div class="col-xs-3">
+                    <cnvtext label="规格说明" ng-model="entity.description"></cnvtext>
+                </div>
+            </div>
+        </div>
+        <div class="row procedure">
+            <div class="widget-body">
+                <table id="procedure-table" style="width:100%">
+                    <tr class="title">
+                        <th style="width: 5%">序号</th>
+                        <th>工序名称</th>
+                        <th>任务名</th>
+                        <th>NC文件</th>
+                        <th>理想制品周期</th>
+                        <th>装夹时间</th>
+                        <th>一出几</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in procedure track by $index">
+                        <td style="width: 5%">{{$index + 1}}</td>
+                        <td><input class="procedure-input" placeholder="点击此处输入" ng-model="item.procedure_name"/></td>
+                        <td><input class="procedure-input" placeholder="点击此处输入" ng-model="item.task_name"/></td>
+                        <td class="ncfileselect">
+                            <div id="{{'ncfile_' + $index}}"></div>
+                        </td>
+                        <td><input class="procedure-input" placeholder="点击此处输入" ng-model="item.ideal_product_cycle"/>
+                        </td>
+                        <td><input class="procedure-input" placeholder="点击此处输入" ng-model="item.clamping_time"/></td>
+                        <td><input class="procedure-input" placeholder="点击此处输入" type="number" ng-model="item.amount"/>
+                        </td>
+                        <td>
+                            <button ng-click="ctrl.rowUp($index)" ng-if="''| SecurityFilter: 'cnc_component':'manage'"
+                                    class="btn btn-primary btn-xs btn-outline" type="button">
+                                <i class="fa fa-arrow-up"></i> 上移
+                            </button>
+                            <button ng-click="ctrl.rowDown($index)" ng-if="''| SecurityFilter: 'cnc_component':'manage'"
+                                    class="btn btn-primary btn-xs btn-outline" type="button">
+                                <i class=" fa fa-arrow-down"></i> 下移
+                            </button>
+                            <button ng-click="ctrl.delThisProcedure($index)"
+                                    ng-if="''| SecurityFilter: 'cnc_component':'manage'"
+                                    class="btn btn-primary btn-xs btn-outline" type="button">
+                                <i class="fa fa-trash"></i> 删除
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>

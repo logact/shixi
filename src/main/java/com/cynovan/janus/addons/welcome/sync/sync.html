@@ -1,0 +1,60 @@
+<template name="welcome_sync_template">
+    <div class="row">
+        <div class="col-xs-12 sync-controller" ng-controller="SyncController as ctrl">
+            <div class="change-language-div" ng-click="ctrl.changeLanguage()">{{nowLanguage}}</div>
+            <div class="sync_checking">
+                <div class="sync_checking_loading">
+                    <div class="sync-title">{{'Janus注册'|I18nFilter:'janus.register'}}</div>
+                </div>
+                <div class="sync_checking_message">
+
+                </div>
+            </div>
+            <div class="sync-div" ng-if="waitSync" ng-controller="BindNeptuneController as ctrl">
+                <div class="welcome-sync-title">{{'欢迎注册'|I18nFilter:'welcome.register'}}</div>
+                <div class="sync-body">
+                    <form>
+                        <div class="input-and-tips-div">
+                            <div class="token-div">
+                                <input ng-keydown="ctrl.keyDown($event)" ng-blur="ctrl.checkToken()" type="text" class="form-control"
+                                       ng-class="wrongTokenTips?'input-red-border':''"
+                                       placeholder="{{'请输入注册码'|I18nFilter:'input.register.code'}}"
+                                       ng-model="user.token"/>
+                                <i class="check-status-i wrong-status-i" ng-if="wrongTokenTips"></i>
+                                <i class="check-status-i right-status-i" ng-if="rightTokenTips"></i>
+                                <span ng-show="wrongTokenTips" ng-bind="'*'+wrongTokenTips"></span>
+                                <div class="janus-info-div" ng-show="janusInfo" ng-style="wrongTokenTips?marginTop:''">
+                                    <div ng-bind="('所属团队'|I18nFilter:'own_team')+'：'+janusInfo.company_name"></div>
+                                    <div ng-bind="('Janus名称'|I18nFilter:'janus.name')+'：'+janusInfo.name"></div>
+                                    <div ng-bind="('Janus备注'|I18nFilter:'janus.remark')+'：'+janusInfo.remarks"></div>
+                                    <div ng-bind="('可接入设备数量'|I18nFilter:'can.connect.count')+'：'+janusInfo.licences"></div>
+                                </div>
+                            </div>
+                            <div class="password-div">
+                                <input type="password" class="form-control" ng-blur="ctrl.checkNull()"
+                                       ng-class="wrongPasswordTips?'input-red-border':''"
+                                       placeholder="{{'请输入登录密码'|I18nFilter:'input.password'}}"
+                                       ng-model="user.password"/>
+                                <i class="check-status-i wrong-status-i" ng-if="wrongPasswordTips"></i>
+                                <i class="check-status-i right-status-i" ng-if="rightPasswordTips"></i>
+                                <span ng-show="wrongPasswordTips" ng-bind="'*'+wrongPasswordTips"></span>
+                            </div>
+                            <div class="control-password-div">
+                                <input type="password" class="form-control" ng-class="wrongControlTips?'input-red-border':''"
+                                       placeholder="{{'请输入控制密码'|I18nFilter:'input.control.password'}}"
+                                       ng-model="user.control_password"/>
+                                <i class="check-status-i wrong-status-i" ng-if="wrongControlTips"></i>
+                                <i class="check-status-i right-status-i" ng-if="rightControlTips"></i>
+                                <span ng-show="wrongControlTips" ng-bind="'*'+wrongControlTips"></span>
+                            </div>
+                            <button class="btn btn-primary confirm-sync-button" type="button" ng-click="ctrl.bindNeptune()">
+                                {{'注册'|I18nFilter:'register'}}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

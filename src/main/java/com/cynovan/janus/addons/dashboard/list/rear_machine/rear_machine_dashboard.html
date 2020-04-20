@@ -1,0 +1,76 @@
+<template name="rear_machine_dashboard_template">
+    <div class="dashboard" ng-controller="RearMachineDashboardController as ctrl">
+        <div class="col-xs-12">
+            <div class="widget" style="margin-top: 1rem;">
+                <div style="display: flex;justify-content: space-between">
+                    <div class="flex">
+                        <div class="header" style="border:none">
+                            <i class="fa fa-dot-circle-o"></i>
+                            设备选择
+                        </div>
+                        <div class="device-select-div flex" style="margin:19px 0 0 20px">
+                            <div id="dashboard_deviceSelectBox"></div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div style="padding-top: 22px;">
+                            <span>左工位产量</span>
+                            <span class="station-num">{{currentLeftFinish}}</span>
+                        </div>
+                        <div style="padding:22px 20px 0 20px">
+                            <span>右工位产量</span>
+                            <span class="station-num">{{currentRightFinish}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="widget" style="margin-top: -0.5rem;">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            温度监控
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="temperatureCharts" style="height: 350px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="widget" style="margin-top: -0.5rem;">
+                <div class="flex">
+                    <div class="header" style="border:none">
+                        <i class="fa fa-dot-circle-o"></i>
+                        产量监控
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="widget" style="margin-top: -0.5rem;">
+                        <div class="station-info">
+                            <span>左工位当天产量</span>
+                            <span class="station-num">{{currentLeftFinish}}</span>
+                        </div>
+                        <div id="leftStationCharts" class="station-charts"></div>
+                    </div>
+                </div>
+                <div class="col-xs-6" style="padding-left: 0">
+                    <div class="widget" style="margin-top: -0.5rem;">
+                        <div class="station-info">
+                            <span>右工位当天产量</span>
+                            <span class="station-num">{{currentRightFinish}}</span>
+                        </div>
+                        <div id="rightStationCharts" class="station-charts"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

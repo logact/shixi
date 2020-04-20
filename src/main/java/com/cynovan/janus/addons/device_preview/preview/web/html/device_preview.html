@@ -1,0 +1,29 @@
+<template name="app_device_tree_preview_template">
+    <div class="device_tree_preview_container" ng-controller="DeviceTreePreviewController as ctrl">
+        <div class="widget">
+            <!--            <div class="widget-header">-->
+            <!--                <div class="widget-title">-->
+            <!--                    {{'设备视图预览'|I18nFilter:'device_preview.device_preview'}}-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="widget-body device-tree-preview-container">
+                <div class="device-tree">
+                    <div class="selected-device-info">
+                        {{ selectedDeviceInfo }}
+                    </div>
+                    <div class="dvs_tree_search">
+                        <input class="form-control" type="text" id="search_key" placeholder="请输入关键字搜索...">
+                    </div>
+                    <div class="device-tree-content" style="overflow-y: auto;overflow-x: auto">
+                        <ul class="ztree" id="device-preview-tree"></ul>
+                    </div>
+                </div>
+                <div class="preview-container">
+                    <iframe src="" frameborder="0" id="device-tree-preview-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+

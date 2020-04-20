@@ -1,0 +1,197 @@
+.newUUIDBox {
+    padding-top: 8px;
+}
+
+.flex-center-center {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.uuidSwitchBtn {
+    display: inline-block;
+    border: 1px #32e683 solid;
+    border-radius: 3px;
+}
+
+.uuidSwitchBtn .uuidSwitchBtnItem {
+    display: inline-block;
+    padding: 4px 9px;
+    cursor: pointer;
+    color: #32e683;
+    /*width: 80px;*/
+    float: left;
+}
+
+.uuidSwitchBtn .uuidSwitchBtnItem:first-child {
+    border-right: 1px #32e683 solid;
+}
+
+.uuidSwitchBtn .uuidSwitchBtnItem.active {
+    background: #32e683;
+    color: #fff;
+}
+
+.uuidInputBox {
+    margin-top: 8px;
+    width: 701px;
+}
+
+/*dataexchange/datapush通用样式*/
+.editor_box {
+    position: absolute;
+    border: 1px #ddd solid;
+    width: 100%;
+}
+
+.edit_box_warp {
+    display: inline-block;
+    width: 100%;
+    min-height: 300px;
+}
+
+.edit_box_header {
+    height: 28px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
+    border: 1px #ddd solid;
+    border-bottom: none;
+}
+
+.edit_box_header .fa {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+/*数据接入（示例代码）说明页面通用样式*/
+.code-tip-area {
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+.use-scene {
+    padding-bottom: 20px;
+}
+
+.scene-title {
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+}
+
+.code-area {
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    color: #a26f72;
+}
+
+.annotate-code-block {
+    padding-bottom: 10px;
+    color: #7fa982;
+}
+
+.annotate-code-inline {
+    color: #7fa982;
+}
+
+.indentation-code {
+    margin-left: 28px;
+    margin-bottom: 0;
+}
+
+/*.modal-body {
+    overflow-x: unset !important;
+    overflow-y: unset !important;
+}*/
+
+.device-panel {
+    min-height: 320px;
+    background-color: #fff;
+}
+
+.device-panel .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.device-panel-title {
+    font-size: 15px;
+    color: #333b49;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin: 10px 0;
+}
+
+.device-panel-info {
+    padding: 15px;
+}
+
+.device-panel-info .code-panel {
+    max-height: 355px;
+    border-radius: 0;
+    background-color: #f2f4f6;
+    border: 1px solid #f2f4f6;
+    padding: 10px 20px;
+    margin-bottom: 0;
+    color: #a26f72;
+}
+
+.device-panel-info .c-field {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.device-panel-info .c-field .control-copy i {
+    position: relative;
+    left: 15px;
+}
+
+.device-panel-info .c-field .control-info i {
+    position: relative;
+    left: 25px;
+    top: 1px;
+}
+
+.device-panel-field .c-field-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.conn-panel-content {
+    max-height: 245px;
+    overflow: auto;
+    padding: 0 15px;
+}
+
+.conn-panel-header {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.connTitle {
+    padding-left: 15px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    border-bottom: 1px #ddd dotted;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.device-list-div .form-control option {
+
+}
+
+
+

@@ -1,0 +1,39 @@
+{
+  "appId": "needle_machine",
+  "description": "检针机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "检针机",
+  "category": "鞋机",
+  "icon": "img/app-needle.png",
+  "menus": [
+    {
+      "name": "检针机",
+      "sort": 7000,
+      "icon": "",
+      "showOnTop": true
+    },
+    {
+      "name": "机台",
+      "icon": "needle_machine/img/needle-white.png",
+      "parent": "needle_machine_mgr",
+      "template": "needle_device_template",
+      "detail_template": "needle_device_detail_template",
+      "sort": 6000,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

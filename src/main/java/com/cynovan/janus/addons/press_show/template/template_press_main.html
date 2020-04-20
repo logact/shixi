@@ -1,0 +1,217 @@
+<template name="template_press_main">
+    <div ng-controller="pressShowController as ctrl" class="pressControllerDiv">
+        <div id="fullpage">
+            <div class="section">
+                <!--首页-->
+                <div class="slide">
+                    <div class="presspage">
+                        <div class="title">压机</div>
+                        <div class="content">
+                            <div class="flowchart">
+                                <div class="indexcontext">
+                                    <div class="top_left_area"></div>
+                                    <div class="top_right_area"></div>
+                                    <div class="bottom_left_area"></div>
+                                    <div class="bottom_right_area"></div>
+                                    <img src="resource/press_show/img/yajishouye.png" style="height: 90%"/>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top_left_area"></div>
+                                        <div class="top_right_area"></div>
+                                        <div class="bottom_left_area"></div>
+                                        <div class="bottom_right_area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div>
+                                                <br>
+                                                <div> 固高基于多年的行业经验，结合工业互联网的创新思考，输出压机解决方案，与市面的方案相比，存在明显的优势：</div>
+                                                <br>
+                                                <div class="explain-small-title">压装性能领先同行</div>
+                                                <div>精密的位置、压力全闭环算法，可以实现：</div>
+                                                <div>1、位置定位精度达到±0.01mm（任意负载和速度）</div>
+                                                <div>2、压力达到2‰FS</div>
+                                                <br>
+                                                <div class="explain-small-title">品控功能易用可靠</div>
+                                                <div>多种判断模式，实时监控生产过程中的压力、位移变化，自动判定压装产品是否合格：</div>
+                                                <div>1、能有效识别来料公差超限、位置放反、加工过程异常</div>
+                                                <div>2、接触位置、终止压力、终止位置异常实时判断</div>
+                                                <br>
+                                                <div class="explain-small-title">工业互联网云平台</div>
+                                                <div>与云平台连接，提供大数据收集、分析、实时智能质量诊断：</div>
+                                                <div>1、生产数据自动同步云平台，与MES对接，实现电子SOP</div>
+                                                <div>2、更准确的质量诊断模型，实时智能诊断，提高产品质量及生产效率</div>
+                                            </div>
+                                            <div class="bindDevice">绑定相关设备>></div>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--流程图-->
+                <div class="slide" ng-repeat="x in ctrl.Process">
+                    <div class="presspage">
+                        <div class="title">压机</div>
+                        <div class="content">
+                            <div class="flowchart">
+                                <div class="chart">
+                                    <div class="presscontextshow">
+                                        <div class="top_left_area"></div>
+                                        <div class="top_right_area"></div>
+                                        <div class="bottom_left_area"></div>
+                                        <div class="bottom_right_area"></div>
+                                        <div class="explaintitle static">
+                                            设备作业
+                                        </div>
+                                        <div class="equipment">
+                                            <div class="system-1">
+                                                <ul class="sys-tab">
+                                                    <li class="sys-content">
+                                                    <span class="show-content mes-message-box"
+                                                          style="right: {{x.mesRight}}"></span>
+                                                        <em class="s-icon bgimg1"></em>
+                                                        <p class="captions">MES</p>
+                                                    </li>
+                                                    <li class="sys-content">
+                                                    <span class="show-content janus-message-box"
+                                                          style="right: {{x.janusRight}}"></span>
+                                                        <em class="s-icon bgimg2"></em>
+                                                        <p class="captions">边缘计算系统</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="system-1">
+                                                <ul class="sys-tab" style="display: flex;min-height: 330px">
+                                                    <li class="sys-content">
+                                                    <span class="show-content press-message-box"
+                                                          style="right: {{x.pressRight}}"></span>
+                                                        <div class="up-down bgimg3">
+                                                            <div class="move-down" style="top:{{x.top}}">
+                                                                <img src="resource/press_show/img/y-mid.png"/>
+                                                            </div>
+                                                            <div style="position: absolute;">
+                                                                <img src="resource/press_show/img/y-top.png"/>
+                                                            </div>
+                                                        </div>
+                                                        <p class="captions">压机</p>
+                                                    </li>
+                                                    <li class="sys-content2" ng-show="x.hadchart">
+                                                        <div class="chart-box"></div>
+                                                        <div class="y-charts">
+                                                            <div id="y-charts{{$index+1}}"></div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top_left_area"></div>
+                                        <div class="top_right_area"></div>
+                                        <div class="bottom_left_area"></div>
+                                        <div class="bottom_right_area"></div>
+                                        <div class="explaintitle">流程状态</div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan" ng-repeat="y in ctrl.Process" ng-class="y.name==x.name?'localnav':''">
+                                                    <a class="plan-title">{{y.name}}</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top_left_area"></div>
+                                        <div class="top_right_area"></div>
+                                        <div class="bottom_left_area"></div>
+                                        <div class="bottom_right_area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <br>
+                                            <div ng-show="x.name=='设备联网'">
+                                                <div class="explaincontext-title">设备联网</div>
+                                                <br>
+                                                <div>1、通讯组件将压机与边缘计算系统进行联网</div>
+                                                <div>2、与MES系统进行连接，通过数据实现工厂的精益管理</div>
+                                                <div>3、设备联网后，MES下达启动加工指令</div>
+                                                <div>4、边缘计算系统查找NC文件，并转发“启动加工”信号</div>
+                                                <div>5、压机收到“启动加工”信号后，启动加工</div>
+                                                <br>
+                                                <div style="margin-bottom: 5px">质量曲线</div>
+                                                <div>1、通过云平台历史数据，智能计算质量诊断模型</div>
+                                                <div>2、随着云平台数据的不断累积，质量诊断模型将不断的迭代升级，更加的精准</div>
+                                            </div>
+                                            <div ng-show="x.name=='快进'">
+                                                <div class="explaincontext-title">快进</div>
+                                                <br>
+                                                <div>1、压机快进，直到设定的位置</div>
+                                                <br>
+                                                <div style="margin-bottom: 5px">质量曲线</div>
+                                                <div>1、快进阶段无压装数据，无质量曲线产生</div>
+                                            </div>
+                                            <div ng-show="x.name=='探测'">
+                                                <div class="explaincontext-title">探测</div>
+                                                <br>
+                                                <div>1、压机探测，直到设定的位置</div>
+                                                <br>
+                                                <div style="margin-bottom: 5px">质量曲线</div>
+                                                <div>1、探测阶段无压装数据，无质量曲线产生</div>
+                                            </div>
+                                            <div ng-show="x.name=='压装'">
+                                                <div class="explaincontext-title">压装</div>
+                                                <br>
+                                                <div>1、压机压装，直到设定的位置</div>
+                                                <br>
+                                                <div style="margin-bottom: 5px">质量曲线</div>
+                                                <div>1、随着压机的压装，不断产生质量曲线数据</div>
+                                                <div>2、通过质量诊断模型，边缘计算系统实时诊断压装质量是否合格</div>
+                                                <div style="color: red">3、经诊断后，部分质量曲线数据疑似不合格，发出告警信息</div>
+                                            </div>
+                                            <div ng-show="x.name=='回程'">
+                                                <div class="explaincontext-title">回程</div>
+                                                <br>
+                                                <div>1、压机回程，直到设定的位置</div>
+                                                <br>
+                                                <div style="margin-bottom: 5px">质量曲线</div>
+                                                <div>1、回程阶段无压装数据，无质量曲线产生</div>
+                                            </div>
+                                            <span class="checkJanusData link-press" ng-show="x.name=='设备联网'">查看边缘计算系统的设备连接情况>></span>
+                                            <span class="checkJanusData"
+                                                  ng-hide="x.name=='设备联网'">查看边缘计算系统质量诊断情况>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="press_show_bind_device_template">
+    <div class="row-item">
+        <span>设备配置</span>
+        <div id="press_show_bind_device_box"></div>
+    </div>
+</template>
+
+
+
+
+
+
+
+
+

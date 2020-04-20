@@ -1,0 +1,16 @@
+<template name="app_message_center_template">
+    <div class="widget mc-container" ng-controller="MessageCenterController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'消息中心'|I18nFilter:'message.center'}}
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="message_box">
+                <div class="message_box_list">
+                    <list options="options"></list>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,73 @@
+<template name="login_template">
+    <div ng-controller="LoginController as ctrl">
+        <div class="change-language-div" ng-click="ctrl.changeLanguage()">{{nowLanguage}}</div>
+        <div class="loginForm">
+            <div class="login-left-area">
+
+            </div>
+            <div class="login-right-area">
+                <div class="loginTitle">
+                    {{'欢迎登录Janus'|I18nFilter:'welcome.login'}}
+                </div>
+                <div class="loginBody">
+                    <form class="user" ng-show="loginModel === 'user'">
+                        <div class="input-and-tips-div">
+                            <div>
+                                <input type="text" class="form-control account"
+                                       placeholder="{{'请输入账号'|I18nFilter:'input.account'}}" ng-model="user.name"
+                                       ng-class="account?'input-red-border':''"/>
+                                <i class="check-status-i wrong-status-i" ng-if="wrongName"></i>
+                                <i class="check-status-i right-status-i" ng-if="rightName"></i>
+                            </div>
+                            <span ng-show="account" ng-bind="account" style="margin-bottom: -25px"></span>
+                            <div class="password">
+                                <input ng-keydown="ctrl.keyDown($event)" type="password" class="form-control" autocomplete="new-password"
+                                       ng-class="tips?'input-red-border':''"
+                                       placeholder="{{'请输入登录密码'|I18nFilter:'input.password'}}"
+                                       ng-focus="ctrl.checkName()"
+                                       ng-model="user.password"/>
+                                <i class="check-status-i wrong-status-i" ng-if="tips"></i>
+                                <i class="check-status-i right-status-i" ng-if="rightTips"></i>
+                            </div>
+                            <span ng-show="tips" ng-bind="tips"></span>
+                        </div>
+                        <button class="btn btn-primary confirm-login-button" type="button" ng-click="ctrl.login()">
+                            {{'登录'|I18nFilter:'login'}}
+                        </button>
+                        <div class="bottomDiv">
+                            <div ng-click="ctrl.changeLoginModel('admin')">
+                                <i class="manager-i"></i>
+                                <span>{{'切换到管理员登录'|I18nFilter:'change.admin.login'}}</span>
+                            </div>
+                            <!--<span>忘记密码</span>-->
+                        </div>
+                    </form>
+                    <form class="manager" ng-show="loginModel === 'admin'">
+                        <div class="input-and-tips-div">
+                            <div class="login-gif"></div>
+                            <div class="password">
+                                <input ng-keydown="ctrl.keyDown($event)" type="password" class="form-control" autocomplete="new-password"
+                                       ng-class="tips?'input-red-border':''"
+                                       placeholder="{{'请输入登录密码'|I18nFilter:'input.password'}}"
+                                       ng-model="user.password"/>
+                                <i class="check-status-i wrong-status-i" ng-if="tips"></i>
+                                <i class="check-status-i right-status-i" ng-if="rightTips"></i>
+                            </div>
+                            <span ng-show="tips" ng-bind="tips"></span>
+                        </div>
+                        <button class="btn btn-primary confirm-login-button" type="button" ng-click="ctrl.login()">
+                            {{'登录'|I18nFilter:'login'}}
+                        </button>
+                        <div class="bottomDiv">
+                            <div ng-click="ctrl.changeLoginModel('user')">
+                                <i class="user-i"></i>
+                                <span>{{'切换到普通用户登录'|I18nFilter:'change.user.login'}}</span>
+                            </div>
+                            <!--<span>忘记密码</span>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

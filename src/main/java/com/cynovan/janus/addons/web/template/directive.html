@@ -1,0 +1,512 @@
+<template name="tabs">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li ng-repeat="pane in panes" ng-class="{active:pane.selected}">
+                <a href="" ng-click="select(pane)">{{pane.title}}</a>
+            </li>
+        </ul>
+        <div class="tab-content" ng-transclude></div>
+    </div>
+</template>
+<template name="directive_field">
+    <div class="c-field">
+        <label class="c-field-label">{{label}}</label>
+        <div class="c-field-value" ng-bind="ngModel"></div>
+        <div class="form-info">
+            <div class="control-copy" ng-if="copy">
+                <i class="fa fa-copy" title="{{'点击复制'|I18nFilter:'click.copy'}}" ng-click="copyField($event)"></i>
+            </div>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+
+    </div>
+</template>
+<template name="directive_bindfield">
+    <div class="c-field">
+        <label class="c-field-label">{{label}}</label>
+        <div class="c-field-value" ng-bind="value"></div>
+        <div class="form-info">
+            <div class="control-info">
+                <i class="fa fa-cog" title="{{'绑定配置'|I18nFilter:'bind.config'}}"
+                   style="color:#49a7fd;position:absolute;right:5px;top:8px;"
+                   ng-click="config()"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_staticfield">
+    <div class="static-field-box">
+        <label class="static-field-label"></label>
+        <div class="static-field-value"></div>
+        <label class="static-field-unit hide"></label>
+        <i ng-if="push" class="fa fa-edit static-field-push-btn"></i>
+    </div>
+</template>
+<template name="directive_staticfield_push_template">
+    <div class="row">
+        <div class="col-sm-12">
+            <field label="{{'名称'|I18nFilter:'name'}}" ng-model="entity.desc"></field>
+            <field label="{{'数据ID'|I18nFilter:'data.id'}}" ng-model="entity.key"></field>
+            <cnvtext label="{{'下发值'|I18nFilter:'issue.value'}}" ng-model="entity.value"></cnvtext>
+        </div>
+    </div>
+</template>
+<template name="directive_staticswitch">
+    <div class="static-switch-box">
+        <label class="switch-field-label"></label>
+        <div class="switch-field-value">
+            <div class="static-switch-state"></div>
+        </div>
+    </div>
+</template>
+<template name="directive_state">
+    <div class="static-state-box">
+        <label class="state-field-label"></label>
+        <div class="state-field-value">
+            <div class="static-state-state"></div>
+        </div>
+    </div>
+</template>
+<template name="bind_field_edit_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <field label="{{'默认绑定栏位'|I18nFilter:'bind.default.field'}}" ng-model="entity.field"></field>
+            <cnvtext label="{{'当前绑定栏位'|I18nFilter:'bind.now.field'}}" ng-model="entity.bindField"></cnvtext>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvtext">
+    <div class="form-control-static c-text">
+        <label class="form-label">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <input type="text" ng-model="ngModel" class="form-control" placeholder="{{placeholder}}"/>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvtags">
+    <div class="form-control-static">
+        <label class="form-label" ng-bind="label"> </label>
+        <div class="form-input">
+            <div class="input textarea taggle_input"></div>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvdate">
+    <div class="form-control-static calendar">
+        <label class="form-label" title="{{label}}">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <input type="text" ng-model="ngModel" class="form-control date" placeholder="{{placeholder}}"/>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-question"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_widget">
+    <div class="widget">
+        <div class="widget-header" ng-if="title">
+            <div class="widget-title">
+                {{title}}
+            </div>
+        </div>
+        <div class="widget-body" ng-transclude>
+
+        </div>
+    </div>
+</template>
+<template name="directive_pwd">
+    <div class="form-control-static c-pwd">
+        <label class="form-label">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <input type="password" ng-model="ngModel" class="form-control "/>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-question"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_textarea">
+    <div class="form-control-static c-textarea">
+        <label class="form-label">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <textarea ng-model="ngModel" class="form-control" placeholder="{{placeholder}}"
+                      spellcheck="false"> </textarea>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-question"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvimage">
+    <div class="c-image">
+        <div class="label_box">
+            <label class="form-label">
+                {{label}}
+            </label>
+            <span ng-if="info">
+                <span class="hint--right hint--cnv" data-hint="{{info}}">
+                    <i class="fa fa-info-circle"></i>
+                </span>
+            </span>
+        </div>
+        <div class="c-image_content">
+            <input type="file" style="display: none;"/>
+            <a data-fancybox data-type="image">
+                <img class="img-field"/>
+            </a>
+            <i class="fa fa-plus add-btn" ng-if="!disabled" title="{{'上传'|I18nFilter:'upload'}}"></i>
+            <i class="fa fa-trash-o remove-btn" ng-if="!disabled" title="{{'删除'|I18nFilter:'delete'}}"
+               ng-click="remove()"></i>
+        </div>
+    </div>
+    <div class="c-image_tips" ng-show="tips && !ngModel" ng-bind-html="tips">
+    </div>
+</template>
+<template name="directive_cnvselect">
+    <div class="form-control-static c-select">
+        <label class="form-label">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <select class="form-control"
+                    ng-options="option.id as option.name for option in options"
+                    ng-model="ngModel"
+                    ng-disabled="ngDisabled"></select>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-question"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_list">
+    <div class="c-list">
+        <div class="c-list-toolbar row" ng-if="options.toolbar">
+            <div class="button_box col-xs-7" ng-transclude>
+                <span class="refresh" ng-click="initReload()"><i class="fa fa-refresh"
+                                                                 style="margin-right: 5px"></i>{{'刷新'|I18nFilter:'refresh'}}</span>
+            </div>
+            <div class="c-list-searchbox col-xs-5">
+                <input class="form-control search-input" placeholder="{{'请输入查询内容'|I18nFilter:'input.find.content'}}"/>
+                <!-- id="search_input" -->
+                <button type="button" class="btn btn-primary btn-sm" ng-click="reload()">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <table class="c-table table table-striped dataTable" cellspacing="0" width="100%"></table>
+    </div>
+</template>
+<template name="directive_kanban">
+    <div class="c-kanban">
+        <div class="kanban-list">
+
+        </div>
+    </div>
+</template>
+<template name="loading_dialog">
+    <div id="loading-dialog">
+        <div class="loading-dialog-body">
+            <div class="waittimer">
+                <div class="w_1"></div>
+                <div class="w_2"></div>
+                <div class="w_3"></div>
+                <div class="w_4"></div>
+            </div>
+            <div class="context">正在读取数据，请稍候...</div>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvnumber">
+    <div class="form-control-static c-number">
+        <label class="form-label">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <input type="text" ng-model="ngModel" class="form-control number" placeholder="{{placeholder}}"/>
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvcheckbox">
+    <div class="checkbox checkbox-primary c-select">
+        <input type="checkbox" ng-model="vm.ngModel" ng-disabled="vm.disabled()">
+        <label ng-bind="vm.label" ng-click="vm.toggle()"></label>
+        <div class="form-info">
+            <div class="control-info" ng-if="vm.info">
+                <i class="fa fa-question" title=""></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="directive_cnvswitch">
+    <div class="switch_box c-switch form-control-static">
+        <label class="form-label">{{label}}</label>
+        <div class="form-input">
+            <input type="checkbox" ng-model="ngModel" class="c-switch-input">
+        </div>
+        <div class="form-info">
+            <div class="control-info" ng-if="info">
+                <i class="fa fa-question"></i>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="waiting_service_dialog">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="loading-dialog-body">
+                <div class="waittimer"></div>
+                <div class="context">@MESSAGE@</div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_init_config_service_dialog">
+    <div style="height: 400px;width:100%;overflow-y: auto;" class="row">
+        <div class="col-xs-4" ng-repeat="field in entity.fields">
+            <div class="form-control-static c-text">
+                <label class="form-label" ng-bind="field.description"></label>
+                <div class="form-input">
+                    <input type="text" ng-model="field.lastKey" class="form-control"
+                           placeholder="{{'请输入绑定的数据定义ID'|I18nFilter:'input.bind.id'}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="related_device_template">
+    <div style="min-height: 350px;">
+        <select class="device_select form-control chosen-select" multiple id="related_device_select"
+                data-placeholder="{{'选择相关设备别名'|I18nFilter:'select.device.alias'}}"></select>
+    </div>
+</template>
+<template name="select_related_template">
+    <div class="select-device-name-div">
+        <select class="device_select form-control chosen-select" multiple id="related_select"
+                data-placeholder="{{placeholder}}" ng-model="ngModel"></select>
+    </div>
+</template>
+<template name="edit_code_template">
+    <div class="row">
+        <div class="edit_box_warp">
+            <div class="edit_box_header">
+                <i class="fa fa-list" title="{{'格式化'|I18nFilter:'do_format'}}" ng-click="ctrl.formatJSON('1')"></i>
+            </div>
+            <div class="editor_box" id="code_editor">
+
+            </div>
+        </div>
+    </div>
+</template>
+<template name="team_select">
+    <div class="teamSelect">
+        <div class="form-control-static">
+            <label ng-bind="label" ng-if="label"></label>
+            <select class="form-control input-sm team-select"
+                    data-placeholder="{{'请选择所属团队'|I18nFilter:'select.own.team'}}"></select>
+        </div>
+    </div>
+</template>
+<template name="directive_sub_nav">
+    <div class="subNavControlBox">
+        <a ng-click="previousDevice()" title="{{'上一条'|I18nFilter:'previous'}}">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <span class="subNavPageInfo">
+            <span ng-bind="currentDeviceIndex"></span>
+            <span>&nbsp;/&nbsp;</span>
+            <span ng-bind="filterResultList.length"></span>
+        </span>
+        <a ng-click="nextDevice()" title="{{'下一条'|I18nFilter:'next'}}">
+            <i class="fa fa-angle-right"></i>
+        </a>
+        <a class="directiveSubNavTargetIcon" ng-click="switchPanel()" title="{{'列表'|I18nFilter:'list'}}"><i
+                class="fa fa-angle-down"></i></a>
+    </div>
+</template>
+<template name="directive_sub_nav_alert_panel">
+    <div class="directiveListPanelSubNavPanel animated slideInRight">
+        <div class="title">{{options.label}}</div>
+        <div class="sub-nav-searchbox">
+            <input ng-change="search()" ng-model="keyword" class="form-control search-input"
+                   placeholder="{{'请输入查询内容'|I18nFilter:'input.find.content'}}" type="search"/>
+            <button type="button" class="btn btn-primary btn-sm search-button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <div class="device-list">
+            <ul>
+                <li ng-repeat="item in filterResultList" data-key='deviceDetail' ng-class="{active:item.selected}"
+                    data-uuid="{{item.code}}" title="{{item.code}}" ng-click="goDetail(item)">
+                    {{item.name}}
+                </li>
+                <li ng-show="!filterResultList.length">{{'没有搜索结果'|I18nFilter:'search.empty.result'}}</li>
+            </ul>
+        </div>
+    </div>
+</template>
+<template name="directive_gy_process">
+    <div class="gyProcess">
+        <!--        基本信息-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header">
+                    <i class="fa fa-dot-circle-o"></i>
+                    基本信息
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <cnvtext label="工艺编号" ng-model="entity.gy_process.gyid"></cnvtext>
+            </div>
+            <div class="col-xs-5">
+                <cnvtext label="工艺名称" ng-model="entity.gy_process.gyname"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <cnvtext label="理想加工时长" ng-model="entity.gy_process.ideal_processing_time"></cnvtext>
+            </div>
+            <div class="col-xs-5">
+                <cnvtext label="理想装夹时长" ng-model="entity.gy_process.ideal_clamping_time"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <cnvtext label="前道工序" ng-model="entity.gy_process.previous_process"></cnvtext>
+            </div>
+            <div class="col-xs-5">
+                <cnvtext label="后道工序" ng-model="entity.gy_process.next_process"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-10">
+                <cnvtextarea label="工艺说明" style="resize: none"
+                             ng-model="entity.gy_process.remarks"></cnvtextarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-10">
+                <div class="header">
+                    工艺参数
+                </div>
+            </div>
+            <div class="col-xs-10" style="padding-left: 60px; padding-right: 50px;">
+                <table class="table table-bordered table-condensed edittable">
+                    <thead>
+                    <tr>
+                        <th style="width: 60px;">#</th>
+                        <th>参数ID</th>
+                        <th>参数名称</th>
+                        <th>参数值</th>
+                        <th>操作</th>
+                    </tr>
+                    <tbody>
+                    <tr ng-repeat="row in entity.gy_process.gyparam">
+                        <td class="text-center">
+                            <div style="padding-top: 5px;">{{$index + 1}}</div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.paramid"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.paramName"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.paramValue"/>
+                        </td>
+                        <td class="text-center">
+                            <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs"
+                                    type="button" ng-click="removeRow($index)">
+                                <i class="fa fa-times"></i>
+                                删除
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+                <button style="margin-top: 5px;" class="btn btn-primary btn-xs btn-outline"
+                        type="button" ng-click="addRow()">
+                    <i class="fa fa-plus"></i>
+                    添加一行
+                </button>
+            </div>
+        </div>
+
+        <!--        标准作业程序-->
+        <div class="row" style="margin-top: 20px">
+            <div class="col-xs-12">
+                <div class="header">
+                    <i class="fa fa-dot-circle-o"></i>
+                    标准作业程序(SOP)
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="sop-photo">
+                    <cnvimage tips="上传SOP流程图" ng-model="entity.gy_process.sop_photo"></cnvimage>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-left: 60px;margin-bottom: 5px">
+            <button class="btn btn-primary btn-sm btn-outline"
+                    type="button" ng-click="saveGyProcess()">
+                <i class="fa fa-download"></i>
+                保存
+            </button>
+        </div>
+    </div>
+</template>
+<!-- One2ManySelect -->
+<template name="directive_cnvone2many">
+    <div class="form-control-static">
+        <label class="form-label">
+            <span ng-if="required" style="color: red; font-weight: bold; padding-right: 0.1em">*</span>{{label}}
+        </label>
+        <div class="form-input">
+            <select class="multiple-select"  ng-disabled="ngDisabled"></select>
+        </div>
+    </div>
+</template>
+<!--many2oneSelect-->
+<template name="directive_cnvmany2one">
+    <div class="form-control-static many2one-box">
+        <label class="form-label" ng-if="label">
+            {{label}}
+        </label>
+        <div class="form-input">
+            <select class="form-control chosen-select"></select>
+        </div>
+    </div>
+</template>

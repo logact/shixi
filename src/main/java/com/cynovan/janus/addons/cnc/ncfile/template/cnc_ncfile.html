@@ -1,0 +1,88 @@
+<template name="cnc_ncfile_template">
+    <div class="widget" ng-controller="NcFileController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                NC文件管理
+                <button class="btn btn-primary btn-outline btn-sm " type="button"
+                        ng-click="ctrl.showUpload()" ng-if="''| SecurityFilter: 'cnc_ncfile':'manage'">
+                    <i class="fa fa-plus"></i>
+                    上传
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="cnc_ncfile_upload">
+    <tabs>
+        <tab title="NC文件上传">
+            <div class="row upload">
+                <button class="btn btn-primary btn-outline btn-sm upload-btn" type="button">
+                    <i class="fa fa-plus"></i>
+                    上传
+                </button>
+                <field label="当前上传文件：" style="line-height: 48px;position: relative;left: -5px;"
+                       ng-model="entity.name"></field>
+                <input type="file" accept=".nc,.NC" style="display: none">
+            </div>
+            <div class="row remarks">
+                <div class="col-xs-12">
+                    <cnvtextarea placeholder="文件备注信息" style="resize: none" ng-model="entity.remarks"></cnvtextarea>
+                </div>
+            </div>
+        </tab>
+    </tabs>
+</template>
+<template name="ncfile_history_info">
+    <div class="widget" ng-controller="NcFileHistoryController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div class="ncfile_title">
+                    <div style="margin: 10px 0px 10px 10px">文件名称：<span ng-bind="ncfile_title"></span></div>
+                    （最新版本：v<span ng-bind="latest_version"></span>）
+                </div>
+                <button ng-click="ctrl.back()" class="btn btn-primary btn-outline btn-sm" type="button"
+                        style="height: 32px">
+                    <i class="fa fa-arrow-left"></i>
+                    返回
+                </button>
+            </div>
+        </div>
+        <div class="row ncfileHistory">
+            <div class="widget-body">
+                <tabs>
+                    <tab title="历史版本信息">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>序号</th>
+                                <th>版本信息</th>
+                                <th>文件大小</th>
+                                <th>更新日期</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr ng-repeat="x in records">
+                                <td width="5%">{{$index+1}}</td>
+                                <td width="10%">v{{x.version}}</td>
+                                <td width="10%">{{x.size_name}}</td>
+                                <td width="15%">{{x.update_time}}</td>
+                                <td width="50%">{{x.remarks}}</td>
+                                <td width="10%">
+                                    <button class="btn btn-primary btn-xs btn-outline" type="button"
+                                            ng-click="ctrl.downloadThisFile($index)"
+                                            ng-if="''| SecurityFilter: 'cnc_ncfile':'manage'">
+                                        <i class="fa fa-download"></i> 下载
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </tab>
+                </tabs>
+            </div>
+        </div>
+    </div>
+</template>

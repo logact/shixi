@@ -1,0 +1,12 @@
+.viewhead{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#iframeview{
+    height: 92%;
+    width:100%;
+    border: 0;
+}

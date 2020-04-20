@@ -1,0 +1,26 @@
+{
+  "appId": "lasting_machine",
+  "description": "后帮机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "后帮机",
+  "category": "鞋机",
+  "icon": "img/app-lasting.png",
+  "menus": [
+    {
+      "name": "后帮机",
+      "template": "lasting_machine_template",
+      "showOnTop": true,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

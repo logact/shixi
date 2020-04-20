@@ -1,0 +1,390 @@
+<template name="cnc_board_template">
+    <div class="widget" ng-controller="CNCBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机台列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-data-config" type="button"
+                            ng-if="''| SecurityFilter: 'cnc_board':'manage'">
+                        <i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToCNC()" ng-if="''| SecurityFilter: 'cnc_board':'manage'">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为机台
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_cnc_edit_cnc_template">
+    <div class="widget" ng-controller="CNCDynamicController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">机台列表 / </a>机台详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="机床信息" on-show="ctrl.tabShow(['CNC_DeviceInfor','CNC_SystemInfor'])">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="机床序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机床信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="机床型号" field="MachineType"></staticfield>
+                        <staticfield label="机床编码" field="MachineID"></staticfield>
+                        <staticfield label="规格" field="Type"></staticfield>
+                        <staticfield label="品牌" field="Company"></staticfield>
+                        <staticfield label="控制系统" field="System"></staticfield>
+                        <staticfield label="加工文件路径" field="NcFilePath"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="工作台尺寸" field="Size"></staticfield>
+                        <staticfield label="工作台承重" field="Weight"></staticfield>
+                        <staticfield label="近期保养日期" field="MaintenanceDate"></staticfield>
+                        <staticfield label="机器码" field="SysKey"></staticfield>
+                        <staticfield label="参数文件路径" field="SysFilePath"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            网络信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="IP地址1" field="IP1"></staticfield>
+                        <staticfield label="IP地址2" field="IP2"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="MAC地址1" field="Mac1"></staticfield>
+                        <staticfield label="MAC地址2" field="Mac2"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            系统信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="DSP版本" field="Vertion_DSP"></staticfield>
+                        <staticfield label="FPGA版本" field="Vertion_FPGA"></staticfield>
+                        <staticfield label="软件版本" field="Vertion_CNC"></staticfield>
+                        <staticfield label="NC版本" field="Vertion_NC"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="PLC版本" field="Vertion_PLC"></staticfield>
+                        <staticfield label="译码版本" field="Vertion_Compile"></staticfield>
+                        <staticfield label="硬盘信息" field="HardDisk"></staticfield>
+                        <staticfield label="内存信息" field="Memory"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="安装刀具" on-show="ctrl.tabShow(['CNC_ToolParam'])">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <staticfield label="主轴数" field="SpindleNum"></staticfield>
+                    </div>
+                    <div class="col-xs-3">
+                        <staticfield label="刀具总数" field="TotalTool"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div><!--style="max-height: 500px;overflow-y: auto;"-->
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead class="toolHeader fixedHeader">
+                                <!--<tr>
+                                    <th>序号</th>
+                                    <th>Z1刀具长度</th>
+                                    <th>Z1刀具半径</th>
+                                    <th>Z1刀具长度补偿量</th>
+                                    <th>Z1刀具半径补偿量</th>
+                                    <th>Z2刀具长度</th>
+                                    <th>Z2刀具半径</th>
+                                    <th>Z2刀具长度补偿量</th>
+                                    <th>Z2刀具半径补偿量</th>
+                                </tr>-->
+                                </thead>
+                                <tbody class="toolTable scrollContent">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="实时数据" on-show="ctrl.tabShow()">
+                <div class="row">
+                    <div class="real-box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                绝对坐标
+                            </div>
+                            <div class="panel-body">
+                                <div class="absPosiTable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="real-box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                机械坐标
+                            </div>
+                            <div class="panel-body">
+                                <div class="encPosTable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="real-box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                规划坐标
+                            </div>
+                            <div class="panel-body">
+                                <div class="prfPosTable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="real-box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                规划速度
+                            </div>
+                            <div class="panel-body">
+                                <div class="prefVerTable">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="real-box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                跟随误差
+                            </div>
+                            <div class="panel-body">
+                                <div class="errPosTable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态数据">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="panel panel-primary info-box">
+                            <div class="panel-heading alarm_box">
+                                <staticfield label="当前报警标识" field="Alarm_0"></staticfield>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr ng-repeat="item in [].constructor(10) track by $index">
+                                        <td style="display: none;">{{ i = $index+1 }}</td>
+                                        <td>{{ '当前报警信息'+i }} :</td>
+                                        <td><!--{{ entity.dynamicData['Alarm_'+i] }}-->
+                                            <staticfield field="{{'Alarm_'+i}}"></staticfield>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 ">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="header" style="margin-left: 1px;">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    机床状态
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <staticfield label="工作模式" field="WorkMode"></staticfield>
+                                <staticfield label="加工文件" field="FileName"></staticfield>
+                                <staticfield label="工作状态" field="STATUS"></staticfield>
+                            </div>
+                        </div>
+                        <!--<div class="col-xs-6">
+                            <field label="当前刀具号T" ng-model="entity.dynamicData.ModeT"></field>
+                            <field label="长度补偿号H" ng-model="entity.dynamicData.ModeH"></field>
+                            <field label="半径补偿号D" ng-model="entity.dynamicData.ModeD"></field>
+                        </div>-->
+                        <div class="col-xs-12 info-box">
+                            <div class="col-xs-6">
+                                <staticfield label="已运行时间" field="TotalTime"></staticfield>
+                                <staticfield label="当前加工时间" field="CurWokTime"></staticfield>
+                            </div>
+                            <div class="col-xs-6">
+                                <staticfield label="加工进度" field="Progress"></staticfield>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 info-box">
+                            <div class="col-xs-6">
+                                <staticfield label="进给速度" field="FeedSpeed"></staticfield>
+                                <staticfield label="主轴转速" field="SpindleSpeed"></staticfield>
+                            </div>
+                            <div class="col-xs-6">
+                                <staticfield label="进给倍率" field="FeedRate"></staticfield>
+                                <staticfield label="主轴倍率" field="SpindleRate"></staticfield>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 info-box">
+                            <div class="col-xs-6">
+                                <staticfield label="料盒计数" field="RobotCount"></staticfield>
+                                <staticfield label="料盒总数" field="RobotTotal"></staticfield>
+                            </div>
+                            <div class="col-xs-6">
+                                <staticfield label="需求工件数" field="PlanCount"></staticfield>
+                                <staticfield label="加工计件" field="RunCount"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="诊断数据" on-show="ctrl.tabShow(['CNC_Diagnosis'])">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-container">
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead class="diagnosisHeader fixedHeader"></thead>
+                                <tbody class="diagnosisTable scrollContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="轴信息" on-show="ctrl.tabShow(['CNC_AxisParam'])">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <staticfield label="系统轴数量" field="TotalAxisNum"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-container">
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead class="axisHeader fixedHeader"></thead>
+                                <tbody class="axisTable scrollContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="坐标系" on-show="ctrl.tabShow(['CNC_Coordinate_System'])">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-container">
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead class="coordinateHeader fixedHeader"></thead>
+                                <tbody class="coordinateTable scrollContent"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="NC文件">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-6">
+                            <staticfield label="使用中的NC文件" width="150px" field="FileName"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="加工文件路径" field="NcFilePath"></staticfield>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="col-xs-6">
+                            <div class="static-field-box ng-isolate-scope" label="更新NC文件">
+                                <label class="static-field-label" style="width: 150px;">更新NC文件</label>
+                                <div style="width: 250px;margin-left: 10px">
+                                    <select data-placeholder="选择NC文件"
+                                            class="ncFile_select form-control chosen-select"
+                                            id="ncFile_select">
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary btn-xs btn-outline"
+                                        style="width: 50px;height: 25px;margin-left: 10px"
+                                        ng-if="''| SecurityFilter: 'cnc_board':'manage'"
+                                        ng-click="ctrl.changeNcFile()">更新
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机床照片" ng-if="''| SecurityFilter: 'cnc_board':'manage'">
+                <div>
+                    <cnvimage label="机床照片" ng-model="entity.cnc.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>
+<template name="app_cnc_cutter_template">
+    <div class="row">
+        <div class="col-sm-12">
+            <field label="变量名" ng-model="entity.desc"></field>
+            <field label="变量Key" ng-model="entity.key"></field>
+            <cnvtext label="值" ng-model="entity.value"></cnvtext>
+        </div>
+    </div>
+</template>

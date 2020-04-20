@@ -1,0 +1,369 @@
+<template name="vr_robot_zhuangbeidao_template">
+    <div class="widget" ng-controller="VRZhuangBeiDaoRobotController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                模型-零部件装备岛
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.modifyConfig()"
+                        ng-if="''| SecurityFilter: 'vr_robot_zhuangbeidao':'manage'">
+                    <i class="fa fa-cog"></i>
+                    数据配置
+                </button>
+            </div>
+        </div>
+        <div class="widget-body" style="min-height: 300px;">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="vr_zhuangbeidao_device_box">
+                        <div class="vr_zhuangbeidao_device_item_box">
+                            <div class="device_item_label">设备1</div>
+                            <div class="device_item" id="vrzhuangbeidao_bind_device_box1"></div>
+                        </div>
+                        <div class="vr_zhuangbeidao_device_item_box">
+                            <div class="device_item_label">设备2</div>
+                            <div class="device_item" id="vrzhuangbeidao_bind_device_box2"></div>
+                        </div>
+                        <div class="vr_zhuangbeidao_device_item_box">
+                            <div class="device_item_label">设备3</div>
+                            <div class="device_item" id="vrzhuangbeidao_bind_device_box3"></div>
+                        </div>
+                        <div class="vr_zhuangbeidao_device_item_box">
+                            <div class="device_item_label">设备4</div>
+                            <div class="device_item" id="vrzhuangbeidao_bind_device_box4"></div>
+                        </div>
+                        <div class="vr_zhuangbeidao_device_item_box">
+                            <div class="device_item_label">设备5</div>
+                            <div class="device_item" id="vrzhuangbeidao_bind_device_box5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="position: relative">
+                <!--<div class="debug_box">
+                    <div>
+                        <button class="btn btn-success btn-sm" type="button" ng-click="ctrl.move()">移动</button>
+                    </div>
+                    <div>
+                        <input class="form-control" id="animate_input"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="obj_input" placeholder="备注"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="x_input" placeholder="X轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('x')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('x')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="y_input" placeholder="y轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('y')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('y')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="z_input" placeholder="z轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('z')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('z')"></i>
+                    </div>
+                </div>-->
+                <div class="col-xs-12">
+                    <div id="zhuangbeidao_webgl_box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="vr_robot_zhuangbeidao_config_template">
+    <div>
+        <tabs>
+            <tab title="基本配置">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="数据周期(毫秒)" ng-model="entity.cycle" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机器人1配置">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴1位置" ng-model="entity.robot1_posi1"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot1_posi1_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴2位置" ng-model="entity.robot1_posi2"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot1_posi2_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴3位置" ng-model="entity.robot1_posi3"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot1_posi3_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴4位置" ng-model="entity.robot1_posi4"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot1_posi4_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴5位置" ng-model="entity.robot1_posi5"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot1_posi5_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴6位置" ng-model="entity.robot1_posi6"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot1_posi6_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机器人2配置">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴1位置" ng-model="entity.robot2_posi1"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot2_posi1_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴2位置" ng-model="entity.robot2_posi2"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot2_posi2_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴3位置" ng-model="entity.robot2_posi3"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot2_posi3_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴4位置" ng-model="entity.robot2_posi4"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot2_posi4_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴5位置" ng-model="entity.robot2_posi5"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot2_posi5_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴6位置" ng-model="entity.robot2_posi6"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot2_posi6_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机器人3配置">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴1位置" ng-model="entity.robot3_posi1"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot3_posi1_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴2位置" ng-model="entity.robot3_posi2"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot3_posi2_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴3位置" ng-model="entity.robot3_posi3"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot3_posi3_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴4位置" ng-model="entity.robot3_posi4"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot3_posi4_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴5位置" ng-model="entity.robot3_posi5"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot3_posi5_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴6位置" ng-model="entity.robot3_posi6"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot3_posi6_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机器人4配置">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴1位置" ng-model="entity.robot4_posi1"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot4_posi1_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴2位置" ng-model="entity.robot4_posi2"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot4_posi2_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴3位置" ng-model="entity.robot4_posi3"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot4_posi3_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴4位置" ng-model="entity.robot4_posi4"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot4_posi4_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴5位置" ng-model="entity.robot4_posi5"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot4_posi5_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴6位置" ng-model="entity.robot4_posi6"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot4_posi6_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机器人5配置">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴1位置" ng-model="entity.robot5_posi1"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot5_posi1_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴2位置" ng-model="entity.robot5_posi2"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot5_posi2_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴3位置" ng-model="entity.robot5_posi3"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot5_posi3_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴4位置" ng-model="entity.robot5_posi4"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot5_posi4_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <cnvtext label="轴5位置" ng-model="entity.robot5_posi5"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot5_posi5_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <cnvtext label="轴6位置" ng-model="entity.robot5_posi6"></cnvtext>
+                    </div>
+                    <div class="col-xs-2" style="padding-top: 7px;">
+                        <select ng-model="entity.robot5_posi6_direc" class="form-control" style="margin-left: -60px;"
+                                ng-options="option.id as option.name for option in direcOptions">
+                        </select>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

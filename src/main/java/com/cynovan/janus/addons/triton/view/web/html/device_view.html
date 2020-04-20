@@ -1,0 +1,46 @@
+<template name="app_triton_device_view_template">
+    <div class="device-tree-div" ng-controller="DeviceViewController as ctrl">
+        <div class="widget device-list-div">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'设备可视化列表'|I18nFilter:'device.view'}}
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.alterDeviceView()" ng-if="''| SecurityFilter: 'triton_device':'manage'">
+                        <i class="fa fa-plus"></i>
+                        {{'创建设备可视化'|I18nFilter:'add.deviceView'}}
+                    </button>
+                </div>
+            </div>
+            <div class="widget-body">
+                <list options="ctrl.options">
+                </list>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_triton_device_view_add">
+    <div class="dvs_view_add">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <cnvtext label="名称" ng-model="entity.name"></cnvtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="form-control-static c-text ng-isolate-scope ng-empty ng-valid">
+                    <label class="form-label"> 关联设备类型 </label>
+                    <div class="form-input">
+                        <cnvmany2one collection="deviceClassification" ng-model="deviceClsQuery.value" id-field="code"
+                                     filter="deviceClsQuery.filter"
+                                     projection="deviceClsQuery.projection" placeholder="选择设备类型..."></cnvmany2one>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <cnvtextarea placeholder="设备可视化备注信息" style="resize: none" ng-model="entity.remark" label="备注"></cnvtextarea>
+            </div>
+        </div>
+    </div>
+</template>

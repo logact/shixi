@@ -1,0 +1,34 @@
+<template name="weld_robot_data_linechart_dialog">
+    <div class="row">
+        <div class="col-xs-12 weldChartDesignBox">
+            <div class="chartFieldBox">
+                <div class="chartFieldItem" ng-repeat="field in chartOptions.chartFields">
+                    <cnvcheckbox ng-model="field.checked" label="{{field.name}}"></cnvcheckbox>
+                </div>
+            </div>
+            <div class="chartWarning">
+                <i class="fa fa-warning animated flash infinite"></i>Y轴最好在6个以下，过多会影响显示效果
+            </div>
+            <div class="chartUnitBox">
+                <span style="width: 80px;">Y轴:</span>
+                <div class="chartUnitItem" ng-repeat="unit in chartUnits" ng-bind="unit">
+
+                </div>
+            </div>
+            <button class="btn btn-primary btn-sm btn-outline" type="button" ng-click="ctrl.generateLine()" style="margin-top: -35px; float: right;
+                margin-right: 10px;">
+                <i class="fa fa-line-chart"></i>
+                生成曲线
+            </button>
+        </div>
+        <div class="col-xs-12 weldChartShowBox hide">
+            <button class="btn btn-primary btn-sm btn-outline weldChartResetBtn"
+                    style="margin-top: 15px;margin-left: 10px;" type="button"
+                    ng-click="ctrl.resetChart()">
+                <i class="fa fa-reply"></i>
+                重新配置
+            </button>
+            <div class="weldChart" id="weldChart1"></div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,116 @@
+{
+  "appId": "cnc",
+  "name": "iCNC",
+  "description": "针对CNC的管理模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "category": "数控设备",
+  "icon": "assets/app-icon.png",
+  "menus": [
+    {
+      "name": "数控机床",
+      "icon": "",
+      "showOnTop": true,
+      "template": "app_cnc_introduction_template",
+      "depend": [
+        "board/static/cnc_introduction.css"
+      ]
+    },
+    {
+      "name": "机台",
+      "icon": "cnc/board/static/image/cnc_board_white.png",
+      "template": "cnc_board_template",
+      "detail_template": "app_cnc_edit_cnc_template",
+      "depend": [
+        "board/static/cnc_board.js",
+        "board/static/cnc_board.css"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "维保",
+      "icon": "cnc/board/static/image/cnc_maintenance_white.png",
+      "template": "cnc_maintenance_template",
+      "depend": [
+        "maintenance/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "刀具",
+      "icon": "cnc/board/static/image/cnc_cutlery_white.png",
+      "template": "cnc_cutlery_template",
+      "detail_template": "cnc_cutlery_add",
+      "depend": [
+        "cutlery/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "NC文件",
+      "icon": "cnc/board/static/image/cnc_ncfile_white.png",
+      "template": "cnc_ncfile_template",
+      "detail_template": "ncfile_history_info",
+      "depend": [
+        "ncfile/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "零件",
+      "icon": "cnc/board/static/image/cnc_component_white.png",
+      "template": "cnc_component_template",
+      "detail_template": "component_procedure",
+      "depend": [
+        "component/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+<template name="app_weld_barcode_list_template">
+    <div class="widget" ng-controller="AppWeldBarcodeListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <span>物料 - {{barcode}}</span>
+                <div>
+                    <button class="btn btn-primary btn-sm btn-outline" type="button"
+                            ng-click="ctrl.goCalendarView()">
+                        <i class="fa fa-calendar"></i>
+                        返回月历日期
+                    </button>
+                    <button class="btn btn-primary btn-sm btn-outline" type="button"
+                            ng-click="ctrl.goBarcodeView()">
+                        <i class="fa fa-barcode"></i>
+                        返回物料视图
+                    </button>
+                    <button class="btn btn-primary btn-sm btn-outline" type="button"
+                            ng-click="ctrl.viewActualLineChart()">
+                        <i class="fa fa-line-chart"></i>
+                        机器人实际运行速度曲线
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body" style="position: relative">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="weldBody tableWrap">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>ID</th>
+                                <th>焊缝序号</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>时长(秒)</th>
+                                <th>焊接结果</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in list.arr">
+                                <td>{{ $index+1 }}</td>
+                                <td>{{ item.weldingId }}</td>
+                                <td>{{ $index+1 }}</td>
+                                <td>{{ item.start | date: 'yyyy-MM-dd HH:mm:ss.sss': timezone}}</td>
+                                <td>{{ item.end | date: 'yyyy-MM-dd HH:mm:ss.sss': timezone}}</td>
+                                <td>{{ item.period }}</td>
+                                <td ng-if="item.result === 'NG'"><span style="color: red;">不合格</span></td>
+                                <td ng-if="item.result === 'OK'">合格</td>
+                                <td ng-if="!item.result"></td>
+                                <td>
+                                    <button class="btn btn-xs btn-info" ng-click="ctrl.showParam($index)">
+                                        <i class="fa fa-wrench"></i>
+                                        加工参数
+                                    </button>
+                                    <button class="btn btn-xs btn-info" ng-click="ctrl.showLineChart($index)">
+                                        <i class="fa fa-line-chart"></i>
+                                        焊接曲线
+                                    </button>
+                                    <button class="btn btn-xs btn-info" ng-click="ctrl.viewDetail($index)"
+                                            ng-class="{'none-img': (!item.image_ids || !item.image_ids.length)}">
+                                        <i class="fa fa-paperclip"></i>
+                                        焊接结果<span ng-if="item.image_ids && item.image_ids.length">({{item.image_ids.length + item.ai_images.length }})</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

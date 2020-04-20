@@ -1,0 +1,1306 @@
+<template name="glass_carved_main">
+    <div class="glassControllerDiv" ng-controller="GlassController as ctrl">
+        <div id="fullpage">
+            <div class="section">
+                <!--开始页-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="indexcontextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <img src="resource/glass_carved/img/index1.png" style="height: 90%"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <br>
+                                            <div>目前，玻璃精雕市面上的解决方案CNC+PLC，这种方案存在明显的问题：</div>
+                                            <div>1、两套系统，操作不方便</div>
+                                            <div>2、CNC、机械手无防碰撞保护</div>
+                                            <div>3、NC文件人为维护，人力成本大</div>
+                                            <div>4、刀具磨损需人工干预，效率低，产品一致性差</div>
+                                            <br>
+                                            <div>固高基于多年的行业经验，结合工业互联网的创新思路，输出智能手机玻璃精雕解决方案，与市面的方案相比，存在明显的优势：</div>
+                                            <div>1、一体化控制器：同时支持CNC和机械手</div>
+                                            <div>2、防碰撞：机械手安全区保护</div>
+                                            <div>3、针对玻璃加工进行轨迹和速度优化</div>
+                                            <div>4、云平台：设备联网、智能数据分析，提高效率和良品率</div>
+                                            <div style="padding-left: 20px">1) 更准确的刀具补偿预测模型，智能刀补，提高产品质量及生产效率</div>
+                                            <div style="padding-left: 20px">2) 远程升级维护和故障诊断</div>
+                                            <div style="padding-left: 20px">3) 结合MES系统实现工厂管理</div>
+                                            <br>
+                                            <span class="bindDevice">绑定相关设备>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--设备联网-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">
+                                            设备作业
+                                        </div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box" style="flex-shrink: 2">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png"/>
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">流程状态</div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan nowon1">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">设备联网</div>
+                                                <br>
+                                                <div>1、通讯组件将玻璃精雕机、AGV、机械手、AOI与边缘计算系统进行联网</div>
+                                                <div>2、边缘计算系统作为桥梁，完成各个设备的信息转换和转发（支持不同设备厂家、不同协议）</div>
+                                                <div>3、与MES系统进行连接，通过数据对实现工厂的精益管理</div>
+                                                <div>4、边缘计算系统智能的NC文件管理机制，解决了人工管理费时费力、易出错等问题，提高生产自动化，降低人工成本、降低出错率</div>
+                                                <div>5、玻璃精雕机启动加工</div>
+                                                <br>
+                                                <div>NC文件信息</div>
+                                                <div>加工产品名称：<span style="color:#28FF28">手机3D玻璃</span></div>
+                                                <div>NC版本号：<span style="color:#28FF28">3.0.0</span></div>
+                                                <br>
+                                                <div>机床信息</div>
+                                                <div>机床型号：<span style="color:#28FF28">E-玻璃精雕机-Y91</span></div>
+                                                <div>机床编码：<span style="color:#28FF28">YY20180306000001</span></div>
+                                                <div>控制系统：<span style="color:#28FF28">固高科技</span></div>
+                                                <div>近期保养日期：<span style="color:#28FF28">2019-08-01</span></div>
+                                                <br>
+                                                <span class="checkJanusData linkdata">查看边缘计算系统设备连接情况>></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--取件-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">流程状态</div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan nowon2">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">取件</div>
+                                                <br>
+                                                <div>1、AGV移动至毛胚料仓</div>
+                                                <div>2、机械手取毛胚料</div>
+                                                <div>3、AGV移动至玻璃精雕机</div>
+                                                <div>4、玻璃精雕机打开罩门</div>
+                                                <div>5、机械手放料入玻璃精雕机</div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData">查看边缘计算系统的设备实时数据>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box needremove1">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">
+                                            流程状态
+                                        </div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan nowon">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">取件</div>
+                                                <br>
+                                                <div>1、AGV移动至毛胚料仓</div>
+                                                <div>2、机械手取毛胚料</div>
+                                                <div>3、AGV移动至玻璃精雕机</div>
+                                                <div>4、玻璃精雕机打开罩门</div>
+                                                <div>5、机械手放料入玻璃精雕机</div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData">查看边缘计算系统的设备实时数据>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--加工-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box remove-center">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">
+                                            流程状态
+                                        </div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan before">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan nowon3">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">加工</div>
+                                                <br>
+                                                <div>1、玻璃精雕机执行加工</div>
+                                                <div>2、机械手取工件</div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData">查看边缘计算系统的设备实时数据>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--检测-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box remove-center needremove2">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">
+                                            流程状态
+                                        </div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan before">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan nowon4">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+
+                                                <li class="plan before">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">检测</div>
+                                                <br>
+                                                <div>1、AGV移动至AOI</div>
+                                                <div>2、机械手放工件</div>
+                                                <div>3、AOI启动检测</div>
+                                                <br>
+                                                <div>边缘计算系统手机玻璃检测数据</div>
+                                                <div>中长：<span class="dynamicSpan" data-key="UpperWidth"></span><span
+                                                        style="color:#28FF28">mm</span></div>
+                                                <div>中宽：<span class="dynamicSpan" data-key="MiddleWidth"></span><span
+                                                        style="color:#28FF28">mm</span></div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData">查看边缘计算系统的设备实时数据>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--刀补-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box remove-last">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">
+                                            流程状态
+                                        </div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan before">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan nowon5">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan before">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">刀补计算</div>
+                                                <br>
+                                                <div>1、边缘计算系统计算刀补</div>
+                                                <div>2、玻璃精雕机调整刀补值</div>
+                                                <div>3、如需刀补，智能计算刀补值，并发送刀补指令、刀补值到玻璃精雕机</div>
+                                                <br>
+                                                <div>边缘计算系统刀具补偿预测模型数据</div>
+                                                <div>输入</div>
+                                                <div>中长：<span class="dynamicSpan" data-key="UpperWidth"></span><span
+                                                        style="color:#28FF28">mm</span></div>
+                                                <div>中宽：<span class="dynamicSpan" data-key="MiddleWidth"></span><span
+                                                        style="color:#28FF28">mm</span></div>
+                                                <div>输出</div>
+                                                <div>刀补判断：<span style="color:#28FF28">需刀补</span></div>
+                                                <div>Z1刀具半径补偿量：<span style="color:#28FF28">-0.0103mm</span></div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData knife">查看边缘计算系统的智能刀补情况>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--放件-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box remove-last">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">流程状态</div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan before">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan nowon6">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">放件</div>
+                                                <br>
+                                                <div>1、机械手取工件</div>
+                                                <div>2、AGV取工件</div>
+                                                <div>3、机械手放工件</div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData">查看边缘计算系统的设备实时数据>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="contextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">设备作业</div>
+                                        <div class="deviceWorkFlow">
+                                            <div class="coordinateValue">
+                                                <div>玻璃精雕机</div>
+                                                <div>绝对坐标值实时数据</div>
+                                                <div>X：<span class="dynamicSpan" data-key="AbsPos1"></span></div>
+                                                <div>Y：<span class="dynamicSpan" data-key="AbsPos2"></span></div>
+                                                <div>Z：<span class="dynamicSpan" data-key="AbsPos3"></span></div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems mes-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/MES.png">
+                                                        <div class='to-disconnet'></div>
+                                                        MES
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems janus-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/janus.png">
+                                                        <div class='to-disconnet'></div>
+                                                        边缘计算系统
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow">
+                                                <div class="workFlowItems store-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/ck.png">
+                                                        <div style="position:relative;left: 25px">仓库</div>
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems glass-message-box p-line">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/jd.png">
+                                                        <div class='to-disconnet'></div>
+                                                        玻璃精雕机
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                                <div class="workFlowItems aoi-message-box">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/aoi.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AOI
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                            <div class="workFlow ">
+                                                <div class="workFlowItems agv-message-box remove-last needremove3">
+                                                    <div>
+                                                        <img src="resource/glass_carved/img/avg.png">
+                                                        <div class='to-disconnet'></div>
+                                                        AGV+机械手
+                                                    </div>
+                                                    <span class="show-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="process">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle">流程状态</div>
+                                        <div class="showprocess">
+                                            <ul class="plan-body">
+                                                <li class="plan before">
+                                                    <a class="plan-title">设备联网</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">取件</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">加工</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">检测</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan">
+                                                    <a class="plan-title">刀补计算</a>
+                                                    <i></i>
+                                                </li>
+                                                <li class="plan nowon">
+                                                    <a class="plan-title">放件</a>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div class="explanation">
+                                                <br>
+                                                <div class="explaincontext-title">放件</div>
+                                                <br>
+                                                <div>1、机械手取工件</div>
+                                                <div>2、AGV取工件</div>
+                                                <div>3、机械手放工件</div>
+                                            </div>
+                                            <br>
+                                            <span class="checkJanusData">查看边缘计算系统的设备实时数据>></span>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--echarts-->
+                <div class="slide">
+                    <div class="allpage">
+                        <div class="title">手机玻璃精雕</div>
+                        <div class="content">
+                            <div class="leftcontent">
+                                <div class="chart">
+                                    <div class="lastcontextshow">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="medium-length">
+                                            <div class="chart-content"></div>
+                                        </div>
+                                        <div class="medium-width">
+                                            <div class="chart-content"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightcontent">
+                                <div class="rightinfo">
+                                    <div class="explain">
+                                        <div class="top-left-area"></div>
+                                        <div class="top-right-area"></div>
+                                        <div class="bottom-left-area"></div>
+                                        <div class="bottom-right-area"></div>
+                                        <div class="explaintitle" style="position: static">方案讲解</div>
+                                        <div class="explaincontext">
+                                            <div>
+                                                <br>
+                                                <div class="explaincontext-title">未开启智能刀补与开启智能刀补的数据对比</div>
+                                                <br>
+                                                <div style="font-weight: bold;font-size: 1.1em;color: gainsboro">未开启刀补
+                                                </div>
+                                                <div>1）质量曲线：产品尺寸波动大、偏离标准值较大，误差持续增大</div>
+                                                <div>2）刀具磨损,导致产品尺寸很难稳定在要求范围内</div>
+                                                <div>3）每台机需要人工干预,人力成本高,加工效率降低,产品一致性差</div>
+                                                <br>
+                                                <div style="font-weight: bold;font-size: 1.1em;color: gainsboro">开启刀补
+                                                </div>
+                                                <div>1）质量曲线：产品尺寸波动相对较小、偏离标准值小，误差相对稳定</div>
+                                                <div>2）边缘计算系统自动通过大量历史数据预测刀具磨损系数，并结合AOI测量的数据进行动态补偿，建立更准确的刀具补偿预测模型，
+                                                    提升产品质量，并随时掌控产品的关键数据，更加科学地指导生产，提高生产效率
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" value="暂停" class="glass-pause btn btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="glass_carved_bind_device_template">
+    <div class="row-item">
+        <span>设备配置</span>
+        <div id="glass_carved_bind_device_box"></div>
+    </div>
+</template>

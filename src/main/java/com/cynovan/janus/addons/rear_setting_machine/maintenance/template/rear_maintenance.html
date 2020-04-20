@@ -1,0 +1,77 @@
+<template name="rear_maintenance_template">
+    <div class="widget" ng-controller="RearMaintenanceController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                维保列表
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.showMaintenanceDetail()"
+                        ng-if="''| SecurityFilter: 'cnc_maintenance':'manage'">
+                    <i class="fa fa-plus"></i>
+                    新增维保
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>
+<template name="rear_setting_add_maintenance_template">
+    <tabs>
+        <tab title="基本信息">
+            <div class="row">
+                <div class="maintenance-status-button-list">
+                    <div ng-if="entity.id">
+                        <div class="col-xs-1" ng-repeat="s in ctrl.maintenance_status">
+                            <button class="btn btn-default" ng-class="s.name==entity.status?'now-status':''"
+                                    ng-bind="s.name" ng-click="ctrl.changeStatus(s.id)"></button>
+                        </div>
+                    </div>
+                    <div ng-if="!entity.id">
+                        <div class="col-xs-1">
+                            <button class="btn btn-default now-status">维保开始</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-control-static maintenance-device-div" ng-if="!entity.id">
+                        <div class="form-label">设备</div>
+                        <div class="bind_device_box form-input" id="selectRobotBox"></div>
+                    </div>
+                    <div class="form-control-static maintenance-device-div" ng-if="entity.id">
+                        <div class="form-label">设备</div>
+                        <div class="form-input device-name-noChange" ng-bind="entity.device"></div>
+                    </div>
+                </div>
+                <div class="col-xs-6" ng-if="entity.id" style="height: 42px"></div>
+                <div class="col-xs-6">
+                    <cnvtext label="维保人员" ng-model="entity.user_name"></cnvtext>
+                </div>
+                <div class="col-xs-6" ng-if="entity.id">
+                    <cnvselect label="维保结果" ng-model="entity.result" options="ctrl.result"></cnvselect>
+                </div>
+                <div class="col-xs-6">
+                    <cnvdate label="维保日期" language="zh-CN" placeholder="请选择日期" ng-model="entity.datetime"
+                    ></cnvdate>
+                </div>
+                <div class="col-xs-6">
+                    <cnvdate label="下次维保日期" placeholder="请选择日期" ng-model="entity.next_datetime"></cnvdate>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <cnvtextarea label="维保说明" ng-model="entity.instructions"></cnvtextarea>
+                </div>
+            </div>
+        </tab>
+        <tab title="维保照片" ng-if="entity.id">
+            <div>
+                <cnvimage label="维保照片" ng-model="entity.image_id"></cnvimage>
+            </div>
+        </tab>
+    </tabs>
+</template>

@@ -1,0 +1,114 @@
+<template name="connection_tcp_client_template">
+    <div ng-controller="ConnectionTCPClientController as ctrl">
+        <div class="row" style="margin-top: 15px; border-top: 1px #ddd dotted; padding-top: 20px;">
+            <div class="col-xs-12">
+                <div class="col-xs-6">
+                    <div class="connTitle">{{'请使用如下配置设置 TCP 客户端'|I18nFilter:'tcp_config'}}</div>
+                    <field label="{{'TCP服务器'|I18nFilter:'tcp_server'}}" ng-model="entity.address"></field>
+                </div>
+                <div class="col-xs-6">
+                    <div class="connTitle"></div>
+                    <field label="{{'TCP端口'|I18nFilter:'tcp_port'}}" ng-model="entity.port"></field>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-xs-12">
+                <div class="col-xs-6">
+                    <div class="connTitle">
+                        <span style="margin-right: 30px;">{{'TCP客户端信息'|I18nFilter:'tcp_client_info'}}</span>
+                        <div style="margin-top: 11px;">
+                            <cnvcheckbox label="{{'数据为16进制格式'|I18nFilter:'data.hex'}}"
+                                         ng-model="entity.hex"></cnvcheckbox>
+                        </div>
+                    </div>
+                    <cnvtext width="130px" label="{{'TCP Client 地址'|I18nFilter:'tcp_client_address'}}"
+                             ng-model="entity.client_ip"
+                             info="{{'Janus通过此IP自动关联数据至该设备'|I18nFilter:'janus.auto_link_data'}}"></cnvtext>
+                </div>
+                <div class="col-xs-6">
+                    <div class="connTitle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="connection_tcp_client_display_template">
+    <div class="conn-panel-header">
+        TCP Socket<span style="margin-left: 10px">{{'设备作为TCP Socket客户端接入'|I18nFilter:'device.tcp.client'}}</span>
+    </div>
+    <field label="{{'TCP服务器'|I18nFilter:'tcp_server'}}" width="160"
+           ng-model="entity.conn_info_tcp_client.address"></field>
+    <field label="{{'TCP端口'|I18nFilter:'tcp_port'}}" width="160" ng-model="entity.conn_info_tcp_client.port"></field>
+    <field label="{{'TCP Client 地址'|I18nFilter:'tcp_client_address'}}" width="160"
+           ng-model="entity.conn_info_tcp_client.client_ip"></field>
+    <field label="{{'数据为16进制格式'|I18nFilter:'data.hex'}}" width="160"
+           ng-model="entity.conn_info_tcp_client.hex? ('是'|I18nFilter:'yes') : ('否'|I18nFilter:'no')"></field>
+</template>
+<template name="connection_tcp_help_template">
+    <div class="row">
+        <div class="col-xs-12 code-tip-area">
+            <div class="use-scene">
+                <p class="scene-title">设备使用TCP客户端接入Janus时，传输数据格式为JSON，格式如下：</p>
+                <div class="code-area">{
+                    <div class="indentation-code">
+                        "uuid":"设备UUID",<span class="annotate-code-inline">//uuid为必须栏位</span>
+                        "token":"janustoken",<span class="annotate-code-inline">//token为必须栏位</span>
+                        "time":"20180310142505336",<span class="annotate-code-inline">//数据产生的时间:格式为yyyyMMddHHmmssSSS, 如该栏位为空,则取当前时间</span><br>
+                        <span class="annotate-code-inline">//数据列表</span><br>
+                        "speed":"10",<span class="annotate-code-inline">//数度=10</span><br>
+                        "temperature":36.5,<span class="annotate-code-inline">//温度=36.5</span><br>
+                        .<br>
+                        .<br>
+                        .<br>
+                        "key_10":"test"
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">当设备通过TCP发送数据到Janus时，Janus会实时返回结果给设备：</p>
+                <div class="code-area">
+                    <div>
+                        <span class="annotate-code-inline">//设备发送数据成功:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:200,<br>
+                            message:''
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <span class="annotate-code-inline">//解析设备数据错误:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:1002,<br>
+                            message:'数据格式错误'
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <span class="annotate-code-inline">//Token错误:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:1003,<br>
+                            message:'数据Token错误，请检查'
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <span class="annotate-code-inline">//数据中缺少UUID:</span><br>
+                        {
+                        <div class="indentation-code">
+                            code:1004,<br>
+                            message:'数据中没有UUID，请检查'
+                        </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

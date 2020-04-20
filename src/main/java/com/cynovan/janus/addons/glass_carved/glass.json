@@ -1,0 +1,21 @@
+{
+  "appId": "glassCarved",
+  "description": "手机玻璃精雕",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "手机玻璃精雕",
+  "icon": "img/app-icon.png",
+  "menus": [
+    {
+      "icon": "",
+      "name": "手机玻璃精雕",
+      "showOnTop": true,
+      "template": "glass_carved_main",
+      "depend": [
+        "js",
+        "css"
+      ]
+    }
+  ]
+}

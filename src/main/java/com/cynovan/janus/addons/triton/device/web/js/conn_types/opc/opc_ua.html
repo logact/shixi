@@ -1,0 +1,206 @@
+<template name="opc_ua_server_template">
+    <div class="row" ng-controller="ConnectionOpcUaController as ctrl">
+        <div class="col-xs-12">
+            <div class="header">
+                {{'端点设置'|I18nFilter:'opc_ua_config'}}
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="{{'OPC Server地址'|I18nFilter:'opc_server_address'}}"
+                     ng-model="entity.endpoint_url"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <div class="col-xs-12 form-control-static">
+                <label class="form-label"
+                       style="width: 110px;padding-right: 15px">{{'定时读取'|I18nFilter:'time.read'}}</label>
+                <div style="margin-left: 110px;float: left;">
+                    <div style=" display:flex;">
+                        <input style=" width: 90px;border-bottom-right-radius: 0; border-top-right-radius: 0;"
+                               type="text" class="form-control"
+                               ng-model="time">
+                        <select style=" width: 70px; height: 34px; border-left: 0;border-bottom-left-radius: 0; border-top-left-radius: 0;"
+                                class="form-control input-sm" ng-model="timeUnit"
+                                ng-options="unit.id as unit.name for unit in ctrl.timeUnit">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--暂时不支持，先隐藏，2018年12月12日10:47:50-->
+        <!--<div class="col-xs-6">
+            <cnvselect label="安全模式" ng-model="entity.securityMode" options="ctrl.securityMode"
+                       default-value="'None'"></cnvselect>
+        </div>-->
+        <div class="col-xs-6">
+            <cnvselect label="{{'安全策略'|I18nFilter:'security_strategy'}}" ng-model="entity.securityPolicy"
+                       options="ctrl.securityPolicy"
+                       default-value="'None'"></cnvselect>
+        </div>
+        <!--暂时不支持，先隐藏，2018年12月12日10:47:50-->
+        <!--<div class="col-xs-6">
+            <cnvselect label="信息格式" ng-model="entity.message_encoding" options="ctrl.message_encoding"
+                       default-value="'Binary'"></cnvselect>
+        </div>-->
+        <div class="col-xs-12">
+            <div class="header">
+                {{'验证设置'|I18nFilter:'test.config'}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-6">
+                    <cnvselect label="{{'验证方式'|I18nFilter:'test.format'}}" ng-model="entity.auth_type"
+                               options="ctrl.auth_type"
+                               default-value="'Anonymous'"></cnvselect>
+                </div>
+            </div>
+            <div class="col-xs-12" ng-show="entity.auth_type==='UserName'">
+                <div class="col-xs-6">
+                    <cnvtext label="{{'用户名'|I18nFilter:'user_name'}}" ng-model="entity.username"></cnvtext>
+                </div>
+                <div class="col-xs-6">
+                    <cnvpwd label="{{'密码'|I18nFilter:'password'}}" ng-model="entity.password"></cnvpwd>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <div class="header">
+                        <span>{{'数据读取'|I18nFilter:'data.read'}}</span>
+                        <button class="btn btn-primary btn-xs btn-outline" style="margin-left: 20px"
+                                ng-click="ctrl.loadAllNode()">
+                            <i class="fa fa-search" style="padding-right: 3px;"></i>
+                            {{'搜索数据栏位'|I18nFilter:'search_data_field'}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12" style="padding-left: 60px; padding-right: 50px;">
+                <div class="table-container-div">
+                    <table class="table table-bordered table-condensed edittable">
+                        <thead>
+                        <tr>
+                            <th style="width: 60px;">#</th>
+                            <th style="width: 250px;">{{'命名空间'|I18nFilter:'name_spaces'}}</th>
+                            <th style="width: 140px;">{{'节点ID'|I18nFilter:'node_id'}}</th>
+                            <th style="width: 120px;">{{'操作'|I18nFilter:'do'}}</th>
+                        </tr>
+                        <tbody>
+                        <tr ng-repeat="row in entity.rows">
+                            <td class="text-center">
+                                <div style="padding-top: 5px;">{{$index + 1}}</div>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control input-sm" ng-model="row.namespace"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control input-sm" ng-model="row.name"/>
+                            </td>
+                            <td class="text-center">
+                                <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs"
+                                        type="button"
+                                        ng-click="ctrl.removeRow($index)">
+                                    <i class="fa fa-times"></i>
+                                    {{'删除'|I18nFilter:'delete'}}
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        </thead>
+                    </table>
+                </div>
+                <button style="margin-top: 5px;" class="btn btn-primary btn-sm btn-outline" type="button"
+                        ng-click="ctrl.addRow()">
+                    <i class="fa fa-plus"></i>
+                    {{'添加一行'|I18nFilter:'add.row'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="opc_ua_server_display_template">
+    <div class="conn-panel-header">
+        TCP Socket<span style="margin-left: 10px">{{'设备作为OPC UA TCP Server接入'|I18nFilter:'device.opc'}}</span>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            <div class="conn-panel-header">
+                {{'端点设置'|I18nFilter:'opc_ua_config'}}
+            </div>
+            <field label="{{'OPC Server地址'|I18nFilter:'opc_server_address'}}"
+                   ng-model="entity.conn_info_opc_ua_server.endpoint_url"></field>
+            <field label="{{'定时发送'|I18nFilter:'time_send'}}" ng-model="entity.timer"></field>
+        </div>
+        <div class="col-xs-5">
+            <div class="conn-panel-header">
+                {{'验证设置'|I18nFilter:'test.config'}}
+            </div>
+            <field label="{{'安全策略'|I18nFilter:'security_strategy'}}"
+                   ng-model="entity.conn_info_opc_ua_server.securityPolicy"></field>
+            <field label="{{'验证方式'|I18nFilter:'test.format'}}"
+                   ng-model="entity.conn_info_opc_ua_server.auth_type"></field>
+            <div ng-show="entity.conn_info_opc_ua_server.auth_type==='UserName'">
+                <field label="{{'用户名'|I18nFilter:'user_name'}}"
+                       ng-model="entity.conn_info_opc_ua_server.username"></field>
+                <!--<field label="密码" ng-model="entity.password"></field>-->
+            </div>
+        </div>
+    </div>
+    <div class="conn-panel-header">
+        {{'数据读取'|I18nFilter:'data.read'}}
+    </div>
+    <table class="table table-bordered table-condensed edittable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>{{'命名空间'|I18nFilter:'name_spaces'}}</th>
+            <th>{{'节点ID'|I18nFilter:'node_id'}}</th>
+        </tr>
+        <tbody>
+        <tr ng-repeat="row in entity.conn_info_opc_ua_server.rows">
+            <td class="text-center">
+                <div style="padding-top: 5px;">{{$index + 1}}</div>
+            </td>
+            <td>
+                <div style="padding:5px">{{row.namespace}}</div>
+            </td>
+            <td>
+                <div style="padding:5px">{{row.name}}</div>
+            </td>
+        </tr>
+        </tbody>
+        </thead>
+    </table>
+</template>
+<template name="opc_load_node_template">
+    <div class="row">
+        <!--<script type="text/javascript" src="resource/web/lib/ztree/jquery.ztree.core.js"></script>-->
+        <!--<script type="text/javascript" src="resource/web/lib/ztree/jquery.ztree.excheck.js"></script>-->
+        <!--<script type="text/javascript" src="resource/web/lib/ztree/jquery.ztree.exhide.js"></script>-->
+        <div class="col-xs-12">
+            <div class="show-node-div">
+                <div class="search-input-div" style="position: relative;height: 40px">
+                    <div class="col-xs-7">
+                        <button class="btn btn-primary btn-sm" ng-click="ctrl.expandAll(true)">
+                            {{'全部展开'|I18nFilter:'expand_all'}}
+                        </button>
+                        <button class="btn btn-primary btn-sm" ng-click="ctrl.expandAll(false)">
+                            {{'全部折叠'|I18nFilter:'fold_all'}}
+                        </button>
+                        <button class="btn btn-primary btn-sm" ng-click="ctrl.cleanHighLight()">清除高亮</button>
+                    </div>
+                    <div class="c-list-searchbox col-xs-5">
+                        <input class="form-control search-input" ng-model="searchKey"
+                               placeholder="{{'请输入查询内容'|I18nFilter:'input.find.content'}}"/>
+                        <button type="button" class="btn btn-primary btn-sm" style="top: 0"
+                                ng-click="ctrl.searchNode()">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <ul class="ztree" id="node_tree"></ul>
+            </div>
+        </div>
+    </div>
+</template>

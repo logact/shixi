@@ -1,0 +1,133 @@
+.sync_checking {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 0 6px #eee;
+}
+
+.sync-title {
+    font-size: 18px;
+    line-height: 60px;
+    letter-spacing: 1px;
+}
+
+.sync_checking_loading {
+    height: 60px;
+    border-bottom: 1px #eee dotted;
+}
+
+.sync_checking_message {
+    text-align: left;
+    padding: 10px 15px;
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sync_checking_message .message-item {
+    line-height: 25px;
+    letter-spacing: 1px;
+    font-size: 15px;
+}
+
+.sync_checking_message .message-item .idx {
+    display: inline-block;
+    width: 20px;
+}
+
+.checkErrorMessage {
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: #e91b1b;
+}
+
+.input-red-border{
+    border: solid 1px #d35767;
+}
+
+.sync-div{
+    width: 480px;
+    margin: 120px auto 0;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 1px 11px 0 rgba(0,0,0,0.12);
+}
+.welcome-sync-title{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 30px;
+    color: #333333;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.sync-div .input-and-tips-div{
+    margin: 40px 80px;
+}
+.sync-div .input-and-tips-div input{
+    height: 40px;
+    border-radius: 0;
+    margin-bottom: 30px;
+}
+.sync-div .input-and-tips-div >div >span{
+    position: absolute;
+    top: 45px;
+    left: 0;
+    font-size: 14px;
+    color: #d35767;
+    letter-spacing: 1px;
+    user-select: none;
+}
+.sync-div .input-and-tips-div >div{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.janus-info-div{
+    margin-top: -20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.input-and-tips-div .check-status-i{
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    right: -26px;
+    top: 12px;
+    background-size: 100%;
+}
+.input-and-tips-div .wrong-status-i{
+    background: url("../img/tips-wrong.png") no-repeat center;
+}
+.input-and-tips-div .right-status-i{
+    background: url("../img/tips-right.png") no-repeat center;
+}
+.confirm-sync-button{
+    height: 40px;
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 6px;
+    background-color: #488efe;
+    color: #fff;
+    border-radius: 0;
+    border: none;
+}
+.confirm-sync-button:hover{
+    background: #66b1ff;
+}
+
+.change-language-div {
+    display: inline-block;
+    position: absolute;
+    height: 20px;
+    top: 0;
+    right: 20px;
+    margin: 20px 0;
+    color: #488eff;
+    cursor: pointer;
+}

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="440" height="380">
+    <defs>
+        <linearGradient id="A" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4d4d4d"/>
+            <stop offset=".219" stop-color="#999"/>
+            <stop offset=".5" stop-color="#ccc"/>
+            <stop offset=".778" stop-color="gray"/>
+            <stop offset="1" stop-color="#4d4d4d"/>
+        </linearGradient>
+        <linearGradient xlink:href="#A" id="B" x1="182.02" y1="405.083" x2="182.02" y2="685.083"/>
+        <linearGradient xlink:href="#A" id="C" x1="582.02" y1="685.083" x2="582.02" y2="405.083"/>
+        <linearGradient xlink:href="#A" id="D" x1="242.02" y1="625.083" x2="242.02" y2="465.083"/>
+        <radialGradient id="E" cx="380" cy="675.219" fx="380" fy="675.219" r="120"
+                        gradientTransform="matrix(1.0000001,5.6081236e-7,-3.7710417e-7,1.0238091,2.2142498e-4,-16.076621)"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#e6e6e6"/>
+            <stop offset=".5" stop-color="#ccc"/>
+            <stop offset=".778" stop-color="#4d4d4d"/>
+            <stop offset="1" stop-color="#505050"/>
+        </radialGradient>
+        <linearGradient xlink:href="#A" id="F" x1="317.02" y1="445.083" x2="447.02" y2="445.083"/>
+        <linearGradient xlink:href="#A" id="G" x1="242.02" y1="365.083" x2="522.02" y2="365.083"/>
+        <radialGradient id="H" gradientTransform="matrix(1.0000001,5.6081236e-7,-3.7710417e-7,1.0238091,0.00022142498,-16.076621)" cx="380"
+                        cy="675.219" fx="380" fy="675.219" r="120" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#e6e6e6"/>
+            <stop offset=".5" stop-color="#ccc"/>
+            <stop offset=".778" stop-color="gray"/>
+            <stop offset="1" stop-color="#585858" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient y2="440.083" x2="372.735" y1="405.083" x1="372.735" id="I" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#1a1a1a"/>
+            <stop offset="1" stop-color="#4d4d4d" stop-opacity="0"/>
+        </linearGradient>
+        <path id="J" d="M500 675.22c0 67.817-53.76 122.857-120 122.857s-120-55.04-120-122.857 53.76-122.857 120-122.857 120 55.04 120 122.857z"/>
+        <path id="K" d="M257.02 310.083h10v15h-10z"/>
+    </defs>
+    <g transform="translate(-162.02 -305.083)">
+        <path d="M269.52 305.083c-1.385 0-2.5 1.115-2.5 2.5v2.5h-10v15h-15v80h75v39.594a121.4 121.4 0 0 0-23.594 20.406H202.02v-60h-40v280h40v-60h86.656c22.004 27.875 55.637 45.72 93.344 45.72s71.37-17.844 93.375-45.72h86.625v60h40v-280h-40v60h-91.406c-6.965-7.803-14.885-14.65-23.594-20.406v-39.594h75v-80h-15v-15h-10v-2.5c0-1.385-1.115-2.5-2.5-2.5h-10c-1.385 0-2.5 1.115-2.5 2.5v2.5h-10v15h-30v-15h-10v-2.5c0-1.385-1.115-2.5-2.5-2.5h-10c-1.385 0-2.5 1.115-2.5 2.5v2.5h-10v15h-50v-15h-10v-2.5c0-1.385-1.115-2.5-2.5-2.5h-10c-1.385 0-2.5 1.115-2.5 2.5v2.5h-10v15h-30v-15h-10v-2.5c0-1.385-1.115-2.5-2.5-2.5h-10z"
+              fill="#f5f5f5"/>
+        <g opacity=".52">
+            <use xlink:href="#J" transform="translate(2.02 -127.279)" opacity="1" fill="url(#E)"/>
+            <path d="M162.02 465.083h440v160h-440z" opacity="1" fill="url(#D)"/>
+            <path d="M562.02 405.083h40v280h-40z" opacity="1" fill="url(#C)"/>
+            <path d="M162.02 405.083h40v280h-40z" opacity="1" fill="url(#B)"/>
+            <path d="M317.02 385.083h130v100h-130z" opacity="1" fill="url(#F)"/>
+            <path d="M317.02 405.083h130v35h-130z" opacity="1" fill="url(#I)"/>
+            <use xlink:href="#J" transform="matrix(1 0 0 .976744 2.020305 -111.57643)" opacity="1" fill="url(#H)"/>
+            <path d="M242.02 325.083h280v80h-280z" opacity="1" fill="url(#G)"/>
+            <path d="M242.02 365.083h280" fill="none" stroke="#000" stroke-width="4"/>
+            <rect rx="2.5" width="15" height="10" x="267.02" y="305.083" fill="#4d4d4d"/>
+            <path d="M267.02 310.083h15v15h-15z" fill="#9c9c9c"/>
+            <use xlink:href="#K" fill="silver"/>
+            <use xlink:href="#K" x="25" fill="#7c7c7c"/>
+            <rect width="15" height="10" x="482.02" y="305.083" rx="2.5" fill="#4d4d4d"/>
+            <path d="M482.02 310.083h15v15h-15z" fill="#9c9c9c"/>
+            <use xlink:href="#K" x="215" fill="silver"/>
+            <use xlink:href="#K" x="240" fill="#7c7c7c"/>
+            <rect width="15" height="10" x="332.02" y="305.083" rx="2.5" fill="#4d4d4d"/>
+            <path d="M332.02 310.083h15v15h-15z" fill="#9c9c9c"/>
+            <use xlink:href="#K" x="65" fill="silver"/>
+            <use xlink:href="#K" x="90" fill="#7c7c7c"/>
+            <rect width="15" height="10" x="417.02" y="305.083" rx="2.5" fill="#4d4d4d"/>
+            <path d="M417.02 310.083h15v15h-15z" fill="#9c9c9c"/>
+            <use xlink:href="#K" x="150" fill="silver"/>
+            <use xlink:href="#K" x="175" fill="#7c7c7c"/>
+        </g>
+    </g>
+</svg>

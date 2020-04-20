@@ -1,0 +1,98 @@
+.cnc-kanban-list-info {
+    min-height: 80px;
+    padding: 5px 15px;
+}
+
+.icnc_warning {
+    color: #ed2121;
+    font-size: 16px;
+}
+
+.icnc-normal {
+    font-size: 15px;
+    color: green;
+    color: #2AE88C;
+}
+
+.posi-item {
+    height: 30px;
+}
+
+.alarm_box .static-field-label, .alarm_box .static-field-value {
+    color: #fff !important;
+}
+
+.kanban-item-status {
+    display: inline-block;
+    width: 100%;
+}
+
+.kanban-item-status :nth-child(1) {
+    text-align: right;
+    padding-right: 3px;
+}
+
+.kanban-item-status :nth-child(2) {
+    position: relative;
+    text-align: left;
+}
+
+.kanban-item-status i {
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
+.kanban-fileName {
+    position: absolute;
+}
+
+/* Fixed Header Table */
+thead.fixedHeader tr {
+    display: block;
+    position: relative;
+}
+
+thead.fixedHeader th:first-child {
+    width: 40px;
+}
+
+thead.fixedHeader th:not(:first-child) {
+    width: 138px;
+}
+
+thead.fixedHeader th {
+    font-weight: normal;
+    padding: 4px 3px;
+    text-align: left;
+}
+
+tbody.scrollContent {
+    display: block;
+    height: 500px;
+    overflow: auto;
+    width: 100%;
+}
+
+tbody.scrollContent td:first-child {
+    width: 40px;
+}
+
+tbody.scrollContent td:not(:first-child) {
+    width: 138px;
+}
+
+.header > div {
+    display: inline-block;
+}
+
+.header > div button {
+    margin-left: 50px;
+}
+
+.static-field-box .static-field-label {
+    width: 150px;
+}
+
+.set-height-div {
+    height: 500px;
+}

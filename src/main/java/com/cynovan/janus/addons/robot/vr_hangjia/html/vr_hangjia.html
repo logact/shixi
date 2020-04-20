@@ -1,0 +1,297 @@
+<template name="vr_robot_hangjia_template">
+    <div class="widget" ng-controller="VRHangJiaRobotController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                模型-绗架机器人
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.modifyConfig()"
+                        ng-if="''| SecurityFilter: 'vr_robot_hangjia':'manage'">
+                    <i class="fa fa-cog"></i>
+                    数据配置
+                </button>
+            </div>
+        </div>
+        <div class="widget-body" style="min-height: 300px;">
+            <div class="row">
+                <div class="col-xs-3 hangjia_left">
+                    <div class="row-item" style="margin-top: 15px;">
+                        <div style="width: 90px;">设备</div>
+                        <div id="vrhangjia_bind_device_box"></div>
+                    </div>
+                    <!--<div>
+                        <button class="btn btn-success btn-sm" type="button" ng-click="ctrl.move()">移动</button>
+                    </div>
+                    <div>
+                        <input class="form-control" id="animate_input"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="obj_input" placeholder="备注"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="x_input" placeholder="X轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('x')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('x')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="y_input" placeholder="y轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('y')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('y')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="z_input" placeholder="z轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('z')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('z')"></i>
+                    </div>-->
+                    <div class="hangjia_split"></div>
+                    <div class="hangjia_title">
+                        X轴
+                    </div>
+                    <div class="hangjia_field">
+                        <label>位置</label>
+                        <div class="hangjia_field_value" data-key="gvl_XPosition"></div>
+                        <div class="hangjia_field_unit">mm</div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>速度</label>
+                        <div class="hangjia_field_value" data-key="gvl_XVel"></div>
+                        <div class="hangjia_field_unit">mm/s</div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>正限位</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_XLimitPositive">
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>负限位</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_XLimitNegative">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>运动中</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_Xstatus">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_title">
+                        Y轴
+                    </div>
+                    <div class="hangjia_field">
+                        <label>位置</label>
+                        <div class="hangjia_field_value" data-key="gvl_YPosition"></div>
+                        <div class="hangjia_field_unit">mm</div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>速度</label>
+                        <div class="hangjia_field_value" data-key="gvl_YVel"></div>
+                        <div class="hangjia_field_unit">mm/s</div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>正限位</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_YLimitPositive">
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>负限位</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_YLimitNegative">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>运动中</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_Ystatus">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_title">
+                        Z轴
+                    </div>
+                    <div class="hangjia_field">
+                        <label>位置</label>
+                        <div class="hangjia_field_value" data-key="gvl_ZPosition"></div>
+                        <div class="hangjia_field_unit">mm</div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>速度</label>
+                        <div class="hangjia_field_value" data-key="gvl_ZVel"></div>
+                        <div class="hangjia_field_unit">mm/s</div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>正限位</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_ZLimitPositive">
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>负限位</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_ZLimitNegative">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>运动中</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_Zstatus">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_title">
+                        电磁吸盘
+                    </div>
+                    <div class="hangjia_field">
+                        <label>充磁</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_diancicongci">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                    <div class="hangjia_field">
+                        <label>退磁</label>
+                        <div class="hangjia_field_value">
+                            <div class="hangjia_field_state" data-key="gvl_diancituici">
+
+                            </div>
+                        </div>
+                        <div class="hangjia_field_unit"></div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div id="hangjia_webgl_box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="vr_robot_hangjia_config_template">
+    <div>
+        <tabs>
+            <tab title="基本配置">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="数据周期(毫秒)" ng-model="entity.cycle" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            X轴
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="位置" ng-model="entity.gvl_XPosition"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="速度" ng-model="entity.gvl_XVel"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_XLimitPositive" label="正限位"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_XLimitNegative" label="负限位"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_Xstatus" label="运动中"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            Y轴
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="位置" ng-model="entity.gvl_YPosition"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="速度" ng-model="entity.gvl_YVel"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_YLimitPositive" label="正限位"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_YLimitNegative" label="负限位"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_Ystatus" label="运动中"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            Z轴
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="位置" ng-model="entity.gvl_ZPosition"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" label="速度" ng-model="entity.gvl_ZVel"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_ZLimitPositive" label="正限位"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_ZLimitNegative" label="负限位"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_Zstatus" label="运动中"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 header">
+                            电磁吸盘
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_diancicongci" label="充磁"></cnvtext>
+                        </div>
+                        <div class="col-xs-6">
+                            <cnvtext width="150" ng-model="entity.gvl_diancituici" label="退磁"></cnvtext>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

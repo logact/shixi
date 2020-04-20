@@ -1,0 +1,619 @@
+<template name="vr_robot_a1200_template">
+    <div class="widget" ng-controller="RobotVRA1200Controller as ctrl">
+        <div class="widget-header" style="padding: 0px">
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="robot_widget_title" ng-bind="deviceName"></div>
+                    <div id="vra1200_bind_device_box"></div>
+                </div>
+                <div class="col-xs-4 text-right" style="padding-top: 14px;">
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.modifyConfig()" ng-if="''| SecurityFilter: 'vr_robot_a1200':'manage'">
+                        <i class="fa fa-cog"></i>
+                        数据配置
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body" style="min-height: 300px;">
+            <div class="row">
+                <div class="col-xs-8 a1200_left">
+                    <div class="echart_position a1200_chart"></div>
+                    <div class="echart_speed a1200_chart" style="border-top: 1px #ddd dotted;"></div>
+                    <!--<div>
+                        <button class="btn btn-success btn-sm" type="button" ng-click="ctrl.move()">移动</button>
+                    </div>
+                    <div>
+                        <input class="form-control" id="animate_input"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="obj_input" placeholder="备注"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="x_input" placeholder="X轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('x')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('x')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="y_input" placeholder="y轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('y')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('y')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="z_input" placeholder="z轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('z')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('z')"></i>
+                    </div>-->
+                    <div class="vr_a1200_content">
+                        <div class="vr_a1200_box">
+                            <div class="vr_a1200_box_header">
+                                <i class="fa fa-leaf"></i>
+                                直角坐标系
+                            </div>
+                            <div class="vr_a1200_box_body">
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">X方位</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_x"></div>
+                                    <div class="suffix" style="width: 30px;">mm</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">Y方位</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_y"></div>
+                                    <div class="suffix" style="width: 30px;">mm</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">Z方位</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_z"></div>
+                                    <div class="suffix" style="width: 30px;">mm</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">RX方位</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_rx"></div>
+                                    <div class="suffix" style="width: 30px;">deg</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">RY方位</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_ry"></div>
+                                    <div class="suffix" style="width: 30px;">deg</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">RZ方位</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_rz"></div>
+                                    <div class="suffix" style="width: 30px;">deg</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vr_a1200_box">
+                            <div class="vr_a1200_box_header">
+                                <i class="fa fa-leaf"></i>
+                                加速度
+                            </div>
+                            <div class="vr_a1200_box_body">
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴1</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="ac_1"></div>
+                                    <div class="suffix">mm/s<sup>2</sup></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴2</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="ac_2"></div>
+                                    <div class="suffix">mm/s<sup>2</sup></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴2</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="ac_3"></div>
+                                    <div class="suffix">mm/s<sup>2</sup></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴4</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="ac_4"></div>
+                                    <div class="suffix">mm/s<sup>2</sup></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴5</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="ac_5"></div>
+                                    <div class="suffix">mm/s<sup>2</sup></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴6</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="ac_6"></div>
+                                    <div class="suffix">mm/s<sup>2</sup></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vr_a1200_box">
+                            <div class="vr_a1200_box_header">
+                                <i class="fa fa-leaf"></i>
+                                各轴电机电流
+                            </div>
+                            <div class="vr_a1200_box_body">
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴1</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="temper_1"></div>
+                                    <div class="suffix" style="width: 20px;">A</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴2</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="temper_2"></div>
+                                    <div class="suffix" style="width: 20px;">A</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴2</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="temper_3"></div>
+                                    <div class="suffix" style="width: 20px;">A</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴4</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="temper_4"></div>
+                                    <div class="suffix" style="width: 20px;">A</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item">
+                                    <span class="value_label">轴5</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="temper_5"></div>
+                                    <div class="suffix" style="width: 20px;">A</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item ">
+                                    <span class="value_label">轴6</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="temper_6"></div>
+                                    <div class="suffix" style="width: 20px;">A</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vr_a1200_box">
+                            <div class="vr_a1200_box_header">
+                                <i class="fa fa-leaf"></i>
+                                状态信息
+                            </div>
+                            <div class="vr_a1200_box_body">
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label">运动状态</span>
+                                    <div class="vr_a1200_box_body_value value_content" style="padding-left: 10px;"
+                                         data-key="movement_state">
+                                    </div>
+                                </div>
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label">通电时间</span>
+                                    <div class="vr_a1200_box_body_value value_content" style="padding-left: 10px;"
+                                         data-key="electrify_time"></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label">运行时间</span>
+                                    <div class="vr_a1200_box_body_value value_content" style="padding-left: 10px;"
+                                         data-key="run_time"></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item ">
+                                    <span class="value_label">速度值</span>
+                                    <div class="vr_a1200_box_body_value value_content" style="padding-left: 10px;"
+                                         data-key="linevelocity"></div>
+                                    <div class="suffix">mm/s</div>
+                                </div>
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label">姿态</span>
+                                    <div class="vr_a1200_box_body_value value_content" style="padding-left: 10px;"
+                                         data-key="posture"></div>
+                                </div>
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label">错误输出</span>
+                                    <div class="vr_a1200_box_body_value value_content" style="padding-left: 10px;"
+                                         data-key="error_state"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div id="a1200_webgl_box"></div>
+                    <div class="a1200_state_box">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label" style="width: 100px;">工作坐标系</span>
+                                    <div class="vr_a1200_box_body_value value_content" data-key="cf_wcs"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="vr_a1200_box_body_item no_suffix">
+                                    <span class="value_label" style="width: 100px;">工具坐标系</span>
+                                    <div class="vr_a1200_box_body_value value_content"
+                                         data-key="cf_tcs"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="vr_a1200_state_box">
+                                    <div class="vr_a1200_state_box_header">
+                                        <i class="fa fa-circle-o"></i>
+                                        Input Port讯号
+                                        <button class="btn btn-primary btn-xs btn-outline" type="button"
+                                                ng-click="ctrl.showState('input_port_')">
+                                            <i class="fa fa-list"></i>
+                                            更多
+                                        </button>
+                                    </div>
+                                    <div class="vr_a1200_state_box_body">
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="1">
+                                                1
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="2">
+                                                2
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="3">
+                                                3
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="4">
+                                                4
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="5">
+                                                5
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="6">
+                                                6
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="7">
+                                                7
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="8">
+                                                8
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="9">
+                                                9
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="10">
+                                                10
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="11">
+                                                11
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="12">
+                                                12
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="13">
+                                                13
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="14">
+                                                14
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="15">
+                                                15
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="input_port_" data-index="16">
+                                                16
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="vr_a1200_state_box">
+                                    <div class="vr_a1200_state_box_header">
+                                        <i class="fa fa-circle-o"></i>
+                                        Output Port讯号
+                                        <button class="btn btn-primary btn-xs btn-outline" type="button"
+                                                ng-click="ctrl.showState('output_port_')">
+                                            <i class="fa fa-list"></i>
+                                            更多
+                                        </button>
+                                    </div>
+                                    <div class="vr_a1200_state_box_body">
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="1">
+                                                1
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="2">
+                                                2
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="3">
+                                                3
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="4">
+                                                4
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="5">
+                                                5
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="6">
+                                                6
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="7">
+                                                7
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="8">
+                                                8
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="9">
+                                                9
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="10">
+                                                10
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="11">
+                                                11
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="12">
+                                                12
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="13">
+                                                13
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="14">
+                                                14
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="15">
+                                                15
+                                            </div>
+                                        </div>
+                                        <div class="vr_1200_state_item_wrap">
+                                            <div class="vr_1200_state_item" data-key="output_port_" data-index="16">
+                                                16
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="vr_robot_a1200_state_template">
+    <div class="row vr_robot_a1200_dialog">
+        <div class="col-xs-1" ng-repeat="item in items" style="text-align: center;">
+            <div class="vr_1200_state_item" data-key="{{key}}" data-index="{{item}}">
+                {{item}}
+            </div>
+        </div>
+    </div>
+</template>
+<template name="vr_robot_a1200_config_template">
+    <div>
+        <tabs>
+            <tab title="轴位置">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="数据周期(毫秒)" ng-model="entity.cycle" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴1位置" ng-model="entity.axis1_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis1_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴2位置" ng-model="entity.axis2_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis2_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴3位置" ng-model="entity.axis3_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis3_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴4位置" ng-model="entity.axis4_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis4_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴5位置" ng-model="entity.axis5_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis5_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴6位置" ng-model="entity.axis6_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis6_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="轴速度">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="轴1速度" ng-model="entity.axis1_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴2速度" ng-model="entity.axis2_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴3速度" ng-model="entity.axis3_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴4速度" ng-model="entity.axis4_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴5速度" ng-model="entity.axis5_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴6速度" ng-model="entity.axis6_speed"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="直角坐标系">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="工作坐标系" ng-model="entity.cf_wcs"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="工具坐标系" ng-model="entity.cf_tcs"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="X方位" ng-model="entity.cf_x"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="Y方位" ng-model="entity.cf_y"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="Z方位" ng-model="entity.cf_z"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="RX方位" ng-model="entity.cf_rx"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="RY方位" ng-model="entity.cf_ry"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="RZ方位" ng-model="entity.cf_rz"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="加速度">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="轴1" ng-model="entity.ac_1"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴2" ng-model="entity.ac_2"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴3" ng-model="entity.ac_3"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴4" ng-model="entity.ac_4"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴5" ng-model="entity.ac_5"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴6" ng-model="entity.ac_6"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="电机电流">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="轴1" ng-model="entity.temper_1"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴2" ng-model="entity.temper_2"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴3" ng-model="entity.temper_3"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴4" ng-model="entity.temper_4"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴5" ng-model="entity.temper_5"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴6" ng-model="entity.temper_6"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+            <tab title="状态信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="速度值" ng-model="entity.linevelocity"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="姿态" ng-model="entity.posture"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="运动状态" ng-model="entity.movement_state"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="错误状态" ng-model="entity.error_state"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="通电时间" ng-model="entity.electrify_time"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="运行时间" ng-model="entity.run_time"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="Input Port讯号(前缀)" ng-model="entity.input_port_"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="Output Port讯号(前缀)" ng-model="entity.output_port_"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

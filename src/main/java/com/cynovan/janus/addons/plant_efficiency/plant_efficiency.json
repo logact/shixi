@@ -1,0 +1,59 @@
+{
+  "appId": "plant_efficiency",
+  "description": "设备效率",
+  "author": "",
+  "version": "",
+  "app": false,
+  "icon": "plant_efficiency/img/plant_efficiency.png",
+  "name": "设备效率",
+  "menus": [
+    {
+      "showOnTop": true,
+      "name": "设备效率",
+      "i18nKey": "device.timeline",
+      "icon": "plant_efficiency/device_timeline/web/img/time_line.png",
+      "template": "index_efficiency_template",
+      "depend": [
+        "plant_efficiency/index/web"
+      ]
+    },
+    {
+      "name": "时间轴",
+      "i18nKey": "device.timeline",
+      "icon": "plant_efficiency/device_timeline/web/img/time_line.png",
+      "template": "device_timeline_template",
+      "depend": [
+        "plant_efficiency/device_timeline/web"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "报警记录",
+      "i18nKey": "device.timeline",
+      "icon": "plant_efficiency/alarm_list/web/img/alarm.png",
+      "template": "alarm_list_template",
+      "depend": [
+        "plant_efficiency/alarm_list/web"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

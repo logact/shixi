@@ -1,0 +1,19 @@
+{
+  "appId": "messageCenter",
+  "description": "消息中心",
+  "app": false,
+  "name": "消息中心",
+  "menus": [
+    {
+      "icon": "",
+      "name": "消息中心",
+      "showOnTop": false,
+      "hideOnLeft": true,
+      "template": "app_message_center_template",
+      "detail_template": "app_message_detail_template",
+      "depend": [
+        "message/resource"
+      ]
+    }
+  ]
+}

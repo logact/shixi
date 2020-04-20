@@ -1,0 +1,51 @@
+{
+  "appId": "production_line_automation",
+  "description": "产线自动化",
+  "author": "",
+  "version": "",
+  "icon": "",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "产线自动化",
+      "i18nKey": "production.line.automation"
+    },
+    {
+      "name": "自动化规则",
+      "i18nKey": "production.line.rule",
+      "icon": "production_line_automation/statics/image/triton_control_white.png",
+      "template": "controlling_list_template",
+      "detail_template": "controlling_detail_template",
+      "depend": [
+        "statics"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "运行日志",
+      "i18nKey": "production.line.log",
+      "icon": "production_line_automation/statics/image/controlling_log_white.png",
+      "template": "controlling_log_list_template",
+      "detail_template": "controlling_log_detail_template",
+      "depend": [
+        "log"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

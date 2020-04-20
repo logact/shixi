@@ -1,0 +1,50 @@
+<template name="alarm_list_template">
+    <div ng-controller="AlarmController as ctrl">
+        <div class="row" style="margin:0;">
+            <div class="widget col-xs-3">
+                <div class="widget-body">
+                    <div class="alarmitem">
+                        <div class="inside-part">
+                            <div class="item-name">今日报警记录</div>
+                        </div>
+                        <div class="inside-part">
+                            <div class="item-count">
+                                <span>{{alarmnum}}</span>条
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget col-xs-9"  style="border-left:15px solid #eaedf1">
+
+                <div class="widget-body">
+                    <div class="alarmchart" style="height: 200px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="widget-header">
+                <div class="widget-title">
+                    {{'报警记录'}}
+                </div>
+            </div>
+            <div class="widget-body">
+                <list options="ctrl.options">
+                    <div style="display: flex;">
+                        <span class="refresh" ng-click="ctrl.refreshTable()"><i class="fa fa-refresh" style="margin-right: 5px"></i>{{'刷新'|I18nFilter:'refresh'}}</span>
+                        <div style="padding-right: 0;width: 150px;margin-left: 25px">
+                            <div class="form-control-static " style="padding: 0">
+                                <div class="form-input" style="margin-left:0;margin-right: 10px">
+                                    <select class="form-control" ng-model="query.production.id"
+                                            ng-options="item.id as item.name for item in productionList"
+                                            style="border-radius: 1px">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </list>
+            </div>
+        </div>
+    </div>
+</template>

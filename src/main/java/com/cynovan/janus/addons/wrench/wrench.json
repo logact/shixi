@@ -1,0 +1,72 @@
+{
+  "appId": "wrench_mgr",
+  "description": "智能扭力扳手",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "智能扭力扳手",
+  "category": "通用设备",
+  "icon": "resource/icon/wrench.png",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "扭力扳手"
+    },
+    {
+      "name": "智能扭力扳手",
+      "icon": "wrench/resource/icon/wrench_white.png",
+      "template": "app_wrench_wrench_list_template",
+      "detail_template": "app_wrench_edit_wrench_template",
+      "depend": [
+        "resource/board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "螺丝",
+      "icon": "wrench/resource/icon/wrench_screw_white.png",
+      "template": "app_wrench_screw_list_template",
+      "depend": [
+        "resource/screw"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "材料",
+      "icon": "wrench/resource/icon/wrench_material_white.png",
+      "template": "app_wrench_material_list_template",
+      "depend": [
+        "resource/material"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

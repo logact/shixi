@@ -1,0 +1,110 @@
+<template name="app_triton_add_device_template">
+    <div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-control-static" ng-if="!entity.id">
+                    <div class="form-label">
+                        {{'序列号'|I18nFilter:'device.uuid'}}
+                    </div>
+                    <div class="form-input newUUIDBox">
+                        <!--UUID由系统自动生成-->
+                        <div class="uuidSwitchBtn">
+                            <div class="uuidSwitchBtnItem active" ng-click="ctrl.changeMode('1', $event)">
+                                {{'自动生成'|I18nFilter:'auto_produce'}}
+                            </div>
+                            <div class="uuidSwitchBtnItem" ng-click="ctrl.changeMode('2', $event)">
+                                {{'手动选择'|I18nFilter:'manual_select'}}
+                            </div>
+                        </div>
+                        <div ng-show="entity.uuid_type === '2'" class="uuidInputBox">
+                            <select class="form-control" ng-options="option for option in uuidList" ng-model="entity.uuid"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control-static" ng-if="entity.id">
+                    <field label="{{'序列号'|I18nFilter:'device.uuid'}}" ng-model="entity.uuid"></field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5" style="padding-right: 0;">
+                <cnvtext label="{{'设备名称'|I18nFilter:'device.name'}}" ng-model="entity.baseInfo.name"></cnvtext>
+            </div>
+            <div class="col-xs-4" style="padding-right: 15px;">
+                <div class="form-control-static ">
+                    <label class="form-label"> 设备分组 </label>
+                    <div class="form-input">
+                        <input type="text" data-key="group_name" readonly class="form-control" style="background: white;cursor: pointer"
+                               ng-click="ctrl.showGroupMenu()" ng-model="selectedGroupName"/>
+                        <div id="selectGroupDiv"
+                             style="box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);display:none;width:300px;height:215px;background: rgba(255,255,255,0.95);border:1px solid #e0e0e0;position: absolute;z-index: 100">
+                            <div style="height:inherit;width: inherit;overflow-x: auto;overflow-y: auto">
+                                <ul class="ztree" id="selectGroup"></ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5" style="padding-right: 0;">
+                <div class="form-control-static ">
+                    <label class="form-label"> 设备类型 </label>
+                    <div class="form-input">
+                        <select class="form-control" ng-model="entity.classification.classificationCode"
+                                ng-options="cl.code as cl.name for cl in classificationList">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-xs-4">
+                <Team-Select entity="entity" label="{{'所属团队'|I18nFilter:'own_team'}}"></Team-Select>
+            </div>
+            <div class="col-xs-3" style="padding-top: 14px;">
+                <cnvcheckbox label="{{'同步设备数据到Neptune'|I18nFilter:'sync_data_neptune'}}"
+                             ng-model="entity.sync_neptune"></cnvcheckbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <cnvtags tag-key="deviceTags" label="{{'标签'|I18nFilter:'tag'}}" ng-model="entity.tag"></cnvtags>
+            </div>
+            <div class="col-xs-3">
+                <span style="height: 41px; line-height: 41px;">{{'输入标签后按下Enter键完成创建'|I18nFilter:'enter_done'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <div class="form-control-static c-text">
+                    <label class="form-label">设备位置</label>
+                    <div class="form-input">
+                        <input type="text" ng-model="entity.poi.name" title="点击获取设备位置" class="form-control local" ng-readonly="true" ng-click="ctrl.selectLocal()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1" style="padding: 7px 0;">
+                <div class="map"><i class="fa fa-map-marker" title="点击获取设备位置" ng-click="ctrl.selectLocal()"></i></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <cnvtextarea label="{{'设备描述'|I18nFilter:'device.introduce'}}"
+                             ng-model="entity.baseInfo.remarks"></cnvtextarea>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="show_add_map_dialog">
+    <div class="row">
+        <div class="col-xs-12">
+            <div style="position: relative">
+                <input class="form-control " type="text" placeholder="请输入关键字搜索" id="poipicker"/>
+                <div id="add_map_container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

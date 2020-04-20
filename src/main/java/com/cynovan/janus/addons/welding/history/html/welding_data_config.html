@@ -1,0 +1,325 @@
+<template name="app_weld_data_config_template">
+    <div style="margin-top: -20px">
+        <tabs>
+            <tab title="基础配置">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div style="font-size: 18px; margin-bottom: 11px; border-bottom: 1px #ddd solid; padding-bottom: 5px;">基于图像的焊后质量分析</div>
+                        <div class="form-group">
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="ai_check_radio" value="1" ng-model="entity.ai_check"/>
+                                <div class="state p-primary-o">
+                                    <label>启用</label>
+                                </div>
+                            </div>
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="ai_check_radio" value="0" ng-model="entity.ai_check"/>
+                                <div class="state p-primary-o">
+                                    <label>不启用</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin-top: 15px;">
+                        <div style="font-size: 18px; margin-bottom: 11px; border-bottom: 1px #ddd solid; padding-bottom: 5px;">
+                            焊接结果判定依据
+                        </div>
+                        <div class="form-group">
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="check_result_radio" value="person" ng-model="entity.check_result">
+                                <div class="state p-primary-o">
+                                    <label>人工判定</label>
+                                </div>
+                            </div>
+
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="check_result_radio" value="ai" ng-model="entity.check_result"
+                                       ng-disabled="entity.ai_check==='0'">
+                                <div class="state p-primary-o">
+                                    <label>智能判定</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin-top: 15px;">
+                        <div style="font-size: 18px; margin-bottom: 11px; border-bottom: 1px #ddd solid; padding-bottom: 5px;">
+                            启用焊接时间分析功能
+                        </div>
+                        <div class="form-group">
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="weld_time_analy" value="1" ng-model="entity.timeline">
+                                <div class="state p-primary-o">
+                                    <label>启用</label>
+                                </div>
+                            </div>
+
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="weld_time_analy" value="0" ng-model="entity.timeline">
+                                <div class="state p-primary-o">
+                                    <label>不启用</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="数据定义">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="device_title2">
+                            <i class="fa fa-circle-o device_title_circle_green"></i>
+                            <span class="device_title_text">数据定义</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin-top: 8px;">
+                        <table class="table table-bordered edittable">
+                            <thead>
+                            <tr>
+                                <th style="width: 60px;">#</th>
+                                <th style="width:248px;">名称</th>
+                                <th style="width:180px">数据来源</th>
+                                <th style="width:248px;">绑定数据定义</th>
+                                <th style="width:180px;">填选方式</th>
+                                <th style="width:246px;">绑定下拉项</th>
+                                <th style="width:200px;">默认值</th>
+                                <th style="width:90px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="value in entity.fields">
+                                <td style="text-align: center;vertical-align: middle">{{$index +1}}</td>
+                                <td><input type="text" ng-model="value.name" class="form-control "></td>
+                                <td>
+                                    <select ng-model="value.r_option" class="form-control"
+                                            ng-options="resourceOption.id as resourceOption.name for resourceOption in resourceOptions"
+                                            ng-change="ctrl.changeROption(value, '{{value.r_option}}')"></select>
+                                </td>
+                                <td>
+                                    <select ng-model="value.bind" class="form-control" ng-show="value.r_option !== 'input'"
+                                            ng-options="column.id as column.name for column in columns"></select>
+                                </td>
+                                <td>
+                                    <select ng-model="value.t_option" class="form-control" ng-show="value.r_option === 'input'"
+                                            ng-options="typeOption.id as typeOption.name for typeOption in typeOptions"></select>
+                                </td>
+                                <td>
+                                    <div ng-show="value.r_option === 'input' && value.t_option === 'select'">
+                                        <input type="text" ng-disabled="true" ng-model="value.b_select" class="form-control"
+                                               style="width: 90%;margin-right: 0;display: inline; background: #fff;">
+                                        <i class="fa fa-cog" style="margin-top: 8px;margin-right: 3px;float: right;cursor: pointer"
+                                           ng-click="ctrl.dropdownConfig($index)"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="value.default" class="form-control"
+                                           ng-show="value.r_option === 'input' && value.t_option === 'str'">
+                                    <select ng-model="value.default" ng-options="item for item in value.b_select | selectBreak:',': '_blank'"
+                                            style="min-width: 100%;"
+                                            ng-show="value.r_option === 'input' && value.t_option === 'select'"></select>
+                                </td>
+                                <td style="text-align: center;vertical-align: middle">
+                                    <button class="btn btn-primary btn-xs btn-outline" style="margin-top: 2px;"
+                                            type="button"
+                                            ng-click="ctrl.removeFieldRow($index)">删除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary btn-sm btn-outline" style="margin-top: 5px;" type="button"
+                                ng-click="ctrl.addFieldRow()">
+                            <i class="fa fa-plus"></i>
+                            添加栏位
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="班次设定">
+                <div class="row">
+                    <div class="col-xs-12" style="max-height: 300px;overflow-y: auto;">
+                        <div>
+                            <p>1. 班次时间不能重叠，重叠会引起数据显示错误</p>
+                            <p>2. 班次总时间必须为24小时</p>
+                        </div>
+                        <table class="table table-bordered table-condensed edittable" style="margin-top: 5px;">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th style="width: 200px;">班次名称</th>
+                                <th style="width: 50px;">颜色</th>
+                                <th>班次开始时间</th>
+                                <th>班次结束时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="shift in entity.shifts">
+                                <td>{{$index + 1}}</td>
+                                <td><input type="text" class="form-control input-sm" ng-model="shift.name" style="width: 200px;"/></td>
+                                <td style="text-align: center;"><span class="weld_color_box" style="background-color:{{shift.color}} "></span></td>
+                                <td>
+                                    <select class="form-control input-sm" ng-model="shift.s_type"
+                                            style="width: 100px;display: inline-block;margin-left: 5px;"
+                                            ng-options="shiftOp.id as shiftOp.name for shiftOp in startShiftTypes"></select>
+                                    <select class="form-control input-sm" ng-model="shift.s_hour"
+                                            style="width: 100px;display: inline-block;margin-left: 5px;"
+                                            ng-options="shiftOp.id as shiftOp.name for shiftOp in shiftHours">
+                                    </select>
+                                    <select class="form-control input-sm" ng-model="shift.s_minute"
+                                            style="width:100px;display: inline-block;margin-left: 5px;"
+                                            ng-options="shiftMi.id as shiftMi.name for shiftMi in shiftMinutes">
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control input-sm" ng-model="shift.e_type"
+                                            style="width: 100px;display: inline-block;margin-left: 5px;"
+                                            ng-options="shiftOp.id as shiftOp.name for shiftOp in shiftTypes"></select>
+                                    <select class="form-control input-sm" ng-model="shift.e_hour"
+                                            style="width: 100px;display: inline-block;margin-left: 5px;"
+                                            ng-options="shiftOp.id as shiftOp.name for shiftOp in shiftHours">
+                                    </select>
+                                    <select class="form-control input-sm" ng-model="shift.e_minute"
+                                            style="width:100px;display: inline-block;margin-left: 5px;"
+                                            ng-options="shiftMi.id as shiftMi.name for shiftMi in shiftMinutes">
+                                    </select>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button class="btn btn-primary btn-xs" type="button" ng-click="ctrl.removeShiftRow($index)">
+                                        <i class="fa fa-times"></i>
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.addShiftRow()" style="margin-top: 10px;">
+                            <i class="fa fa-plus"></i>
+                            添加一行
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="FTP配置">
+                <div class="row">
+                    <div class="col-xs-12" style="margin-top: 15px;padding-left: 80px;">
+                        <div style="font-size: 18px; margin-bottom: 11px; border-bottom: 1px #ddd solid; padding-bottom: 5px;">
+                            自动上传FTP
+                        </div>
+                        <div class="form-group">
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="download_ftp_radio" value="1" ng-model="entity.download_ftp">
+                                <div class="state p-primary-o">
+                                    <label>启用</label>
+                                </div>
+                            </div>
+
+                            <div class="pretty p-default p-curve" style="width: 90px;">
+                                <input type="radio" name="download_ftp_radio" value="0" ng-model="entity.download_ftp">
+                                <div class="state p-primary-o">
+                                    <label>不启用</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="margin-top: 10px;padding-left: 80px;">
+                        启用[自动上传FTP]后<br/>
+                        1. 在日历视图下载数据的同时会应用以下FTP配置提交当日数据至FTP Server<br/>
+                        2. Janus会定时于凌晨4点提交昨日焊接数据至FTP Server上<br/>
+                        不启用 或 启用不配置及配置错误均不会提交
+                    </div>
+                    <div class="col-sm-12 header" ng-show="entity.download_ftp === '1'">
+
+                    </div>
+                    <div class="col-xs-6" ng-show="entity.download_ftp === '1'">
+                        <cnvtext label="FTP地址" ng-model="entity.ftp_server"></cnvtext>
+                        <cnvtext label="用户名" ng-model="entity.ftp_user"></cnvtext>
+                        <cnvselect label="传输模式" ng-model="entity.ftp_model" options="ftpModels"></cnvselect>
+                    </div>
+                    <div class="col-xs-6" ng-show="entity.download_ftp === '1'">
+                        <cnvtext label="FTP端口" ng-model="entity.ftp_port"></cnvtext>
+                        <cnvpwd label="密码" ng-model="entity.ftp_pwd"></cnvpwd>
+                        <button class="btn btn-primary btn-sm btn-outline" type="button" ng-click="ctrl.testFtpConn()"
+                                style="margin-left: 124px; margin-top: 5px;">
+                            <i class="fa fa-link"></i>
+                            测试FTP连接
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="数据配置">
+                <div class="row" style="padding-left: 68px;padding-bottom:5px;">
+                    注意：普通数据无选择时,默认全选。
+                </div>
+                <div class="row">
+                    <div class="col-xs-4" style="display: flex;justify-content: flex-start">
+                        <cnvnumber label="普通频率" ng-model="entity.normal_frequency"></cnvnumber>
+                        <span style="position: relative;left: -25px;top: 15px">ms</span>
+                    </div>
+                    <div class="col-xs-4" style="display: flex;justify-content: flex-start">
+                        <cnvnumber label="采样频率" ng-model="entity.sampling_frequency"></cnvnumber>
+                        <span style="position: relative;left: -25px;top: 15px">ms</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <cnvtext label="文件存放路径" ng-model="entity.file_path_to"></cnvtext>
+                    </div>
+                </div>
+                <div class="row" style="padding: 0 50px">
+                    <div class="col-xs-10" style="margin-top: 15px;">
+                        <table class="table table-bordered edittable">
+                            <thead>
+                            <tr>
+                                <th style="width: 100px;text-align: center;vertical-align: middle">数据序号</th>
+                                <th style="text-align: center;vertical-align: middle">数据</th>
+                                <th style="text-align: center;vertical-align: middle">
+                                    普通数据
+                                    <button data-key='roleEditBtn' class="btn btn-primary btn-xs btn-outline"
+                                            style="border:none;margin-left:5px " type="button"
+                                            ng-click="ctrl.selectAllFields(1)" ng-show="selectAllNormal"
+                                    ><i class="fa fa-check"></i> 全选
+                                    </button>
+                                    <button data-key='roleEditBtn' class="btn btn-primary btn-xs btn-outline"
+                                            style="border:none;margin-left:5px " type="button"
+                                            ng-click="ctrl.cancelAllFields(1)" ng-show="!selectAllNormal"
+                                    ><i class="fa fa-times"></i> 取消
+                                    </button>
+                                </th>
+                                <th style="text-align: center;vertical-align: middle">
+                                    采样数据
+                                    <button data-key='roleEditBtn' class="btn btn-primary btn-xs btn-outline"
+                                            style="border:none;margin-left:5px " type="button"
+                                            ng-click="ctrl.selectAllFields(2)" ng-show="selectAllSampling"
+                                    ><i class="fa fa-check"></i> 全选
+                                    </button>
+                                    <button data-key='roleEditBtn' class="btn btn-primary btn-xs btn-outline"
+                                            style="border:none;margin-left:5px " type="button"
+                                            ng-click="ctrl.cancelAllFields(2)" ng-show="!selectAllSampling"
+                                    ><i class="fa fa-times"></i> 取消
+                                    </button>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="value in dynamic_data">
+                                <td style="text-align: center;vertical-align: middle">{{$index +1}}</td>
+                                <td style="text-align: center;vertical-align: middle;height: 30px">{{value}}</td>
+                                <td>
+                                    <cnvcheckbox ng-model="entity.normal_data[value]"
+                                                 style="margin: 0;padding-top: 5px;padding-left: 25px;"></cnvcheckbox>
+                                </td>
+                                <td style="vertical-align: middle">
+                                    <cnvcheckbox ng-model="entity.sampling_data[value]"
+                                                 ng-if="sampling_data_config.indexOf(value) > -1"
+                                                 style="margin: 0;padding-top: 5px;padding-left: 25px;"></cnvcheckbox>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

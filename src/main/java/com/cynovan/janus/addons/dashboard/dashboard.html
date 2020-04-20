@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="${c_path}/">
+    <title>仪表板</title>
+    <meta name="decorator" content="default"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link rel="Shortcut Icon" href="resource/index/web/img/ico.png" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/common.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/web/base/directive.css?v=${version}"/>
+    <link type="text/css" rel="stylesheet" href="resource/index/web/css/index.css?v=${version}"/>
+</head>
+<body>
+<div ui-view="">
+
+</div>
+</body>
+<script type="text/javascript">
+    var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug: "${debug?c}"};
+</script>
+<script type="text/javascript" src="resource/web/requirejs/require.js?v=${version}"></script>
+<script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
+<script type="text/javascript">
+    require(['web/build/entry-build'], function () {
+        require(['dashboard/web/js/dashboard_route'], function () {
+            angular.bootstrap(document, ['app']);
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,28 @@
+{
+  "appId": "monitor",
+  "description": "针对app远程监控的模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "远程监控",
+  "category": "工具",
+  "icon": "img/app-icon.png",
+  "menus": [
+    {
+      "icon": "",
+      "name": "远程监控",
+      "showOnTop": true,
+      "template": "monitor_index_template",
+      "depend": [
+        "css/monitor.css",
+        "js/monitor.js"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

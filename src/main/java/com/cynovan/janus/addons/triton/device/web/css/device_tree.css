@@ -1,0 +1,124 @@
+.device-tree-div {
+    display: flex;
+}
+
+.device-list-div {
+    width: auto;
+    height: min-content;
+    flex-grow: 1;
+    min-width: 900px;
+}
+
+.device-z-tree {
+    width: 250px;
+    margin-right: 10px;
+    min-width: 250px;
+    max-width: 250px;
+}
+
+/*.ztree li span.button.add {
+    margin-left: 2px;
+    margin-right: -1px;
+    background-position: -144px 0;
+    vertical-align: top;
+    *vertical-align: middle
+}*/
+
+.device-z-tree .widget:first-child {
+    height: 700px;
+}
+
+.device-z-tree .widget:first-child .widget-body {
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#device-tree-container {
+
+
+}
+
+.device_tree {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    border-right: 1px solid #eeeeee;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.widget-body-filled {
+    display: flex;
+    height: calc(100vh - 15px - 60px - 63px - 18px);
+}
+
+.widget-body {
+    overflow-x: unset !important;
+    overflow-y: unset !important;
+}
+
+#draggable {
+    width: 150px;
+    height: 150px;
+    padding: 0.5em;
+}
+
+.group_btn {
+    margin-left:5px;
+}
+
+.selectCheckbox {
+    cursor: pointer;
+}
+
+#device-tree-container {
+    zoom: 1.11;
+}
+
+.ztree * {
+    font-size: 13px !important;
+}
+
+
+.ztree li span.button.add {
+    background-image: url("../img/add.png");
+    background-position: center !important;
+}
+
+.ztree li span.button.add:hover {
+    background-image: url("../img/add_active.png");
+    background-position: center !important;
+}
+
+.ztree li span.button.edit {
+    background-image: url("../img/alter.png");
+    background-position: center !important;
+}
+
+.ztree li span.button.edit:hover {
+    background-image: url("../img/alter_active.png");
+    background-position: center !important;
+}
+
+.ztree li span.button.remove {
+    background-image: url("../img/delete.png");
+    background-position: center !important;
+}
+
+.ztree li span.button.remove:hover {
+    background-image: url("../img/delete_active.png");
+    background-position: center !important;
+}
+
+.ztree li a.curSelectedNode {
+    background-color: #dff0d887 !important;
+
+}
+
+.ztree li a {
+
+
+}

@@ -1,0 +1,112 @@
+.row-item {
+    display: flex;
+}
+
+#vrzk_bind_device_box {
+    width: 250px;
+}
+
+#zk_webgl_box {
+
+}
+
+.zk_chart {
+    height: 230px;
+}
+
+.vr_zk_box {
+    border: 1px #ddd solid;
+}
+
+.vr_zk_header {
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px #ddd solid;
+    padding-left: 10px;
+}
+
+.vr_zk_body {
+    padding: 8px 8px;
+}
+
+.vr_zk_row {
+    display: flex;
+    align-items: center;
+    height: 28px;
+}
+
+.br_zk_label {
+    width: 40px;
+}
+
+.vr_zk_row .data_value {
+    width: 80px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.vr_zk_row .unit {
+    width: 30px;
+}
+
+.vr_zk_row.state {
+    height: 56px;
+}
+
+.vr_zk_row.state .br_zk_label {
+    width: 90px;
+}
+
+.state_shineng {
+    border-radius: 100%;
+    background: #adb5ad;
+    width: 30px;
+    height: 30px;
+}
+
+.state_shineng.active {
+    background: #F0AD4E;
+    animation: pulsate 1s infinite linear;
+    box-shadow: 0 0 15px #d0943f;
+}
+
+.state_move {
+    display: inline-block;
+    border-radius: 100%;
+    background: #adb5ad;
+    width: 30px;
+    height: 30px;
+}
+
+.state_move.active {
+    background: #5CB85C;
+    animation: pulsate 1s infinite linear;
+    box-shadow: 0 0 15px #32a032;
+}
+
+.state_warning {
+    display: inline-block;
+    border-radius: 100%;
+    background: #adb5ad;
+    width: 30px;
+    height: 30px;
+}
+
+.state_warning.active {
+    background: #d83838;
+    animation: pulsate 1s infinite linear;
+    box-shadow: 0 0 15px #b12525;
+}
+
+@keyframes pulsate {
+    0% {
+
+        transform: none;
+    }
+    50% {
+        transform: scale(1.3, 1.3);
+    }
+    100% {
+        transform: none;
+    }
+}

@@ -1,0 +1,109 @@
+.input-and-tips-div {
+    position: relative;
+}
+
+.input-and-tips-div > span {
+    font-size: 14px;
+    color: #d35767;
+    letter-spacing: 1px;
+    user-select: none;
+    position: absolute;
+    left: 125px;
+    bottom: -16px;
+}
+
+.input-red-border {
+    border: solid 1px #d35767;
+}
+
+.input-and-tips-div .check-status-i,
+.input-and-tips-div .check-new-status-i {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    right: 10px;
+    top: 16px;
+    background-size: 100%;
+}
+
+.wrong-status-i {
+    background: url("../img/tips-wrong.png") no-repeat center;
+}
+
+.right-status-i {
+    background: url("../img/tips-right.png") no-repeat center;
+}
+
+
+.userinfo-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.userinfo-container .module {
+    background-color: #fff;
+    min-height: 350px;
+    padding-top: 20px;
+}
+
+.userinfo-container .module-left {
+    display: flex;
+    justify-content: space-around;
+    border-right: 15px solid #eaedf1;
+}
+
+.userinfo-container .sub-module {
+    padding-left: 15px;
+}
+
+.userinfo-container .sub-module .sub-title {
+    font-size: 17px;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    color: #333b49;
+    letter-spacing: 1px;
+}
+
+.userinfo-container .sub-info .c-field {
+    display: flex;
+    justify-content: flex-start;
+    line-height: 35px;
+}
+
+.userinfo-container .sub-info .c-field-label {
+    text-align: left;
+}
+
+.userinfo-container .sub-info .c-field-value {
+    margin-left: 100px;
+}
+
+.avatarChangeBox {
+    flex: 0 1 400px;
+    display: flex;
+    overflow-y: hidden;
+}
+
+.avatar-block {
+    flex: 0 1 50%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.avatar-block .label_box {
+    display: none !important;
+}
+
+.avatar-block .c-image_content img {
+    max-width: 75%;
+}
+
+.avatar-block .c-image_content .fa {
+    right: 30px;
+}
+
+.avatar-block .c-image_tips {
+    height: 150px;
+}
+

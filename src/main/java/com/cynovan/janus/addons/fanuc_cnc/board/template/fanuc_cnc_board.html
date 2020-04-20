@@ -1,0 +1,368 @@
+<template name="fanuc_cnc_board_template">
+    <div class="widget" ng-controller="FanucCNCBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机台列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-data-config" type="button"><i
+                            class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToCNC()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为机台
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="fanuc_app_cnc_edit_cnc_template">
+    <div class="widget" ng-controller="FanucCNCDynamicController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">机台列表 / </a>机台详情
+                </div>
+                <div>
+                    <sub-nav options="ctrl.subNavOptions"></sub-nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="机床信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="机床序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                设备信息
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="CNC系列号" field="series"></staticfield>
+                                <staticfield label="CNC版本号" field="version"></staticfield>
+                                <staticfield label="CNC类型" field="cnc_type"></staticfield>
+                                <staticfield label="附加信息" field="addinfo"></staticfield>
+                                <staticfield label="主轴数量" field="spdl"></staticfield>
+                                <staticfield label="最大受控轴" field="max_axis"></staticfield>
+                                <staticfield label="当前可控轴数" field="axes"></staticfield>
+                                <staticfield label="当前刀号" field="current_tool_number"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                运行状态
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="自动运行状态" field="run"></staticfield>
+                                <staticfield label="自动模式选择" field="aut"></staticfield>
+                                <staticfield label="手动模式选择" field="manual"></staticfield>
+                                <staticfield label="M,S,T,B功能状态" width="120" field="mstb"></staticfield>
+                                <staticfield label="运动状态" field="motion"></staticfield>
+                                <staticfield label="编辑状态" field="edit"></staticfield>
+                                <staticfield label="电池状态" field="battery"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                报警状态
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="紧急状态" field="emergency"></staticfield>
+                                <staticfield label="报警状态" field="alarm"></staticfield>
+                                <staticfield label="警告状态" field="warning"></staticfield>
+                                <staticfield label="报警类型" field="alarm_type"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                伺服轴名称
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="1st" field="name_0"></staticfield>
+                                <staticfield label="2nd" field="name_1"></staticfield>
+                                <staticfield label="3rd" field="name_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 8px;">
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                绝对坐标(mm)
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="X" field="abs_data_0"></staticfield>
+                                <staticfield label="Y" field="abs_data_1"></staticfield>
+                                <staticfield label="Z" field="abs_data_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                机械坐标(mm)
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="X" field="mach_data_0"></staticfield>
+                                <staticfield label="Y" field="mach_data_1"></staticfield>
+                                <staticfield label="Z" field="mach_data_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                相对坐标(mm)
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="X" field="rel_data_0"></staticfield>
+                                <staticfield label="Y" field="rel_data_1"></staticfield>
+                                <staticfield label="Z" field="rel_data_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                剩余距离(mm)
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="X" field="dist_data_0"></staticfield>
+                                <staticfield label="Y" field="dist_data_1"></staticfield>
+                                <staticfield label="Z" field="dist_data_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                显示时间
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="通电时间" width="60" field="power_on_time"></staticfield>
+                                <staticfield label="运转时间" width="60" field="operating_time"></staticfield>
+                                <staticfield label="切削时间" width="60" field="cutting_time"></staticfield>
+                                <staticfield label="循环时间" width="60" field="cycle_time"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                诊断参数
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="主轴电机温度" width="150" field="spindle_temp"></staticfield>
+
+                                <staticfield label="主轴位置误差" width="150" field="spindle_error"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                加工数量
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="已加工零件数量" width="100" field="parts_count"></staticfield>
+                                <staticfield label="已加工零件总数" width="100" field="parts_total"></staticfield>
+                                <staticfield label="所需加工零件总数" width="120" field="parts_required"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                加工程式
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="主程序号码" width="150" field="main_program_number"></staticfield>
+                                <staticfield label="目前执行单节" width="150" field="current_program_mcode"></staticfield>
+                                <staticfield label="目前执行序列号" width="150" field="current_seq_number"></staticfield>
+                                <staticfield label="执行中程式号码" width="150" field="current_program_number"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                伺服轴转速
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="伺服轴转速百分比" width="120" field="servo_speed_override"></staticfield>
+                                <staticfield label="伺服轴指令速度" width="120" field="command_axis_speed"></staticfield>
+                                <staticfield label="伺服轴实际运行速度(F)" width="145" field="feed_rate"></staticfield>
+                                <staticfield label="伺服轴实际运行速度(X)" width="145"
+                                             field="servo_actual_speed_0"></staticfield>
+                                <staticfield label="伺服轴实际运行速度(Y)" width="145"
+                                             field="servo_actual_speed_1"></staticfield>
+                                <staticfield label="伺服轴实际运行速度(Z)" width="145"
+                                             field="servo_actual_speed_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                伺服轴
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="伺服电机温度(X)" width="120" field="servo_temp_0"></staticfield>
+                                <staticfield label="伺服电机温度(Y)" width="120" field="servo_temp_1"></staticfield>
+                                <staticfield label="伺服电机温度(Z)" width="120" field="servo_temp_2"></staticfield>
+                                <staticfield label="伺服位置误差(X)" width="120" field="spindle_error_0"></staticfield>
+                                <staticfield label="伺服位置误差(Y)" width="120" field="spindle_error_1"></staticfield>
+                                <staticfield label="伺服位置误差(Z)" width="120" field="spindle_error_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                伺服轴负载
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="伺服轴负载电流(X)" width="120" field="servo_load_current_0"></staticfield>
+                                <staticfield label="伺服轴负载电流(Y)" width="120" field="servo_load_current_1"></staticfield>
+                                <staticfield label="伺服轴负载电流(Z)" width="120" field="servo_load_current_2"></staticfield>
+                                <staticfield label="伺服轴负载率(X)" width="120" field="servo_load_override_0"></staticfield>
+                                <staticfield label="伺服轴负载率(Y)" width="120" field="servo_load_override_1"></staticfield>
+                                <staticfield label="伺服轴负载率(Z)" width="120" field="servo_load_override_2"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                主轴
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="主轴转速百分比" width="130" field="spindle_speed_override"></staticfield>
+                                <staticfield label="主轴指令速度" width="130" field="spindle_cmd_speed"></staticfield>
+                                <staticfield label="主轴实际运行速度" width="130" field="spindle_actual_speed"></staticfield>
+                                <staticfield label="主轴负载电流" width="130" field="spindle_load_current"></staticfield>
+                                <staticfield label="主轴负载率" width="130" field="spindle_load_override"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-xs-6">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                G代码
+                            </div>
+                            <div class="fanuc_body">
+                                <table class="table table-condensed table-bordered">
+                                    <tbody class="gtable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                M/H
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="M" width="150" field="current_program_mcode"></staticfield>
+                                <staticfield label="H" width="150" field="current_program_h"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                报警历史
+                            </div>
+                            <div class="fanuc_body">
+                                <staticfield label="外部故障报警信息" width="120" field="alarm_external"></staticfield>
+                                <staticfield label="系統內部报警信息" width="120" field="alarm_internal"></staticfield>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-xs-12">
+                        <div class="fanuc_box">
+                            <div class="fanuc_box_header">
+                                操作历史
+                            </div>
+                            <div class="fanuc_body his_panel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="数据提交记录">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <list options="ctrl.fanucDataOptions">
+                        </list>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机床照片">
+                <div>
+                    <cnvimage label="机床照片" ng-model="entity.cnc.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>
+<template name="show_fanuc_submit_data_detail">
+    <div class="row">
+        <div class="col-xs-12">
+            <div>
+                <pre>
+                    {{jsonData | json}}
+                </pre>
+            </div>
+        </div>
+    </div>
+</template>

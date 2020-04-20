@@ -1,0 +1,304 @@
+<template name="dashboard_shoe_all_template">
+    <div class="row dashboard-shoe" ng-controller="DashBoardShoeController as ctrl" style="zoom: 1.3">
+        <div class="col-xs-12" ng-show="showAllDashBoard">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        Digital Factory
+                        <!--<button class="btn btn-primary btn-outline btn-sm"
+                                style="margin-left:20px;">
+                            裁断区
+                        </button>
+                        <button class="btn btn-primary btn-outline btn-sm"
+                                style="margin-left:20px;">
+                            针车区
+                        </button>
+                        <button class="btn btn-primary btn-outline btn-sm" ng-click="ctrl.showLineDashBoard()"
+                                style="margin-left:20px;">
+                            成型线
+                        </button>-->
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div class="col-xs-12 oee-div">
+                        <div class="oee-title">Yield Information</div>
+                        <div class="col-xs-4 oee-real-production">
+                            <div class="now-product-count extrude">
+                                UPPH
+                                <span>{{UPPH}}</span>
+                            </div>
+                            <div class="all-product-count">
+                                Yield Rate
+                                <span>{{okRatio+'%'}}</span>
+                            </div>
+                            <div class="col-xs-12" style="padding-left:0">
+                                <div class="radio-title okRatio">Yield Rate: <span style="margin-left: 6px;"> {{okRatio+'%'}}</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" ng-style="{'width':okRatio+'%'}"></div>
+                                </div>
+                                <div class="ok-and-target-count">
+                                    <div><span>Finished Product Count:</span>{{okNum}}</div>
+                                    <div><span>Target Yield:</span>{{targetNum}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div>
+                                    Semi-Finished Product Count：
+                                    <span ng-bind="noNum"></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    Yield：
+                                    <span>{{allProductCount}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="last">
+                                    Realtime Count：
+                                    <span>{{nowProductCount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-12 okRatio-pie"></div>
+                        </div>
+                        <div class="col-xs-6 oee-history-production">
+                            <div class="oee-history-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 oee-div">
+                        <div class="oee-title">OEE Information</div>
+                        <div class="col-xs-6 oee-pie-chart">
+                            <div class="col-xs-6 pie-chart"></div>
+                            <div class="col-xs-6 oee-trend">
+                                <div style="font-size:1.2em">
+                                    <span>Compared to yesterday</span>
+                                    <span>——></span>
+                                    <span>Rise<i class="fa fa-arrow-up"></i></span>
+                                    <br>
+                                    <span>Rise</span>
+                                    <span>——></span>
+                                    <span>{{oeeTrend+'%'}}<i class="fa fa-arrow-up"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 oee-three-ratio">
+                            <div class="radio-title">OEE{Availability}<span>{{useRatio+'%'}}</span></div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" ng-style="{'width':useRatio+'%'}"></div>
+                            </div>
+                            <div class="radio-title">OEE{Performance}<span>{{showRatio+'%'}}</span></div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" ng-style="{'width':showRatio+'%'}"></div>
+                            </div>
+                            <div class="radio-title">First Time Quality<span>{{productRatio+'%'}}</span></div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success"
+                                     ng-style="{'width':productRatio+'%'}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 show-page-div">
+                        <div class="col-xs-3 cutting-pic-div"></div>
+                        <div class="col-xs-2 needle-pic-div"></div>
+                        <div class="col-xs-7 cx-pic-div" title="Click to view" ng-click="ctrl.showLineDashBoard()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12" ng-hide="showAllDashBoard">
+            <div class="widget line-widget">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        Assembly line
+                        <!--<button class="btn btn-primary btn-outline btn-sm"
+                                style="margin-left:20px;">
+                            裁断区
+                        </button>
+                        <button class="btn btn-primary btn-outline btn-sm"
+                                style="margin-left:20px;">
+                            针车区
+                        </button>-->
+                        <button class="btn btn-primary btn-outline btn-sm" ng-click="ctrl.showLineDashBoard()"
+                                style="margin-left:20px;">
+                            Digital Factory
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div class="col-xs-12 line-device-div">
+                        <div class="line-device-title">Production Line Equipment Zone</div>
+                        <div class="col-xs-4 line-pie-chart"></div>
+                        <div class="col-xs-8 line-device-info">
+                            <div class="col-xs-12">
+                                <div class="col-xs-5">
+                                    <div class="device-title normal">U type heat setting machine</div>
+                                    <div class="col-xs-3">
+                                        <span>Uptime</span><br>
+                                        <span class="count" ng-bind="vulcanizing['16_value']">2</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>Hot wind temperature</span><br>
+                                        <span class="count" ng-bind="vulcanizing['02_value']">12</span><span
+                                            class="unit-span">℃</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>Air pressure</span><br>
+                                        <span class="count" ng-bind="vulcanizing['SteamNowValue']">0.5</span><span
+                                            class="unit-span">MPa</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>Yield</span><br>
+                                        <span class="count" ng-bind="vulcanizing['03_value']">100</span><span
+                                            class="unit-span">pair</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="device-title normal">Wall-sole press machine</div>
+                                    <div class="col-xs-4">
+                                        <span>Uptime</span><br>
+                                        <span class="count" ng-bind="wall['DeviceTotalRunTime']">2</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <span>Oil temperature</span><br>
+                                        <span class="count" ng-bind="wall['OliTemp']">30</span><span
+                                            class="unit-span">℃</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <span>Oil pressure</span><br>
+                                        <span class="count" ng-bind="wall['OliPressure']">0.3</span><span
+                                            class="unit-span">MPa</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="device-title waring">Backparts moulding machine</div>
+                                    <div class="col-xs-12">
+                                        <span>Uptime</span><br>
+                                        <span class="count" ng-bind="rearSetting['DeviceTotalRunTime']">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-5">
+                                    <div class="device-title normal">Assembly line</div>
+                                    <div class="col-xs-3">
+                                        <span>Uptime</span><br>
+                                        <span class="count" ng-bind="rotating['18_value']">2</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>Upper layer temperature</span><br>
+                                        <span class="count" ng-bind="rotating['Vamp1NowValue']">55</span><span
+                                            class="unit-span">℃</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>Lower layer temperature</span><br>
+                                        <span class="count" ng-bind="rotating['Outsole1NowValue']">33</span><span
+                                            class="unit-span">℃</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>Yield</span><br>
+                                        <span class="count" ng-bind="rotating['19_value']">385</span><span
+                                            class="unit-span">pair</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="device-title error">Metal detector</div>
+                                    <div class="col-xs-4">
+                                        <span>Uptime</span><br>
+                                        <span class="count" ng-bind="needle['09_value']">2</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <span>Acceptance number</span><br>
+                                        <span class="count" ng-bind="needle['06_value']">207</span><span
+                                            class="unit-span">pair</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <span>Defective count</span><br>
+                                        <span class="count" ng-bind="needle['07_value']">12</span><span
+                                            class="unit-span">pair</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="device-title outline">U type chiller</div>
+                                    <div class="col-xs-12">
+                                        <span>Uptime</span><br>
+                                        <span class="count" ng-bind="refrigerating['01_value']">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 line-device-div">
+                        <div class="line-device-title">Yield Information</div>
+                        <div class="col-xs-4 product-line-info">
+                            <div class="col-xs-6">
+                                <div class="item-div">
+                                    Product
+                                    <span class="item-name" ng-bind="needle['12_value']"></span>
+                                </div>
+                                <!--<div class="item-div">
+                                    Target Yield
+                                    <span class="item-name"
+                                          ng-bind="needle['TodayGoal']?needle['TodayGoal']:'300'"></span>
+                                </div>-->
+                                <div class="item-div" >
+                                    Average Yield Ratio
+                                    <span class="item-name">98%</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="item-div">
+                                    Product CT
+                                    <span class="item-name" ng-bind="needle['13_value']?needle['13_value']:'6'"></span>
+                                </div>
+                                <!--<div class="item-div">
+                                    Yield Today
+                                    <span class="item-name"
+                                          ng-bind="needle['14_value']?needle['14_value']:'150'"></span>
+                                </div>-->
+                                <div class="item-div">
+                                    Device Fault Ratio
+                                    <span class="item-name">2%</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div>
+                                    <div class="radio-title">Yield Rate:<span style="float: right" ng-bind="bili"></span></div>
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar progress-bar-success" ng-style="{'width':bilivalue+'%'}"></div>
+                                    </div>
+                                </div>
+                                <div style="display: flex;justify-content: space-between">
+                                    <div style="margin-right: 6px">Finished Product Count:<span class="item-name"
+                                                                                                ng-bind="v1"></span>
+                                    </div>
+                                    <div style="margin-right: 6px">Target Yield:<span class="item-name"
+                                                                                      ng-bind="v2"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3" style="height:200px;border-right: 1px solid #eee">
+                            <div class="line-yield-chart-info" style="height: 100%"></div>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="product-line-history-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 line-device-div">
+                        <div class="col-xs-6 good-bad-ratio">
+                            <div class="title">Yield Ratio</div>
+                            <div class="good-bad-chart"></div>
+                        </div>
+                        <div class="col-xs-6 bad-info-div">
+                            <div class="title">Fault Information</div>
+                            <div class="bad-info-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

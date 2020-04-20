@@ -1,0 +1,70 @@
+<template name="connection_mqtt_client_template">
+    <div class="row" ng-controller="ConnectionMqttClientController as ctrl">
+        <div class="col-xs-12">
+            <div class="header">
+                {{'请使用如下配置设置MQTT客户端'|I18nFilter:'mqtt.config'}}：
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <field label="{{'MQTT服务器'|I18nFilter:'mqtt.server'}}" width="150" ng-model="entity.broker"></field>
+            <field label="{{'端口号'|I18nFilter:'port'}}" width="150" ng-model="entity.port"></field>
+            <field label="MQTT ClientID" width="150" ng-model="entity.uuid"></field>
+            <field label="{{'MQTT用户名'|I18nFilter:'mqtt.username'}}" width="150" ng-model="entity.userName"></field>
+            <field label="{{'MQTT密码'|I18nFilter:'mqtt.password'}}" width="150" ng-model="entity.password"></field>
+            <field label="{{'数据接入Topic'|I18nFilter:'mqtt.connect.topic'}}" width="150" ng-model="entity.topic"></field>
+            <field label="{{'数据下发Topic'|I18nFilter:'mqtt.issu.topic'}}" width="150" ng-model="entity.pushtopic"></field>
+        </div>
+    </div>
+</template>
+<template name="connection_mqtt_client_display_template">
+    <div class="conn-panel-header">
+        MQTT<span style="margin-left: 10px">{{'设备作为Mqtt客户端接入'|I18nFilter:'device.mqtt.connect'}}</span>
+    </div>
+    <field label="{{'MQTT服务器'|I18nFilter:'mqtt.server'}}" width="150"
+           ng-model="entity.conn_info_mqtt_client.broker"></field>
+    <field label="{{'端口号'|I18nFilter:'port'}}" width="150" ng-model="entity.conn_info_mqtt_client.port"></field>
+    <field label="MQTT ClientID" width="150" ng-model="entity.conn_info_mqtt_client.uuid"></field>
+    <field label="{{'MQTT用户名'|I18nFilter:'mqtt.username'}}" width="150"
+           ng-model="entity.conn_info_mqtt_client.userName"></field>
+    <field label="{{'MQTT密码'|I18nFilter:'mqtt.password'}}" width="150"
+           ng-model="entity.conn_info_mqtt_client.password"></field>
+    <field label="{{'数据接入Topic'|I18nFilter:'mqtt.connect.topic'}}" width="150"
+           ng-model="entity.conn_info_mqtt_client.topic"></field>
+    <field label="{{'数据下发Topic'|I18nFilter:'mqtt.issu.topic'}}" width="150"
+           ng-model="entity.conn_info_mqtt_client.pushtopic"></field>
+</template>
+<template name="connection_mqtt_help_template">
+    <div class="row">
+        <div class="col-xs-12 code-tip-area">
+            <div class="use-scene">
+                <p class="scene-title">设备作为MQTT客户端接入Janus，传输数据格式为JSON，格式如下：</p>
+                <div class="code-area">{
+                    <div class="indentation-code">
+                        "uuid":"设备UUID",<span class="annotate-code-inline">//uuid为必须栏位</span><br>
+                        "time":"20180310142505336",<span class="annotate-code-inline">//数据产生的时间:格式为yyyyMMddHHmmssSSS, 如该栏位为空,则取当前时间</span><br>
+                        <span class="annotate-code-inline">//数据列表</span><br>
+                        "speed":"10",<span class="annotate-code-inline">//数度=10</span><br>
+                        "temperature":36.5,<span class="annotate-code-inline">//温度=36.5</span><br>
+                        .<br>
+                        .<br>
+                        .<br>
+                        "key_10":"test"
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">示例: 数控机床[CNC_10001]通过MQTT客户端接入Janus，发送[机床型号][规格][品牌]信息到Janus</p>
+                <div class="code-area">{
+                    <div class="indentation-code">
+                        "uuid":"CNC_10001",<br>
+                        "MachineType":"E-CNC-PP2",<span class="annotate-code-inline">//机床型号</span><br>
+                        "Type":"主轴:高精度主轴轴承，适应高刚性",<span class="annotate-code-inline">//规则</span><br>
+                        "Company":"GOOGOL",<span class="annotate-code-inline">//品牌</span><br>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

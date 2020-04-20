@@ -1,0 +1,154 @@
+<template name="welding_robot_vr_template">
+    <div class="widget" ng-controller="WeldingRobotVRController as ctrl">
+        <div class="widget-header" style="padding: 0">
+            <div class="row">
+                <div class="col-xs-8" style="display: flex;align-items: center;height: 55px;">
+                    <div class="welding_vr_title" ng-bind="deviceName"></div>
+                    <div id="welding_robot_vr_bind_device_box"></div>
+                </div>
+                <div class="col-xs-4 text-right" style="padding-top: 14px;">
+                    <button class="btn btn-primary btn-outline btn-sm" type="button" ng-click="ctrl.modifyConfig()">
+                        <i class="fa fa-cog"></i>
+                        数据配置
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="row">
+                <div class="col-xs-5 a728_left">
+                    <!--<div>
+                        <button class="btn btn-success btn-sm" type="button" ng-click="ctrl.move()">移动</button>
+                    </div>
+                    <div>
+                        <input class="form-control" id="animate_input"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="obj_input" placeholder="备注"/>
+                    </div>
+                    <div>
+                        <input class="form-control" id="x_input" placeholder="X轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('x')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('x')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="y_input" placeholder="y轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('y')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('y')"></i>
+                    </div>
+                    <div>
+                        <input class="form-control" id="z_input" placeholder="z轴"/>
+                        <i class="fa fa-plus-square-o" aria-hidden="true" ng-click="ctrl.plusPoint('z')"></i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true" ng-click="ctrl.miniPoint('z')"></i>
+                    </div>-->
+                    <div class="echart_position weld_robot_vr_chart"></div>
+                    <div class="echart_speed weld_robot_vr_chart" style="border-top: 1px #ddd dotted;"></div>
+                </div>
+                <div class="col-xs-7">
+                    <div id="welding_robot_vr_webgl_box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="welding_robot_vr_config_template">
+    <div>
+        <tabs>
+            <tab title="轴位置">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="数据周期(毫秒)" ng-model="entity.cycle" placeholder="188"></cnvtext>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴1位置" ng-model="entity.axis1_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis1_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴2位置" ng-model="entity.axis2_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis2_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴3位置" ng-model="entity.axis3_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis3_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴4位置" ng-model="entity.axis4_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis4_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="轴5位置" ng-model="entity.axis5_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis5_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <cnvtext label="轴6位置" ng-model="entity.axis6_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis6_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <cnvtext label="变位机位置(角度)" ng-model="entity.axis7_posi"></cnvtext>
+                        </div>
+                        <div class="col-xs-2" style="padding-top: 7px;">
+                            <select ng-model="entity.axis7_direc" class="form-control" style="margin-left: -60px;"
+                                    ng-options="option.id as option.name for option in direcOptions">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="轴速度">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="轴1速度" ng-model="entity.axis1_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴2速度" ng-model="entity.axis2_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴3速度" ng-model="entity.axis3_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴4速度" ng-model="entity.axis4_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴5速度" ng-model="entity.axis5_speed"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="轴6速度" ng-model="entity.axis6_speed"></cnvtext>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

@@ -1,0 +1,172 @@
+.row-item {
+    display: flex;
+}
+
+#vra728_bind_device_box {
+    width: 250px;
+    display: inline-block;
+    margin-left: 30px;
+    vertical-align: top;
+    margin-top: 14px;
+}
+
+#a728_webgl_box {
+    height: 480px;
+    border-bottom: 1px #ddd dotted;
+}
+
+.a728_chart {
+    height: 240px;
+}
+
+.a728_left {
+    border-right: 1px #ddd dotted;
+}
+
+.vr_a728_content {
+    display: flex;
+    padding-top: 15px;
+    border-top: 1px #ddd dotted;
+}
+
+.vr_a728_box {
+    border: 1px #ddd solid;
+    width: 250px;
+    margin-right: 8px;
+    border-radius: 2px;
+    overflow-y: auto;
+}
+
+.vr_a728_box_header {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px #ddd solid;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333b49;
+}
+
+.vr_a728_box_header i {
+    color: #6767d7;
+}
+
+.vr_a728_box_body {
+    padding: 10px;
+}
+
+.vr_a728_box_body_item {
+    display: flex;
+    line-height: 35px;
+    border-bottom: 1px #ddd dotted;
+    position: relative;
+}
+
+.vr_a728_box_body .vr_a728_box_body_item:last-child {
+    border-bottom: 0;
+}
+
+.vr_a728_box_body_item .value_label {
+    width: 60px;
+    text-align: left;
+    color: #333b49;
+}
+
+.vr_a728_box_body_item .suffix {
+    width: 55px;
+    position: absolute;
+    right: 0px;
+}
+
+.vr_a728_box_body_item .value_content {
+    color: #707581;
+    width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.vr_a728_box_body_item.no_suffix .value_content {
+    width: 160px !important;
+}
+
+.vr_a728_state_box {
+    border: 1px #ddd solid;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.vr_a728_state_box_header {
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    padding-left: 10px;
+    border-bottom: 1px #ddd solid;
+    color: #333b49;
+}
+
+.vr_a728_state_box_header .fa {
+    color: #6767d7;
+    font-size: 14px;
+}
+
+.vr_728_state_item_wrap {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vr_728_state_item {
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background: #adb5ad;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    line-height: 22px;
+    display: inline-block;
+}
+
+.vr_728_state_item.active {
+    background: #5CB85C;
+    animation: pulsate 1s infinite linear;
+    box-shadow: 0 0 15px #32a032;
+}
+
+.vr_a728_state_box_header .btn {
+    float: right;
+    margin-top: 8px;
+    margin-right: 7px;
+}
+
+.vr_robot_a728_dialog .vr_728_state_item {
+    margin-bottom: 18px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+}
+
+.robot_widget_title {
+    font-size: 44px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: inline-block;
+    padding-left: 15px;
+    color: #488EFF;
+}
+
+@keyframes pulsate {
+    0% {
+
+        transform: none;
+    }
+    50% {
+        transform: scale(1.3, 1.3);
+    }
+    100% {
+        transform: none;
+    }
+}

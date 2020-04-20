@@ -1,0 +1,95 @@
+{
+  "appId": "userManagement",
+  "description": "用户管理模块",
+  "author": "",
+  "version": "",
+  "app": false,
+  "name": "用户管理",
+  "icon": "",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "用户管理",
+      "i18nKey": "user_management",
+      "depend": [
+        "user/resource"
+      ]
+    },
+    {
+      "name": "用户",
+      "i18nKey": "user",
+      "icon": "userManagement/user/img/user.png",
+      "template": "user_template",
+      "detail_template": "user_add_template",
+      "depend": [
+        "user/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "团队",
+      "i18nKey": "team",
+      "icon": "userManagement/team/img/team.png",
+      "template": "team_template",
+      "detail_template": "team_add_template",
+      "depend": [
+        "team/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "团队架构",
+      "i18nKey": "team_architecture",
+      "icon": "userManagement/architecture/img/architecture.png",
+      "template": "architecture_template",
+      "depend": [
+        "architecture/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    },
+    {
+      "name": "角色",
+      "i18nKey": "role",
+      "icon": "userManagement/role/img/role.png",
+      "template": "role_template",
+      "detail_template": "role_add_template",
+      "depend": [
+        "role/resource"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

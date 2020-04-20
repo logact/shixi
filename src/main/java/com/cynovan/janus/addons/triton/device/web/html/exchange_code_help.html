@@ -1,0 +1,138 @@
+<template name="exchange_code_help_template">
+    <div class="row">
+        <div class="col-xs-12 code-tip-area">
+            <div class="use-scene">
+                <p class="scene-title">场景1：数据转换（根据上传的格式、类型进行转换）</p>
+                <div>a. 数字：将上传的数据增大10倍，代码示例：<br>
+                    <div class="code-area">data['speed'] = data['speed']*10;</div>
+                </div>
+                <div>b. 字符：将上传的字符截取一部分，再附加一部分新的字符，代码示例：<br>
+                    <div class="code-area"> data['message'] = substring(data['message'],0,3) + 'abc';</div>
+                    </p>
+                    <div>c. 布尔：将上传的布尔值取反，代码示例：<br>
+                        <div class="code-area">if(data['is_running'] == TRUE) data['is_running'] = FALSE;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">场景2：数据计算（根据上传的数据，计算出未上传的数据）</p>
+                <div>a. data中包含正弦(sin)和余弦(cos)值，这两个值由设备发送，目标得到设备并未发送的正切(tan)和余切(cot)，代码示例：<br>
+                    <div class="code-area">data['tan'] = data['sin']/data['cos'];<br>
+                        data['cot'] = data['cos']/data['sin'];
+                    </div>
+                </div>
+                <div>b. 设备上传电流和电压，根据电流电压计算功率，代码示例：<br>
+                    <div class="code-area">data['power'] = data['current'] * data['voltage']</div>
+                </div>
+                <div>c. 布尔：将上传的布尔值取反，代码示例：<br>
+                    <div class="code-area">if(data['is_running'] == TRUE) data['is_running'] = FALSE;</div>
+                </div>
+            </div>
+            <div class="use-scene">
+                <p class="scene-title">场景3：高级数据处理(可以通过编写复杂的代码对数据进行处理，这里以滤波作为示例。)</p>
+                <div style="font-size: 15px">a. 限幅滤波代码示例：</div>
+                <div style="margin-left: 16px;">
+                    说明：data中包含本次上传的电压值(voltage)、允许的偏差值(deviation)和上次上传的电压值(oldVoltage)
+                </div>
+                <div class="code-area">
+                    <div class="annotate-code-block">
+                        /*<br>
+                        A、名称：限幅滤波法（又称程序判断滤波法）。<br>
+                        B、方法：<br>
+                        <p class="indentation-code"> 根据经验判断，确定两次采样允许的最大偏差值（设为A)，每次检测到新值时判断：
+                            如果本次值与上次值之差<=A,则本次值有效，
+                            如果本次值与上次值之差>A?则本次值无效，放弃本次值，用上次值代替本次值。
+                        </p>
+                        C、优点：
+                        <p class="indentation-code">能有效克服因偶然因索引起的脉冲干扰。</p>
+                        D、缺点：
+                        <p class="indentation-code">无法抑制那种周期性的干扰;平滑度差。</p>
+                        */
+                    </div>
+                    data['voltage'] = data['voltage'] - data['oldVoltage'] <= data['deviation'] ? data['voltage'] : data['oldVoltage']
+                    <!--int Filter_Value;<br>
+                    int Value;<br>
+                    void setup() {
+                    <p class="indentation-code">Serial.begin(5600);<span
+                            class="annotate-code-inline">// 初始化串口通信</span><br>
+                        randomSeed(analogRead(0)); <span class="annotate-code-inline">// 产生随机种子</span><br>
+                        Value = 300;
+                    </p>
+                    }<br>
+                    void loop() {
+                    <p class="indentation-code">Filter_Value = Filter();<span
+                            class="annotate-code-inline">//获得滤波器输出值</span><br>
+                        Value = Filter_Value;<span class="annotate-code-inline">//最近一次有效采样的值，该变量为全局变量</span><br>
+                        Serial.println(Filter_Value); <span class="annotate-code-inline">//串口输出</span><br>
+                        delay(50);
+                    </p>
+                    }<br>
+                    <span class="annotate-code-inline">//用于随机产生一个300左右的当前值</span><br>
+                    int Get_AD(){
+                    <p class="indentation-code">return random(295,305);</p>
+                    }<br>
+                    <span class="annotate-code-inline">//限幅滤波法（又称程序判断滤波法）</span></br>
+                    #define FILTER_A 1<br>
+                    int Filter(){
+                    <p class="indentation-code">
+                        int NewValue;<br>
+                        NewValue=Get_AD();<br>
+                        if((NewValue-Value)>FILTER_A||(Value-NewValue)>FILTER_A){
+                    <p class="indentation-code">return Value;}</p>
+                    else<br>
+                    <p class="indentation-code">return NewValue;</p>
+                    </p>
+                    }<br>-->
+                </div>
+                <div style="font-size: 15px">b. 算术平均滤波代码示例：</div>
+                <div style="margin-left: 16px;">
+                    说明：data中包含本次上传的电压样本数量(count)、i个电压样本值(voltage0、voltage1、voltage2 ... voltage(i-1))，计算电压的算术平均值(average)
+                </div>
+                <div class="code-area">
+                    <div class="annotate-code-block">
+                        /*<br>
+                        A、算术平均滤波法<br>
+                        B、方法：<br>
+                        <p class="indentation-code"> 连续取N个采样值进行算术平均运算：
+                            N值较大时：信号平滑度较高，但灵敏度较低；N值较小时：信号平滑度较低，但灵敏度较高；N值的选取：一般流量：N=12,；压力：N=4；
+                        </p>
+                        C、优点：
+                        <p class="indentation-code">适用于对一般具有随机干扰的信号进行滤波；这种信号的特点是有一个平均值，信号在某一数值范围附近上下波动。</p>
+                        D、缺点：
+                        <p class="indentation-code">对于测量速度较慢或要求数据计算速度较快的实时控制不适用；比较浪费RAM。</p>
+                        */
+                    </div>
+                    var sum = 0;<br>
+                    if (var i = 0; i < data['count']; i++) {<br>
+                    <p class="indentation-code">sum = sum + data['value'+i];</p>
+                    }<br>
+                    data['average'] = sum /data['count'];
+                    <!--int Filter_Value;<br>
+                    void setup(){
+                    <p class="indentation-code">Serial.begin(9600);<span
+                            class="annotate-code-inline">// 初始化串口通信</span><br>
+                        randomSeed(analogRed(0));<span class="annotate-code-inline">// 产生随机种子</span></p>
+                    }<br>
+                    void loop(){
+                    <p class="indentation-code">Filter_Value=Filter();<span
+                            class="annotate-code-inline">// 获得滤波器输出值</span><br>
+                        Serial.println(Filter_Value);<span class="annotate-code-inline">// 串口输出</span><br>delay(50);</p>
+                    }<br>
+                    <p class="annotate-code-inline">// 初始化串口通信</p>
+                    int Get_AD(){
+                    <p class="indentation-code">return random(295,305);</p>
+                    }<br>
+                    <p class="annotate-code-inline">// 算术平均滤波法</p>
+                    #define FILTER_A 1<br>
+                    int Filer(){
+                    <p class="indentation-code">int i;<br>int filer_sum=0;<br><span>for(i=0;FILTER_A>i;i++){</span>
+                    <p class="indentation-code">filter_sum+=Get_AD();<br>delay(1);<br>return (int)(filter_sum/FILTER_A)
+                    </p>
+                    }</p>
+                    }-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

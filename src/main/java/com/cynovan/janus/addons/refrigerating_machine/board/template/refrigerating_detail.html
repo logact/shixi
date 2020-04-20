@@ -1,0 +1,200 @@
+<template name="refrigerating_device_detail_template">
+    <div class="widget" ng-controller="RefrigeratingDeviceDetailController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">设备 / </a>设备详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="基本信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机台信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <cnvtext label="设备型号" placeholder="请输入" ng-model="showData.DeviceType"></cnvtext>
+                        <cnvtext label="设备规格" placeholder="请输入" ng-model="showData.DeviceSpec"></cnvtext>
+                        <cnvtext label="机械尺寸" placeholder="请输入" ng-model="showData.DeviceSize"></cnvtext>
+                    </div>
+                    <div class="col-xs-6">
+                        <cnvtext label="生产厂家" placeholder="请输入" ng-model="showData.ProductFactory"></cnvtext>
+                        <cnvtext label="生产日期" placeholder="请输入" ng-model="showData.ProductDate"></cnvtext>
+                        <cnvtext label="产能" placeholder="请输入" ng-model="showData.ProductCapacity"></cnvtext>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                        <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                ng-click="ctrl.saveInfo()"
+                                ng-if="''| SecurityFilter: 'refrigerating_device':'manage'"><i
+                                class="fa fa-save"></i> 保&nbsp;存
+                        </button>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="单次开机运行时间" field="01_value" width="150"></staticfield>
+                        <staticfield label="压缩机工作电流" field="CompressorNowValue" width="150"></staticfield>
+                        <staticfield label="散热风扇工作电流" field="FanNowValue" width="150"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="箱体内温度" field="BoxNowValue" width="150"></staticfield>
+                        <staticfield label="输送带马达工作电流" field="MotorNowValue" width="150"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数监控" on-show="ctrl.initCharts()">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                压缩机
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.CompressorMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.CompressorMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="refrigerating_chart ysj_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                压缩机散热风扇
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入" ng-model="showData.FanMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入" ng-model="showData.FanMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="refrigerating_chart fs_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                箱体内
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="温度上限" placeholder="请输入" ng-model="showData.BoxMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="温度下限" placeholder="请输入" ng-model="showData.BoxMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="refrigerating_chart xt_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                输送带马达
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流上限" placeholder="请输入"
+                                         ng-model="showData.MotorMax"></cnvtext>
+                            </div>
+                            <div class="col-xs-6">
+                                <cnvtext label="工作电流下限" placeholder="请输入"
+                                         ng-model="showData.MotorMin"></cnvtext>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="refrigerating_chart md_chart">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-left: 140px;margin-top: 15px;">
+                            <button class="btn btn-primary btn-outline  btn-sm" type="button"
+                                    ng-click="ctrl.saveParameter()"
+                                    ng-if="''| SecurityFilter: 'refrigerating_device':'manage'"><i
+                                    class="fa fa-save"></i> 保&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="报警监控">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticstate label="压缩机工作异常报警" field="06_value" width="150"></staticstate>
+                        <staticstate label="散热风扇工作异常报警" field="07_value" width="150"></staticstate>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticstate label="箱体内温度异常报警" field="08_value" width="160"></staticstate>
+                        <staticstate label="输送带马达工作异常报警" field="09_value" width="160"></staticstate>
+                    </div>
+                </div>
+            </tab>
+            <tab title="机台照片">
+                <div>
+                    <cnvimage label="照片" ng-model="entity.refrigerating.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>

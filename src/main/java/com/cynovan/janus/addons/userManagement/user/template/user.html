@@ -1,0 +1,19 @@
+<template name="user_template">
+    <div class="widget" ng-controller="UserController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'用户管理'|I18nFilter:'user_management'}}
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.showUserDetail()" ng-if="''| SecurityFilter: 'user':'manage'">
+                    <i class="fa fa-plus"></i>
+                    {{'新增用户'|I18nFilter:'add.user'}}
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>

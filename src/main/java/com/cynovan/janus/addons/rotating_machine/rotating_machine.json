@@ -1,0 +1,39 @@
+{
+  "appId": "rotating_machine",
+  "description": "成型旋转线",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "旋转线",
+  "category": "鞋机",
+  "icon": "img/app-rotating.png",
+  "menus": [
+    {
+      "name": "成型旋转线",
+      "sort": 7000,
+      "icon": "",
+      "showOnTop": true
+    },
+    {
+      "name": "机台",
+      "icon": "rotating_machine/img/rotating-white.png",
+      "parent": "rotating_machine_mgr",
+      "template": "rotating_device_template",
+      "detail_template": "rotating_device_detail_template",
+      "sort": 6000,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+.classpath
+.project
+target/
+bin/
+.settings/
+.idea/
+*.iml
+node_modules/
+/logs
+*.min.js
+*.min.css
+*.css.map
+*.scss
+### macOS ###
+*.DS_Store
+!**/echart/echarts.min.js
+!**/ztree/ztree.min.js
+!**/hls/hls.min.js

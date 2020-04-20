@@ -1,0 +1,69 @@
+<template name="neptune_sync_template">
+    <div class="row">
+        <div class="col-xs-6" style="padding-left: 25px;">
+            <div style="font-size: 16px;">
+                {{'当前状态'|I18nFilter:'this_status'}}：
+                <a title="{{'已连接'|I18nFilter:'connect'}}" ng-if="ctrl.status === '已连接'">
+                    <span class="neptune-link-success"></span>
+                    <span style="color: #2AE88C">{{'在线'|I18nFilter:'online'}}</span>
+                </a>
+                <a title="{{'未连接'|I18nFilter:'no_connect'}}" ng-if="ctrl.status !== '已连接'">
+                    <span class="neptune-link-fail"></span>
+                    <span style="color: #6a6c6f">{{'离线'|I18nFilter:'offline'}}</span>
+                </a>
+                <button class="btn btn-primary btn-sm btn-outline" style="margin-left: 20px"
+                        ng-if="ctrl.status&&ctrl.status!=='已连接'&&ctrl.newConnection.length===4"
+                        ng-click="ctrl.tryConnection()">{{'重新连接'|I18nFilter:'again_connect'}}
+                </button>
+                <button class="btn btn-sm btn-try-connection" style="margin-left: 20px"
+                        ng-if="ctrl.status&&ctrl.status!=='已连接'&&ctrl.newConnection.length>4"
+                        ng-bind="ctrl.newConnection">
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-6 text-right" style="padding-right: 25px;">
+            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                    ng-show="ctrl.status === '已连接'" ng-click="ctrl.syncDevice()">
+                <i class="fa fa-refresh"></i>
+                {{'同步设备'|I18nFilter:'sync_device'}}
+            </button>
+        </div>
+        <div class="col-xs-12" style="margin-top: 5px;">
+            <hr class="widget-separator"/>
+            <div class="widget-body">
+                <div class="connection-no-footer">
+                    <list options="ctrl.options">
+
+                    </list>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_show_setting_template">
+    <div class="row">
+        <div class="col-xs-12 app-show-setting">
+            <div class="remind-info">
+                {{'1、隐藏的应用将在更多应用中展示，默认显示所有已安装的应用；'|I18nFilter:'app.config.tip_one'}}<br>
+                {{'2、应用显示的个数是根据您浏览器窗口的大小以及您设置展示的应用共同决定的；'|I18nFilter:'app.config.tip_two'}}<br>
+                {{'3、拖动列表可以调整应用显示的顺序。'|I18nFilter:'app.config.tip_three'}}
+            </div>
+            <div class="setting-app-div">
+                <ul id="sortable">
+                    <li ng-repeat="menu in menus" data-key="{{menu.appId}}">
+                        <span ng-bind="menu.name| I18nFilter:menu.i18nKey:menu.appId"></span>
+                        <span class="show-switch" style="float: right">
+                            <cnvswitch ng-model="menu.show" on-color="primary" size="small" on-text="&nbsp;&nbsp;&nbsp;"
+                                       off-text="&nbsp;&nbsp;&nbsp;" style-class="{{menu.name}}"></cnvswitch>
+                        </span>
+                    </li>
+                </ul>
+                <div class="restore-system-setting">
+                    <button class="btn btn-primary btn-sm" ng-click="ctrl.restoreDefault()">
+                        {{'恢复默认设置'|I18nFilter:'reset_default'}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

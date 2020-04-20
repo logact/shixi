@@ -1,0 +1,164 @@
+<template name="connection_modbus_slave_template">
+    <div ng-controller="ConnectionModbusSlaveController as ctrl">
+        <div class="row">
+            <div class="col-xs-6">
+                <cnvselect label="{{'Modbus协议'|I18nFilter:'modbus.protocol'}}" ng-model="entity.modbus"
+                           options="ctrl.modbus_types"></cnvselect>
+            </div>
+            <div class="col-xs-3">
+                <cnvtext label="Slave ID" ng-model="entity.slave"></cnvtext>
+            </div>
+            <div class="col-xs-3 form-control-static">
+                <label class="form-label" style="width: 60px">{{'定时读取'|I18nFilter:'time.read'}}</label>
+                <div style="margin-left: 75px;float: left;">
+                    <div style=" display:flex;">
+                        <input style=" width: 90px;border-bottom-right-radius: 0; border-top-right-radius: 0;"
+                               type="text" class="form-control"
+                               ng-model="time">
+                        <select style=" width: 70px; height: 34px; border-left: 0;border-bottom-left-radius: 0; border-top-left-radius: 0;"
+                                class="form-control input-sm" ng-model="timeUnit"
+                                ng-options="unit.id as unit.name for unit in ctrl.timeUnit">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="entity.modbus === 'rtu'">
+            <div class="col-xs-6" style="padding-top: 16px;">
+                <field label="{{'IP地址'|I18nFilter:'ip_address'}}" ng-model="entity.ip"></field>
+            </div>
+            <div class="col-xs-6">
+                <cnvtext label="{{'端口号'|I18nFilter:'port'}}" ng-model="entity.port"></cnvtext>
+            </div>
+        </div>
+        <div class="row" ng-if="entity.modbus === 'rtu'">
+            <div class="col-xs-12">
+                <div class="header">
+                    Modbus Rtu配置信息
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <cnvselect label="{{'串口号'|I18nFilter:'serial_port_number'}}" ng-model="entity.commPortId"
+                           options="ctrl.portOpts"
+                           default-value="ctrl.defaultPort"></cnvselect>
+                <cnvtext label="{{'波特率'|I18nFilter:'baud_rate'}}" ng-model="entity.baudRate"></cnvtext>
+                <cnvselect label="{{'编码模式'|I18nFilter:'coding_mode'}}" ng-model="entity.encodingMode"
+                           options="ctrl.encodingModeOptions"
+                           default-value="'rtu'"></cnvselect>
+            </div>
+            <div class="col-xs-6">
+                <cnvselect label="{{'校验位'|I18nFilter:'check.digit'}}" ng-model="entity.parity" options="ctrl.parityOpts"
+                           default-value="'2'"></cnvselect>
+                <cnvselect label="{{'数据位'|I18nFilter:'data.bit'}}" ng-model="entity.dataBits" options="ctrl.dataBitOpts"
+                           default-value="'8'"></cnvselect>
+                <cnvselect label="{{'停止位'|I18nFilter:'stop_bit'}}" ng-model="entity.stopBits" options="ctrl.stopBitOpts"
+                           default-value="'1'"></cnvselect>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header">
+                    {{'数据读取'|I18nFilter:'data.read'}}
+                </div>
+            </div>
+            <div class="col-xs-12" style="padding-left: 60px; padding-right: 50px;">
+                <table class="table table-bordered table-condensed edittable">
+                    <thead>
+                    <tr>
+                        <th style="width: 60px;">#</th>
+                        <th style="width:250px;">{{'数据区域'|I18nFilter:'data.area'}}</th>
+                        <th style="width: 140px;">{{'读取位置-开始'|I18nFilter:'read_start'}}</th>
+                        <th style="width: 140px;">{{'读取位置-结束'|I18nFilter:'read_stop'}}</th>
+                        <th style="width: 120px;">{{'操作'|I18nFilter:'do'}}</th>
+                    </tr>
+                    <tbody>
+                    <tr ng-repeat="row in entity.rows">
+                        <td class="text-center">
+                            <div style="padding-top: 5px;">{{$index + 1}}</div>
+                        </td>
+                        <td>
+                            <select class="form-control input-sm" ng-model="row.area"
+                                    ng-options="option.id as option.name for option in ctrl.modbus_areas">
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.start"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-sm" ng-model="row.end"/>
+                        </td>
+                        <td class="text-center">
+                            <button style="margin-top: 3px;" class="btn btn-primary btn-outline btn-xs" type="button"
+                                    ng-click="ctrl.removeRow($index)">
+                                <i class="fa fa-times"></i>
+                                {{'删除'|I18nFilter:'delete'}}
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+                <button style="margin-top: 5px;" class="btn btn-primary btn-sm btn-outline" type="button"
+                        ng-click="ctrl.addRow()">
+                    <i class="fa fa-plus"></i>
+                    {{'添加一行'|I18nFilter:'add.row'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="connection_modbus_slave_display_template">
+    <div class="conn-panel-header">
+        Modbus/串口<span style="margin-left: 10px">{{'设备作为Modbus Master接入'|I18nFilter:'device.modbus.slave'}}</span>
+    </div>
+    <field label="{{'Modbus协议'|I18nFilter:'modbus.protocol'}}" ng-model="entity.conn_info_modbus_slave.modbus"></field>
+    <field label="Slave ID" ng-model="entity.conn_info_modbus_slave.slave"></field>
+    <field label="{{'定时读取'|I18nFilter:'time.read'}}" ng-model="entity.conn_info_modbus_slave.timer"></field>
+
+    <div ng-hide="entity.conn_info_modbus_slave.modbus === 'rtu'">
+        <field label="{{'IP地址'|I18nFilter:'ip_address'}}" ng-model="entity.conn_info_modbus_slave.ip"></field>
+        <field label="{{'端口号'|I18nFilter:'port'}}" ng-model="entity.conn_info_modbus_slave.port"></field>
+    </div>
+    <div ng-if="entity.conn_info_modbus_slave.modbus === 'rtu'">
+        <div class="conn-panel-header">
+            {{'Modbus Rtu配置信息'|I18nFilter:'modbus.rtu.config'}}
+        </div>
+        <field label="{{'串口号'|I18nFilter:'serial_port_number'}}"
+               ng-model="entity.conn_info_modbus_slave.commPortId"></field>
+        <field label="{{'波特率'|I18nFilter:'baud_rate'}}" ng-model="entity.conn_info_modbus_slave.baudRate"></field>
+        <field label="{{'编码模式'|I18nFilter:'coding_mode'}}"
+               ng-model="entity.conn_info_modbus_slave.encodingMode"></field>
+        <field label="{{'校验位'|I18nFilter:'check.digit'}}" ng-model="entity.conn_info_modbus_slave.parity"></field>
+        <field label="{{'数据位'|I18nFilter:'data.bit'}}" ng-model="entity.conn_info_modbus_slave.dataBits"></field>
+        <field label="{{'停止位'|I18nFilter:'stop_bit'}}" ng-model="entity.conn_info_modbus_slave.stopBits"></field>
+    </div>
+    <div class="conn-panel-header">
+        {{'数据读取'|I18nFilter:'data.read'}}
+    </div>
+    <table class="table table-bordered table-condensed edittable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>{{'数据区域'|I18nFilter:'data.area'}}</th>
+            <th>{{'读取位置-开始'|I18nFilter:'read_start'}}</th>
+            <th>{{'读取位置-结束'|I18nFilter:'read_stop'}}</th>
+        </tr>
+        <tbody>
+        <tr ng-repeat="row in entity.conn_info_modbus_slave.rows">
+            <td class="text-center">
+                <div style="padding-top: 5px;">{{$index + 1}}</div>
+            </td>
+            <td>
+                <div style="padding: 5px;">{{row.area}}</div>
+            </td>
+            <td>
+                <div style="padding: 5px;">{{row.start}}</div>
+            </td>
+            <td>
+                <div style="padding: 5px;">{{row.end}}</div>
+            </td>
+        </tr>
+        </tbody>
+        </thead>
+    </table>
+</template>

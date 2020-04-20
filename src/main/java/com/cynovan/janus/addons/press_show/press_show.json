@@ -1,0 +1,22 @@
+{
+  "appId": "pressShow",
+  "description": "压机流程展示",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "压机监控",
+  "icon": "img/app-press-icon.png",
+  "menus": [
+    {
+      "icon": "",
+      "name": "压机监控",
+      "showOnTop": true,
+      "sort": 3000,
+      "template": "template_press_main",
+      "depend": [
+        "js",
+        "css"
+      ]
+    }
+  ]
+}

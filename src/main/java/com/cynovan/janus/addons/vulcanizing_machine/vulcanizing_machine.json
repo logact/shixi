@@ -1,0 +1,39 @@
+{
+  "appId": "vulcanizing_machine",
+  "description": "U型加硫机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "加硫机",
+  "category": "鞋机",
+  "icon": "img/app-vulcanizing.png",
+  "menus": [
+    {
+      "name": "加硫机",
+      "sort": 7000,
+      "icon": "",
+      "showOnTop": true
+    },
+    {
+      "name": "机台",
+      "icon": "vulcanizing_machine/img/vulcanizing-white.png",
+      "parent": "vulcanizing_machine_mgr",
+      "template": "vulcanizing_device_template",
+      "detail_template": "vulcanizing_device_detail_template",
+      "sort": 6000,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

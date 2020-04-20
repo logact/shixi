@@ -1,0 +1,28 @@
+{
+  "appId": "historydata",
+  "description": "针对设备的历史数据查看模块",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "历史数据图表",
+  "category": "工具",
+  "icon": "img/app-icon.png",
+  "menus": [
+    {
+      "icon": "",
+      "name": "历史数据图表",
+      "showOnTop": true,
+      "template": "historydata_template",
+      "depend": [
+        "css/historydata.css",
+        "js/historydata.js"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

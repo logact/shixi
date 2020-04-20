@@ -1,0 +1,35 @@
+.wall-press-machine-kanban-list-info {
+    min-height: 80px;
+    padding: 5px 15px;
+}
+
+.kanban-item-status {
+    display: inline-block;
+    width: 100%;
+}
+
+.kanban-item-status :nth-child(1) {
+    text-align: right;
+    padding-right: 3px;
+}
+
+.kanban-item-status :nth-child(2) {
+    position: relative;
+    text-align: left;
+}
+
+.kanban-item-status i {
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
+.wall-warning {
+    color: #ed2121;
+    font-size: 16px;
+}
+
+.wall-normal {
+    font-size: 15px;
+    color: green;
+    color: #2AE88C;
+}

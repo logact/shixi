@@ -1,0 +1,91 @@
+{
+  "appId": "rear_setting_machine",
+  "description": "后踵定型机",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "后踵定型机",
+  "category": "鞋机",
+  "icon": "img/app-rear.png",
+  "menus": [
+    {
+      "name": "后踵定型机",
+      "template": "rear_introduction_template",
+      "showOnTop": true
+    },
+    {
+      "name": "机台（两冷四热）",
+      "icon": "rear_setting_machine/img/rear_menu.png",
+      "template": "rear_setting_machine_board_template",
+      "detail_template": "rear_setting_machine_detail_template",
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "机台（两冷两热）",
+      "icon": "rear_setting_machine/img/rear_menu.png",
+      "template": "rear_setting_machine_board_v2_template",
+      "detail_template": "rear_setting_machine_detail_v2_template",
+      "depend": [
+        "board_v2"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "维保",
+      "icon": "rear_setting_machine/maintenance/img/maintenance.png",
+      "template": "rear_maintenance_template",
+      "depend": [
+        "maintenance"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "效率",
+      "icon": "rear_setting_machine/effectiveness/img/effectiveness.png",
+      "template": "rear_effectiveness_template",
+      "depend": [
+        "effectiveness"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

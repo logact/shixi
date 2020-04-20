@@ -1,0 +1,55 @@
+{
+  "appId": "data_monitor",
+  "description": "监控设备的实时数据",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "数据监控",
+  "category": "工具",
+  "icon": "img/app-icon.png",
+  "menus": [
+    {
+      "name": "数据监控",
+      "icon": "",
+      "showOnTop": true
+    },
+    {
+      "name": "监控规则",
+      "icon": "data_monitor/img/data-monitor-white.png",
+      "template": "data_monitor_template",
+      "detail_template": "data_monitor_edit_template",
+      "depend": [
+        "rules"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    },
+    {
+      "name": "触发记录",
+      "icon": "data_monitor/img/data-monitor-log-white.png",
+      "template": "data_monitor_log_template",
+      "detail_template": "data_monitor_log_detail_template",
+      "depend": [
+        "log"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

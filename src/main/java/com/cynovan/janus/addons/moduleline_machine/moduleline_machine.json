@@ -1,0 +1,38 @@
+{
+  "appId": "moduleline_machine",
+  "description": "成型模组线",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "成型模组线",
+  "category": "鞋机",
+  "icon": "img/app-sewing.png",
+  "menus": [
+    {
+      "name": "成型模组线",
+      "sort": 5500,
+      "icon": "",
+      "showOnTop": true
+    },
+    {
+      "name": "机台",
+      "icon": "moduleline_machine/img/sewing-white.png",
+      "template": "moduleline_device_template",
+      "detail_template": "moduleline_device_detail_template",
+      "sort": 200,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        },
+        {
+          "code": "manage",
+          "description": "管理"
+        }
+      ]
+    }
+  ]
+}

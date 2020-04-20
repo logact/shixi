@@ -1,0 +1,38 @@
+.flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dashboard .header {
+    font-size: 17px;
+    margin-bottom: 10px;
+    margin-top: 20px;;
+}
+
+.device-select-div span {
+    white-space: nowrap;
+    margin-right: 15px;
+    line-height: 25px;
+}
+
+.device-select-div .chosen-container-active .chosen-single {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.station-info {
+    position: relative;
+    left: 25px;
+    top: 20px;
+}
+
+.station-num {
+    padding-left: 10px;
+    color: #188df0;
+}
+
+.station-charts {
+    height: 350px;
+    padding-left: 25px;
+    padding-top: 10px;
+}

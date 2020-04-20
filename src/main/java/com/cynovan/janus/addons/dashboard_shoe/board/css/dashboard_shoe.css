@@ -1,0 +1,311 @@
+.dashboard-shoe .widget-title {
+    font-size: 20px;
+    font-weight: bold
+}
+
+.dashboard-shoe .progress {
+    height: 26px;
+    background-image: none;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.dashboard-shoe .progress .progress-bar {
+    background-image: none;
+}
+
+.dashboard-shoe .oee-div {
+    border: 1px solid #eeeeee;
+   // height: 300px;
+    margin-bottom: 10px;
+}
+
+.dashboard-shoe .oee-div .oee-title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.dashboard-shoe .oee-div .oee-pie-chart, .dashboard-shoe .oee-div .oee-three-ratio {
+    height: 280px;
+}
+
+.dashboard-shoe .oee-div .oee-three-ratio {
+    padding-top: 20px;
+}
+
+.dashboard-shoe .oee-div .oee-pie-chart .pie-chart {
+    height: 280px;
+    pointer-events: none;
+}
+
+.dashboard-shoe .oee-div .oee-pie-chart .oee-trend {
+    height: 220px;
+    padding-top: 90px;
+    border-right: 1px solid #eee;
+    margin-top: 20px;
+}
+
+.dashboard-shoe .oee-div .oee-pie-chart .oee-trend .fa-arrow-up {
+    color: #55B737;
+}
+
+.dashboard-shoe .oee-div .oee-three-ratio .radio-title {
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.dashboard-shoe .oee-div .oee-three-ratio .radio-title > span {
+    float: right;
+}
+
+.dashboard-shoe .oee-div .oee-real-production > .col-xs-4 > div {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 0 10px;
+    margin-left: -15px;
+}
+.dashboard-shoe .oee-div .oee-real-production > .col-xs-8 > div.last {
+    margin-top:8px;
+    margin-bottom:8px;
+}
+
+.dashboard-shoe .oee-div .oee-real-production > .col-xs-4 > div > span {
+    float: right;
+    color: #488eff;
+}
+
+.dashboard-shoe .oee-div .oee-real-production .now-product-count {
+    line-height: 35px;
+    border-left: 8px solid #488eff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+.dashboard-shoe .oee-div .oee-real-production .all-product-count {
+    line-height: 35px;
+    border-left: 8px solid #488eff;
+    padding-left: 10px;
+}
+
+.dashboard-shoe .oee-div .oee-real-production .all-product-count > span, .dashboard-shoe .oee-div .oee-real-production .now-product-count > span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4c4c4c;
+    padding-left: 15px;
+}
+.dashboard-shoe .oee-div .oee-real-production .now-product-count > span{
+    color:#488eff;
+    font-weight: bold;
+    font-size:30px;
+}
+.okRatio{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ok-and-target-count{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ok-and-target-count span {
+    margin-right: 6px;
+}
+
+.dashboard-shoe .oee-div .oee-history-chart {
+    height: 280px;
+}
+
+.dashboard-shoe .show-page-div {
+    height: 265px;
+    border: solid 1px #eee;
+}
+
+.dashboard-shoe .show-page-div .cutting-pic-div {
+    height: 265px;
+    background: url("../img/cutting.jpg") left no-repeat;
+    background-size: 100% 250px;
+}
+
+.dashboard-shoe .show-page-div .needle-pic-div {
+    position: relative;
+    height: 265px;
+    background: url("../img/needle.jpg") center no-repeat;
+    background-size: 90% 250px;
+}
+
+.dashboard-shoe .show-page-div .needle-pic-div:before {
+    content: '';
+    background: url(../img/arrow.png) center no-repeat;
+    background-size: 80px 20px;
+    width: 98px;
+    height: 20px;
+    left: -40px;
+    top: 50%;
+    margin-top: 12px;
+    position: absolute;
+}
+
+.dashboard-shoe .show-page-div .needle-pic-div:after {
+    content: '';
+    background: url("../img/arrow.png") center no-repeat;
+    background-size: 80px 20px;
+    width: 98px;
+    height: 20px;
+    right: -41px;;
+    top: 50%;
+    margin-top: 12px;
+    position: absolute;
+    z-index: 1;
+}
+
+.dashboard-shoe .show-page-div .cx-pic-div {
+    height: 265px;
+    background: url("../img/cx.jpg") right no-repeat;
+    background-size: 100% 250px;
+    cursor: pointer;
+}
+
+.dashboard-shoe .line-widget .line-device-div {
+    border: 1px solid #eeeeee;
+    margin-bottom: 10px;
+}
+
+.dashboard-shoe .line-widget .line-device-div:last-child {
+    margin-bottom: 0;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-pie-chart {
+    height: 200px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-info > .col-xs-12 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-info > .col-xs-12 > div {
+    height: 100px;
+    text-align: center;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-info > .col-xs-12 > div > div {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-info .device-title {
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+.device-title.normal {
+    background-color: #55B737;
+}
+
+.device-title.error {
+    background-color: #ef6c40;
+}
+
+.device-title.waring {
+    background-color: #fecc55;
+}
+
+.device-title.outline {
+    background-color: #999999;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-info .count {
+    font-size: 16px;
+    color: #488EFF;
+}
+
+.dashboard-shoe .line-widget .line-device-div .line-device-info .unit-span {
+    font-size: 14px;
+    color: #c1c1c1;
+}
+
+.dashboard-shoe .line-widget .line-device-div .product-line-info {
+    height: 200px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .product-line-history-chart {
+    height: 200px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .product-line-info .item-div {
+    height: 50px;
+    line-height: 20px;
+    padding: 15px 5px 15px 5px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    background-color: #f5f5f5;
+}
+
+.dashboard-shoe .line-widget .line-device-div .product-line-info .item-div .item-name {
+    float: right;
+    font-size: 18px;
+    color: #4c4c4c;
+}
+
+.dashboard-shoe .line-widget .line-device-div .good-bad-ratio .title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .good-bad-chart {
+    height: 300px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .bad-info-div .title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .bad-info-chart {
+    height: 300px;
+}
+
+.dashboard-shoe .line-widget .line-device-div .bad-info-chart > div > canvas {
+    height: 338px !important;
+}
+
+.extrude{
+     color:#488eff;
+     font-weight: bold;
+     font-size:30px;
+ }
+.okRatio-pie{
+    height:300px;
+    border-right: 1px solid #eee;
+}
+.oee-real-production .col-xs-8 > div {
+    height: 40px;
+    line-height: 40px;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 0 10px;
+    margin-left: -15px;
+}
+.dashboard-shoe .oee-div .oee-real-production > .col-xs-8 > div > span {
+    float: right;
+    color: #488eff;
+}

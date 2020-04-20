@@ -1,0 +1,36 @@
+<template name="device_conn_type_template">
+    <div class="dataexchange_page">
+        <div style="max-height: 400px;overflow-y: auto;overflow-x: hidden;" id="scroll">
+            <div>
+                <div style="display: flex;">
+                    <div class="protocollogo">
+                        协议选择
+                    </div>
+                    <div style="flex-grow: 1;margin-top: 20px;">
+                        <div class="deviceagree">
+                            <div class="protocoltype" ng-repeat="protocol in type" ng-click="ctrl.changetype(protocol)"
+                                 ng-class="{'active':protocoltype==protocol}">{{protocol}}
+                            </div>
+                        </div>
+                        <div class="protocol">
+                            <div class="protocolcontent" ng-repeat="protocolcontent in nowcollect"
+                                 ng-click="ctrl. changeconn_type(protocolcontent.id)"
+                                 ng-class="{'active':entity.conn_type==protocolcontent.id}">{{protocolcontent.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div style="display: flex;margin-top: 20px;">
+                    <div class="protocollogo">
+                        协议配置
+                    </div>
+                    <div style="width: 95%">
+                        <div class="connection_warp">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

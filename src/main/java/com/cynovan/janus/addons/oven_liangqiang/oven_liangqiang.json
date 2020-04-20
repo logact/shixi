@@ -1,0 +1,26 @@
+{
+  "appId": "oven_liangqiang",
+  "description": "烘箱(良强)",
+  "author": "",
+  "version": "",
+  "app": true,
+  "name": "烘箱(良强)",
+  "category": "鞋机",
+  "icon": "img/app-oven.png",
+  "menus": [
+    {
+      "name": "烘箱(良强)",
+      "template": "oven_liangqiang_template",
+      "showOnTop": true,
+      "depend": [
+        "board"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}

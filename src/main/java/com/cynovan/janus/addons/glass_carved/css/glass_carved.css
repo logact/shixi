@@ -1,0 +1,538 @@
+/*轮播图固定最小宽度,防止拖拽页面时div位置混乱*/
+.slide {
+    min-width: 1880px !important;
+}
+
+/*边框*/
+.top-left-area, .top-right-area,
+.bottom-left-area, .bottom-right-area {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    border: 3px solid rgb(107, 143, 255);
+}
+
+.top-left-area {
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    border-bottom: none;
+    border-right: none;
+}
+
+.top-right-area {
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    border-bottom: none;
+    border-left: none;
+}
+
+.bottom-left-area {
+    position: absolute;
+    bottom: -3px;
+    left: -3px;
+    border-right: none;
+    border-top: none;
+}
+
+.bottom-right-area {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    border-left: none;
+    border-top: none;
+}
+
+/*暂停开始按钮*/
+.glass-pause {
+    height: 5%;
+    width: 100%;
+    border-radius: 0 !important;
+}
+
+.glassControllerDiv {
+    margin-top: -15px;
+    margin-left: -15px;
+    margin-right: -15px;
+    border-top: 1px #fff solid;
+}
+
+.allpage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(41, 41, 41);
+}
+
+.title {
+    background-image: url(../img/title.png);
+    width: 688px;
+    height: 83px;
+    margin: 8px auto;
+    text-align: center;
+    font-size: 38px;
+    color: #fff;
+    line-height: 83px;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
+
+
+.leftcontent {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.chart {
+    height: 95%;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+.contextshow {
+    position: relative;
+    width: 100%;
+    height: 75%;
+    background-color: rgb(49, 51, 63);
+    border: 3px solid rgb(92, 167, 186);
+    min-width: 1170px;
+    min-height: 570px;
+    margin-bottom: 10px;
+}
+
+/*开始页 & 最后一页特殊样式*/
+.indexcontextshow,
+.lastcontextshow {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(49, 51, 63);
+    border: 3px solid rgb(80, 87, 106);
+}
+
+.indexcontextshow {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    min-width: 1170px;
+}
+
+.lastcontextshow {
+    display: flex;
+    flex-direction: column;
+}
+
+.lastcontextshow .medium-length {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.lastcontextshow .medium-width {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.medium-length .chart-content,
+.medium-width .chart-content {
+    flex-grow: 1;
+    width: 100%;
+}
+
+/*设备作业*/
+.deviceWorkFlow {
+    padding-left: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    height: 100%;
+    position: relative;
+}
+
+.coordinateValue {
+    position: absolute;
+    right: 65px;
+    top: 25px;
+}
+
+.workFlow {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.workFlowItems {
+    display: flex;
+    width: 30%;
+    position: relative;
+}
+
+.deviceWorkFlow > div > div {
+    color: #d6d6d6;
+}
+
+.deviceWorkFlow .workFlowItems > div {
+    width: 105px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 130px;
+    align-content: space-between;
+}
+
+@keyframes move1 {
+    from {
+        left: 0;
+    }
+    to {
+        left: 30%;
+    }
+}
+
+@keyframes move2 {
+    from {
+        left: 30%;
+    }
+    to {
+        left: 60%;
+    }
+}
+
+@keyframes move3 {
+    from {
+        left: 60%;
+    }
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes conect {
+    from {
+        background: url(../img/disconect.png) no-repeat;
+        width: 20px;
+        height: 20px
+    }
+    to {
+        background: url(../img/conect.png) no-repeat;
+        width: 20px;
+        height: 20px
+    }
+}
+
+@keyframes disconnet {
+    from {
+        background: url(../img/conect.png) no-repeat;
+        width: 20px;
+        height: 20px
+    }
+    to {
+        background: url(../img/disconect.png) no-repeat;
+        width: 20px;
+        height: 20px
+    }
+}
+
+.to-connect {
+    animation: conect .1s;
+    animation-fill-mode: forwards;
+}
+
+.to-disconnet {
+    animation: disconnet .1s;
+    animation-fill-mode: forwards;
+}
+
+.remove-1 {
+    animation: move1 2s;
+    animation-fill-mode: forwards;
+}
+
+.remove-2 {
+    animation: move2 2s;
+    animation-fill-mode: forwards;
+}
+
+.remove-3 {
+    animation: move3 2s;
+    animation-fill-mode: forwards;
+}
+
+.remove-center {
+    left: 30%;
+}
+
+.remove-last {
+    left: 60%;
+}
+
+.p-line {
+    background: url(../img/p-line.png) no-repeat 80% 50%
+}
+
+.section.fp-section {
+    height: calc(100vh - 60px) !important;
+    min-height: 900px;
+    /*height: 1020px !important;*/
+}
+
+.fp-tableCell {
+    height: calc(100vh - 60px) !important;
+    min-height: 900px;
+    /*height: 1020px !important;*/
+}
+
+/*气泡,默认隐藏*/
+.glassControllerDiv .show-content {
+    display: none;
+    position: relative;
+    left: 10px;
+    font-size: 13px;
+    color: white;
+    background: rgba(94, 124, 224, 0.64);
+    height: 30px;
+    line-height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.glassControllerDiv .show-content.active {
+    display: block;
+}
+
+/*流程状态*/
+.process {
+    position: relative;
+    width: 100%;
+    background-color: rgb(49, 51, 63);
+    border: 3px solid rgb(80, 87, 106);
+    height: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.showprocess {
+    width: 100%;
+    padding-left: 80px;
+}
+
+.plan-body {
+    padding-top: 20px;
+    height: 100px;
+    overflow: hidden;
+    padding-left: 0;
+}
+
+.plan {
+    position: relative;
+    width: 212px;
+    float: left;
+    text-align: center;
+    height: 100%;
+    list-style: none;
+
+}
+
+.plan-title {
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 50px !important;
+    color: #bfcaff;
+    opacity: 0.9;
+    transition: all 2s;
+    text-align: center;
+    margin-right: 20px;
+    display: block;
+    user-select: none;
+}
+
+.plan-title:hover {
+    color: #bfcaff;
+}
+
+.plan i {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    background: url(../img/normaline-l.png) no-repeat right center;
+    background-size: contain;
+    left: -50%;
+    top: 53px;
+    z-index: 2;
+}
+
+.plan.nowon.plan i {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    background: url(../img/active-line.png) no-repeat right center;
+    background-size: contain;
+    left: -50%;
+    top: 53px;
+    z-index: 2;
+}
+
+.plan.before i {
+    background-image: url(../img/normaline-before.png);
+    background-size: contain;
+}
+
+.plan.before, .plan.nowon, .plan {
+    height: 100%;
+}
+
+.plan:after {
+    content: "";
+    width: 2px;
+    height: 90px;
+    background: url(../img/line.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    right: calc(50% + 5px);
+    top: 10px;
+    transform: scale(0);
+    transition: all 0.3s;
+    z-index: 1;
+}
+
+.plan.nowon:after {
+    content: "";
+    width: 2px;
+    height: 66px;
+    background: url(../img/line.png);
+    background-size: 100% 100%;
+    position: absolute;
+    right: calc(50% + 10px);
+    top: 10px;
+    transform: scale(1);
+    transition: all 2s;
+    z-index: 1;
+}
+
+.plan.nowon .plan-title {
+    color: #fff;
+    transform: scale(1.2) translatey(-20px);
+    -webkit-transform: scale(1.2) translatey(-20px);
+}
+
+/*方案讲解*/
+.rightcontent {
+    width: 450px;
+    flex-shrink: 0;
+}
+
+.rightinfo {
+    height: 95%;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+.explain {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 92%;
+    width: 100%;
+    background-color: rgb(49, 51, 63);
+    border: 3px solid rgb(80, 87, 106);
+}
+
+.explaintitle {
+    height: 60px;
+    width: 100%;
+    font-size: 25px;
+    line-height: 60px;
+    margin-left: 20px;
+    color: #ededed;
+    position: absolute;
+}
+
+.explaintitle.static {
+    position: static;
+}
+
+.explaincontext {
+    flex-grow: 1;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #d4d4d4;
+}
+
+.explaincontext-title {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #f4f4f4;
+}
+
+/*所有方案讲解默认隐藏*/
+.explanation {
+    /*display: none;*/
+}
+
+.bindDevice, .checkJanusData {
+    color: rgb(45, 158, 255);
+    cursor: pointer;
+    user-select: none;
+}
+
+.bindDevice:hover, .checkJanusData:hover {
+    color: rgb(45, 158, 255);
+    text-decoration: underline;
+}
+
+/*bind device dialog style begin*/
+.row-item {
+    display: flex;
+    margin: 20px 10px;
+    margin-bottom: 100px;
+}
+
+.row-item span {
+    width: 90px;
+    line-height: 30px;
+}
+
+.row-item div {
+    width: 300px;
+}
+
+.row-item .chosen-container-active .chosen-single {
+    border: 1px solid #ddd;
+}
+
+.row-item .chosen-container-single .chosen-single {
+    line-height: 30px;
+    height: 30px;
+}
+
+.row-item .chosen-container-single .chosen-single-with-deselect span {
+    width: 100%;
+}
+
+#app-main {
+    padding-top: 59px;
+}
+
+.dynamicSpan {
+    color: #28FF28;
+}

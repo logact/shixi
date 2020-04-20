@@ -1,0 +1,38 @@
+<template name="app_wrench_config_list_template">
+    <div class="widget" ng-controller="ConfigListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                配置库
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.addNewConfig()">
+                    <i class="fa fa-plus"></i>
+                    新增工艺配置
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+            </list>
+        </div>
+    </div>
+</template>
+<template name="app_wrench_add_config_template">
+    <div class="row" ng-controller="AddConfigController as ctrl">
+        <div class="col-xs-12">
+            <field label="配置编号" ng-model="entity.code"></field>
+        </div>
+        <div class="col-xs-12">
+            <cnvtext label="配置名称" ng-model="entity.name"></cnvtext>
+        </div>
+        <div class="col-xs-12">
+            <cnvtext label="应力" ng-model="entity.stress"></cnvtext>
+        </div>
+        <div class="col-xs-12">
+            <cnvnumber label="拧紧次数" ng-model="entity.step"></cnvnumber>
+        </div>
+        <div class="col-xs-12" style="margin-top: 15px;">
+            <p style="padding-left: 127px;">多次力矩使用【,】分割，例如 1.2,2.3,3.5</p>
+            <cnvtext label="扭紧力矩" ng-model="entity.step_moment"></cnvtext>
+        </div>
+    </div>
+</template>

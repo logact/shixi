@@ -1,0 +1,157 @@
+.background-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: -15px;
+    margin-left: -15px;
+    background: url("../img/back-img-janus.jpg") no-repeat top center;
+    background-size: 100% 100%;
+}
+
+.loginForm {
+    display: flex;
+    width: 985px;
+    height: 330px;
+    box-shadow: 0 0 3px #eee;
+    background-color: #ffffff;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.login-left-area {
+    width: 492px;
+    border-right: 1px solid #ececec;
+    background: url("../img/login-janus.jpg") no-repeat center;
+    background-size: 475px 270px;
+}
+
+.login-right-area {
+    width: 492px;
+}
+
+.loginTitle {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    color: #333333;
+    letter-spacing: 1px;
+}
+
+.loginBody {
+    padding: 0 70px;
+}
+
+.loginBody input {
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.loginBody .btn {
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 6px;
+    background-color: #488efe;
+    color: #fff;
+    border-radius: 0;
+    border: none;
+}
+
+.loginBody .btn:hover {
+    background: #66b1ff;
+}
+
+.input-and-tips-div {
+    position: relative;
+}
+
+.input-and-tips-div > span {
+    font-size: 14px;
+    color: #d35767;
+    letter-spacing: 1px;
+    user-select: none;
+    position: relative;
+    bottom: 15px;
+    display: block;
+}
+
+.input-red-border {
+    border: solid 1px #d35767;
+}
+.password {
+    position: relative;
+}
+
+.input-and-tips-div .check-status-i {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    right: -26px;
+    top: 12px;
+    background-size: 100%;
+}
+
+.login-gif {
+    height: 40px;
+    background: url("../img/manager-login.gif") no-repeat center;
+    background-size: 95%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.bottomDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 24px
+}
+
+.bottomDiv span {
+    cursor: pointer;
+    margin-left: 25px;
+    color: #438ACA;
+}
+
+.bottomDiv i {
+    cursor: pointer;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-size: 100%;
+}
+
+.manager-i {
+    background: url("../img/manager-ico.png") no-repeat center;
+}
+
+.user-i {
+    background: url("../img/user-ico.png") no-repeat center;
+}
+
+.input-and-tips-div .wrong-status-i {
+    background: url("../img/tips-wrong.png") no-repeat center;
+}
+
+.input-and-tips-div .right-status-i {
+    background: url("../img/tips-right.png") no-repeat center;
+}
+
+.change-language-div {
+    display: inline-block;
+    position: absolute;
+    height: 20px;
+    top: 0;
+    right: 20px;
+    margin: 20px 0;
+    color: #488eff;
+    cursor: pointer;
+}

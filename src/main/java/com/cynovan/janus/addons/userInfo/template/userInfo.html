@@ -1,0 +1,116 @@
+<template name="header_user_info_template">
+    <div class="userinfo-container" ng-controller="UserInfoController as ctrl">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-8 module module-left">
+                    <div class="sub-module">
+                        <div class="sub-title">{{'基本信息'|I18nFilter:'basic_information'}}</div>
+                        <div class="sub-info">
+                            <field label="{{'用户名'|I18nFilter:'user_name'}}" ng-model="entity.userName"></field>
+                            <field label="{{'姓名'|I18nFilter:'user_name_one'}}" ng-model="entity.name"></field>
+                            <field label="{{'邮箱'|I18nFilter:'email'}}" ng-model="entity.mail"></field>
+                            <field label="{{'电话'|I18nFilter:'phone'}}" ng-model="entity.tel"></field>
+                            <field label="{{'备注'|I18nFilter:'remark'}}" ng-model="entity.remarks"></field>
+                        </div>
+                        <div style="margin-top:20px">
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.showEditUserInfoDialog()">
+                                <i class="fa fa-edit"></i> {{'修改'|I18nFilter:'edit'}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sub-module" style="width: 30%">
+                        <div class="sub-info" style="padding-top: 70px">
+                            <div style="display: flex;justify-content: flex-start;height: 25px">
+                                <span class="c-field-label">{{'角色'|I18nFilter:'role'}}</span>
+                                <div style="margin-left: 125px">
+                                    <span ng-repeat="role in entity.roleName">{{role}},</span>
+                                </div>
+                            </div>
+                            <field label="{{'所属团队'|I18nFilter:'own_team'}}" ng-model="entity.team.name"></field>
+                            <span style="color:#c6c6c6;position: relative;top: 10px">{{'角色&所属团队栏位不支持在此页面内修改'|I18nFilter:'no_edit_tip'}}</span>
+                        </div>
+                    </div>
+                    <div class="sub-module" style="width: 30%">
+                        <div class="sub-title">{{'个人密码'|I18nFilter:'personal_password'}}</div>
+                        <div class="sub-info">
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.showChangePasswordDialog()">
+                                <i class="fa fa-edit"></i> {{'修改密码'|I18nFilter:'edit_password'}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 module">
+                    <div class="sub-module">
+                        <div class="sub-title">{{'头像更换'|I18nFilter:'change.photo'}}</div>
+                        <div class="avatarChangeBox">
+                            <div class="avatar-block">
+                                <cnvimage tips="{{'我的头像'|I18nFilter:'my_photo'}}"
+                                          ng-model="entity.userAvatar"></cnvimage>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="userinfo_edit_template">
+    <div class="row">
+        <div class="col-xs-6">
+            <field label="{{'用户名'|I18nFilter:''}}" required="true" ng-model="entity.userName"
+                   style="position: relative;top:12px;"></field>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="{{'姓名'|I18nFilter:'user_name'}}" ng-model="entity.name"></cnvtext>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <cnvtext label="{{'邮箱'|I18nFilter:'email'}}" ng-model="entity.mail"></cnvtext>
+        </div>
+        <div class="col-xs-6">
+            <cnvtext label="{{'电话'|I18nFilter:'phone'}}" ng-model="entity.tel"></cnvtext>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-xs-12">
+            <cnvtextarea label="{{'备注'|I18nFilter:'remark'}}" ng-model="entity.remarks"></cnvtextarea>
+        </div>
+    </div>
+</template>
+<template name="password_edit_template">
+    <div style="min-height: 160px">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-control-static">
+                    <label class="pwd_title">{{'原密码'|I18nFilter:'origin_password'}}</label>
+                    <input type="password" class="pwd_input form-control"
+                           autocomplete="new-password" ng-model="entity.oldPwd">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-control-static">
+                    <label class="pwd_title">{{'新密码'|I18nFilter:'new_password'}}</label>
+                    <input type="password" class="pwd_input form-control"
+                           autocomplete="new-password" ng-model="entity.pwd">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-control-static input-and-tips-div">
+                    <label class="pwd_title">{{'确认密码'|I18nFilter:'confirm_password'}}</label>
+                    <input type="password" class="pwd_input form-control" autocomplete="new-password"
+                           ng-change="ctrl.confirmPassword()" ng-model="entity.confirmPwd"
+                           ng-class="tips?'input-red-border':''"/>
+                    <i class="check-status-i"></i>
+                    <span ng-show="tips" ng-bind="tips"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,26 @@
+{
+  "appId": "device_preview",
+  "description": "预览设备视图",
+  "author": "",
+  "version": "",
+  "icon": "",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "设备可视化",
+      "i18nKey": "device_preview.preview",
+      "template": "app_device_tree_preview_template",
+      "depend": [
+        "preview"
+      ],
+      "security": [
+        {
+          "code": "view",
+          "description": "查看"
+        }
+      ]
+    }
+  ]
+}
+

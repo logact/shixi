@@ -1,0 +1,281 @@
+<template name="monitor_index_template">
+    <div class="row" ng-controller="MonitorController as ctrl">
+        <div class="col-xs-12 monitor">
+            <div class="widget monitor-widget">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        远程监控
+                    </div>
+                </div>
+                <div class="col-xs-12 select-list-area">
+                    <div class="col-xs-6 form-control-static">
+                        <div class="col-xs-8 device-select-div">
+                            <div>设备</div>
+                            <div class="bind_device_box monitor-device-select-box" id="selectRobotBox"></div>
+                        </div>
+                        <div class="col-xs-4 screen-resolution-div">
+                            <div>分辨率</div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle resolution-btn-select"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <span ng-bind="screenResolution"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a ng-click="ctrl.selectResolution(0)">Default</a></li>
+                                    <li><a ng-click="ctrl.selectResolution(1)">640*480</a></li>
+                                    <li><a ng-click="ctrl.selectResolution(2)">800*600</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 form-control-static combine-div hide">
+                        <button class="btn btn-default combine-oc-button" ng-init="combine='开启'"
+                                ng-click="ctrl.combineButtonClick()">
+                            <i class="fa" ng-class="combine==='开启'?'fa-toggle-off':'fa-toggle-on'"></i>
+                            <span ng-bind="combine+'组合键'"></span>
+                        </button>
+                        <button class="btn btn-default combine-oc-button" style="margin-left: 20px"
+                                ng-click="ctrl.hideKeyboard()">
+                            <i class="fa" ng-class="showKeyborad?'fa-toggle-off':'fa-toggle-on'"></i>
+                            <span ng-bind="showKeyborad?'隐藏键盘区':'显示键盘区'"></span>
+                        </button>
+                        <div class="combine-button-list">
+                            <button class="btn btn-default combine-button" ng-repeat="c in combineList">
+                                <span ng-bind="c.name"></span>
+                                <i class="fa fa-times-circle" ng-click="ctrl.deleteCombine($index)"></i>
+                            </button>
+                            <button class="btn btn-default combine-send-button" ng-show="combineList.length>0">
+                                发送
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div class="col-xs-12 app_monitor_box ">
+                        <div class="app-monitor-layer col-xs-12">
+                            <div class="app-monitor-layer-icon">
+
+                            </div>
+                        </div>
+                        <div class="app-monitor-waiting col-xs-12 hide">
+                            <div class="loading-dialog-body">
+                                <div class="waittimer"></div>
+                                <div class="context">连接中,请稍候...</div>
+                            </div>
+                        </div>
+                        <div class="app-monitor-timeout col-xs-12 hide">
+                            <div>
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                <span>连接超时，请检查控制器配置</span>
+                                <a href="" ng-click="ctrl.closeMonitor()">关闭</a>
+                            </div>
+                        </div>
+                        <div class="left-operation-area hide"
+                             ng-style="showKeyborad?{visibility: 'visible'}:{visibility: 'hidden'}">
+                            <span class="left-top-span"></span>
+                            <span class="right-top-span"></span>
+                            <span class="left-bottom-span"></span>
+                            <span class="right-bottom-span"></span>
+                            <div class="select-direction-div">
+                                <div class="outer-circle">
+                                    <button class="inner-parts border-right" data-key="Up">
+                                        <span class="rotate" data-key="Up">↑</span>
+                                    </button>
+                                    <button class="inner-parts border-bottom" data-key="Right">
+                                        <span class="rotate" data-key="Right">→</span>
+                                    </button>
+                                    <button class="inner-parts border-top" data-key="Left">
+                                        <span class="rotate" data-key="Left">←</span>
+                                    </button>
+                                    <button class="inner-parts border-left" data-key="Down">
+                                        <span class="rotate" data-key="Down">↓</span>
+                                    </button>
+                                    <div class="inner-circle">
+                                        <button class="ok" data-key="F4">
+                                            <span class="rotate" data-key="F4">选 择</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fun-btn-group">
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default ready-btn" data-key="F5">伺服准备</button>
+                                    <button class="btn btn-default" data-key="H">清除</button>
+                                    <button class="btn btn-default" data-key="R">区域</button>
+                                </div>
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default" data-key="Ctrl">联锁</button>
+                                    <button class="btn btn-default" data-key="C">坐标</button>
+                                    <button class="btn btn-default" data-key="G">翻页</button>
+                                </div>
+                            </div>
+                            <div class="num-btn-group">
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default" data-key="7">7 引弧</button>
+                                    <button class="btn btn-default" data-key="8">8 气开</button>
+                                    <button class="btn btn-default" data-key="9">9 送丝</button>
+                                </div>
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default" data-key="4">4 熄弧</button>
+                                    <button class="btn btn-default" data-key="5">5 气关</button>
+                                    <button class="btn btn-default" data-key="6">6 退丝</button>
+                                </div>
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default electric-btn" data-key="1">1 电流电压+</button>
+                                    <button class="btn btn-default teach-btn" data-key="2">2 示教点</button>
+                                    <button class="btn btn-default" data-key="3">3</button>
+                                </div>
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default electric-btn" data-key="0">0 电流电压-</button>
+                                    <button class="btn btn-default" data-key=".">.</button>
+                                    <button class="btn btn-default" data-key="-">-</button>
+                                </div>
+                            </div>
+                            <div class="left-bottom-circle"></div>
+                        </div>
+                        <div class="app-monitor-content hide">
+                            <div class="top-operation-area">
+                                <div class="guacamole_toolbar">
+                                    <button class="btn btn-primary btn-sm btn-outline" type="button" data-key="Windows">
+                                        <i class="fa fa-keyboard-o no-click"></i>
+                                        Windows按键
+                                    </button>
+                                    <button class="btn btn-primary btn-sm btn-outline" type="button" data-key="F5">
+                                        <i class="fa fa-keyboard-o no-click"></i>
+                                        F5按键
+                                    </button>
+                                    <button class="btn btn-primary btn-sm btn-outline" type="button"
+                                            data-key="Ctrl+Atl+Delete">
+                                        <i class="fa fa-keyboard-o no-click"></i>
+                                        Ctrl+Atl+Del组合键
+                                    </button>
+                                    <button class="btn btn-primary btn-sm btn-outline" type="button" data-key="Close"
+                                            style="margin-left: 25px;">
+                                        <i class="fa fa-close"></i>
+                                        关闭实时监控
+                                    </button>
+                                </div>
+                            </div>
+                            <iframe id="guacamole"></iframe>
+                            <div class="bottom-operation-area"
+                                 ng-style="showKeyborad?{visibility: 'visible'}:{visibility: 'hidden'}">
+                                <span class="left-arrow-span"></span>
+                                <span class="right-arrow-span"></span>
+                                <div class="btn-group-line">
+                                    <button class="btn btn-default" data-key="Backspace">退 格</button>
+                                    <button class="btn btn-default" data-key="Enter">回 车</button>
+                                    <button class="btn btn-default weld-btn" data-key="F8">焊 接通/断</button>
+                                    <button class="btn btn-default" data-key="F9">外部轴</button>
+                                    <button class="btn btn-default" data-key="L">插 补</button>
+                                    <button class="btn btn-default cancel-btn" data-key="F7">取消限制</button>
+                                </div>
+                                <div class="btn-group-line" style="margin-bottom: 4px">
+                                    <button class="btn btn-default command-list-btn" data-key="E">命令一览</button>
+                                    <button class="btn btn-default" data-key="B">插 入</button>
+                                    <button class="btn btn-default" data-key="T">删 除</button>
+                                    <button class="btn btn-default" data-key="D">修 改</button>
+                                    <button class="btn btn-default" data-key="Y">确 认</button>
+                                    <button class="btn btn-default" data-key="Shift">上 档</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-operation-area hide"
+                             ng-style="showKeyborad?{visibility: 'visible'}:{visibility: 'hidden'}">
+                            <span class="left-top-span"></span>
+                            <span class="right-top-span"></span>
+                            <span class="left-bottom-span"></span>
+                            <span class="right-bottom-span"></span>
+                            <div class="btn-group-line" style="margin-top: 15px">
+                                <button class="btn btn-default" data-key="Q">
+                                    <span>X- </span>
+                                    <span>J1-</span>
+                                </button>
+                                <button class="btn btn-default" data-key="W">
+                                    <span>X+ </span>
+                                    <span>J1+</span>
+                                </button>
+                            </div>
+                            <div class="btn-group-line">
+                                <button class="btn btn-default" data-key="A">
+                                    <span>Y- </span>
+                                    <span>J2-</span>
+                                </button>
+                                <button class="btn btn-default" data-key="S">
+                                    <span>Y+ </span>
+                                    <span>J2+</span>
+                                </button>
+                            </div>
+                            <div class="btn-group-line">
+                                <button class="btn btn-default" data-key="Z">
+                                    <span>Z- </span>
+                                    <span>J3-</span>
+                                </button>
+                                <button class="btn btn-default" data-key="X">
+                                    <span>Z+ </span>
+                                    <span>J3+</span>
+                                </button>
+                            </div>
+                            <div class="btn-group-line">
+                                <button class="btn btn-default" data-key="U">
+                                    <span class="down-arrow-span">A- </span>
+                                    <span>J4-</span>
+                                </button>
+                                <button class="btn btn-default" data-key="I">
+                                    <span class="up-arrow-span">A+ </span>
+                                    <span>J4+</span>
+                                </button>
+                            </div>
+                            <div class="btn-group-line">
+                                <button class="btn btn-default" data-key="J">
+                                    <span class="down-arrow-span">B- </span>
+                                    <span>J5-</span>
+                                </button>
+                                <button class="btn btn-default" data-key="K">
+                                    <span class="up-arrow-span">B+ </span>
+                                    <span>J5+</span>
+                                </button>
+                            </div>
+                            <div class="btn-group-line">
+                                <button class="btn btn-default" data-key="N">
+                                    <span class="down-arrow-span">C- </span>
+                                    <span>J6-</span>
+                                </button>
+                                <button class="btn btn-default" data-key="M">
+                                    <span class="up-arrow-span">C+ </span>
+                                    <span>J6+</span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group-line" style="margin-top: 80px">
+                                <button class="btn btn-default" data-key="O">后退</button>
+                                <button class="btn btn-default" data-key="P">前进</button>
+                            </div>
+                            <div class="btn-group-line">
+                                <button class="btn btn-default" data-key="F3">低速</button>
+                                <button class="btn btn-default" data-key="F2">高速</button>
+                            </div>
+                            <div class="right-bottom-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="monitor-edit-vnc-template">
+    <div class="row">
+        <div class="col-xs-12 ">
+            <div>
+                <cnvtext label="地址：" ng-model="entity.hostName"></cnvtext>
+            </div>
+            <div>
+                <cnvtext label="端口：" ng-model="entity.port"></cnvtext>
+            </div>
+            <div>
+                <cnvpwd label="密码：" ng-model="entity.password"></cnvpwd>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,55 @@
+<template name="device_timeline_template">
+    <div ng-controller="DeviceTimeLineController as ctrl">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="widget-title">
+                    <div>
+                        <div class="device-select-div flex" style="">
+                            <div id="deviceTimeline_device"></div>
+                        </div>
+                    </div>
+                    <div style="display: flex;align-items: center">
+                        <div style="padding-right: 15px;width: 270px;display: flex;justify-content: space-around;align-items: center">
+                            时间:
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.setDateType('today')"
+                                    ng-class="{'active':entity.date_type==='today'}">
+                                {{'今天'|I18nFilter:'deviceTimeLine.today'}}
+                            </button>
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.setDateType('yesterday')"
+                                    ng-class="{'active':entity.date_type==='yesterday'}">
+                                {{'昨天'|I18nFilter:'deviceTimeLine.yesterday'}}
+                            </button>
+                            <button class="btn btn-primary btn-outline btn-sm" type="button"
+                                    ng-click="ctrl.getCustomDataDialog()"
+                                    ng-class="{'active':entity.date_type==='custom'}">
+                                {{'自定义'|I18nFilter:'deviceTimeLine.custom'}}
+                            </button>
+                        </div>
+                        <div style="width:160px;">
+                            <span style="font-size: 12px;color:#838383;">{{entity.chooseTime}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class=" device_timeline_panel">
+                <div style="position:absolute;width: 300px;right:50px;display: flex;justify-content: space-between;padding-top: 10px">
+                    <span><i class="fa fa-circle" style="color:#029359"></i> 正常<br>{{normalduration}}</span>
+                    <span><i class="fa fa-circle" style="color:#F0C600"></i> 警告<br>{{warningduration}}</span>
+                    <span><i class="fa fa-circle" style="color:#D50C38"></i> 报警<br>{{alarmduration}}</span>
+                    <span><i class="fa fa-circle" style="color:#CCCCCC"></i> 离线<br>{{offlineduration}}</span>
+                </div>
+                <div style="height: 100%;width: 100%;">
+                    <div id="device_state_container" class="col-xs-3" style="height: 100%;"></div>
+                    <div id="device_timeline_container" class="col-xs-9" style="height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="device_timeline_custom_data_dialog">
+    <cnvdate language="zh-CN" placeholder="请选择日期" ng-model="entity.start" label="日期"></cnvdate>
+</template>

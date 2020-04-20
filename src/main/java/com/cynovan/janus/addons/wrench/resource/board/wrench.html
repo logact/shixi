@@ -1,0 +1,348 @@
+<template name="app_wrench_wrench_list_template">
+    <div class="widget" ng-controller="WrenchListController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                扳手列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-data-config" type="button"
+                            ng-if="''| SecurityFilter: 'wrench_list':'manage'"><i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                            ng-click="ctrl.bindDeviceToWrench()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为扳手
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="app_wrench_edit_wrench_template">
+    <div class="widget" ng-controller="WrenchDynamicController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">扳手列表 / </a>扳手详情
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.saveWrenchConfig()"
+                            ng-if="''| SecurityFilter: 'wrench_list':'manage'">
+                        <i class="fa fa-save"></i>
+                        保存配置
+                    </button>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="扳手信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="扳手序列号" ng-model="entity.uuid"></field>
+                        <staticfield label="扳手ID" field="DeviceID" width="110"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <div>
+                                <i class="fa fa-dot-circle-o"></i>
+                                电机参数
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-outline btn-xs"
+                                        ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                                        ng-click="ctrl.pushAction('GetMotorPara')">
+                                    <i class="fa fa-upload"></i>
+                                    参数获取
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs"
+                                        ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                                        ng-click="ctrl.pushAction('PutMotorPara')">
+                                    <i class="fa fa-download"></i>
+                                    参数下发
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <!--自动生成ID-->
+                        <staticfield label="电机参数ID" field="MotorID"></staticfield>
+                        <staticfield label="极对数" field="Poles"></staticfield>
+                        <staticfield label="编码器线数" field="EncoderLine"></staticfield>
+                        <staticfield label="减速机减速比" field="ReductionRatio"></staticfield>
+                        <staticfield label="供电电压" field="Power"></staticfield>
+                        <staticfield label="电路板允许最大相电流" field="MaxPhaseCurrent"></staticfield>
+                        <staticfield label="相电阻" field="PhaseResistance"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="相电感" field="PhaseInductance"></staticfield>
+                        <staticfield label="电机最高转速" field="NoLoadSpeed"></staticfield>
+                        <staticfield label="电机额定转速" field="NominalSpeed"></staticfield>
+                        <staticfield label="电机额定转矩" field="NominalTorque"></staticfield>
+                        <staticfield label="电机额定电流" field="NominalCurrent"></staticfield>
+                        <staticfield label="电流环频率" field="CurrentFrequency"></staticfield>
+                        <staticfield label="规划环频率" field="PlanFrequency"></staticfield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <div>
+                                <i class="fa fa-dot-circle-o"></i>
+                                工艺参数
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-outline btn-xs"
+                                        ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                                        ng-click="ctrl.pushAction('GetCraftPara')">
+                                    <i class="fa fa-upload"></i>
+                                    参数获取
+                                </button>
+                                <button class="btn btn-primary btn-outline btn-xs"
+                                        ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                                        ng-click="ctrl.pushAction('PutCraftPara')">
+                                    <i class="fa fa-download"></i>
+                                    参数下发
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <!--自动生成ID-->
+                        <staticfield label="工艺类型ID" field="CraftID"></staticfield>
+                        <staticfield label="工艺名称" field="CraftName"></staticfield>
+                        <staticfield label="一次预拧紧速度" field="SpdUp1"></staticfield>
+                        <staticfield label="一次预拧紧目标值" field="Ref_High"></staticfield>
+                        <staticfield label="二次预拧紧减速度" field="SpdDn1"></staticfield>
+                        <staticfield label="一次拧紧目标值" field="Ref_Final1"></staticfield>
+                        <staticfield label="一次预拧紧保持点数" field="Keeppoints1"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="反向消应力减速度" field="SpdDn2"></staticfield>
+                        <staticfield label="反向消除应力目标值" field="Ref_Reverse"></staticfield>
+                        <staticfield label="反向走的角度（圈数）" field="Keeppoints4"></staticfield>
+                        <staticfield label="二次拧紧加速度" field="SpdUp2"></staticfield>
+                        <staticfield label="二次拧紧目标值" field="Ref_Final2"></staticfield>
+                        <staticfield label="二次拧紧保持点数" field="Keeppoints2"></staticfield>
+                        <staticfield label="退出减速度" field="SpdDn3"></staticfield>
+                        <staticfield label="退出保持点数" field="Keeppoints3"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="加工参数" on-show="ctrl.bindSelectChange()">
+                <div class="row">
+                    <div class="select-option-area">
+                        <div class="screw-div">
+                            <div class="row">
+                                <div class="col-xs-12 header" style="display: flex;">
+                                    <div style="line-height: 30px;">螺丝</div>
+                                    <div style="width: 260px;">
+                                        <select class="form-control input-sm" style="margin-left: 25px;"
+                                                ng-model="entity.wrench.screw_id"
+                                                ng-options="option.id as option.name for option in ctrl.screwList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <field label="编号" ng-model="screw.code"></field>
+                                    <field label="长度" ng-model="screw.length"></field>
+                                    <field label="大小" ng-model="screw.size"></field>
+                                    <field label="螺距" ng-model="screw.pitch"></field>
+                                </div>
+                                <div class="col-xs-6">
+                                    <field label="名称" ng-model="screw.name"></field>
+                                    <field label="螺丝标准" ng-model="screw.standard"></field>
+                                    <field label="材料" ng-model="screw.material"></field>
+                                    <field label="用户扭矩" ng-model="screw.torque"></field>
+                                </div>
+                                <div class="col-xs-12">
+                                    <field label="备注" ng-model="screw.remarks"></field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="material-div">
+                            <div class="row">
+                                <div class="col-xs-12 header" style="display: flex;">
+                                    <div style="line-height: 30px;">基材</div>
+                                    <div style="width: 260px;">
+                                        <select class="form-control input-sm" style="margin-left: 25px;"
+                                                ng-model="entity.wrench.material_id"
+                                                ng-options="option.id as option.name for option in ctrl.materialList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <field label="编号" width="160" ng-model="material.code"></field>
+                                    <field label="泊松比" width="160" ng-model="material.PoissonRatio"></field>
+                                    <field label="抗剪模量(N/m^2)" width="160" ng-model="material.ShearModulus"></field>
+                                    <field label="屈服强度(N/m^2)" width="160" ng-model="material.YieldStrength"></field>
+                                    <field label="比热(J/(kg.K))" width="160" ng-model="material.SpecificHeat"></field>
+                                </div>
+                                <div class="col-xs-6">
+                                    <field label="名称" ng-model="material.name"></field>
+                                    <field label="弹性模量(N/m^2)" width="160" ng-model="material.ElasticModulus"></field>
+                                    <field label="质量密度(kg/m^3)" width="160" ng-model="material.MassDensity"></field>
+                                    <field label="张力强度(N/m^2)" width="160" ng-model="material.TensionStrength"></field>
+                                    <field label="热扩张系数(/Kelven)" width="160"
+                                           ng-model="material.ThermalExpansionCoefficient"></field>
+                                    <field label="热导率(W/(m.k))" width="160"
+                                           ng-model="material.ThermalConductivity"></field>
+                                </div>
+                                <div class="col-xs-12">
+                                    <field label="备注" ng-model="material.remarks"></field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="参数配置">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3>扭力扳手优化Server配置</h3>
+                            </div>
+                            <div class="col-xs-12">
+                                <p>
+                                    地址示例: http://www.baidu.com/
+                                </p>
+                                <cnvtext label="Http Server地址" ng-model="entity.wrench.remote_url"></cnvtext>
+                            </div>
+                            <div class="col-xs-12">
+                                <h3>基础参数配置</h3>
+                                <p>1. 所有数值都将转化为数字类型传输</p>
+                                <p>2. 数据为数组类型时，请使用[,]分割数据</p>
+                                <p>3. 如果数据ID相同，如果配置将会覆盖设备传输过来的值</p>
+                                <p>4. 保存时自动删除不完整项: 数据ID或者数据值未填写</p>
+                            </div>
+                            <div class="col-xs-12">
+                                <table class="table table-condensed table-bordered edittable">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 60px;">#</th>
+                                        <th style="width: 150px">数据ID</th>
+                                        <th>数据值</th>
+                                        <th style="width: 100px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in entity.wrench.items">
+                                        <td class="text-center">
+                                            <div style="margin-top: 5px;">{{$index + 1}}</div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="item.key"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="item.value"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary btn-outline btn-xs" type="button"
+                                                    ng-click="ctrl.removeRow($index)"
+                                                    ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                                                    style="margin-top: 5px;">
+                                                <i class="fa fa-times"></i>
+                                                删除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-primary btn-sm btn-outline" type="button"
+                                        ng-click="ctrl.addRow()" ng-if="''| SecurityFilter: 'wrench_list':'manage'"
+                                        style="margin-top: 10px;">
+                                    <i class="fa fa-plus"></i>
+                                    添加一行
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行日志">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <list options="ctrl.logOptions"></list>
+                    </div>
+                </div>
+            </tab>
+            <tab title="扳手照片" ng-if="''| SecurityFilter: 'wrench_list':'manage'">
+                <div>
+                    <cnvimage label="扳手照片" ng-model="entity.wrench.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>
+<template name="wrench_show_log_detail_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <field label="请求时间" ng-model="entity.create_date"></field>
+        </div>
+        <div class="col-xs-12">
+            <div class="c-field" label="请求状态">
+                <label class="c-field-label ng-binding">请求状态</label>
+                <div class="c-field-value">
+                    <button ng-if="entity.state === 'success'" class="btn btn-success btn-xs" type="button"><i class="fa fa-check"></i>请求成功</button>
+                    <button ng-if="entity.state === 'error'" class="btn btn-danger btn-xs" type="button"><i class="fa fa-times"></i>请求失败</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <field label="信息" ng-model="entity.msg"></field>
+            <field label="返回数据" ng-model="entity.response"></field>
+            <field label="请求数据" ng-model="entity.request_data"></field>
+        </div>
+    </div>
+</template>
+
+<template name="wrench_show_log_chart_template">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="set-height-div" id="key-chart"></div>
+        </div>
+    </div>
+</template>

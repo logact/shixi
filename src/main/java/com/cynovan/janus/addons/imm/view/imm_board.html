@@ -1,0 +1,284 @@
+<template name="imm_board_template">
+    <div class="widget" ng-controller="IMMBoardController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                机床列表
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" ng-click="ctrl.changeModel('list')"
+                                class="btn btn-primary btn-sm btn-outline" title="列表">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                        <button type="button" ng-click="ctrl.changeModel('kanban')"
+                                class="btn btn-primary btn-sm btn-outline" title="看板">
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-outline btn-sm app-config-btn" type="button"
+                            ng-if="''| SecurityFilter: 'imm_board':'manage'">
+                        <i class="fa fa-wrench"></i> 数据配置
+                    </button>
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.bindDeviceToIMM()" ng-if="''| SecurityFilter: 'imm_board':'manage'">
+                        <i class="fa fa-dot-circle-o"></i>
+                        指定设备为注塑机
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div ng-show="model === 'list'">
+                <list options="ctrl.options">
+                </list>
+            </div>
+            <div ng-show="model === 'kanban'">
+                <kanban options="ctrl.kanbanOptions">
+                </kanban>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="app_imm_edit_imm_template">
+    <div class="widget" ng-controller="IMMDynamicController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                <div>
+                    <a href="" ng-click="ctrl.goList()">机床列表 / </a>机床详情
+                </div>
+                <div>
+                    <Sub-Nav options="ctrl.subNavOptions"></Sub-Nav>
+                </div>
+            </div>
+        </div>
+        <tabs>
+            <tab title="机床信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <field label="名称" ng-model="entity.baseInfo.name"></field>
+                        <field label="设备标签" ng-model="entity.tag"></field>
+                    </div>
+                    <div class="col-xs-6">
+                        <field label="机床序列号" ng-model="entity.uuid"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" ng-if="entity.baseInfo.remarks">
+                        <field label="设备备注" ng-model="entity.baseInfo.remarks"></field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            机床信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <!--<staticfield label="报警"></staticfield>-->
+                        <staticfield label="机床型号" field="MachineType"></staticfield>
+                        <staticfield label="机床ID" field="MachineID"></staticfield>
+                        <staticfield label="原料" field="Material"></staticfield>
+                        <staticfield label="规格" field="Type"></staticfield>
+                        <staticfield label="品牌" field="Company"></staticfield>
+                        <staticfield label="保养日期" field="MaintenanceDate"></staticfield>
+                        <staticfield label="次品数" field="InferiorNum"></staticfield>
+                        <staticfield label="良品数" field="SuperiorNum"></staticfield>
+                        <staticfield label="周期耗时" field="CycleTime"></staticfield>
+                        <staticfield label="模腔数" field="CavityNum"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="工作模式" field="WorkMode"></staticfield>
+                        <staticfield label="设备状态" field="MachineStatus"></staticfield>
+                        <staticfield label="机械手操作模式" field="RobotMode"></staticfield>
+                        <staticfield label="机械手X轴动作" field="RobotAxis1Action"></staticfield>
+                        <staticfield label="机械手Y轴动作" field="RobotAxis2Action"></staticfield>
+                        <staticfield label="机械手Z轴动作" field="RobotAxis3Action"></staticfield>
+                        <staticfield label="机械手C轴动作" field="RobotAxis4Action"></staticfield>
+                        <staticfield label="机械手夹具动作" field="RobotGripperAction"></staticfield>
+                        <staticfield label="视觉检测机构状态" width="112" field="VisionStatus"></staticfield>
+                        <staticfield label="视觉检测结果" field="VisionResult"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="工艺数据">
+                <div style="max-height: 450px;overflow-y: auto;overflow-x: hidden;">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                温度信息
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="料筒1区实时温度" width="110" field="Barrel1AreaTemper"></staticfield>
+                            <staticfield label="料筒2区实时温度" width="110" field="Barrel2AreaTemper"></staticfield>
+                            <staticfield label="料筒3区实时温度" width="110" field="Barrel3AreaTemper"></staticfield>
+                            <staticfield label="料筒4区实时温度" width="110" field="Barrel4AreaTemper"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="料筒5区实时温度" width="110" field="Barrel5AreaTemper"></staticfield>
+                            <staticfield label="料筒6区实时温度" width="110" field="Barrel6AreaTemper"></staticfield>
+                            <staticfield label="料筒7区实时温度" width="110" field="Barrel7AreaTemper"></staticfield>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                相关信息
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="射嘴实时温度" field="NozzleTemper"></staticfield>
+                            <staticfield label="泵1压力" field="Pump1Pressure"></staticfield>
+                            <staticfield label="泵1流量" field="Pump1Flow"></staticfield>
+
+                            <staticfield label="开合模实时位置" field="OpenOrCloseClampPostion"></staticfield>
+                            <staticfield label="系统压力" field="SystemPressure"></staticfield>
+                            <staticfield label="注射实时位置" field="InjectionRealPostion"></staticfield>
+                            <staticfield label="螺杆转速" field="ScrewSpeed"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="注射时间" field="InjectionTime"></staticfield>
+                            <staticfield label="冷却时间" field="CoolingTime"></staticfield>
+                            <staticfield label="松退时间" field="SuckingBackTime"></staticfield>
+
+                            <staticfield label="清料次数" field="CleanMaterialNum"></staticfield>
+                            <staticfield label="清料时间" field="CleanMaterialTime"></staticfield>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                顶针信息
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="顶针实时位置" field="ThimbleRealPostion"></staticfield>
+                            <staticfield label="顶针顶出次数" field="EjectionNum"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="顶针保持时间" field="ThimbleHolsingTime"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                冷水机信息
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="冷水机设定温度" field="ChillerSetTemper"></staticfield>
+                            <staticfield label="冷水机实际温度" field="ChillerRealTemper"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="冷水机运行状态" field="ChillerRunningStatus"></staticfield>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="header">
+                                <i class="fa fa-dot-circle-o"></i>
+                                烘/吸料机信息
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <staticfield label="烘料机设定温度" field="BakingMachineSetTemper"></staticfield>
+                            <staticfield label="烘料机实际温度" field="BakingMachineRealTemper"></staticfield>
+                        </div>
+                        <div class="col-xs-6">
+                            <staticfield label="吸料机器状态" field="SuctionMachineStatus"></staticfield>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab title="能耗数据">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="header">
+                            <i class="fa fa-dot-circle-o"></i>
+                            能耗信息
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticfield label="整机A相电压" field="APhaseVoltage"></staticfield>
+                        <staticfield label="整机B相电压" field="BPhaseVoltage"></staticfield>
+                        <staticfield label="整机C相电压" field="CPhaseVoltage"></staticfield>
+
+                        <staticfield label="整机A相电流" field="APhaseCurrent"></staticfield>
+                        <staticfield label="整机B相电流" field="BPhaseCurrent"></staticfield>
+                        <staticfield label="整机C相电流" field="CPhaseCurrent"></staticfield>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticfield label="整机瞬时功率" field="InstantaneousPower"></staticfield>
+                        <staticfield label="整机累计能耗" field="EnergyEfficiency"></staticfield>
+                    </div>
+                </div>
+            </tab>
+            <tab title="运行状态信息">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <staticswitch label="急停" field="Emergency"></staticswitch>
+                        <staticswitch label="射座前限位" field="FrontLimitEjectionSeat"></staticswitch>
+                        <staticswitch label="调模前限位" field="FrontLimitTransferMode"></staticswitch>
+                        <staticswitch label="调模后限位" field="BehindLimitTransferMode"></staticswitch>
+                        <staticswitch label="前安全门开" field="FrontSafeDoorOpen"></staticswitch>
+                        <staticswitch label="前安全门关" field="FrontSafeDoorClose"></staticswitch>
+                        <staticswitch label="后安全门开" field="BehindSafeDoorOpen"></staticswitch>
+                        <staticswitch label="后安全门关" field="BehindSafeDoorClose"></staticswitch>
+                        <staticswitch label="机械手就绪" field="RobotReady"></staticswitch>
+                        <staticswitch label="锁模允许" field="CloseClampAllowed"></staticswitch>
+                        <staticswitch label="开模允许" field="OpenClampAllowed"></staticswitch>
+                        <staticswitch label="注射允许" field="InjectionAllowed"></staticswitch>
+                        <staticswitch label="顶出允许" field="EjectionAllowed"></staticswitch>
+                        <staticswitch label="顶退允许" field="EjectionBackAllowed"></staticswitch>
+                        <staticswitch label="机械手取出完成" field="RobotActionFinish"></staticswitch>
+                        <staticswitch label="机械手急停" field="RobotEmergencyStop"></staticswitch>
+                        <staticswitch label="电机状态" field="MotorStatus"></staticswitch>
+                    </div>
+                    <div class="col-xs-6">
+                        <staticswitch label="视觉检测台滑台启动" field="VisionDetectionPlatformForward"
+                                      width="130"></staticswitch>
+                        <staticswitch label="视觉检测台滑台返回" field="VisionDetectionPlatformBackward"
+                                      width="130"></staticswitch>
+                        <staticswitch label="视觉检测台前限位" field="VisionDetectionPlatformForwardLimited"
+                                      width="130"></staticswitch>
+                        <staticswitch label="视觉检测台后限位" field="VisionDetectionPlatformBackwardLimited"
+                                      width="130"></staticswitch>
+                        <staticswitch label="空箱前限位" field="EmptyBoxForwardLimited" width="130"></staticswitch>
+                        <staticswitch label="空箱后限位" field="EmptyBoxBackwardLimited" width="130"></staticswitch>
+                        <staticswitch label="空箱左限位" field="EmptyBoxLeftLimited" width="130"></staticswitch>
+                        <staticswitch label="空箱右限位" field="EmptyBoxRightLimited" width="130"></staticswitch>
+                        <staticswitch label="满箱前限位" field="FullBoxForwardLimited" width="130"></staticswitch>
+                        <staticswitch label="满箱后限位" field="FullBoxBackwardLimited" width="130"></staticswitch>
+                        <staticswitch label="取料机械手启动" field="ReclaimerRobotForward" width="130"></staticswitch>
+                        <staticswitch label="取料机械手返回" field="ReclaimerRobotBackward" width="130"></staticswitch>
+                    </div>
+                </div>
+            </tab>
+            <tab title="注塑机照片" ng-if="''| SecurityFilter: 'imm_board':'manage'">
+                <div>
+                    <cnvimage label="注塑机照片" ng-model="entity.imm.image_id"></cnvimage>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+</template>
