@@ -34,6 +34,7 @@
                             <span class="description-span">{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}</span>
                         </div>
                     </div>
+<!--                    // ng-show 表达式为正时显示元素表达式为假时不显示-->
                     <div class="no-view-app" ng-show="hideLi.length>0">
                         <div ng-repeat="menu in hideLi" title="{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}"
                              ng-click="ctrl.allMenuClick($index,$event,menu)">
@@ -44,6 +45,7 @@
                 </div>
                 <div class="setting-user-div" ng-click="ctrl.appShowSetting()">
                     <i class="setting-header-i"></i>
+<!--                    ||表示过滤器 ：后面接的是过滤时参考的元素 I18nFilter 是自定义的过滤器-->
                     <span ng-bind="'自定义导航栏' | I18nFilter:'custom_nav_bar'"></span>
                 </div>
             </div>
@@ -82,6 +84,7 @@
             </ul>
         </li>
         <li>
+<!--            ctrl.goApiDocs()-->
             <a ng-click="ctrl.goApiDocs()" title="{{'接口文档'|I18nFilter:'api_doc'}}" class="index-api-a animated">
                 <i class="index-api-i"></i>
             </a>
@@ -151,6 +154,7 @@
     </ul>
 </aside>
 <main id="app-main" class="app-main">
+<!--    使用ui-view 让这个元素 充当模板容器-->
     <div class="wrap" ui-view="">
 
     </div>
@@ -164,6 +168,8 @@
 <script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
 <script type="text/javascript">
 <!--这里的require的baseurl 应该是从<base> 标签中的值取出来-->
+    //build/entry-build这个文件是干什么的？
+    //app.js中的provider是从哪里来的
     require(['web/build/entry-build'], function () {
         require(['index/web/js/app'], function () {
             angular.bootstrap(document, ['app']);

@@ -11,6 +11,7 @@ require.config({
         }
         return ((~url.indexOf('?')) ? '&' : '?') + args;
     },
+    //这里直接使用了之后就能直接使用名字
     paths: {
         'css': 'web/requirejs/css',
         'threejs': 'web/dist/threejs',

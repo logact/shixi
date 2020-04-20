@@ -178,6 +178,7 @@
 .navbar-menu .navbar-menu-ul {
     height: 60px;
     max-width: 100px;
+    /*表示逸出的元素如何处理*/
     overflow: hidden;
 }
 
@@ -288,7 +289,7 @@
     border-color: #ddd;
     z-index: 777;
 }
-
+/*如果宽度小于767px那么就会触发这个样式*/
 @media (max-width: 767px) {
     .navbar-toolbar > li {
         position: static;
@@ -300,7 +301,7 @@
         width: auto;
     }
 }
-
+/*a> b 与 a b的区别在于 前者只选择第一代，而后者选择所有*/
 .navbar-toolbar > li > a {
     color: #fff;
 }
