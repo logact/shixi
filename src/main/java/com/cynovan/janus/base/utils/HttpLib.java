@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 
 import javax.servlet.http.HttpServletRequest;
@@ -142,15 +143,22 @@ public class HttpLib {
         }
         return null;
     }
-
+    @Value("value")
+    static  String myValue;
     public static Map<String, Object> pageAttributes(HttpServletRequest request) {
+//        注 入环境??
         Environment env = SpringContext.getBean(Environment.class);
         Map<String, Object> attributes = Maps.newHashMap();
+
         attributes.put("r_path", request.getContextPath() + "/resource/");
         attributes.put("version", env.getProperty("version"));
+        System.out.println("my value=="+myValue);
         boolean debug = StringLib.equalsIgnoreCase(env.getProperty("debug"), "true");
         attributes.put("debug", debug);
         attributes.put("c_path", request.getContextPath());
+        for(String key:attributes.keySet()){
+            System.out.println("key:"+key+"  value:"+attributes.get(key));
+        }
         return attributes;
     }
 }

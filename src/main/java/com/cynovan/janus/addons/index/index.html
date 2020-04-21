@@ -24,6 +24,7 @@
     </div>
     <div class="navbar-menu ng-cloak">
         <li class="all-app-li" ng-show="ctrl.menus.length>0">
+<!--            -->
             <span>{{'全部应用' | I18nFilter:'all.app'}}</span>
             <div class="more-app-div">
                 <div class="menu-list-div">
@@ -64,7 +65,9 @@
     </div>
     <ul id="header-right-navbar" class="nav navbar-toolbar navbar-right">
         <li class="ng-cloak" ng-if="''| SecurityFilter: '应用市场':'manage'" ng-click="ctrl.goMenuByUrl()">
-            <a href="#/app/appstore/menu/0" title="{{'全部应用'|I18nFilter:'all.app'}}" class="index-app-store-a animated">
+<!--             title="{{'全部应用'|I18nFilter:'all.app'}}"-->
+            <a href="
+" title="{{'全部应用'|I18nFilter:'all.app'}}" class="index-app-store-a animated">
                 <i class="index-app-store-i"></i>
             </a>
         </li>
@@ -74,7 +77,7 @@
                ng-class="clicked?'':'active-a'">
                 <i class="open_platform_icon"></i>
             </a>
-            <ul class="open-platform-ul ng-cloak" ng-hide="clicked">
+            <ul class="open-platform-ul ng-cloak" ng-hide="clicked/">
                 <li>
                     {{('Neptune开放平台开启公测，您可以在线开发属于自己的应用，'| I18nFilter:'open.platform.tip')}}
                     <a href="https://open.neptune-iiot.net" target="_blank"

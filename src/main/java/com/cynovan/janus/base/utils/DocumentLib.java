@@ -85,11 +85,22 @@ public class DocumentLib {
         return StringLib.toLong(get(document, key));
     }
 
+    /**
+     *
+     * 如果document 为空或者key或者key为空都返回null
+     * 这个函数关于输入的key如果key是以‘。’连接的字符串的话那么如果在这个所有字符串点的分割的字符串数组的长度下的最后一个docment对象的值的get("filed')的值如果这个搜索过程中碰到了任何的一个，
+     * 为空的value或者是 不是document类型的value那么就会直接返回null
+     * 如果是单独的一个单词的话那么就直接从document 中取出这个key(menuIndex|appId)所对应的值
+     * @param document  document 对象
+     * @param key 类似与menuIndex 或者是appID
+     * @return
+     */
     private static Object get(Document document, String key) {
         if (document == null) {
             return null;
         }
         if (StringLib.isNotEmpty(key)) {
+            ///如果key中含有"."那么将这个字符串以.为分隔符化成为一个字符串的数组，取
             if (StringLib.contains(key, ".")) {
                 String[] fieldArr = StringLib.split(key, ".");
                 int fieldArrLen = fieldArr.length;
@@ -97,19 +108,22 @@ public class DocumentLib {
 
 
                 Document loopDoc = document;
-                int i = 0;
+                int i = 0;//表示这个field的深度例如如果一个document的value值还是一个document的话那么将这个深度的变量加一
 
                 int deepLen = fieldArrLen - 1;
                 while (i < deepLen) {
                     String field = fieldArr[i];
                     Object value = loopDoc.get(field);
+//                    如果任意的一个filed为空那么就直接返回null
                     if (value == null) {
                         return null;
                     }
+//                    如果有深度那么就访问下个.后面元素对应的值，使得这个document成为最后一个最后一部分字符串对应的document
+
                     if (value instanceof Document) {
                         loopDoc = (Document) value;
                         i++;
-                    } else {
+                    } else {//如果这个元素不是documnet 那么就直接返回null
                         return null;
                     }
                 }
@@ -127,6 +141,8 @@ public class DocumentLib {
     public static Double getDouble(Document document, String key) {
         return StringLib.toDouble(get(document, key));
     }
+
+//    处理Document 对象
 
     public static String getString(Document document, String key) {
         return StringLib.toString(get(document, key));

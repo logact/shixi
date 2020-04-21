@@ -47,17 +47,26 @@ public class InitializeWeb extends BaseWeb {
         return template;
     }
 
+//    首页地址真正映射的地方http://localhost:8080/#/app/plant_efficiency/menu/0
     @ResponseBody
     @RequestMapping(value = "appMenuTemplate/{appId}/{menuIdx}")
     public String getAppMenuTemplate(@PathVariable("appId") String appId, @PathVariable("menuIdx") Integer menuIdx, HttpServletResponse response) {
+        System.out.println("appId:::"+appId+" menuIdx::::"+menuIdx);
+//        这里一定要这样吗？
         response.setHeader("Content-Type", "text/html;");
         response.setCharacterEncoding("utf-8");
+        //这里获得了appId:能模块名，menuIdx:
+        //根据appId和menuIdx获得menu
 
         Document menu = InitializeData.getMenu(appId, menuIdx);
+        //这里有一个getTemplate方法
         String html = InitializeData.getTemplate(DocumentLib.getString(menu, "template"));
+        System.out.println("menu menu getAppMenuTemplate ::::"+menu);
         if (html == null) {
             html = "";
         }
+
+        System.out.println("template template template::::::::::::"+html);
         return html;
     }
 

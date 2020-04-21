@@ -32,9 +32,12 @@ public class InitializeData {
     public static final String ALL_MENU_CACHE_KEY = "janus@AllMenu";
 
     public static String getTemplate(String name) {
+        //将所有的参数连接起来 这里就是 :sys_template_templateId
         String cacheKey = StringLib.join("sys_template", StringLib.SPLIT_1, name);
         String template = CacheUtils.getString(cacheKey);
+        //这里给定一个缓存如果缓存中没有的话就可以实现这样的功能
         if (StringLib.isEmpty(template)) {
+//
             Document object = DBUtils.find(QTemplate.collectionName, DocumentLib.newDoc("name", name));
             if (object != null) {
                 template = DocumentLib.getString(object, "template");
@@ -48,11 +51,20 @@ public class InitializeData {
         CacheUtils.deleteLike(StringLib.join("sys_template", StringLib.SPLIT_1, appId, StringLib.SPLIT_1));
     }
 
+    /**
+     * 获得所有的Document 存放在一个Table中，将所有的一已安装的Menu取出来存放在一个list中然后再遍历这个list将这个变为appId menuIndex 对应的map，这里可以看出来这个appId是这里生成的所以每一次取出这特定的menu
+     * 都需要去把所有的取出来
+     * 通过hashBased Table 方法创建一个这样的table
+     *  String appId = DocumentLib.getString(item, "appId");
+     *   int menuIndex = DocumentLib.getInt(item, "menuIndex");
+     * @return
+     */
+
     private static Table<String, Integer, Document> loadAllMenu() {
         List<Document> documentList = loadAllInstalledMenu();
-
         Table<String, Integer, Document> menuTable = HashBasedTable.create();
         documentList.stream().forEach(item -> {
+
             String appId = DocumentLib.getString(item, "appId");
             int menuIndex = DocumentLib.getInt(item, "menuIndex");
             menuTable.put(appId, menuIndex, item);
@@ -61,6 +73,7 @@ public class InitializeData {
     }
 
     public static Document getMenu(String appId, Integer menuIndex) {
+//        这是google guava的数据集合，这个table应该是一个三维的表通过前两项来确定一个Document
         Table<String, Integer, Document> menuTable = loadAllMenu();
         return menuTable.get(appId, menuIndex);
     }
@@ -92,6 +105,13 @@ public class InitializeData {
         return null;
     }
 
+    /**
+     * 加载所有的已安装的Menu\
+     * 得到所有的系统Menu :
+     *  List<Document> sysList = DBUtils.list(QMenu.collectionName);
+     *         menuList.addAll(sysList);
+     * @return
+     */
     public static List<Document> loadAllInstalledMenu() {
         List<Document> menuList = Lists.newArrayList();
 

@@ -78,13 +78,18 @@ public class IndexWeb extends BaseWeb {
             return "redirect:/welcome";
         } else {
             model.addAllAttributes(HttpLib.pageAttributes(request));
-            Enumeration<String> s = request.getAttributeNames();
-
-            System.out.println("===================================================================="+s);
-            while (s.hasMoreElements()) {
-                System.out.println(s.nextElement());
-            }
-            System.out.println("===================================================================="+s);
+     
+//            Enumeration<String> s = request.getAttributeNames();
+//
+            System.out.println("====================================================================");
+            System.out.println(HttpLib.pageAttributes(request));
+            System.out.println(HttpLib.pageAttributes(request));
+            System.out.println(HttpLib.pageAttributes(request));
+            System.out.println(HttpLib.pageAttributes(request));
+//            while (s.hasMoreElements()) {
+//                System.out.println(s.nextElement());
+//            }
+            System.out.println("====================================================================");
             return "index/index";
         }
     }

@@ -9,6 +9,7 @@ define(['index/web/js/header_controller'], function () {
             app.controller = $controllerProvider.register;
             app.directive = $compileProvider.directive;
             app.filter = $filterProvider.register;
+//?
             app.factory = $provide.factory;
             app.service = $provide.service;
             //这里如果将 html5Mode 设为true就会把#取消 htmlMode5？？？？？？？？
@@ -45,6 +46,7 @@ define(['index/web/js/header_controller'], function () {
             $stateProvider.state('appMenu', {
                 'url': '/app/:appId/menu/:menuIdx',
                 templateUrl: function ($stateParams) {
+
                     return `${cynovan.c_path}/initialize/appMenuTemplate/${$stateParams.appId}/${$stateParams.menuIdx}?v=${cynovan.version}`;
                 },
                 resolve: appResolver()
@@ -53,6 +55,7 @@ define(['index/web/js/header_controller'], function () {
                 'url': '/app/:appId/menu/:menuIdx/r/:id',
                 templateUrl: function ($stateParams) {
                     //`?
+
                     return `${cynovan.c_path}/initialize/appMenuDetailTemplate/${$stateParams.appId}/${$stateParams.menuIdx}?v=${cynovan.version}`;
                 },
                 resolve: appResolver()
