@@ -1,6 +1,8 @@
 ({
+// src 下是源代码，out的值是输出路径
+//在node.js中执行生成build/entry-build.js
     baseUrl: '../src',
-    name: "../build/entry",
+    name: "../build/entry",//模块入口文件
     out: "../build/entry-build.js",
     optimize: 'none',
     ignore: true,

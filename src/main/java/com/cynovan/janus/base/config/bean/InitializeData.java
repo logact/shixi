@@ -37,7 +37,6 @@ public class InitializeData {
         String template = CacheUtils.getString(cacheKey);
         //这里给定一个缓存如果缓存中没有的话就可以实现这样的功能
         if (StringLib.isEmpty(template)) {
-//
             Document object = DBUtils.find(QTemplate.collectionName, DocumentLib.newDoc("name", name));
             if (object != null) {
                 template = DocumentLib.getString(object, "template");

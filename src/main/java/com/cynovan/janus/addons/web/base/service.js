@@ -1,3 +1,4 @@
+//这里的“vs/editor/editor.main”的依赖。
 define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
     bootbox.setDefaults({
         'locale': 'zh_CN'

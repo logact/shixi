@@ -93,13 +93,23 @@ public class InitializeWeb extends BaseWeb {
         return result.toString();
     }
 
-
+    /**
+     * 这里只是返回的是一个关于js 的依赖项的列表
+     * 形如：["plant_efficiency/device_timeline/web/js/device_timeline","css!plant_efficiency/alarm_list/web/css/alarm_list","plant_efficiency/device_timeline/web/service/device_timeline_service","css!plant_efficiency/index/web/css/efficiency","plant_efficiency/index/web/js/efficiency",
+     * "css!plant_efficiency/device_timeline/web/css/device_timeline","plant_efficiency/alarm_list/web/js/alarm_list"]
+     * @param appId
+     * @param menuIdx
+     * @return
+     */
     @ResponseBody
+
     @RequestMapping(value = "appMenuDepend/{appId}/{menuIdx}")
     public String getAppMenuDepend(@PathVariable("appId") String appId, @PathVariable("menuIdx") Integer menuIdx) {
         Document menu = InitializeData.getMenu(appId, menuIdx);
         List<String> depend = DocumentLib.getList(menu, "depend");
-        return JsonLib.toJSON(depend).toString();
+        String s = JsonLib.toJSON(depend).toString();
+        System.out.println(" depend depend depend depend dependdepend："+s);
+        return s;
     }
 
     @ResponseBody

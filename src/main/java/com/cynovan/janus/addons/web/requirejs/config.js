@@ -1,5 +1,6 @@
 var cynovan = cynovan || {};
 
+//这里配置了app_service
 require.config({
     waitSeconds: 40,
     baseUrl: 'resource',

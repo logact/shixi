@@ -1,11 +1,15 @@
 define(['echarts'], function (echarts) {
     var app = angular.module('app');
+//    AppComponent 从哪里来的？
     app.controller('EfficiencyIndexController', ['$scope', 'DBUtils', 'dialog', 'http', 'util', "I18nService", "$element", 'janus', '$timeout',
         'AppComponent',
         function ($scope, DBUtils, dialog, http, util, I18nService, $element, janus, $timeout, AppComponent) {
             var ctrl = this;
+            console.log("this this this this :::: effciency"  )
+            console.log(this)
             var hadDrawAlarm = false;
             var alarmNumOption;
+//            这里的属性都是放到了this的原型链上吗？根据测试结果这个好像并不是绑定在原型链上面的
             _.extend(ctrl, {
                 initialize: function () {
                     ctrl.bindEvent();
@@ -45,12 +49,14 @@ define(['echarts'], function (echarts) {
                                 offlineDeviceNum++;
                             }
                         });
+//                        这里为什么要加#号呢？
                         let statechart = echarts.init($("#state_chart")[0]);
                         let option = {
                             tooltip: {
                                 trigger: 'item',
                                 formatter: '{b}: {c}'
                             },
+
                             legend: {
                                 icon: 'circle',
                                 orient: 'hoverAnimation',

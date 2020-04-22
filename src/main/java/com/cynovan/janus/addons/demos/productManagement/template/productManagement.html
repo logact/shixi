@@ -1,0 +1,19 @@
+<template name="productManagement_template">
+    <div class="widget" ng-controller="ProductController as ctrl">
+        <div class="widget-header">
+            <div class="widget-title">
+                {{'产品管理'|I18nFilter:'product_management'}}
+                <button class="btn btn-primary btn-outline btn-sm" type="button"
+                        ng-click="ctrl.showUserDetail()" ng-if="''| SecurityFilter: 'product':'manage'">
+                    <i class="fa fa-plus"></i>
+                    {{'新增产品'|I18nFilter:'add.product'}}
+                </button>
+            </div>
+        </div>
+        <div class="widget-body">
+            <list options="ctrl.options">
+
+            </list>
+        </div>
+    </div>
+</template>

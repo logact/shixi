@@ -1,0 +1,20 @@
+{
+  "appId": "demos",
+  "description": "样例产品管理模块",
+  "author": "logact",
+  "version": "",
+  "app": false,
+  "name": "产品管理",
+  "icon": "",
+  "menus": [
+    {
+      "showOnTop": true,
+      "icon": "",
+      "name": "产品管理",
+      "i18nKey": "production_management",
+      "depend": [
+        "productManagement/resource"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 //这里的路径？define中的路径
 //这个文件是直接被index 页面所引用的里面由控制器，过滤器，路由器的设置
 define(['index/web/js/header_controller'], function () {
+//这里这个main???
     var app = angular.module('app', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'main', 'ui.router']);
     app.config(['$routeProvider', '$locationProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
         '$stateProvider', '$urlRouterProvider',
@@ -15,7 +16,7 @@ define(['index/web/js/header_controller'], function () {
             //这里如果将 html5Mode 设为true就会把#取消 htmlMode5？？？？？？？？
             $locationProvider.html5Mode(false);
             $locationProvider.hashPrefix('');
-            //这里定义的appResolver是什么意思呢？
+            //这里定义的appResolver是什么意思呢？这个函数返回的是一个页面所对应的依赖，就在mongocb中所对应存储的template的depends项（可能名字不是叫depends）
 
             function appResolver() {
                 var definition = {
@@ -46,7 +47,6 @@ define(['index/web/js/header_controller'], function () {
             $stateProvider.state('appMenu', {
                 'url': '/app/:appId/menu/:menuIdx',
                 templateUrl: function ($stateParams) {
-
                     return `${cynovan.c_path}/initialize/appMenuTemplate/${$stateParams.appId}/${$stateParams.menuIdx}?v=${cynovan.version}`;
                 },
                 resolve: appResolver()

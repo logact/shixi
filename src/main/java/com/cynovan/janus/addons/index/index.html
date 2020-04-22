@@ -11,6 +11,7 @@
 <!--    这里为什么要加v-->
     <link rel="Shortcut Icon" href="resource/index/web/img/ico.png" type="image/x-icon"/>
 <!--    这里是怎么配的？ 这里表示的网络请求直接将resource文件夹后面的路径当作请求路径 -->
+<!--这里的这个resource 前缀-->
     <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
     <link type="text/css" rel="stylesheet" href="resource/web/base/common.css?v=${version}"/>
     <link type="text/css" rel="stylesheet" href="resource/web/base/directive.css?v=${version}"/>
@@ -58,6 +59,7 @@
                 <span>{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}</span>
             </li>
         </ul>
+<!--        在类中可以使用ng-cloak命令吗？-->
         <li class="other-app-li ng-cloak" ng-show="needShowApp">
             <span ng-if="needShowApp.icon" ng-class="needShowApp.icon"></span>
             <span>{{needShowApp.name|I18nFilter:needShowApp.i18nKey:needShowApp.appId}}</span>
