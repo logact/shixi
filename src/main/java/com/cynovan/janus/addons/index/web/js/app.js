@@ -7,6 +7,7 @@ define(['index/web/js/header_controller'], function () {
         '$stateProvider', '$urlRouterProvider',
         function ($routeProvider, $locationProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $httpProvider,
                   $stateProvider, $urlRouterProvider) {
+            //这里的赋值？
             app.controller = $controllerProvider.register;
             app.directive = $compileProvider.directive;
             app.filter = $filterProvider.register;
@@ -24,7 +25,7 @@ define(['index/web/js/header_controller'], function () {
                         function ($q, $rootScope, $stateParams, $http, I18nService) {
                             var deferred = $q.defer();
                             var url = `${cynovan.c_path}/initialize/appMenuDepend/${$stateParams.appId}/${$stateParams.menuIdx}?v=${cynovan.version}`;
-                            I18nService.setAppProperties($stateParams.appId);//加载当前app所需要的语言配置文件
+                            I18nService.etAppProperties($stateParams.appId);//加载当前app所需要的语言配置文件
                             $http({
                                 method: 'post',
                                 url: url

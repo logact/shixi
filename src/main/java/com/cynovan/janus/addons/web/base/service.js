@@ -1144,9 +1144,11 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
         return service;
     }]);
 
+    //I18nService服务
     app.service('I18nService', ['http', 'UserSettingService', 'database', '$q', '$timeout', '$stateParams', function (http, UserSettingService, database, $q, $timeout, $stateParams) {
         let service = {
             setAppProperties: function (id) {
+
                 let appId = id || $stateParams.appId;
                 if (!appId) {
                     appId = 'system';
@@ -1224,6 +1226,7 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
     app.filter('I18nFilter', ['I18nService', '$stateParams', function (I18nService, $stateParams) {
         return function (input, languageKey, appId) {
             if (_.isEmpty(appId)) {
+                //如果appId为空那么appId为。。。
                 appId = $stateParams.appId ? $stateParams.appId : 'system';
             }
             return I18nService.getValue(input, languageKey, appId);

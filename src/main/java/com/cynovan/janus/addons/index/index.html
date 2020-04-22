@@ -30,6 +30,7 @@
             <div class="more-app-div">
                 <div class="menu-list-div">
                     <div class="can-view-app">
+<!--                        可能这里是列出所有app的地方-->
                         <div ng-repeat="menu in canViewLi" title="{{menu.name |I18nFilter:menu.i18nKey:menu.appId}}"
                              ng-click="ctrl.allMenuClick($index,$event,menu)">
                             <span class="show-icon-span"></span>
@@ -52,6 +53,7 @@
                 </div>
             </div>
         </li>
+<!--这里应该是菜单显示的地方-->
         <ul class="ng-cloak navbar-menu-ul">
             <li ng-repeat="menu in ctrl.menus | filter:{show:true}" data-key="{{menu.appId}}"
                 ng-click="ctrl.menuClick($index,$event,menu)">

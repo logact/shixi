@@ -1,6 +1,6 @@
 //define中的路径？
-define(['moment', 'appservice', 'web/base/service', 'web/base/directive',
-    'triton/device/web/service/bind_device', 'triton/device/web/service/device_service',
+define(['moment','appservice','web/base/service','web/base/directive',
+    'triton/device/web/service/bind_device','triton/device/web/service/device_service',
     'web/base/janus'], function () {
     'use strict';
     var app = angular.module('main', ['cnv.services', 'cnv.directives', 'cnv.binddevice.service', 'cnv.device.service', 'cnv.janus', 'cnv.appservice']);
@@ -18,7 +18,7 @@ define(['moment', 'appservice', 'web/base/service', 'web/base/directive',
 
             var user = _.get(session, 'user', {});
             $scope.name = _.get(session, 'user.name', user.userName);
-
+            //这里为什么要使用_.extend
             _.extend(ctrl, {
                 initialize: function () {
                     ctrl.initSystemLangList();
@@ -35,6 +35,7 @@ define(['moment', 'appservice', 'web/base/service', 'web/base/directive',
                     ctrl.showUpdateOpenPlatform();
                 },
                 initSystemLangList: function () {
+                    //这个方法？
                     I18nService.setAppProperties();
                 },
                 setName: function () {

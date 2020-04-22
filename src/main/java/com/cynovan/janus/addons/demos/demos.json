@@ -1,10 +1,10 @@
 {
   "appId": "demos",
-  "description": "样例产品管理模块",
+  "description": "样例练习",
   "author": "logact",
   "version": "",
   "app": false,
-  "name": "产品管理",
+  "name": "样例",
   "icon": "",
   "menus": [
     {
