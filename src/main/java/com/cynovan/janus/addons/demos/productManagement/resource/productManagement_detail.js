@@ -1,18 +1,13 @@
 define([], function () {
     var app = angular.module('app');
 
-    app.controller('AddUserController', ['$scope', 'DBUtils', 'http', 'util', 'session', 'dialog', '$stateParams', '$state', '$timeout', '$element', '$window', 'janus', 'I18nService',
+    app.controller('AddProductController', ['$scope', 'DBUtils', 'http', 'util', 'session', 'dialog', '$stateParams', '$state', '$timeout', '$element', '$window', 'janus', 'I18nService',
         function ($scope, DBUtils, http, util, session, dialog, $stateParams, $state, $timeout, $element, $window, janus, I18nService) {
             var ctrl = this;
             $scope.entity = {};
             $scope.tips = "";
-            $scope.username = I18nService.getValue("新建用户", 'create_user');
-            ctrl.roleQuery = {
-                projection: {
-                    _id: 1,
-                    name: 1
-                }
-            };
+            $scope.prodectname = I18nService.getValue("新建产品", 'create_product');
+
             _.extend(ctrl, {
                 initialize: function () {
                     ctrl.loadData();
@@ -29,41 +24,24 @@ define([], function () {
                         name: 'userName'
                     }
                 },
-                bindEvent: function () {
-                    $scope.$on("Many2OneSelect", function (event, collectionName, roles) {
-                        $scope.entity.roles = roles;
-                    });
-                },
+                // bindEvent: function () {
+                //     $scope.$on("Many2OneSelect", function (event, collectionName, roles) {
+                //         $scope.entity.roles = roles;
+                //     });
+                // },
                 loadData: function () {
-                    if ($stateParams.id !== 'add_user') {
-                        DBUtils.find('user', {
+                    if ($stateParams.id !== 'add_product') {
+                        DBUtils.find('product', {
                             id: $stateParams.id,
                         }).success(function (result) {
                             var entity = _.get(result, 'datas.result', {});
                             $scope.entity = entity;
-                            $scope.username = I18nService.getValue("用户", 'user') + '-' + entity.userName;
+                            $scope.productname = I18nService.getValue("产品管理", 'product') + '-' + entity.productName;
                             util.apply($scope)
                         });
                     }
                 },
-                confirmPassword: function () {
-                    $scope.$watch('entity.pwd + entity.confirmPwd', _.debounce(function () {
-                        var entity = $scope.entity;
-                        if (entity.pwd !== entity.confirmPwd) {
-                            $('.check-status-i').removeClass('right-status-i');
-                            $('.check-status-i').addClass('wrong-status-i');
-                            $scope.tips = '* ' + I18nService.getValue("两次密码输入不一致", 'password.defferent');
-                            util.apply($scope);
-                        }
-                        if (entity.confirmPwd && entity.pwd === entity.confirmPwd) {
-                            $('.check-status-i').removeClass('wrong-status-i');
-                            $('.check-status-i').addClass('right-status-i');
-                            $scope.tips = "";
-                            util.apply($scope);
-                        }
-                    }, 300));
-                },
-                saveNewUser: function () {
+                saveNewProduct: function () {
                     var entity = $scope.entity;
                     var roleName = [];
                     _.each(entity.roles, function (item) {
@@ -107,25 +85,25 @@ define([], function () {
                         dialog.noty(I18nService.getValue("电话请填写数字,且长度不超过20", 'phone_format'));
                         return false;
                     }
-                    http.post('user/save', {
+                    http.post('product/save', {
                         entity: util.encodeJSON(entity)
                     }).success(function (result) {
                         if (result.success) {
-                            var loginAccount = _.get(session, 'user.userName', '');
-                            if (entity.userName === loginAccount && entity.pwd) {
-                                alert(I18nService.getValue('修改成功，当前登录信息已失效，请重新登录', 'edit_success_login'));//login account password change
-                                $window.location.href = cynovan.c_path + 'welcome/#/sync';//back to login page
-                            } else {
+                            // var loginAccount = _.get(session, 'user.userName', '');
+                            // if (entity.userName === loginAccount && entity.pwd) {
+                            //     alert(I18nService.getValue('修改成功，当前登录信息已失效，请重新登录', 'edit_success_login'));//login account password change
+                            //     $window.location.href = cynovan.c_path + 'welcome/#/sync';//back to login page
+                            // } else {
                                 dialog.noty(I18nService.getValue('保存成功', 'save_success'));
-                                janus.goToMenuDetailByName('用户', result.datas.id);
-                            }
+                                janus.goToMenuDetailByName('产品管理', result.datas.id);
+                            // }
                         } else {
                             dialog.noty(result.datas.reason);
                         }
                     });
                 },
                 back: function () {
-                    janus.goToMenuByName('用户');
+                    janus.goToMenuByName('产品管理');
                 }
             });
             ctrl.initialize();

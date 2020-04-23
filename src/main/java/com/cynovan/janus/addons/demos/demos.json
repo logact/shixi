@@ -9,6 +9,11 @@
   "menus": [
     {
       "showOnTop": true,
+      "name": "产品管理"
+    },
+
+    {
+
       "icon": "",
       "name": "产品管理",
       "i18nKey": "production_management",
