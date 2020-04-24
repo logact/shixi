@@ -9,14 +9,20 @@
   "menus": [
     {
       "showOnTop": true,
-      "name": "产品管理"
+      "name": "样例练习",
+      "i18nKey": "product_management",
+      "depend":
+         [
+          "productManagement/resource"
+        ]
+
     },
-
     {
-
       "icon": "",
       "name": "产品管理",
       "i18nKey": "production_management",
+      "template": "productManagement_template",
+      "detail_template": "product_add_template",
       "depend": [
         "productManagement/resource"
       ]

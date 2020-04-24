@@ -17,7 +17,7 @@ import static com.cynovan.janus.base.utils.DateUtils.getDateTime;
 
 @RestController
 @RequestMapping(value = "product")
-public class UserWeb {
+public class ProductWeb {
 
     @Autowired
     private SecurityService securityService;
@@ -31,30 +31,7 @@ public class UserWeb {
         product.put("time", getDateTime());
 
         String productId = DocumentLib.getID(product);
-
-        // 新增时,检查用户名是否重复
-//        if (StringLib.isEmpty(productId)) {
-//            Document exitUser = DBUtils.find(QUser.collectionName, DocumentLib.newDoc("userName", userName));
-//            if (exitProduct != null) {
-//                checkMessage.setSuccess(false);
-//                checkMessage.addData("reason", "该用户已存在!");
-//                return checkMessage.toString();
-//            }
-//        }
-
-//        String pwd = DocumentLib.getString(user, "pwd");
-//        if (StringLib.isNotBlank(pwd)) {
-//            String password = DigestLib.getPasswordEncoder().encode(pwd);
-//            user.put("password", password);
-//            user.remove("pwd");
-//            user.remove("confirmPwd");// 明文密码不保存在数据库中
-//
-//            boolean result = checkCurrentLoginUser(userName);
-//            if (result) {
-//                JwtTokenUtils.clearTokenCookie(response);
-//            }
-//        }
-
+//        在插入的时候自动生成了一个productId
         DBUtils.save("product",product);
 
         return checkMessage.toString();

@@ -15,24 +15,26 @@ define([], function () {
                 },
                 initListOption: function () {
                     ctrl.options = {
-                        collection: 'user',
+                        collection: 'product',
                         filled: true,
                         // order: [[8, "desc"]],
                         columns: [{
                             name: 'productName',
-                            title: I18nService.getValue('产品名', 'user_name'),
+//                            title: I18nService.getValue('产品名', 'user_name'),
+                            title: '产品名',
                             search: true,
                             render: function (data) {
-                                if (SecurityService.hasRight('user', 'manage')) {
-                                    return `<a data-key='userEditBtn' href="javascript:void(0);">${data}</a>`;
-                                } else {
-                                    return `<span data-key='userEditBtn' href="javascript:void(0);">${data}</span>`;
-                                }
+//                                if (SecurityService.hasRight('user', 'manage')) {
+//                                    return `<a data-key='userEditBtn' href="javascript:void(0);">${data}</a>`;
+//                                } else {
+//                                    return `<span data-key='userEditBtn' href="javascript:void(0);">${data}</span>`;
+//                                }
+                             return `<a data-key='productEditBtn' href="javascript:void(0);">${data}</a>`;
 
                             }
                         }, {
                             name: 'model',
-                            title: I18nService.getValue('model', 'product_model'),
+                            title: I18nService.getValue('型号', 'product_model'),
                             search: true,
                         }, {
                             name: 'type',
@@ -40,19 +42,20 @@ define([], function () {
                             search: true,
                         }, {
                             name: 'price',
-                            title: I18nService.getValue('价格', 'own_team'),
+                            title:'价格',
+//                            title: I18nService.getValue('价格', 'own_team'),
                             search: true,
                         }, {
-                            name: '',
-                            title: I18nService.getValue('计量单位', 'email'),
+                            name: 'unit',
+                            title: '计量单位',
                             search: true,
                         }, {
                             name: 'remarks',
-                            title: I18nService.getValue('备注', 'remark'),
+                            title: '备注',
                             search: true
                         }, {
                             name: 'time',
-                            title: I18nService.getValue('最后编辑时间', 'last_edit_time'),
+                            title: '最后编辑时间',
                             search: true
                         }, {
                             name: 'do',
@@ -77,18 +80,19 @@ define([], function () {
                         if (buttonKey === "productEditBtn") {
                             ctrl.showProductDetail(rowdata.id);
                         }
-                        if (buttonKey === "userDelBtn") {
+                        if (buttonKey === "productDelBtn") {
                             ctrl.delProduct(rowdata.id);
                         }
                     });
                 },
                 showProductDetail: function (id) {
-                    id = id || 'add_productManagement';
+                    id = id || 'add_product';
                     janus.goToMenuDetailByName('产品管理', id);
                 },
                 delProduct: function (id) {
                     if (id) {
                         dialog.confirm(I18nService.getValue('确定删除产品？删除后不可恢复。', 'delete_product')).on('success', function () {
+//                        这里这个id
                             DBUtils.remove('product', {id: id}).success(function () {
                                 dialog.noty(I18nService.getValue('删除成功', 'delete_success'));
                                 ctrl.refreshTable();

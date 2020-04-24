@@ -11,7 +11,6 @@ define(['index/web/js/header_controller'], function () {
             app.controller = $controllerProvider.register;
             app.directive = $compileProvider.directive;
             app.filter = $filterProvider.register;
-//?
             app.factory = $provide.factory;
             app.service = $provide.service;
             //这里如果将 html5Mode 设为true就会把#取消 htmlMode5？？？？？？？？
@@ -25,7 +24,7 @@ define(['index/web/js/header_controller'], function () {
                         function ($q, $rootScope, $stateParams, $http, I18nService) {
                             var deferred = $q.defer();
                             var url = `${cynovan.c_path}/initialize/appMenuDepend/${$stateParams.appId}/${$stateParams.menuIdx}?v=${cynovan.version}`;
-                            I18nService.etAppProperties($stateParams.appId);//加载当前app所需要的语言配置文件
+                            I18nService.setAppProperties($stateParams.appId);//加载当前app所需要的语言配置文件
                             $http({
                                 method: 'post',
                                 url: url
