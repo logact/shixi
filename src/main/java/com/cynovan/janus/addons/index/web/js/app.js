@@ -55,7 +55,6 @@ define(['index/web/js/header_controller'], function () {
                 'url': '/app/:appId/menu/:menuIdx/r/:id',
                 templateUrl: function ($stateParams) {
                     //`?
-
                     return `${cynovan.c_path}/initialize/appMenuDetailTemplate/${$stateParams.appId}/${$stateParams.menuIdx}?v=${cynovan.version}`;
                 },
                 resolve: appResolver()

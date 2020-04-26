@@ -1,8 +1,7 @@
 define(['triton/device/web/service/exchange_code_service'], function () {
     var app = angular.module('app');
-
     app.controller('DeviceClassificationDetail', ['$scope', 'DBUtils', 'dialog', 'http', 'util', "I18nService", "$element", 'janus',
-        "$stateParams", 'websocket', "$timeout", 'ExchangeCodeService', '$rootScope',
+        "$stateParams", 'websocket',"$timeout", 'ExchangeCodeService', '$rootScope',
         function ($scope, DBUtils, dialog, http, util, I18nService, $element, janus,
                   $stateParams, websocket, $timeout, ExchangeCodeService, $rootScope) {
             var ctrl = this;
@@ -275,16 +274,15 @@ define(['triton/device/web/service/exchange_code_service'], function () {
                 },
                 importFromTemplate: function () {
                     dialog.show({
+//                    显示的一个template 的名字
                         template: 'classification_alarm_import_from_excel_template',
                         title: '数据栏位定义导入',
                         width: 1100,
                         controller: ['$scope', '$element', function (dialogScope, $element) {
-
                             var uploadSuccess = false;
-
                             dialogScope.importing = false;
-
                             websocket.sub({
+//                            订阅的主题 访问的路径 后端会向这个主题中推送消息
                                 topic: 'importDataStruct/' + $scope.classificationId,
                                 onmessage: function (message) {
                                     if (message) {
@@ -319,7 +317,7 @@ define(['triton/device/web/service/exchange_code_service'], function () {
                             function finishedMessage(message) {
                                 return '<div>' + message + '</div>';
                             }
-
+//                            这里访问后台的控制器的接口
                             // dropzone init
                             var config = {
                                 url: 'dataDefinition/importTemplate',
@@ -328,10 +326,12 @@ define(['triton/device/web/service/exchange_code_service'], function () {
                                 autoProcessQueue: false,
                                 withCredentials: true,
                                 acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+//                                这里的params因该xx
                                 params: {
                                     classificationId: $scope.classificationId
                                 }
                             }
+//                           初始化一个dropzone服务？？？？
                             dropzone = new Dropzone('#data-struct-import', config);
 
                             var eventHandlers = {
@@ -358,8 +358,6 @@ define(['triton/device/web/service/exchange_code_service'], function () {
                                     }
                                 }
                             }
-
-
                             angular.forEach(eventHandlers, function (handler, event) {
                                 dropzone.on(event, handler);
                             })
@@ -394,7 +392,7 @@ define(['triton/device/web/service/exchange_code_service'], function () {
                                     dialog.notyWithRefresh('2秒后自动刷新', $scope);
                                 }
                             })
-                        }]
+                        }]//controller end
                     });
                 },
                 exportFromData: function () {

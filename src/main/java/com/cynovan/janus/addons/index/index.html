@@ -14,6 +14,7 @@
 <!--这里的这个resource 前缀-->
     <link type="text/css" rel="stylesheet" href="resource/web/dist/css/libs.css?v=${version}"/>
     <link type="text/css" rel="stylesheet" href="resource/web/base/common.css?v=${version}"/>
+<!--    引入的是一些组件中的css -->
     <link type="text/css" rel="stylesheet" href="resource/web/base/directive.css?v=${version}"/>
     <link type="text/css" rel="stylesheet" href="resource/index/web/css/index.css?v=${version}"/>
 </head>
@@ -81,14 +82,14 @@
                ng-class="clicked?'':'active-a'">
                 <i class="open_platform_icon"></i>
             </a>
-            <ul class="open-platform-ul ng-cloak" ng-hide="clicked/">
-                <li>
-                    {{('Neptune开放平台开启公测，您可以在线开发属于自己的应用，'| I18nFilter:'open.platform.tip')}}
-                    <a href="https://open.neptune-iiot.net" target="_blank"
-                       ng-click="ctrl.knowOpenPlatform()">{{'点击了解更多'|I18nFilter:'click_show_more'}}...</a>
-                    <span class="close-open-platform fa fa-times" ng-click="ctrl.knowOpenPlatform()"></span>
-                </li>
-            </ul>
+<!--            <ul class="open-platform-ul ng-cloak" ng-hide="clicked">-->
+<!--                <li>-->
+<!--                    {{('Neptune开放平台开启公测，您可以在线开发属于自己的应用，'| I18nFilter:'open.platform.tip')}}-->
+<!--                    <a href="https://open.neptune-iiot.net" target="_blank"-->
+<!--                       ng-click="ctrl.knowOpenPlatform()">{{'点击了解更多'|I18nFilter:'click_show_more'}}...</a>-->
+<!--                    <span class="close-open-platform fa fa-times" ng-click="ctrl.knowOpenPlatform()"></span>-->
+<!--                </li>-->
+<!--            </ul>-->
         </li>
         <li>
 <!--            ctrl.goApiDocs()-->

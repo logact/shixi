@@ -3,17 +3,69 @@
         <div class="widget-header">
             <div class="widget-title">
                 {{'产品管理'|I18nFilter:'product_management'}}
-                <button class="btn btn-primary btn-outline btn-sm" type="button"
-                        ng-click="ctrl.showProductDetail()" >
-                    <i class="fa fa-plus"></i>
-                    {{'新增产品'|I18nFilter:'add.product'}}
-                </button>
+                <div class="buttons">
+                    <button class="btn btn-primary btn-outline btn-sm" type="button"
+                            ng-click="ctrl.showProductDetail()" ng-if="''| SecurityFilter: 'product':'manage'">
+                        <i class="fa fa-plus"></i>
+                        {{'新增产品'|I18nFilter:'add.product'}}
+                    </button>
+                    <button type="button" class="btn btn-primary btn-outline btn-sm"
+                            ng-click="ctrl.importFromTemplate()">
+                        <i class="fa fa-cloud-upload"></i>
+                        从Excel导入
+                    </button>
+                    <button type="button" class="btn btn-primary btn-outline btn-sm"
+                            ng-click="ctrl.exportFromData()">
+                        <i class="fa fa-download"></i>
+                        导出为Excel
+                    </button>
+                </div>
+
             </div>
         </div>
         <div class="widget-body">
             <list options="ctrl.options">
 
             </list>
+        </div>
+    </div>
+</template>
+<template name="product_import_from_excel_template">
+    <div class="import_file">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-info">
+                    1. 导入数据不会保留已有数据。
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xs-6" style="height: 300px;">
+                <div class="col col-xs-12" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-primary btn-outline" ng-click="exportTemplate()">
+                        <i class="fa fa-download"></i>
+                        下载Excel模板
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="startImport()">开始导入</button>
+                    <button type="button" class="btn btn-danger" ng-click="resetImport()">清空</button>
+                </div>
+                <div class="col col-xs-12">
+                    <div class="well">
+                        <form action="" enctype="multipart/form-data" class="dropzone" id="data-struct-import">
+                            <div class="dz-default dz-message">
+                                <p>拖拽文件到此</p>
+                                <p>- 或sdfassdfasdfasdfadsdf -</p>
+                                <p>点击上传</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xs-6" style="height: 300px;">
+                <div class="import_result well" id="import_result"
+                     style="height: 220px; overflow: auto; margin-top: 58px; padding: 20px;">
+                </div>
+            </div>
         </div>
     </div>
 </template>

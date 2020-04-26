@@ -1,6 +1,5 @@
 define([], function () {
     var app = angular.module('app');
-
     app.service('ExchangeCodeService', ['dialog', function (dialog) {
         var service = {
             editExchangeCode: function (exchange) {

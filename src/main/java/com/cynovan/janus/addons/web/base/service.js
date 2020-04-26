@@ -330,8 +330,10 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
         options.text = _.join(html, '');
         return options;
     }
+//    对话框
 
     app.service('dialog', ['template', '$compile', '$rootScope', '$controller', '$window', 'I18nService',
+//    处理一下传入的情况 如果这个传入的可选选项是一个字符串，如果是一个对象，如果是一个数组（ 将所有的给出的组件都结合起来）
         function (template, $compile, $rootScope, $controller, $window, I18nService) {
             function processMessage(options, _options) {
                 if (_.isString(_options)) {
@@ -413,6 +415,7 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                     var bootbox = $('.loading-dialog-body').closest('.bootbox');
                     bootbox.modal('hide');
                 },
+//                _options???
                 show: function (_options) {
                     var options = {
                         title: I18nService.getValue('提示', 'tip'),
@@ -439,6 +442,9 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                                     var element = $(event.target).closest('.bootbox');
                                     var scope = element.scope();
                                     var checkMessage = {success: true};
+
+
+
                                     scope.$emit('cancel', checkMessage);
                                     if (checkMessage.success === false) {
                                         return false;
@@ -449,11 +455,13 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                         },
                         onEscape: true
                     };
+//                    稍微处理一下这个options
                     options = processMessage(options, _options);
                     var scope;
                     if (options.$scope) {
                         scope = options.$scope.$new();
                     } else {
+//                    ?
                         scope = $rootScope.$new(true);
                     }
                     var data = {};
@@ -519,6 +527,7 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                             controllerInstance();
                         }
                     }
+//                    ？$compile
 
                     $compile(dialog)(scope);
 
@@ -539,7 +548,7 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                     scope.$emit('afterShow');
 
                     return dialog;
-                },
+                },//show end
                 confirm: function (_options) {
                     var options = {
                         title: I18nService.getValue('提示', 'tip'),
@@ -705,6 +714,7 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                 if (topic && topic.indexOf('ws/') === -1) {
                     topic = '/ws/' + topic;
                 }
+
                 options.topic = topic;
 
                 var rateList = [];
@@ -773,7 +783,6 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                         options.onconnect.call();
                     }
                 });
-
                 return stompClient;
             },
             unsub: function (topic) {

@@ -1164,6 +1164,7 @@ define(['web/base/service', 'dropzone', 'taggle', 'pagination', 'css!web/lib/pre
                     });
                     ctrl.initialize();
                 }],
+//                controllerAs??
             controllerAs: 'ctrl',
             link: function ($scope, element) {
                 $timeout(function () {
@@ -1189,6 +1190,7 @@ define(['web/base/service', 'dropzone', 'taggle', 'pagination', 'css!web/lib/pre
             controller: ['$scope', '$element', '$attrs',
                 function ($scope, $element, $attrs) {
                     $scope.reload = function () {
+//                    $element.find()?
                         var table = $element.find('.c-table');
                         table.DataTable().ajax.reload();
                     };
@@ -1211,9 +1213,9 @@ define(['web/base/service', 'dropzone', 'taggle', 'pagination', 'css!web/lib/pre
                         $element.addClass('filled');
                     }
 
-                    var options = {};
+
                     var key = $stateParams.menuKey;
-                    options = _.extend(options, $scope.options);
+                    var options = _.extend(options, $scope.options);
                     if (!options.data) {
                         /*Ajax calling*/
                         options = _.extend(options, {
@@ -1369,10 +1371,13 @@ define(['web/base/service', 'dropzone', 'taggle', 'pagination', 'css!web/lib/pre
             });
         };
     });
-
+//
     app.directive('dropzone', function () {
         return {
+//        （字符串）可选参数，指明指令在DOM里面以什么形式被声明；取值有：E(元素),A(属性),C(类),M(注释)，其中默认值为A；当然也可以两个一起用，比如EA.表示即可以是元素也可以是属性。
             restrict: 'A',
+//            可见，link和controller的相同点在于里面都可包含数据源和操作。不同点在于：link能控制渲染html元素的过程，而controller不能，controller的模版写死的，仅侧重于提供数据源和操作。
+// 这里为什么直接是scope 和element不用美元符
             link: function (scope, element, attrs) {
                 var config = {
                     url: cynovan.c_path + '/gridfs/upload',

@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,12 +114,14 @@ public class ClassificationController extends BaseWeb {
         return list;
     }
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassificationController.class);
     @RequestMapping(value = "/exportFromData")
     public void exportFromData(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String classificationId = request.getParameter("classificationId");
         Document deviceClassification = DBUtils.find(QDeviceClassification.collectionName, DocumentLib.newDoc("_id", classificationId));
         List details = DocumentLib.getList(deviceClassification, "data_definition.details");
         List data = getExportData(details);
+        LOGGER.info("data info ::: " + data);
         String filename = StringLib.join("[", DocumentLib.getString(deviceClassification, "name"), "]-数据定义-下载", ".xlsx");
         filename = new String(filename.getBytes("UTF-8"), "ISO8859-1");
         response.setContentType("application/vnd.ms-excel");

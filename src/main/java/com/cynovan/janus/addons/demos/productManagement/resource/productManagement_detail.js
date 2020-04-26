@@ -19,7 +19,10 @@ define([], function () {
                         collection: 'product',
                         query: {},
                         label: '产品列表',
-                        selected: $stateParams.id,
+                        selected
+
+
+                        : $stateParams.id,
                         code: 'id',
                         name: 'productName'
                     }
