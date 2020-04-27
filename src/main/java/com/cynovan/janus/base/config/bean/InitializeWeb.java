@@ -4,10 +4,15 @@ import com.cynovan.janus.base.appstore.jdo.QOpenAppsResource;
 import com.cynovan.janus.base.arch.controller.BaseWeb;
 import com.cynovan.janus.base.utils.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Aric on 2016/11/15.
@@ -93,6 +99,10 @@ public class InitializeWeb extends BaseWeb {
         return result.toString();
     }
 
+    public static void main(String[] args) {
+
+
+    }
     /**
      * 这里只是返回的是一个关于js 的依赖项的列表
      * 形如：["plant_efficiency/device_timeline/web/js/device_timeline","css!plant_efficiency/alarm_list/web/css/alarm_list","plant_efficiency/device_timeline/web/service/device_timeline_service","css!plant_efficiency/index/web/css/efficiency","plant_efficiency/index/web/js/efficiency",

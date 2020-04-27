@@ -17,7 +17,6 @@ define(['index/web/js/header_controller'], function () {
             $locationProvider.html5Mode(false);
             $locationProvider.hashPrefix('');
             //这里定义的appResolver是什么意思呢？这个函数返回的是一个页面所对应的依赖，就在mongocb中所对应存储的template的depends项（可能名字不是叫depends）
-
             function appResolver() {
                 var definition = {
                     resolver: ['$q', '$rootScope', '$stateParams', '$http', 'I18nService',

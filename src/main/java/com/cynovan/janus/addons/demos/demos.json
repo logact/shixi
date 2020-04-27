@@ -10,11 +10,6 @@
     {
       "showOnTop": true,
       "name": "样例练习",
-      "i18nKey": "product_management",
-      "depend":
-         [
-          "productManagement/resource"
-        ]
 
     },
     {
@@ -25,6 +20,13 @@
       "detail_template": "product_add_template",
       "depend": [
         "productManagement/resource"
+      ]
+    },
+    {
+      "name": "产品管理分析",
+      "template": "product_analysis_template",
+      "depend": [
+        "productAnalysis/web/resource"
       ]
     }
   ]

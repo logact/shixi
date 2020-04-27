@@ -621,22 +621,33 @@ define(['web/lib/md5/spark-md5', 'vs/editor/editor.main'], function (SparkMD5) {
                     return str || '';
                 }
             }
-
             return {
                 exec: function () {
+                    // 这里的arguments
                     var arr = _.toArray(arguments);
                     var exec = arr.shift();
                     var collection = arr.shift();
                     arr = JSON.stringify(arr);
                     arr = encodeURIComponent(arr);
+                    console.log("from the service.js on the  service DBUtils.exec")
+                    console.log(arguments)
+                    console.log("from the service.js on the  service DBUtils.exec")
+                    console.log("arr:::"+arr)
+                   
                     return http.post('dbs/exec', {
                         exec: exec,
                         collection: collection,
                         params: arr
+                        
                     });
+                    
                 },
                 list: function () {
                     var arr = _.toArray(arguments);
+                    console.log("from the service.js on the  service DBUtils.list")
+                    console.log(arguments)
+                    console.log("from the service.js on the  service DBUtils.list")
+
                     arr.unshift('list');
                     return this.exec.apply(null, arr);
                 },

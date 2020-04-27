@@ -50,7 +50,6 @@ public class ProductWeb {
         entity = StringLib.decodeURI(entity);
         Document product = Document.parse(entity);
         product.put("time", getDateTime());
-        String productId = DocumentLib.getID(product);
 //        在插入的时候自动生成了一个productId
         DBUtils.save("product",product);
         return checkMessage.toString();

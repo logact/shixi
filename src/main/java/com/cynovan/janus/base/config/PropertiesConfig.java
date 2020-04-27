@@ -33,11 +33,11 @@ public class PropertiesConfig implements ApplicationListener<ApplicationEnvironm
             if (clientURI.getPassword() != null && clientURI.getPassword().length > 0) {
                 password = new String(clientURI.getPassword());
             }
-
             String newUserName = "";
             String newPassword = "";
             try {
                 if (StringLib.startsWithIgnoreCase(username, Prefix)) {
+//                    username 取janus 后面的值。
                     String encryUserName = StringLib.substring(username, Prefix.length());
                     if (StringLib.isNotEmpty(encryUserName)) {
                         newUserName = encryptor.decrypt(encryUserName);
@@ -64,6 +64,7 @@ public class PropertiesConfig implements ApplicationListener<ApplicationEnvironm
             }
             Properties props = new Properties();
             props.put("spring.data.mongodb.uri", mongoURI);
+//            如果mongoURI 中取到的username 与password 是以#janus 那么直接替换这个uri.
             environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
         }
     }

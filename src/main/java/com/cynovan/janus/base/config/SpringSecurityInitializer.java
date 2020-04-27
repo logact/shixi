@@ -8,6 +8,7 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  */
 @Configuration
 public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
+//    防止用户重复登录
     @Override
     protected boolean enableHttpSessionEventPublisher() {
         return true;

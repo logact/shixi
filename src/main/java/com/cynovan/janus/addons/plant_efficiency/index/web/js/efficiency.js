@@ -29,6 +29,7 @@ define(['echarts'], function (echarts) {
                         online: 1,
                         state: 1
                     }).success(function (result) {
+                        
                         let offlineDeviceNum = 0;
                         let normalDeviceNum = 0;
                         let alarmDeviceNum = 0;

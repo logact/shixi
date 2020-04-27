@@ -1,6 +1,7 @@
 package com.cynovan.janus.base.utils;
 
 import org.apache.commons.io.IOUtils;
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -333,6 +334,13 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        String classPathFileContent = getClassPathFileContent("com/cynovan/janus/addons/plant_efficiency/plant_efficiency.json");
+        System.out.println(Document.parse(classPathFileContent));
+//        System.out.println();
+
     }
 
 }

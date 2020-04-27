@@ -44,8 +44,10 @@ import java.util.stream.Collectors;
 
 /**
  * Created by Aric on 2016/11/8.
+ * 初始化一些服务
  */
-public class InitializeService {
+public class
+InitializeService {
 
     public void initialize() {
         initializeDocumentIndex();
@@ -60,7 +62,6 @@ public class InitializeService {
     private void initI18n() {
         DBUtils.drop(QI18n.collectionName);
         Set<String> sets = scanFile("com.cynovan", ".*\\.properties");
-
         List<Document> i18nList = Lists.newArrayList();
         for (String path : sets) {
             try {
@@ -161,7 +162,8 @@ public class InitializeService {
         }
     }
 
-    private void initJanus() {
+
+    private  void initJanus() {
         long count = DBUtils.count(QJanus.collectionName, null);
         /*当Janus初始化信息为空时,才进行Janus的初始化*/
         if (count == 0) {
@@ -171,6 +173,7 @@ public class InitializeService {
             Collections.sort(macAddresses);
             String mac_address = StringLib.join(macAddresses, ", ");
             janusInfo.put("mac", mac_address);
+            System.out.println(mac_address);
 
             String mac_address_security = StringLib.join(mac_address, "@janus@ston_$%^&");
             janusInfo.put("mac_address_secret", DigestLib.md5Hex(mac_address_security));
@@ -187,7 +190,6 @@ public class InitializeService {
             });
             janusInfo.put("vm", vm);
             janusInfo.put("create_date", new Date());
-
             DBUtils.save(QJanus.collectionName, janusInfo);
         }
     }
@@ -260,10 +262,12 @@ public class InitializeService {
                     while (tor.hasNext()) {
                         Element element = tor.next();
                         Document template = DocumentLib.newDoc();
+//                        将openApp上的所有的app的资源全部加入到这个里面。
                         template.put(QTemplate.name, element.attr("name"));
                         String html = StringEscapeUtils.unescapeHtml4(element.html());
                         html = compressor.compress(html);
                         template.put(QTemplate.template, html);
+//                        此时的template有两个属性 一个是name，一个是template
                         templateList.add(template);
                     }
                 }
@@ -288,7 +292,6 @@ public class InitializeService {
 
         DBUtils.insertMany(QTemplate.collectionName, templateList);
     }
-
     private void initializeXmlMenu() {
         DBUtils.drop(QMenu.collectionName);
         DBUtils.drop(QAppMenu.collectionName);
@@ -306,15 +309,16 @@ public class InitializeService {
                 String keywords = "addons";
                 for (String path : sets) {
                     String jsonStr = FileUtils.getClassPathFileContent(path);
+//                    以包名为文件名 appName=包名
                     String appName = StringLib.substring(path, StringLib.indexOf(path, keywords) + keywords.length() + 1, StringLib.lastIndexOf(path, "/"));
                     if (StringLib.contains(appName, "/")) {
                         /*在内部目录的JSON一律不解析*/
                         continue;
                     }
+//                    通过这个Document 方法可以将这个字符串解析为一个键值对。
                     Document appNode = Document.parse(jsonStr);
 
                     appNode.put("icon", "resource/" + appName + "/" + DocumentLib.getString(appNode, "icon"));
-
                     /*Check if app*/
                     boolean isApp = DocumentLib.getBoolean(appNode, "app");
                     if (isApp == true) {
@@ -330,6 +334,7 @@ public class InitializeService {
                             menu.put("appId", appId);
                             menu.put("menuIndex", menuIndex);
                             String icon = DocumentLib.getString(menu, "icon");
+//                            存入的时候给定一个uuid
                             if (StringLib.isNotEmpty(icon)) {
                                 menu.put("icon", StringLib.join("resource/", icon, "?v=", RandomUtils.uuid2()));
                             }
@@ -404,11 +409,14 @@ public class InitializeService {
         path = StringLib.replace(path, "//", "/");
         return path;
     }
+//   扫描包下所有非类文件的所有文件将这些文件名放在一个set中然后返回。
 
-    private Set<String> scanFile(String path, String filePattern) {
+    private  Set<String> scanFile(String path, String filePattern) {
         Reflections reflections = new Reflections(path, new ResourcesScanner());
         Set<String> sets = reflections.getResources(Pattern.compile(filePattern));
         return sets;
     }
+
+
 
 }

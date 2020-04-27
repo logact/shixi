@@ -33,7 +33,7 @@ public class DBUtilService extends BaseWeb {
     private QueryService queryService;
 
     @ResponseBody
-    @RequestMapping(value = "exec")
+    @RequestMapping(value = "exec" )
     public String exec(@RequestParam String exec, @RequestParam String collection, @RequestParam String params) {
         CheckMessage checkMessage = CheckMessage.newInstance();
         if (StringLib.isNotEmpty(collection)) {

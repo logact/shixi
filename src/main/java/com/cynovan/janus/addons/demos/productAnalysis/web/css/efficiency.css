@@ -1,0 +1,76 @@
+.efficiency-panel{
+    min-height: 400px;
+    background-color: #fff;
+}
+
+.efficiency-panel .row {
+    margin-left: 0;
+
+    margin-right: 0;
+}
+
+.efficiency-panel .device-panel-title {
+    font-size: 20px;
+    color: #333b49;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin: 10px 0;
+}
+
+.efficiency-panel .device-panel-info {
+    min-height: 380px;
+    min-width: 360px;
+    padding: 10px;
+}
+
+.efficiency-panel #state_chart{
+    height: 340px;
+    width: 100%;
+}
+
+.utilization{
+    width: 100%;
+    height: 360px;
+}
+
+.showUtil{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.commonChart{
+    width: 100%;
+    height: calc(100% - 66px);
+
+}
+
+
+.efficiency-panel .navs{
+    display: flex;
+    margin: 10px 0 10px 10px;
+
+}
+
+.efficiency-panel .nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 26px;
+    width: 120px;
+    border: 1px solid #CCCCCC;
+}
+
+.navs .ischoose{
+    background-color: #1268ab;
+    color: white;
+    border: 1px solid #105d98;
+}
+
+.alarmtable{
+    height: 340px;
+    overflow-y: scroll;
+}

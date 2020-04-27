@@ -188,12 +188,17 @@ public class StringLib extends org.apache.commons.lang3.StringUtils {
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
+    public static void main(String[] args) throws SocketException {
+        System.out.println(getMACAddresses());
+        System.out.println("networkInterfaceEnum"+NetworkInterface.getNetworkInterfaces());
+    }
     public static List<String> getMACAddresses() {
         List<String> addresses = Lists.newArrayList();
         try {
             Enumeration<NetworkInterface> networkInterfaceEnum = NetworkInterface.getNetworkInterfaces();
             while (networkInterfaceEnum.hasMoreElements()) {
                 NetworkInterface networkInterface = networkInterfaceEnum.nextElement();
+//                不是本地环回地址 不是 虚拟地址。
                 if (!networkInterface.isLoopback() && !networkInterface.isPointToPoint() && !networkInterface.isVirtual()) {
                     List<String> list = Lists.newArrayList();
                     byte[] macAddress = networkInterface.getHardwareAddress();
