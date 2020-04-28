@@ -34,6 +34,7 @@ public class MonitorDeveloperWeb {
 
     @RequestMapping(value = "")
     public String toStudioIndex(HttpServletRequest request, Model model) {
+        
         model.addAllAttributes(HttpLib.pageAttributes(request));
         return "prototype/monitor/prototype";
     }

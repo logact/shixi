@@ -635,6 +635,8 @@ define(['ztree'], function () {
                     };
                     http.post("areaAndDevice/getAreaDeviceTreeData").success(function (result) {
                         var treeNodes = _.get(result, "datas.result");
+                        console.log("treeNodes。。。。")
+                        console.log(treeNodes)
                         zTreeObj = $.fn.zTree.init($("#device-tree-container"), setting, treeNodes);
                     });
                 },

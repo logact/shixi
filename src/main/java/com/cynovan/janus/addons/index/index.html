@@ -169,18 +169,19 @@
 </main>
 </body>
 <script type="text/javascript">
-<!--这一句在干什么？-->
+// <!--这一句在干什么？-->
     var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug: "${debug?c}"};
 </script>
 <script type="text/javascript" src="resource/web/requirejs/require.js?v=${version}"></script>
 <script type="text/javascript" src="resource/web/requirejs/config.js?v=${version}"></script>
 <script type="text/javascript">
-<!--这里的require的baseurl 应该是从<base> 标签中的值取出来-->
+// <!--这里的require的baseurl 应该是从<base> 标签中的值取出来-->
     //build/entry-build这个文件是干什么的？
     //app.js中的provider是从哪里来的
     require(['web/build/entry-build'], function () {
         require(['index/web/js/app'], function () {
             angular.bootstrap(document, ['app']);
+        
         });
     });
 </script>

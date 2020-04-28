@@ -34,6 +34,7 @@ require.config({
         'fullpage': 'web/lib/fullpage/fullpage',
         'screenfull': 'web/lib/screenfull/screenfull'
     },
+
     shim: {
         dropzone: {
             deps: ['css!web/lib/dropzone/dropzone']

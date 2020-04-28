@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html>
+<!-- 这里两个css样式的引入 -->
 <head>
     <base href="${c_path}">
     <title>工业设备物联云平台-监控开发平台</title>
-    <meta name="decorator" content="default"/>
+    <meta name="decorator" content="default" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" href="${r_path}index/web/img/ico.png" type="image/x-icon"/>
-    <link rel="stylesheet" type="text/css" href="${r_path}prototype/dist/css/prototype_mx_libs.css?v=${version}"/>
-    <link type="text/css" rel="stylesheet" href="${r_path}prototype/lib/monitor_enhance.css?v=${version}"/>
-    <link type="text/css" rel="stylesheet" href="${r_path}prototype/lib/pretty-checkbox.css?v=${version}"/>
+    <link rel="shortcut icon" href="${r_path}index/web/img/ico.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="${r_path}prototype/dist/css/prototype_mx_libs.css?v=${version}" />
+    <link type="text/css" rel="stylesheet" href="${r_path}prototype/lib/monitor_enhance.css?v=${version}" />
+    <link type="text/css" rel="stylesheet" href="${r_path}prototype/lib/pretty-checkbox.css?v=${version}" />
     <link type="text/css" rel="stylesheet"
-          href="${r_path}web/lib/ztree/zTreeBootstrap/css/bootstrapztree.css?v=${version}"/>
-    <link type="text/css" rel="stylesheet" href="${r_path}web/src/animate/animate.css?v=${version}"/>
-
+        href="${r_path}web/lib/ztree/zTreeBootstrap/css/bootstrapztree.css?v=${version}" />
+    <link type="text/css" rel="stylesheet" href="${r_path}web/src/animate/animate.css?v=${version}" />
     <script src="${r_path}prototype/dist/prototype_libs.js?v=${version}" type="text/javascript"></script>
     <script src="${r_path}web/echart/echarts.js?v=${version}" type="text/javascript"></script>
-    <!--amap-->
+    <!--amap 高德地图-->
     <script src="http://webapi.amap.com/maps?v=1.3&key=1c9ab23318ffb064ec5fa3ba02a7bd48"
-            type="text/javascript"></script>
+        type="text/javascript"></script>
     <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11" type="text/javascript"></script>
+    <!-- 时间管理线的分析 -->
     <script src="${r_path}plant_efficiency/device_timeline/web/service/device_timeline_service.js?v=${version}"
-            type="text/javascript"></script>
+        type="text/javascript"></script>
     <script src="${r_path}web/lib/ztree/ztree.js?v=${version}" type="text/javascript"></script>
+    <!-- JavaScript 日期处理类库 -->
     <script src="${r_path}web/lib/moment/moment.js?v=${version}" type="text/javascript"></script>
+    <!-- 关于仪表盘的分析 -->
     <script src="${r_path}prototype/guage/guage.js?v=${version}" type="text/javascript"></script>
     <script type="text/javascript">
-        var cynovan = {r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug:${debug?c}};
+        var cynovan = { r_path: "${r_path}", c_path: "${c_path}", version: "${version}", debug: ${debug?c}};
         /*for monaco editor*/
-        var require = {paths: {'vs': cynovan.r_path + 'web/lib/monaco/vs'}};
+        // the monaco editor powers the vs code.
+        var require = { paths: { 'vs': cynovan.r_path + 'web/lib/monaco/vs' } };
         /*定义mxGraph的某些定义*/
         window.STYLE_PATH = cynovan.r_path + 'prototype/monitor/styles';
         // window.RESOURCES_PATH = cynovan.r_path + 'prototype/monitor/resources';
         window.IMAGE_PATH = cynovan.r_path + 'prototype/monitor/images';
         window.CSS_PATH = cynovan.r_path + 'prototype/monitor/styles';
-
         // window.mxBasePath = cynovan.r_path + 'prototype/monitor/mxgraph/javascript/src/'
+        // ????
         window.RESOURCE_BASE = cynovan.r_path + 'prototype/monitor/resources/dia';
+        //??? where's the prototype/math ?
         window.DRAW_MATH_URL = cynovan.r_path + 'prototype/math';
+        // 这个页面中是一些矢量图。
         window.NEW_DIAGRAM_CATS_PATH = cynovan.r_path + 'prototype/monitor/newDiagramCats';
         window.isLocalStorage = false;
+        //??? 这里是一些关于一些图形的样式。
         window.SHAPES_PATH = cynovan.r_path + 'prototype/monitor/shapes';
+        // stencils 模板
         window.STENCIL_PATH = cynovan.r_path + 'prototype/monitor/stencils';
         window.TEMPLATE_PATH = cynovan.r_path + 'prototype/monitor/templates';
         window.NEW_DIAGRAM_CATS_PATH = cynovan.r_path + 'prototype/monitor/newDiagramCats';
@@ -53,6 +61,7 @@
         var urlParams = {
             lang: 'zh'
         };
+
     </script>
     <style type="text/css">
         body {
@@ -76,7 +85,8 @@
             padding: 20px;
         }
 
-        .geBlock h1, .geBlock h2 {
+        .geBlock h1,
+        .geBlock h2 {
             margin-top: 0px;
             padding-top: 0px;
         }
@@ -133,7 +143,7 @@
             opacity: 1;
         }
 
-        .geFooterContainer > div#geFooter > img {
+        .geFooterContainer>div#geFooter>img {
             opacity: 0.5;
             border: 1px solid transparent;
             cursor: pointer;
@@ -146,13 +156,14 @@
             cursor: pointer;
         }
 
-        .geFooterContainer > div#geFooter > img:hover {
+        .geFooterContainer>div#geFooter>img:hover {
             opacity: 1;
         }
     </style>
     <script type="text/javascript">
         function mxscript(src, onLoad, id, dataAppKey, noWrite) {
             if (onLoad != null || noWrite) {
+                // 创建一个script 
                 var s = document.createElement('script');
                 s.setAttribute('type', 'text/javascript');
                 s.setAttribute('src', src);
@@ -174,7 +185,10 @@
                         }
                     };
                 }
-
+                // 将创建的script脚本放到
+                // 如果直接创建的这个节点元素的话那么它的这个父元素就是创建这个位置的元素。
+                console.log("ssss:::")
+                console.log(s)
                 var t = document.getElementsByTagName('script')[0];
                 t.parentNode.insertBefore(s, t);
             } else {
@@ -226,17 +240,20 @@
         }
     </script>
 </head>
+
 <body class="geEditor">
-<div id="geInfo">
-    <div class="geBlock" style="text-align:center;min-width:50%;">
+    <div id="geInfo">
+        <div class="geBlock" style="text-align:center;min-width:50%;">
+        </div>
     </div>
-</div>
-<div id="geFooter" style="visibility:hidden;overflow:hidden;margin-right:170px;height:100%;">
-    <div class="geSocialFooter" style="position:absolute;right:32px;white-space:nowrap;">
+    <div id="geFooter" style="visibility:hidden;overflow:hidden;margin-right:170px;height:100%;">
+        <div class="geSocialFooter" style="position:absolute;right:32px;white-space:nowrap;">
+        </div>
     </div>
-</div>
-<script type="text/javascript">
-    App.main();
-</script>
+    <script type="text/javascript">
+    // ??? 这里的App.main()??
+        App.main();
+    </script>
 </body>
+
 </html>

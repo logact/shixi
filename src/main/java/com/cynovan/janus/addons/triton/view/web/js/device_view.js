@@ -10,6 +10,7 @@ define([], function () {
                     ctrl.bindEvent();
                 },
                 bindEvent: function () {
+//                监听点击事件
                     $scope.$on('buttonClicked.list', function (event, element, options, rowdata) {
                         var buttonKey = element.closest('button,a').data('key');
                         if (buttonKey === "delete") {
@@ -26,6 +27,7 @@ define([], function () {
                     });
                 },
                 design: function (row) {
+                    // 
                     window.open('monitor_developer/?id=' + row.id, "_blank");
                 },
                 preview: function (row) {

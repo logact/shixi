@@ -1,4 +1,4 @@
-define(['echarts'], function (echarts) {
+define(['echarts','ztree'], function (echarts) {
     var app = angular.module('app');
     //    AppComponent 从哪里来的？
     app.controller('analysisController', ['$scope', 'DBUtils', 'dialog', 'http', 'util', "I18nService", "$element", 'janus', '$timeout',
@@ -9,6 +9,32 @@ define(['echarts'], function (echarts) {
             _.extend(ctrl, {
                 initialize: function () {
                     ctrl.initProductChart();
+                    ctrl.initZTree();
+                },
+                initZTree:function(){
+                    var zTreeObj;
+                    var setting = {
+                        data: {
+                            simpleData: {
+                                enable: true,
+                                idKey: "id",
+                                pIdKey: "pId",
+                                rootPId: ""
+                            }
+                        }
+                    }
+                    var zNodes = [
+                        { id: 1, pId: 0, name: "product type " },
+                        { id: 101, pId: 1, name: "ice drink" },
+                        { id: 102, pId: 1, name: "hot food" }
+                    ]
+                    http.post("analysis/type").success((result)=>{
+                        zNodes= _.get(result,"datas.result");
+                        console.log(">.....>>>zNodes")
+                        console.log(zNodes)
+                        zTreeObj = $.fn.zTree.init($("#device-tree-container"),setting,zNodes);
+                    })
+                  
                 },
                 initProductChart: function () {
                     console.log("initProductChart")
@@ -25,8 +51,6 @@ define(['echarts'], function (echarts) {
                         console.log(sales)
                         console.log("sales")
                         _.forEach(sales, function (sale) {
-                            console.log(sale)
-                            console.log("sale")
                             let price = _.get(sale, "price", 0);
                             if(price>=0&&price<250){
                                 f0t250++;
