@@ -20,7 +20,7 @@
         <freemarker>2.3.28</freemarker>
         <commons-lang3>3.9</commons-lang3>
         <reflections>0.9.11</reflections>
-        <jackson>2.10.3</jackson>
+        <jackson>2.12.1</jackson>
         <jsoup>1.13.1</jsoup>
         <htmlcompressor>1.5.2</htmlcompressor>
         <jaxen>1.1.6</jaxen>
