@@ -30,7 +30,7 @@
         <jSerialComm>2.6.0</jSerialComm>
         <caffeine>2.8.1</caffeine>
         <ehcache>3.8.1</ehcache>
-        <httpclient>4.5.12</httpclient>
+        <httpclient>4.5.13</httpclient>
         <netty>4.1.48.Final</netty>
         <commons-text>1.6</commons-text>
         <j2mod>2.6.1</j2mod>
